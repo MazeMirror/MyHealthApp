@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MyHealthApp.Views
@@ -9,6 +10,11 @@ namespace MyHealthApp.Views
         public WelcomePage()
         {
             InitializeComponent();
+        }
+
+        private async void StartButton_OnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new RegisterPage());
         }
     }
 }
