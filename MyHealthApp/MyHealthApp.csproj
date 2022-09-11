@@ -14,4 +14,61 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages" />
+    <Folder Include="Resources\Fonts" />
+    <Folder Include="Resources\Images" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\Archivo\Archivo-Black.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Black.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-BlackItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-BlackItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Bold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Bold.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-BoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-BoldItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-ExtraBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-ExtraBold.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-ExtraBoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-ExtraBoldItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-ExtraLight.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-ExtraLight.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-ExtraLightItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-ExtraLightItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Italic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Italic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Light.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Light.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-LightItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-LightItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Medium.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Medium.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-MediumItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-MediumItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Regular.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Regular.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-SemiBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-SemiBold.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-SemiBoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-SemiBoldItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Thin.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Thin.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-ThinItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-ThinItalic.ttf" />
+    <None Remove="Resources\Fonts\Fjalla_One\FjallaOne-Regular.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Fjalla_One\FjallaOne-Regular.ttf" />
+    <None Remove="Resources\Fonts\Font_Awesome\FABrands-Regular-400.otf" />
+    <EmbeddedResource Include="Resources\Fonts\Font_Awesome\FABrands-Regular-400.otf" />
+    <None Remove="Resources\Fonts\Font_Awesome\FARegular-400.otf" />
+    <EmbeddedResource Include="Resources\Fonts\Font_Awesome\FARegular-400.otf" />
+    <None Remove="Resources\Fonts\Font_Awesome\FASolid-900.otf" />
+    <EmbeddedResource Include="Resources\Fonts\Font_Awesome\FASolid-900.otf" />
+    <None Remove="Resources\Images\background-login.jpg" />
+    <EmbeddedResource Include="Resources\Images\background-login.jpg" />
+    <None Remove="Resources\Images\logo-stacked.png" />
+    <EmbeddedResource Include="Resources\Images\logo-stacked.png" />
+  </ItemGroup>
 </Project>
