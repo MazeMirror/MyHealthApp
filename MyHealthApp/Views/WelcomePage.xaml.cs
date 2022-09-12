@@ -15,7 +15,7 @@ namespace MyHealthApp.Views
 
         private async void StartButton_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SelectAccountTypePage());
+            await Navigation.PushAsync(new LoginPage());
         }
     }
 }

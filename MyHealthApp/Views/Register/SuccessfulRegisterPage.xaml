@@ -56,7 +56,7 @@
                 Style="{StaticResource ButtonStyle}"
                 Margin="20,70,20,0"
                 Padding="0,17,0,17"
-                Text="Siguiente"
+                Text="Iniciar"
                 FontSize="14"
                 FontFamily="FjallaOne"
                 CharacterSpacing="2.1"
