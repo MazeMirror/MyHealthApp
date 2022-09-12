@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.Register.SuccessfulRegisterPage">
+    <ContentPage.Content>
+        <StackLayout
+            BackgroundColor="#334856">
+            <Label 
+                Text="Hola, Alejandro &#10;bienvenido a"
+                HorizontalTextAlignment="Center"
+                Padding="0,80,0,0"
+                FontFamily="ArchivoSemiBold"
+                FontSize="28"
+                LineHeight="1.5"
+                TextColor="White"
+                HorizontalOptions="CenterAndExpand"
+                />
+            
+            <StackLayout
+                Padding="0,60,0,0"
+                Spacing="40"
+                >
+                <Image
+                    Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                    Scale="1.6"
+                />
+                <Image 
+                    Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                    Scale="1.4"
+                />
+            </StackLayout>
+            
+            <Label
+                Padding="0,30,0,0"
+                HorizontalOptions="Center"
+                Text="__________________________"
+                TextColor="White"
+                FontSize="18"
+                />
+            
+            <Label
+                Padding="0,30,0,0"
+                Text="Su cuenta ha sido creada con éxito. &#10;Es hora de alcanzar todas esas &#10;metas y mejorar el rendimiento físico"
+                FontFamily="ArchivoRegular"
+                TextColor="White"
+                FontSize="18"
+                HorizontalTextAlignment="Center"
+                LineHeight="1.4"
+                />
+            
+            <Button
+                x:Name="NextPageButton"
+                Style="{StaticResource ButtonStyle}"
+                Margin="20,70,20,0"
+                Padding="0,17,0,17"
+                Text="Siguiente"
+                FontSize="14"
+                FontFamily="FjallaOne"
+                CharacterSpacing="2.1"
+                CornerRadius="50"
+                IsEnabled="True"
+                Clicked="NextButton_OnClicked"
+            >
+                
+            </Button>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -3,6 +3,41 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyHealthApp.App">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeSolid">
+                <On Platform="Android" Value="FASolid-900.otf#Solid"/>
+            </OnPlatform>
+            
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Style.Triggers>
+                    <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                        <Setter Property="TextColor" Value="Gray"></Setter>
+                        <Setter Property="BorderColor" Value="#87BCBF"></Setter>
+                        <Setter Property="BorderWidth" Value="1"></Setter>
+                        <Setter Property="BackgroundColor" Value="Transparent"></Setter>
+                        <Setter Property="BackgroundColor" Value="Transparent"></Setter>
+                    </Trigger>
+                    <Trigger TargetType="Button" Property="IsEnabled" Value="True">
+                        <Setter Property="TextColor" Value="Black"></Setter>
+                        <Setter Property="BackgroundColor" Value="White"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            
+            <Style x:Key="BorderTextBox" TargetType="Frame">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Margin" Value="0,5,0,0"/>
+                <Setter Property="BorderColor" Value="#87BCBF"/>
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+            <Style x:Key="LabelOfTextBox" TargetType="Label">
+                <Setter Property="Padding" Value="0,15,0,0"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontFamily" Value="ArchivoSemiBold"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+            
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
