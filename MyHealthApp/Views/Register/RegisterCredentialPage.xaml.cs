@@ -17,9 +17,9 @@ namespace MyHealthApp.Views.Register
             InitializeComponent();
         }
 
-        private void NextButton_OnClicked(object sender, EventArgs e)
+        private async void NextButton_OnClicked(object sender, EventArgs e)
         {
-            
+            await Navigation.PushAsync(new SuccessfulRegisterPage());
         }
 
         private void SecondPasswordButton_OnClicked(object sender, EventArgs e)

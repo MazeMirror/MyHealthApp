@@ -25,4 +25,7 @@
         <!--days of the month-->
         
     </style>
+    <style name="MainTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:colorPrimaryDark">#818181</item>
+    </style>
 </resources>
