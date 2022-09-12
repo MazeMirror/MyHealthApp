@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.Register.RegisterDataAccountPage">
+    <ContentPage.Content>
+        <ScrollView
+            BackgroundColor="#334856">
+            <StackLayout
+                HeightRequest="850"
+                >
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="CenterAndExpand"
+                    Spacing="30"
+                    Padding="0,50,0,0">
+                    <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}" />
+                    <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}" />
+                </StackLayout>
+
+                <StackLayout
+                    Padding="20,25,20,0">
+                    <Label
+                        Text="Información &#10;básica"
+                        TextColor="White"
+                        FontFamily="Archivo-SemiBold"
+                        LineHeight="1.2"
+                        FontSize="30" />
+                    <Label
+                        Text="----------------"
+                        TextColor="White"
+                        FontSize="10"
+                        LineHeight="0.5" />
+                    <Label
+                        Text="Completa tus datos para crear tu perfil"
+                        TextColor="White"
+                        FontFamily="Archivo-Regular"
+                        LineHeight="1.2"
+                        FontSize="18" />
+
+                    <Label
+                        Padding="0,25,0,0"
+                        Text="Nombres"
+                        TextColor="White"
+                        FontFamily="Archivo-SemiBold"
+                        FontSize="18" />
+                    <Frame
+                        BackgroundColor="Transparent"
+                        Padding="5"
+                        Margin="0,5,0,0"
+                        BorderColor="#87BCBF"
+                        CornerRadius="5">
+                        <Entry
+
+                            FontFamily="Archivo-Reglar"
+                            Placeholder="Alejandro Augusto"
+                            FontSize="16"
+                            TextColor="White"
+                            PlaceholderColor="#516A7B" />
+                    </Frame>
+
+                    <Label
+                        Padding="0,15,0,0"
+                        Text="Apellidos"
+                        TextColor="White"
+                        FontFamily="Archivo-SemiBold"
+                        FontSize="18" />
+                    <Frame
+                        BackgroundColor="Transparent"
+                        Padding="5"
+                        Margin="0,5,0,0"
+                        BorderColor="#87BCBF"
+                        CornerRadius="5">
+                        <Entry
+
+                            FontFamily="Archivo-Reglar"
+                            Placeholder="Espejo Gonzalez"
+                            FontSize="16"
+                            TextColor="White"
+                            PlaceholderColor="#516A7B" />
+                    </Frame>
+
+                    <Label
+                        Padding="0,15,0,0"
+                        Text="Fecha de nacimiento"
+                        TextColor="White"
+                        FontFamily="Archivo-SemiBold"
+                        FontSize="18" />
+                    <Frame
+                        BackgroundColor="Transparent"
+                        Padding="5"
+                        Margin="0,5,0,0"
+                        BorderColor="#87BCBF"
+                        CornerRadius="5">
+                        <DatePicker
+                            
+                            FontFamily="Archivo-Reglar"
+                            FontSize="16"
+                            TextColor="White"
+                             />
+                    </Frame>
+
+                    <Label
+                        Padding="0,15,0,0"
+                        Text="Género"
+                        TextColor="White"
+                        FontFamily="Archivo-SemiBold"
+                        FontSize="18" />
+                    <Frame
+                        BackgroundColor="Transparent"
+                        Padding="5"
+                        Margin="0,5,0,0"
+                        BorderColor="#87BCBF"
+                        CornerRadius="5">
+                        <Picker
+                            FontFamily="Archivo-Reglar"
+                            FontSize="16"
+                            TextColor="White"
+                            >
+                            <Picker.Items>
+                                <x:String>Maculino</x:String>
+                                <x:String>Femenino</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Frame>
+                    
+                    <Button
+                        BackgroundColor="White"
+                        Margin="0,30,0,0"
+                        Padding="0,17,0,17"
+                        Text="Siguiente"
+                        FontSize="14"
+                        FontFamily="FjallaOne"
+                        CharacterSpacing="2.1"
+                        CornerRadius="50"
+                        Clicked="NextButton_OnClicked"
+                    />
+                    
+                </StackLayout>
+            </StackLayout>
+
+        </ScrollView>
+
+
+    </ContentPage.Content>
+</ContentPage>
