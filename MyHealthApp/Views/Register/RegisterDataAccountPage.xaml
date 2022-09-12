@@ -3,14 +3,33 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.Register.RegisterDataAccountPage">
+    
+    <ContentPage.Resources>
+        <Style x:Key="BorderTextBox" TargetType="Frame">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="BorderColor" Value="#87BCBF"/>
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+        <Style x:Key="LabelOfTextBox" TargetType="Label">
+            <Setter Property="Padding" Value="0,15,0,0"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontFamily" Value="ArchivoSemiBold"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <ScrollView
             BackgroundColor="#334856">
             <StackLayout
                 HeightRequest="850"
                 >
+                <!--Logo title-->
                 <StackLayout
                     Orientation="Horizontal"
                     HorizontalOptions="CenterAndExpand"
@@ -20,12 +39,14 @@
                     <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}" />
                 </StackLayout>
 
+                <!--Content of page-->
                 <StackLayout
                     Padding="20,25,20,0">
+                    <!--Information of Page-->
                     <Label
                         Text="Información &#10;básica"
                         TextColor="White"
-                        FontFamily="Archivo-SemiBold"
+                        FontFamily="ArchivoSemiBold"
                         LineHeight="1.2"
                         FontSize="30" />
                     <Label
@@ -36,98 +57,103 @@
                     <Label
                         Text="Completa tus datos para crear tu perfil"
                         TextColor="White"
-                        FontFamily="Archivo-Regular"
+                        FontFamily="ArchivoRegular"
                         LineHeight="1.2"
                         FontSize="18" />
-
+                    
+                    <!--Entries of user data-->
+                    
+                    <!--Name textBox-->
                     <Label
-                        Padding="0,25,0,0"
+                        Style="{StaticResource LabelOfTextBox}"
                         Text="Nombres"
-                        TextColor="White"
-                        FontFamily="Archivo-SemiBold"
-                        FontSize="18" />
+                        />
                     <Frame
-                        BackgroundColor="Transparent"
-                        Padding="5"
-                        Margin="0,5,0,0"
-                        BorderColor="#87BCBF"
-                        CornerRadius="5">
+                        Style="{StaticResource BorderTextBox}">
                         <Entry
-
-                            FontFamily="Archivo-Reglar"
+                            FontFamily="ArchivoRegular"
                             Placeholder="Alejandro Augusto"
                             FontSize="16"
                             TextColor="White"
-                            PlaceholderColor="#516A7B" />
+                            PlaceholderColor="#516A7B" 
+                            />
                     </Frame>
 
+                    <!--Lastname textBox-->
                     <Label
-                        Padding="0,15,0,0"
+                        Style="{StaticResource LabelOfTextBox}"
                         Text="Apellidos"
-                        TextColor="White"
-                        FontFamily="Archivo-SemiBold"
-                        FontSize="18" />
+                        />
                     <Frame
-                        BackgroundColor="Transparent"
-                        Padding="5"
-                        Margin="0,5,0,0"
-                        BorderColor="#87BCBF"
-                        CornerRadius="5">
+                        Style="{StaticResource BorderTextBox}"
+                        >
                         <Entry
-
-                            FontFamily="Archivo-Reglar"
+                            FontFamily="ArchivoRegular"
                             Placeholder="Espejo Gonzalez"
                             FontSize="16"
                             TextColor="White"
                             PlaceholderColor="#516A7B" />
                     </Frame>
 
+                    <!--Date picker-->
                     <Label
-                        Padding="0,15,0,0"
+                        Style="{StaticResource LabelOfTextBox}"
                         Text="Fecha de nacimiento"
-                        TextColor="White"
-                        FontFamily="Archivo-SemiBold"
-                        FontSize="18" />
+                        />
                     <Frame
-                        BackgroundColor="Transparent"
-                        Padding="5"
-                        Margin="0,5,0,0"
-                        BorderColor="#87BCBF"
-                        CornerRadius="5">
+                        Style="{StaticResource BorderTextBox}"
+                        >
                         <DatePicker
-                            
-                            FontFamily="Archivo-Reglar"
+                            FontFamily="ArchivoRegular"
                             FontSize="16"
                             TextColor="White"
-                             />
+                            Format="dd / MM / yyyy"
+                            />
                     </Frame>
 
+                    <!--Select picker genres-->
                     <Label
-                        Padding="0,15,0,0"
+                        Style="{StaticResource LabelOfTextBox}"
                         Text="Género"
-                        TextColor="White"
-                        FontFamily="Archivo-SemiBold"
-                        FontSize="18" />
+                        />
                     <Frame
-                        BackgroundColor="Transparent"
-                        Padding="5"
-                        Margin="0,5,0,0"
-                        BorderColor="#87BCBF"
-                        CornerRadius="5">
-                        <Picker
-                            FontFamily="Archivo-Reglar"
-                            FontSize="16"
-                            TextColor="White"
+                        Style="{StaticResource BorderTextBox}"
+                        >
+                        <StackLayout
+                            Orientation="Horizontal">
+                            <Picker
+                                HorizontalOptions="FillAndExpand"
+                                FontFamily="ArchivoRegular"
+                                FontSize="16"
+                                TextColor="White"
+                                Title="Seleccionar"
+                                TitleColor="#516A7B"
                             >
-                            <Picker.Items>
-                                <x:String>Maculino</x:String>
-                                <x:String>Femenino</x:String>
-                            </Picker.Items>
-                        </Picker>
+                                
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>Masculino</x:String>
+                                        <x:String>Femenino</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                                <Picker.SelectedIndex>0</Picker.SelectedIndex>
+                            </Picker>
+                            <Label
+                                VerticalOptions="Center"
+                                FontSize="18"
+                                WidthRequest="25"
+                                Text="&#xf0d7;"
+                                TextColor="Accent"
+                                FontFamily="{StaticResource FontAwesomeSolid}"
+                                
+                                />
+                        </StackLayout>
+                        
                     </Frame>
                     
+                    <!--Next Page Button-->
                     <Button
-                        BackgroundColor="White"
+                        Style="{StaticResource ButtonStyle}"
                         Margin="0,30,0,0"
                         Padding="0,17,0,17"
                         Text="Siguiente"
@@ -135,6 +161,7 @@
                         FontFamily="FjallaOne"
                         CharacterSpacing="2.1"
                         CornerRadius="50"
+                        IsEnabled="True"
                         Clicked="NextButton_OnClicked"
                     />
                     

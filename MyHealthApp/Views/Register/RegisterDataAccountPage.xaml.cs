@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -17,9 +18,9 @@ namespace MyHealthApp.Views.Register
             InitializeComponent();
         }
 
-        private void NextButton_OnClicked(object sender, EventArgs e)
+        private async void NextButton_OnClicked(object sender, EventArgs e)
         {
-            
+            await Navigation.PushAsync(new RegisterCredentialPage());
         }
     }
 }

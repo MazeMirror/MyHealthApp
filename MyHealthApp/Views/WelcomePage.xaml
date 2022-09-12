@@ -49,7 +49,7 @@
                     <Label 
                         Text="Controla tu &#10;Actividad física"
                         TextColor="White"
-                        FontFamily="Archivo-Bold"
+                        FontFamily="ArchivoBold"
                         FontSize="28"
                         LineHeight="1.2"
                         />
@@ -62,7 +62,7 @@
                     <Label 
                         Text="Bajo el monitoreo de especialistas &#10;en la salud"
                         TextColor="White"
-                        FontFamily="Archivo-Regular"
+                        FontFamily="ArchivoRegular"
                         FontSize="18"
                         LineHeight="1.2"
                     />
@@ -75,7 +75,7 @@
                          >
                 <Label 
                     Text="COMENCEMOS"
-                    FontFamily="FjallaOne-Regular"
+                    FontFamily="FjallaOne"
                     TextColor="White"
                     CharacterSpacing="3.2"
                     FontSize="14"

@@ -3,12 +3,41 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.Register.SelectAccountTypePage">
     <ContentPage.Content>
         <StackLayout
             BackgroundColor="#334856"
             >
+            
+            <StackLayout.Resources>
+                <ResourceDictionary>
+                    
+                    <Style x:Key="ImageButtonStyle" TargetType="ImageButton">
+                        <Setter Property="VisualStateManager.VisualStateGroups">
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="Scale"
+                                                    Value="1" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+
+                                    <VisualState x:Name="Pressed">
+                                        <VisualState.Setters>
+                                            <Setter Property="Scale"
+                                                    Value="0.95" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </Setter>    
+                    </Style>
+                    
+                </ResourceDictionary>
+            </StackLayout.Resources>
             
             <StackLayout
                 Orientation="Horizontal"
@@ -25,7 +54,7 @@
                 <Label 
                     Text="Crea una &#10;nueva cuenta"
                     TextColor="White"
-                    FontFamily="Archivo-SemiBold"
+                    FontFamily="ArchivoSemiBold"
                     LineHeight="1.2"
                     FontSize="30"
                     />
@@ -38,7 +67,7 @@
                 <Label 
                     Text="Para tener la experiencia completa &#10;dentro de la aplicación"
                     TextColor="White"
-                    FontFamily="Archivo-Regular"
+                    FontFamily="ArchivoRegular"
                     LineHeight="1.2"
                     FontSize="18"
                 />
@@ -46,7 +75,7 @@
                     Padding="0,50,0,0"
                     Text="Soy un/una"
                     TextColor="White"
-                    FontFamily="Archivo-SemiBold"
+                    FontFamily="ArchivoSemiBold"
                     FontSize="18"
                     />
             </StackLayout>
@@ -64,33 +93,19 @@
                         x:Name="ButtonPatient"
                         Source="{helpers:ImageResource MyHealthApp.Resources.Images.patient-img.png}"
                         Aspect="AspectFit"
-                    >
+                        Style="{StaticResource ImageButtonStyle}"
+                        Clicked="ButtonPatient_OnClicked"
+                        >
                         <!--Ignore this-->
-                        <!--<VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal">
-                                <VisualState.Setters>
-                                    <Setter Property="Scale"
-                                            Value="1" />
-                                </VisualState.Setters>
-                            </VisualState>
-
-                            <VisualState x:Name="Pressed">
-                                <VisualState.Setters>
-                                    <Setter Property="Scale"
-                                            Value="0.95" />
-                                </VisualState.Setters>
-                            </VisualState>
-
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>-->
                     </ImageButton>
                     <Label
+                        x:Name="LabelPatient"
                         Text="PACIENTE / DEPORTISTA"
                         FontSize="14"
                         HorizontalOptions="Center"
                         TextColor="White"
-                        FontFamily="Archivo-Regular"
+                        FontFamily="ArchivoRegular"
+                        
                         />
                 </StackLayout>
                 
@@ -100,42 +115,29 @@
                     
                     <ImageButton
                         x:Name="ButtonDoctor"
+                        Style="{StaticResource ImageButtonStyle}"
                         Source="{helpers:ImageResource MyHealthApp.Resources.Images.doctor-img.png}"
                         Aspect="AspectFit"
+                        Clicked="ButtonDoctor_OnClicked"
                     >
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal">
-                                    <VisualState.Setters>
-                                        <Setter Property="Scale"
-                                                Value="1" />
-                                    </VisualState.Setters>
-                                </VisualState>
-
-                                <VisualState x:Name="Pressed">
-                                    <VisualState.Setters>
-                                        <Setter Property="Scale"
-                                                Value="0.95" />
-                                    </VisualState.Setters>
-                                </VisualState>
-
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
+                       
                     </ImageButton>
                     
                     <Label
+                        x:Name="LabelDoctor"
                         Text="MÉDICO ESPECIALISTA"
                         FontSize="14"
                         HorizontalOptions="Center"
                         TextColor="White"
-                        FontFamily="Archivo-Regular"
+                        FontFamily="ArchivoRegular"
                     />
                 </StackLayout>
                 
             </StackLayout>
             
             <Button
-                BackgroundColor="White"
+                x:Name="NextPageButton"
+                Style="{StaticResource ButtonStyle}"
                 Margin="15,50,15,0"
                 Padding="0,17,0,17"
                 Text="Siguiente"
@@ -143,8 +145,11 @@
                 FontFamily="FjallaOne"
                 CharacterSpacing="2.1"
                 CornerRadius="50"
+                IsEnabled="False"
                 Clicked="NextButton_OnClicked"
-            />
+            >
+                
+            </Button>
             
             <!--
             <Button
