@@ -23,6 +23,21 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            
+            <Style x:Key="BorderTextBox" TargetType="Frame">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Margin" Value="0,5,0,0"/>
+                <Setter Property="BorderColor" Value="#87BCBF"/>
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+            <Style x:Key="LabelOfTextBox" TargetType="Label">
+                <Setter Property="Padding" Value="0,15,0,0"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="FontFamily" Value="ArchivoSemiBold"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
