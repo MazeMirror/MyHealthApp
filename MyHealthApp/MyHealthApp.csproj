@@ -69,5 +69,20 @@
     <EmbeddedResource Include="Resources\Images\background-login.jpg" />
     <None Remove="Resources\Images\logo-stacked.png" />
     <EmbeddedResource Include="Resources\Images\logo-stacked.png" />
+    <None Remove="Resources\Images\my-healt.png" />
+    <EmbeddedResource Include="Resources\Images\my-healt.png" />
+    <None Remove="Resources\Images\heart-beat.png" />
+    <EmbeddedResource Include="Resources\Images\heart-beat.png" />
+    <None Remove="Resources\Images\doctor-img.png" />
+    <EmbeddedResource Include="Resources\Images\doctor-img.png" />
+    <None Remove="Resources\Images\patient-img.png" />
+    <EmbeddedResource Include="Resources\Images\patient-img.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Register\SelectAccountTypePage.xaml.cs">
+      <DependentUpon>SelectAccountTypePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

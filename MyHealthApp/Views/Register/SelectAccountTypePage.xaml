@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.Register.SelectAccountTypePage">
+    <ContentPage.Content>
+        <StackLayout
+            BackgroundColor="#334856"
+            >
+            
+            <StackLayout
+                Orientation="Horizontal"
+                HorizontalOptions="CenterAndExpand"
+                Spacing="30"
+                Padding="0,50,0,0"
+                >
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"/>
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"/>
+            </StackLayout>
+            <StackLayout
+                Padding="20,45,0,0"
+                >
+                <Label 
+                    Text="Crea una &#10;nueva cuenta"
+                    TextColor="White"
+                    FontFamily="Archivo-SemiBold"
+                    LineHeight="1.2"
+                    FontSize="30"
+                    />
+                <Label 
+                    Text="----------------"
+                    TextColor="White"
+                    FontSize="10"
+                    LineHeight="0.5"
+                />
+                <Label 
+                    Text="Para tener la experiencia completa &#10;dentro de la aplicación"
+                    TextColor="White"
+                    FontFamily="Archivo-Regular"
+                    LineHeight="1.2"
+                    FontSize="18"
+                />
+                <Label
+                    Padding="0,50,0,0"
+                    Text="Soy un/una"
+                    TextColor="White"
+                    FontFamily="Archivo-SemiBold"
+                    FontSize="18"
+                    />
+            </StackLayout>
+            <StackLayout
+                Padding="0,35,0,0"
+                HorizontalOptions="Center"
+                Orientation="Horizontal"
+                Spacing="20"
+                >
+                
+                <StackLayout
+                    Spacing="15"
+                    >
+                    <ImageButton
+                        x:Name="ButtonPatient"
+                        Source="{helpers:ImageResource MyHealthApp.Resources.Images.patient-img.png}"
+                        Aspect="AspectFit"
+                    >
+                        <!--Ignore this-->
+                        <!--<VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale"
+                                            Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale"
+                                            Value="0.95" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>-->
+                    </ImageButton>
+                    <Label
+                        Text="PACIENTE / DEPORTISTA"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        TextColor="White"
+                        FontFamily="Archivo-Regular"
+                        />
+                </StackLayout>
+                
+                <StackLayout
+                    Spacing="15"
+                    >
+                    
+                    <ImageButton
+                        x:Name="ButtonDoctor"
+                        Source="{helpers:ImageResource MyHealthApp.Resources.Images.doctor-img.png}"
+                        Aspect="AspectFit"
+                    >
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale"
+                                                Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale"
+                                                Value="0.95" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </ImageButton>
+                    
+                    <Label
+                        Text="MÉDICO ESPECIALISTA"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        TextColor="White"
+                        FontFamily="Archivo-Regular"
+                    />
+                </StackLayout>
+                
+            </StackLayout>
+            
+            <Button
+                BackgroundColor="White"
+                Margin="15,50,15,0"
+                Padding="0,17,0,17"
+                Text="Siguiente"
+                FontSize="14"
+                FontFamily="FjallaOne"
+                CharacterSpacing="2.1"
+                CornerRadius="50"
+                Clicked="NextButton_OnClicked"
+            />
+            
+            <!--
+            <Button
+                BackgroundColor="Transparent"
+                Margin="15,50,15,0"
+                Padding="0,17,0,17"
+                Text="Siguiente"
+                TextColor="Gray"
+                BorderColor="#87BCBF"
+                BorderWidth="2"
+                FontSize="14"
+                FontFamily="FjallaOne"
+                CharacterSpacing="2.1"
+                CornerRadius="50"
+                IsEnabled="False"
+            />-->
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
