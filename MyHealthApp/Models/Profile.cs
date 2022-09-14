@@ -6,9 +6,11 @@ namespace MyHealthApp.Models
     {
         public long Id { get; set; }
         public long UserId { get; set; }
+        public long RoleId { get; set; }
         public string Name { get; set; }
-        public string Lastname { get; set; }
+        public string LastName { get; set; }
         public string Gender { get; set; }
-        public DateTime Birthdate { get; set; } = DateTime.Now;
+        public string ImageUrl { get; set; }
+        public DateTime BirthDate { get; set; } = DateTime.Now;
     }
 }

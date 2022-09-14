@@ -57,6 +57,7 @@
                     <Frame
                         Style="{StaticResource BorderTextBox}">
                         <Entry
+                            x:Name="EntryName"
                             FontFamily="ArchivoRegular"
                             Placeholder="Alejandro Augusto"
                             FontSize="16"
@@ -74,6 +75,7 @@
                         Style="{StaticResource BorderTextBox}"
                         >
                         <Entry
+                            x:Name="EntryLastname"
                             FontFamily="ArchivoRegular"
                             Placeholder="Espejo Gonzalez"
                             FontSize="16"
@@ -90,6 +92,7 @@
                         Style="{StaticResource BorderTextBox}"
                         >
                         <DatePicker
+                            x:Name="DatePickerBirthdate"
                             FontFamily="ArchivoRegular"
                             FontSize="16"
                             TextColor="White"
@@ -108,6 +111,7 @@
                         <StackLayout
                             Orientation="Horizontal">
                             <Picker
+                                x:Name="PickerGenre"
                                 HorizontalOptions="FillAndExpand"
                                 FontFamily="ArchivoRegular"
                                 FontSize="16"

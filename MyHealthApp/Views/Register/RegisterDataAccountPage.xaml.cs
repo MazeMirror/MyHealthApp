@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyHealthApp.Models;
 using Xamarin.CommunityToolkit;
 
 using Xamarin.Forms;
@@ -13,14 +14,24 @@ namespace MyHealthApp.Views.Register
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterDataAccountPage : ContentPage
     {
-        public RegisterDataAccountPage()
+        private Profile _profile;
+        public RegisterDataAccountPage(Role role)
         {
             InitializeComponent();
+            _profile = new Profile
+            {
+                RoleId = role.Id
+            };
         }
 
         private async void NextButton_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new RegisterCredentialPage());
+            _profile.Name = EntryName.Text;
+            _profile.LastName = EntryLastname.Text;
+            _profile.BirthDate = DatePickerBirthdate.Date;
+            _profile.Gender = PickerGenre.SelectedItem.ToString();
+            //aun no tengo userId
+            await Navigation.PushAsync(new RegisterCredentialPage(_profile));
         }
     }
 }
