@@ -1,0 +1,42 @@
+﻿using System;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using MyHealthApp.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
+
+namespace MyHealthApp.Services
+{
+    public class SpecialistService
+    {
+        //Patron Singleton
+        private static Lazy<SpecialistService> _instance = new Lazy<SpecialistService>(()=> new SpecialistService());
+        public static SpecialistService Instance => _instance.Value;
+        
+        private readonly Uri _requestUri;
+        private readonly HttpClient _client;
+        private readonly JsonSerializerSettings _settingsJson;
+        SpecialistService()
+        {
+            _requestUri = new Uri("http://192.168.1.15:8383/api/specialist");
+            _client = new HttpClient();
+            _settingsJson = new JsonSerializerSettings
+                { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+        }
+        
+        public async Task<long> PostSpecialist(Specialist specialist)
+        {
+            var json = JsonConvert.SerializeObject(specialist, _settingsJson);
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+            
+            
+            var response = await _client.PostAsync(_requestUri, contentJson);
+            var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+            
+            return response.StatusCode == HttpStatusCode.OK ?  long.Parse((string)jObj["id"] ?? "-1") : -1;
+        }
+    }
+}

@@ -11,16 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.4" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models" />
     <Folder Include="Resources\Fonts" />
     <Folder Include="Resources\Images" />
-    <Folder Include="Services" />
     <Folder Include="ViewModels" />
   </ItemGroup>
 
@@ -88,5 +87,11 @@
       <DependentUpon>SelectAccountTypePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Xamarin.CommunityToolkit">
+      <HintPath>..\..\..\..\.nuget\packages\xamarin.communitytoolkit\2.0.4\lib\xamarinios10\Xamarin.CommunityToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
