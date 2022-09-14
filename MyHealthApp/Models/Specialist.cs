@@ -8,6 +8,6 @@ namespace MyHealthApp.Models
         public long ProfileId { get; set; }
         public string Specialty { get; set; }
         
-        public IList<Patient> Specialists { get; set; } = new List<Patient>();
+        public IList<Patient> Patients { get; set; } = new List<Patient>();
     }
 }

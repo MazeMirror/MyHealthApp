@@ -60,11 +60,11 @@ namespace MyHealthApp.Views.Register
                     }
                     else
                     {
-                        var specialist = new Specialist() { ProfileId = profileId };
+                        var specialist = new Specialist() { ProfileId = profileId,Specialty = ""};
                         await SpecialistService.Instance.PostSpecialist(specialist);
                     }
                     
-                    await Navigation.PushAsync(new SuccessfulRegisterPage());
+                    await Navigation.PushModalAsync(new SuccessfulRegisterPage());
                 }
             }
             
