@@ -19,13 +19,28 @@ namespace MyHealthApp.Views
 
         private void PasswordButton_OnClicked(object sender, EventArgs e)
         {
-            this.PasswordEntry.IsPassword = !this.PasswordEntry.IsPassword;
-            this.PasswordButton.Text = this.PasswordEntry.IsPassword ? ((char)0xf070).ToString() : ((char)0xf06e).ToString();
+            this.EntryPassword.IsPassword = !this.EntryPassword.IsPassword;
+            this.PasswordButton.Text = this.EntryPassword.IsPassword ? ((char)0xf070).ToString() : ((char)0xf06e).ToString();
         }
 
         private async void RegisterLabel_OnTapped(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new SelectAccountTypePage());
+        }
+
+        private async void LoginButton_OnClicked(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(EntryEmail.Text) ||
+                string.IsNullOrWhiteSpace(EntryPassword.Text))
+            {
+                await DisplayAlert("Advertencia",
+                    "Hay presencia de campos vacíos, por favor complételos antes de continuar", "Ok");
+                return;
+            }
+            
+            //Hacemos la peticion al backend para autenticar
+            
+                //Hacemos push modal para ingresar al Home
         }
     }
 }

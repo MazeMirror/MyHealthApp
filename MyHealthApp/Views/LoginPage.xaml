@@ -3,6 +3,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.LoginPage">
     <ContentPage.Content>
@@ -36,11 +37,22 @@
                 <Frame
                     Style="{StaticResource BorderTextBox}">
                     <Entry
+                        x:Name="EntryEmail"
                         FontFamily="ArchivoRegular"
                         Placeholder="ejemplo@hotmail.com"
+                        MaxLength="35"
+                        Keyboard="Email"
                         FontSize="16"
-                        TextColor="White"
-                        PlaceholderColor="#516A7B" />
+                        PlaceholderColor="#516A7B">
+                        <Entry.Behaviors>
+                            <xct:EmailValidationBehavior 
+                                Flags="ValidateOnUnfocusing"
+                                DecorationFlags="Trim"
+                                InvalidStyle="{StaticResource InvalidTextEntryStyle}"
+                                ValidStyle="{StaticResource ValidTextEntryStyle}"
+                            />
+                        </Entry.Behaviors>
+                    </Entry>
                 </Frame>
                 
                 <Label
@@ -53,14 +65,23 @@
                         Orientation="Horizontal"
                     >
                         <Entry
-                            x:Name="PasswordEntry"
+                            x:Name="EntryPassword"
                             HorizontalOptions="FillAndExpand"
                             FontFamily="ArchivoRegular"
                             Placeholder="**************"
+                            MaxLength="15"
                             FontSize="16"
-                            TextColor="White"
                             IsPassword="True"
-                            PlaceholderColor="#516A7B" />
+                            PlaceholderColor="#516A7B">
+                            <Entry.Behaviors>
+                                <xct:TextValidationBehavior 
+                                    Flags="ValidateOnUnfocusing"
+                                    MinimumLength="8"
+                                    InvalidStyle="{StaticResource InvalidTextEntryStyle}"
+                                    ValidStyle="{StaticResource ValidTextEntryStyle}"
+                                />
+                            </Entry.Behaviors>
+                        </Entry>
                         <Button
                             x:Name="PasswordButton"
                             Text="&#xf070;"
@@ -77,6 +98,7 @@
             </StackLayout>
             
             <Button
+                x:Name="LoginButton"
                 Style="{StaticResource ButtonStyle}"
                 Margin="20,40,20,0"
                 Padding="0,17,0,17"
@@ -86,6 +108,7 @@
                 CharacterSpacing="2.1"
                 CornerRadius="50"
                 IsEnabled="True"
+                Clicked="LoginButton_OnClicked"
                  />
             
             <Label
