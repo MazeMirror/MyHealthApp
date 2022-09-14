@@ -27,8 +27,23 @@ namespace MyHealthApp.Views.Register
 
         private async void NextButton_OnClicked(object sender, EventArgs e)
         {
-         
-            if (EntryFirstPassword.Text != EntrySecondPassword.Text) return;
+
+            if (string.IsNullOrWhiteSpace(EntryFirstPassword.Text) || 
+                string.IsNullOrWhiteSpace(EntrySecondPassword.Text) ||
+                string.IsNullOrWhiteSpace(EntryEmail.Text)
+                )
+            {
+                await DisplayAlert("Advertencia",
+                    "Hay presencia de campos vacíos, por favor complételos antes de continuar", "Ok");
+                return;
+            }
+            
+            if (EntryFirstPassword.Text != EntrySecondPassword.Text)
+            {
+                await DisplayAlert("Advertencia",
+                    "Las contraseñas no son iguales", "Ok");
+                return;
+            }
             
             _user.Email = EntryEmail.Text;
             _user.Password = EntryFirstPassword.Text;
@@ -38,7 +53,7 @@ namespace MyHealthApp.Views.Register
             
             if (userId == -1)
             {
-                await DisplayAlert("Error", "An error occurred when the user was being registered", "Ok");
+                await DisplayAlert("Error", "Ocurrió un error al registrar el usuario", "Ok");
             }
             else
             {
@@ -47,7 +62,7 @@ namespace MyHealthApp.Views.Register
                 long profileId = await ProfileService.Instance.PostProfile(_profile);
                 if (profileId == -1)
                 {
-                    await DisplayAlert("Error", "An error occurred when the profile was being registered", "Ok");
+                    await DisplayAlert("Error", "Ocurrio un error al registrar el perfil", "Ok");
                 }
                 else
                 {

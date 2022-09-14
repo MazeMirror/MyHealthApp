@@ -38,6 +38,13 @@
                 <Setter Property="FontSize" Value="18"/>
             </Style>
             
+            <Style x:Key="InvalidTextEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Red"></Setter>
+            </Style>
+            <Style x:Key="ValidTextEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="White"></Setter>
+            </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

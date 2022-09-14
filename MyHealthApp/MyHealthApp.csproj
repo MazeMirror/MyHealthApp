@@ -88,4 +88,10 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Xamarin.CommunityToolkit">
+      <HintPath>..\..\..\..\.nuget\packages\xamarin.communitytoolkit\2.0.4\lib\xamarinios10\Xamarin.CommunityToolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

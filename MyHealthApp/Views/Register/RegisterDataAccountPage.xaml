@@ -58,12 +58,22 @@
                         Style="{StaticResource BorderTextBox}">
                         <Entry
                             x:Name="EntryName"
+                            MaxLength="30"
+                            IsSpellCheckEnabled="false"
                             FontFamily="ArchivoRegular"
                             Placeholder="Alejandro Augusto"
                             FontSize="16"
-                            TextColor="White"
                             PlaceholderColor="#516A7B" 
-                            />
+                            >
+                            <Entry.Behaviors>
+                                <xct:TextValidationBehavior 
+                                    Flags="ValidateOnUnfocusing"
+                                    MinimumLength="3"
+                                    InvalidStyle="{StaticResource InvalidTextEntryStyle}"
+                                    ValidStyle="{StaticResource ValidTextEntryStyle}"
+                                />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Frame>
 
                     <!--Lastname textBox-->
@@ -77,10 +87,20 @@
                         <Entry
                             x:Name="EntryLastname"
                             FontFamily="ArchivoRegular"
+                            MaxLength="30"
+                            IsSpellCheckEnabled="false"
                             Placeholder="Espejo Gonzalez"
                             FontSize="16"
-                            TextColor="White"
-                            PlaceholderColor="#516A7B" />
+                            PlaceholderColor="#516A7B">
+                            <Entry.Behaviors>
+                                <xct:TextValidationBehavior 
+                                    Flags="ValidateOnUnfocusing"
+                                    MinimumLength="3"
+                                    InvalidStyle="{StaticResource InvalidTextEntryStyle}"
+                                    ValidStyle="{StaticResource ValidTextEntryStyle}"
+                                />
+                            </Entry.Behaviors>
+                        </Entry>
                     </Frame>
 
                     <!--Date picker-->
@@ -97,6 +117,8 @@
                             FontSize="16"
                             TextColor="White"
                             Format="dd / MM / yyyy"
+                            MinimumDate="12/31/1950"
+                            MaximumDate="12/31/2022"
                             />
                     </Frame>
 
