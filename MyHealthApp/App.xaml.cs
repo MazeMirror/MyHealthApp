@@ -7,6 +7,7 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("Archivo-SemiBold.ttf", Alias = "ArchivoSemiBold")]
 [assembly: ExportFont("FjallaOne-Regular.ttf", Alias = "FjallaOne")]
 [assembly: ExportFont("Archivo-Regular.ttf", Alias = "ArchivoRegular")]
+[assembly: ExportFont("Fcraft-B.ttf", Alias = "FCraftBorgoBold")]
 namespace MyHealthApp
 {
     public partial class App : Application

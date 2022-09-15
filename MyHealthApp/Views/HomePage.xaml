@@ -2,13 +2,36 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
              x:Class="MyHealthApp.Views.HomePage">
     <ContentPage.Content>
         <StackLayout
             BackgroundColor="#F0F3F4">
-            <Label Text="Hello, world!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
+            <FlexLayout
+                HeightRequest="90"
+                Direction="Row"
+                HorizontalOptions="FillAndExpand"
+                AlignItems="Center"
+                JustifyContent="Center"
+                BackgroundColor="White"
+                >
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                       Scale="0.90"
+                       />
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                       Margin="10,0,0,0"
+                       xct:IconTintColorEffect.TintColor="Black"
+                       Scale="0.90"
+                       />
+                <!--<Label Text="MY HEALT"
+                       Margin="20,0,0,0"
+                       FontFamily="FCraftBorgoBold"
+                       FontSize="23"
+                       TextColor="Black"
+                />-->
+            </FlexLayout>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

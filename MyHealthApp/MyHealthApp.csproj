@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Fonts" />
+    <Folder Include="Resources\Fonts\Fcraft_Borgo" />
     <Folder Include="ViewModels" />
   </ItemGroup>
 
@@ -90,6 +90,8 @@
     <EmbeddedResource Include="Resources\Images\user.png" />
     <None Remove="Resources\Images\list.png" />
     <EmbeddedResource Include="Resources\Images\list.png" />
+    <None Remove="Resources\Fonts\Fcraft_Borgo\Fcraft-B.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Fcraft_Borgo\Fcraft-B.ttf" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,12 +2,197 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
              x:Class="MyHealthApp.Views.ProfileFlow.ProfilePage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="#F0F3F4">
-            <Label Text="Hello, Profile"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
+            <FlexLayout
+                HeightRequest="90"
+                Direction="Row"
+                HorizontalOptions="FillAndExpand"
+                AlignItems="Center"
+                JustifyContent="Center"
+                BackgroundColor="White"
+                >
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                       Scale="0.90"
+                />
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                       Margin="10,0,0,0"
+                       effects:IconTintColorEffect.TintColor="Black"
+                       Scale="0.90"
+                />
+            </FlexLayout>
+            
+            <Frame Margin="20,24,20,0"
+                   BackgroundColor="White"
+                   HeightRequest="90"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   Padding="5"
+                   >
+                
+                <FlexLayout
+                    Direction="Row"
+                    AlignItems="Center"
+                    JustifyContent="SpaceAround"
+                >
+                    <Label Text="&#xf2bd;"
+                           TextColor="Black"
+                           FontSize="65"
+                           FontFamily="{StaticResource FontAwesomeSolid}"/>
+                    <StackLayout
+                        Spacing="0"
+                        >
+                        <!--Nombres-->
+                        <Label Text="Alejandro Augusto"
+                               FontFamily="ArchivoSemiBold"
+                               TextColor="Black"
+                               FontSize="18"
+                        />
+                        <!--Apellidos-->
+                        <Label Text="Espejo Gonzalez"
+                               FontFamily="ArchivoSemiBold"
+                               TextColor="Black"
+                               FontSize="18"
+                               />
+                    </StackLayout>
+                    
+                    
+                    <Label
+                        x:Name="LabelEditName"
+                        Text="&#xf304;"
+                        HeightRequest="65"
+                        TextColor="#2F6A88"
+                        FontSize="20"
+                        FontFamily="{StaticResource FontAwesomeSolid}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="LabelEditName_OnTapped"
+                                NumberOfTapsRequired="1"
+                            />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    
+                </FlexLayout>
+                
+            </Frame>
+            
+            <!--ESTO ES CONDICIONAL-->
+            <Frame Margin="20,24,20,0"
+                   BackgroundColor="White"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   Padding="5"
+                   >
+                <StackLayout>
+                    <FlexLayout
+                        Padding="20,10,20,0"
+                        Direction="Row"
+                        JustifyContent="SpaceBetween"
+                        >
+                        
+                        <Label Text="Información de perfil"
+                               FontFamily="ArchivoSemiBold"
+                               TextColor="Black"
+                               FontSize="18"
+                        />
+                    
+                        <Label
+                            x:Name="LabelEditDetails"
+                            Text="&#xf304;"
+                            TextColor="#2F6A88"
+                            FontSize="20"
+                            FontFamily="{StaticResource FontAwesomeSolid}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="LabelEditDetails_OnTapped"
+                                    NumberOfTapsRequired="1"
+                                />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    
+                    </FlexLayout>
+                    <StackLayout x:Name="StackLayoutProfileDetails"/>
+                    <!--
+                    <StackLayout
+                        x:Name="StackLayoutProfileDetails"
+                        Padding="20,17,20,17"
+                        >
+                        <Label
+                            FontFamily="ArchivoRegular"
+                            TextColor="Black"
+                            FontSize="12"
+                            >
+                            <Label.Text>Género: Hombre</Label.Text>
+                        </Label>
+                        <Label
+                            FontFamily="ArchivoRegular"
+                            TextColor="Black"
+                            FontSize="12"
+                            >
+                            <Label.Text>Edad: 8 años</Label.Text>
+                        </Label>
+                        <Label
+                            FontFamily="ArchivoRegular"
+                            TextColor="Black"
+                            FontSize="12"
+                            >
+                            <Label.Text>Fecha de nacimiento: 30 de septiembre del 2014</Label.Text>
+                        </Label>
+                        <Label
+                            FontFamily="ArchivoRegular"
+                            TextColor="Black"
+                            FontSize="12"
+                            >
+                            <Label.Text>Estatura: 120 cm</Label.Text>
+                        </Label>
+                        <Label
+                            FontFamily="ArchivoRegular"
+                            TextColor="Black"
+                            FontSize="12"
+                            >
+                            <Label.Text>Peso: 50 kg</Label.Text>
+                        </Label>
+                        <Label
+                            FontFamily="ArchivoRegular"
+                            TextColor="Black"
+                            FontSize="12"
+                            >
+                            <Label.Text>Correo: alejandro_espejo_g@hotmail.com</Label.Text>
+                        </Label>
+                        <Label
+                            FontFamily="ArchivoRegular"
+                            TextColor="Black"
+                            FontSize="12"
+                            >
+                            <Label.Text>Contacto de emergencia: +51 997329195</Label.Text>
+                        </Label>
+                    </StackLayout>-->
+                    
+                </StackLayout>
+                
+            </Frame>
+            
+            <Label
+                x:Name="LabelDeleteAccount"
+                Text="Eliminar cuenta"
+                Padding="0,20,0,0"
+                HorizontalOptions="Center"
+                TextDecorations="Underline"
+                TextColor="#FF4848"
+                FontFamily="Archivo-SemiBold"
+                >
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="LabelDeleteAccount_OnTapped"
+                        NumberOfTapsRequired="1"
+                    />
+                </Label.GestureRecognizers>
+            </Label>
+            
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
