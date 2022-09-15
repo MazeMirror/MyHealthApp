@@ -52,17 +52,19 @@
                         Spacing="0"
                         >
                         <!--Nombres-->
-                        <Label Text="Alejandro Augusto"
-                               FontFamily="ArchivoSemiBold"
-                               TextColor="Black"
-                               FontSize="18"
-                        />
+                        <Label x:Name="LabelName"
+                            Text="Alejandro Augusto"
+                            FontFamily="ArchivoSemiBold"
+                            TextColor="Black"
+                            FontSize="18"
+                            />
                         <!--Apellidos-->
-                        <Label Text="Espejo Gonzalez"
-                               FontFamily="ArchivoSemiBold"
-                               TextColor="Black"
-                               FontSize="18"
-                               />
+                        <Label x:Name="LabelLastname"
+                            Text="Espejo Gonzalez"
+                            FontFamily="ArchivoSemiBold"
+                            TextColor="Black"
+                            FontSize="18"
+                            />
                     </StackLayout>
                     
                     

@@ -29,11 +29,11 @@ namespace MyHealthApp.Views.ProfileFlow
             var profile = new Profile()
             {
                 Gender = "Masculino",
-                Name = "Josias",
-                LastName = "Olaya",
+                Name = "Josias Josue",
+                LastName = "Olaya Chauca",
                 ImageUrl = "https://....",
                 BirthDate = DateTime.Now,
-                RoleId = 1, 
+                RoleId = 0, 
             };
 
             var user = new User()
@@ -41,6 +41,9 @@ namespace MyHealthApp.Views.ProfileFlow
                 Email = "JosiasOlaya@hotmail.com"
             };
             ////////////////////////////////////////////////////////
+
+            LabelName.Text = profile.Name;
+            LabelLastname.Text = profile.LastName;
 
             if (profile.RoleId == 0)
             {
@@ -52,7 +55,8 @@ namespace MyHealthApp.Views.ProfileFlow
                     EmergencyPhone = 912457857,
                 };
                 
-                BindingContext = new SlProfileDetailsViewModel(profile, patient, user);
+                _model = new SlProfileDetailsViewModel(profile, patient, user);
+                BindingContext = _model;
             }
             else
             {
@@ -63,7 +67,8 @@ namespace MyHealthApp.Views.ProfileFlow
                     Specialty = "Pediatria",
                 };
                 
-                BindingContext = new SlProfileDetailsViewModel(profile, specialist, user);
+                _model = new SlProfileDetailsViewModel(profile, specialist, user);
+                BindingContext = _model;
             }
         }
         
