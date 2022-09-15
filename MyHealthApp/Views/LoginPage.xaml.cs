@@ -41,7 +41,8 @@ namespace MyHealthApp.Views
             //Hacemos la peticion al backend para autenticar
             //Y recibimos el perfil asociado al user
             
-            //Si tenemos exito en ello, guardamos en SQLlite los datos de perfil (PerfilId,UserId y datos especificos) 
+            //Si tenemos exito en ello, guardamos en SQLlite los datos de perfil (PerfilId, UserCorreo y datos de perfil) 
+            //2 entidades: Profile y User (sin contraseña obviamente)
             
             
             //Dependiendo del rolID de perfil mandamos el Tabbed de patient O Specialist

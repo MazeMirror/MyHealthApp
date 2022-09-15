@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\Fonts\Fcraft_Borgo" />
-    <Folder Include="ViewModels" />
   </ItemGroup>
 
   <ItemGroup>

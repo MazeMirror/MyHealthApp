@@ -4,7 +4,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
              xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:viewModels="clr-namespace:MyHealthApp.ViewModels;assembly=MyHealthApp"
              x:Class="MyHealthApp.Views.ProfileFlow.ProfilePage">
+    
+    <!--<ContentPage.BindingContext>
+        <viewModels:SlProfileDetailsViewModel></viewModels:SlProfileDetailsViewModel>
+    </ContentPage.BindingContext>-->
+    
     <ContentPage.Content>
         <StackLayout BackgroundColor="#F0F3F4">
             <FlexLayout
@@ -114,7 +120,25 @@
                         </Label>
                     
                     </FlexLayout>
-                    <StackLayout x:Name="StackLayoutProfileDetails"/>
+                    
+                    <StackLayout 
+                        x:Name="StackLayoutProfileDetails"
+                        Padding="20,17,20,17"
+                        BindableLayout.ItemsSource="{Binding Items}"
+                        >
+                        
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Label 
+                                    Text="{Binding TitleText}"
+                                    FontFamily="ArchivoRegular"
+                                    TextColor="Black"
+                                    FontSize="12"
+                                    />
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                        
+                    </StackLayout>
                     <!--
                     <StackLayout
                         x:Name="StackLayoutProfileDetails"
