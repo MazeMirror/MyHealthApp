@@ -7,11 +7,11 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.Register.SelectAccountTypePage">
     <ContentPage.Content>
-        <StackLayout
+        <ScrollView
             BackgroundColor="#334856"
             >
-            
-            <StackLayout.Resources>
+            <StackLayout Padding="0,0,0,30">
+                <StackLayout.Resources>
                 <ResourceDictionary>
                     
                     <Style x:Key="ImageButtonStyle" TargetType="ImageButton">
@@ -72,7 +72,7 @@
                     FontSize="18"
                 />
                 <Label
-                    Padding="0,50,0,0"
+                    Padding="0,35,0,0"
                     Text="Soy un/una"
                     TextColor="White"
                     FontFamily="ArchivoSemiBold"
@@ -92,7 +92,9 @@
                     <ImageButton
                         x:Name="ButtonPatient"
                         Source="{helpers:ImageResource MyHealthApp.Resources.Images.patient-img.png}"
-                        Aspect="AspectFit"
+                        Aspect="AspectFill"
+                        CornerRadius="10"
+                        HeightRequest="150"
                         Style="{StaticResource ImageButtonStyle}"
                         Clicked="ButtonPatient_OnClicked"
                         >
@@ -117,7 +119,9 @@
                         x:Name="ButtonDoctor"
                         Style="{StaticResource ImageButtonStyle}"
                         Source="{helpers:ImageResource MyHealthApp.Resources.Images.doctor-img.png}"
-                        Aspect="AspectFit"
+                        Aspect="AspectFill"
+                        CornerRadius="10"
+                        HeightRequest="150"
                         Clicked="ButtonDoctor_OnClicked"
                     >
                        
@@ -138,7 +142,7 @@
             <Button
                 x:Name="NextPageButton"
                 Style="{StaticResource ButtonStyle}"
-                Margin="15,50,15,0"
+                Margin="15,40,15,0"
                 Padding="0,17,0,17"
                 Text="Siguiente"
                 FontSize="14"
@@ -166,7 +170,10 @@
                 CornerRadius="50"
                 IsEnabled="False"
             />-->
+            </StackLayout>
             
-        </StackLayout>
+            
+            
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
