@@ -39,8 +39,13 @@ namespace MyHealthApp.Views
             }
             
             //Hacemos la peticion al backend para autenticar
+            //Y recibimos el perfil asociado al user
             
-                //Hacemos push modal para ingresar al Home
+            //Si tenemos exito en ello, guardamos en SQLlite los datos de perfil (PerfilId,UserId y datos especificos) 
+            
+            
+            //Dependiendo del rolID de perfil mandamos el Tabbed de patient O Specialist
+            await Navigation.PushModalAsync(new TabbedPatient());
         }
     }
 }
