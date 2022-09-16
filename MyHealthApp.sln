@@ -7,7 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealthApp.Android", "MyHe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealthApp.iOS", "MyHealthApp.iOS\MyHealthApp.iOS.csproj", "{1D76CC82-4BC9-4930-B336-247C42E40C90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealthApp", "MyHealthApp\MyHealthApp.csproj", "{EC3B9BC0-B75B-424F-9217-AF2BC3CDB6B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyHealthApp", "MyHealthApp\MyHealthApp.csproj", "{EC3B9BC0-B75B-424F-9217-AF2BC3CDB6B0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C} = {B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindesHeartSDK", "WindesHeartSDK\WindesHeartSDK.csproj", "{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +78,19 @@ Global
 		{EC3B9BC0-B75B-424F-9217-AF2BC3CDB6B0}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{EC3B9BC0-B75B-424F-9217-AF2BC3CDB6B0}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{EC3B9BC0-B75B-424F-9217-AF2BC3CDB6B0}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Release|iPhone.Build.0 = Release|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{B91DA8E0-A0A6-401A-BCBA-DED75260DC8C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

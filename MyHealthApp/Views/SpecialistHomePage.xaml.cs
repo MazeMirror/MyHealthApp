@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace MyHealthApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage : ContentPage
+    public partial class SpecialistHomePage : ContentPage
     {
-        public HomePage()
+        public SpecialistHomePage()
         {
             InitializeComponent();
         }

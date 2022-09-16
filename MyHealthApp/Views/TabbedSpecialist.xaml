@@ -13,7 +13,7 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp">
     
-    <local:HomePage Title="Inicio" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.home.png}"/>
+    <local:SpecialistHomePage Title="Inicio" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.home.png}"/>
     <ContentPage Title="Lista de pacientes"  IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.list.png}" BackgroundColor="#F0F3F4"/>
     <profileFlow:ProfilePage Title="Perfil" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.user.png}"/>
 
