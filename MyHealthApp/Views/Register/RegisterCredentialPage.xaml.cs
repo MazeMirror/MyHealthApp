@@ -49,18 +49,18 @@ namespace MyHealthApp.Views.Register
             _user.Password = EntryFirstPassword.Text;
             
             //Creamos el usuario
-            long userId = await UserService.Instance.PostUser(_user);
+            User user = await UserService.Instance.PostUser(_user);
             
-            if (userId == -1)
+            if (user == null)
             {
                 await DisplayAlert("Error", "Ocurrió un error al registrar el usuario", "Ok");
             }
             else
             {
                 //Creamos el perfil
-                _profile.UserId = userId;
-                long profileId = await ProfileService.Instance.PostProfile(_profile);
-                if (profileId == -1)
+                _profile.UserId = user.Id;
+                Profile profile = await ProfileService.Instance.PostProfile(_profile);
+                if (profile == null)
                 {
                     await DisplayAlert("Error", "Ocurrio un error al registrar el perfil", "Ok");
                 }
@@ -68,18 +68,18 @@ namespace MyHealthApp.Views.Register
                 {
                     //Creamos un especialista o un paciente
 
-                    if (_profile.RoleId == 0)
+                    if (profile.RoleId == 0)
                     {
-                        var patient = new Patient() { ProfileId = profileId };
+                        var patient = new Patient() { ProfileId = profile.Id };
                         await PatientService.Instance.PostPatient(patient);
                     }
                     else
                     {
-                        var specialist = new Specialist() { ProfileId = profileId,Specialty = ""};
+                        var specialist = new Specialist() { ProfileId = profile.Id,Specialty = ""};
                         await SpecialistService.Instance.PostSpecialist(specialist);
                     }
                     
-                    await Navigation.PushModalAsync(new SuccessfulRegisterPage());
+                    await Navigation.PushModalAsync(new SuccessfulRegisterPage(user, profile));
                 }
             }
             

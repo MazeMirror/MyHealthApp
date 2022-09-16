@@ -8,8 +8,9 @@
     <ContentPage.Content>
         <StackLayout
             BackgroundColor="#334856">
-            <Label 
-                Text="Hola, Alejandro &#10;bienvenido a"
+            <Label
+                x:Name="LabelTitle"
+                Text="Hola, &#10;bienvenido a"
                 HorizontalTextAlignment="Center"
                 Padding="0,80,0,0"
                 FontFamily="ArchivoSemiBold"
@@ -20,7 +21,7 @@
                 />
             
             <StackLayout
-                Padding="0,60,0,0"
+                Padding="0,40,0,0"
                 Spacing="40"
                 >
                 <Image
@@ -54,7 +55,7 @@
             <Button
                 x:Name="NextPageButton"
                 Style="{StaticResource ButtonStyle}"
-                Margin="20,70,20,0"
+                Margin="20,36,20,0"
                 Padding="0,17,0,17"
                 Text="Iniciar"
                 FontSize="14"

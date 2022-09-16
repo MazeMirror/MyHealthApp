@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyHealthApp.Views.TabbedPatient"
+             android:TabbedPage.ToolbarPlacement="Bottom"
+             NavigationPage.HasNavigationBar="False"
+             HeightRequest="120"
+             UnselectedTabColor="#505C6229"
+             SelectedTabColor="#D97D54"
+             xmlns:local="clr-namespace:MyHealthApp.Views;assembly=MyHealthApp"
+             xmlns:profileFlow="clr-namespace:MyHealthApp.Views.ProfileFlow;assembly=MyHealthApp"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp">
+             
+    <local:HomePage Title="Inicio" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.home.png}"/>
+    <ContentPage Title="Plan Alimenticio"  IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.diet.png}" BackgroundColor="#F0F3F4"/>
+    <ContentPage Title="Reporte" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.focus.png}" BackgroundColor="#F0F3F4"/>
+    <profileFlow:ProfilePage Title="Perfil" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.user.png}"/>
+    
+</TabbedPage>

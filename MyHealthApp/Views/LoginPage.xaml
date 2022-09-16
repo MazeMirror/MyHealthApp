@@ -14,7 +14,7 @@
             <StackLayout
                 HorizontalOptions="Center"
                 Spacing="2"
-                Padding="0,60,0,0"
+                Padding="0,30,0,0"
                 >
                 <Image
                     Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
@@ -28,7 +28,7 @@
             
             
             <StackLayout
-                Padding="20,50,20,0"
+                Padding="20,20,20,0"
                 >
                 
                 <Label
@@ -113,7 +113,7 @@
             
             <Label
                 HorizontalOptions="Center"
-                Padding="0,35,0,0"
+                Padding="0,25,0,0"
                 Text="¿Olvidaste tu contraseña?"
                 FontSize="14"
                 TextColor="#EB6C36"
@@ -121,14 +121,14 @@
                 />
             <Label
                 HorizontalOptions="CenterAndExpand"
-                Text="___________________"
-                FontSize="35"
+                Text="__________________________________"
+                FontSize="15"
                 TextColor="#2C3F4D"
                 />
             <StackLayout
                 Orientation="Horizontal"
                 HorizontalOptions="Center"
-                Padding="0,20,0,0"
+                Padding="0,10,0,0"
                 >
                 <Label
                     Text="¿No tienes una cuenta?"
