@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Input;
 using MyHealthApp.Models;
+using MyHealthApp.Models.SqlLite;
 using Xamarin.Forms;
 
 namespace MyHealthApp.ViewModels
@@ -22,7 +23,7 @@ namespace MyHealthApp.ViewModels
         
         public ICommand ChangeTextCommand { get; set; }
 
-        public SlProfileDetailsViewModel(Profile profile, Specialist specialist, User user)
+        public SlProfileDetailsViewModel(ProfileEntity profile, Specialist specialist, UserEntity user)
         {
             IList<ItemProfileModel> source = new List<ItemProfileModel>()
             {
@@ -43,7 +44,7 @@ namespace MyHealthApp.ViewModels
             });*/
         }
         
-        public SlProfileDetailsViewModel(Profile profile, Patient patient , User user)
+        public SlProfileDetailsViewModel(ProfileEntity profile, Patient patient , UserEntity user)
         {
             IList<ItemProfileModel> source = new List<ItemProfileModel>()
             {

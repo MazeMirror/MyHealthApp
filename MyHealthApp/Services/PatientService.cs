@@ -26,7 +26,7 @@ namespace MyHealthApp.Services
                 { ContractResolver = new CamelCasePropertyNamesContractResolver() };
         }
         
-        public async Task<long> PostPatient(Patient patient)
+        public async Task<Patient> PostPatient(Patient patient)
         {
             _requestUri = new Uri($"http://192.168.1.15:8383/api/profile/{patient.ProfileId.ToString()}/patient");
             var json = JsonConvert.SerializeObject(patient, _settingsJson);
@@ -36,7 +36,20 @@ namespace MyHealthApp.Services
             var response = await _client.PostAsync(_requestUri, contentJson);
             var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
             
-            return response.StatusCode == HttpStatusCode.OK ?  long.Parse((string)jObj["id"] ?? "-1") : -1;
+            return response.StatusCode == HttpStatusCode.OK ?  JsonConvert.DeserializeObject<Patient>(response.Content.ReadAsStringAsync().Result)
+                : null;
+        }
+
+        public async Task<Patient> GetPatientByProfileId(long profileId)
+        {
+            _requestUri = new Uri($"http://192.168.1.15:8383/api/profile/{profileId.ToString()}/patient");
+            var response = await _client.GetAsync(_requestUri);
+            
+            var myPatient = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<Patient>(response.Content.ReadAsStringAsync().Result)
+                : null;
+            
+            return myPatient;
         }
     }
 }

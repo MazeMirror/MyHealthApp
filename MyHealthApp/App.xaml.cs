@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using MyHealthApp.Helpers;
 using MyHealthApp.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,15 +14,24 @@ namespace MyHealthApp
 {
     public partial class App : Application
     {
+        private static SqLiteHelper _db;
         public App()
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage( new WelcomePage());
+            //MainPage = new NavigationPage( new WelcomePage());
         }
+
+        public static SqLiteHelper SqLiteDb =>
+            _db ?? (_db = new SqLiteHelper(
+                Path.Combine(
+                    Environment.GetFolderPath(
+                        Environment.SpecialFolder.LocalApplicationData),
+                    "Myhealth.db3")));
 
         protected override void OnStart()
         {
+            CheckLogin();
         }
 
         protected override void OnSleep()
@@ -29,6 +40,34 @@ namespace MyHealthApp
 
         protected override void OnResume()
         {
+            //CheckLogin();
+        }
+
+        private void CheckLogin()
+        {
+            if (Current.Properties.ContainsKey("RoleLogged"))
+            {
+                var roleLogged = (int)Current.Properties["RoleLogged"];
+
+                switch (roleLogged)
+                {
+                    case 0: MainPage = new NavigationPage(new TabbedPatient());
+                        break;
+                    case 1: MainPage = new NavigationPage(new TabbedSpecialist());
+                        break;
+                    case 2: MainPage = new NavigationPage(new WelcomePage());
+                        break;
+                }
+                
+            }
+            else
+            {
+                MainPage = new NavigationPage(new WelcomePage());
+            }
         }
     }
+    
+    
 }
+
+

@@ -15,6 +15,12 @@ namespace MyHealthApp.Views
         public TabbedSpecialist()
         {
             InitializeComponent();
+            Application.Current.Properties["RoleLogged"] = 1;
+        }
+        
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

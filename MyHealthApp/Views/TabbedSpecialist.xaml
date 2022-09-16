@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyHealthApp.Views.TabbedSpecialist"
              android:TabbedPage.ToolbarPlacement="Bottom"
+             NavigationPage.HasNavigationBar="False"
              HeightRequest="120"
              UnselectedTabColor="#505C6229"
              SelectedTabColor="#D97D54"
