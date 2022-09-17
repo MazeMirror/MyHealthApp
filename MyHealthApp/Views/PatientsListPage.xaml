@@ -2,12 +2,138 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:viewModels="clr-namespace:MyHealthApp.ViewModels;assembly=MyHealthApp"
              x:Class="MyHealthApp.Views.PatientsListPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Hello, world!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
+            <FlexLayout
+                HeightRequest="90"
+                Direction="Row"
+                HorizontalOptions="FillAndExpand"
+                AlignItems="Center"
+                JustifyContent="Center"
+                BackgroundColor="White">
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                       Scale="0.90" />
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                       Margin="10,0,0,0"
+                       effects:IconTintColorEffect.TintColor="Black"
+                       Scale="0.90" />
+            </FlexLayout>
+
+            <Frame Margin="20,20,20,0"
+                   HasShadow="False"
+                   CornerRadius="10"
+                   HeightRequest="430">
+                <StackLayout
+                    Padding="5,5">
+
+                    <StackLayout
+                        Orientation="Horizontal"
+                        VerticalOptions="Start">
+                        <Label Text="Mis pacientes"
+                               TextColor="Black"
+                               FontSize="18"
+                               FontFamily="ArchivoSemiBold" />
+                        <Label Text="&#xf055;"
+                               FontSize="20"
+                               TextColor="#EB6C36"
+                               FontFamily="{StaticResource FontAwesomeSolid}"
+                               VerticalOptions="Center"
+                               Margin="170,0,0,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="LabelAddPatient_OnTapped"
+                                    NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+
+
+                    <Frame
+                        HasShadow="False"
+                        BorderColor="Black"
+                        CornerRadius="5"
+                        Margin="0,20,0,0"
+                        Padding="20,5">
+                        <StackLayout
+
+                            Orientation="Horizontal">
+                            <Label Text="&#xf002;"
+
+                                   FontSize="24"
+                                   TextColor="Black"
+                                   FontFamily="{StaticResource FontAwesomeSolid}"
+                                   VerticalOptions="Center" />
+                            <Entry Placeholder="Busca por nombre"
+                                   HorizontalOptions="FillAndExpand"
+                                   FontSize="16"
+                                   Margin="10,0,0,0" />
+                        </StackLayout>
+
+                    </Frame>
+
+
+                    <ScrollView
+                        Margin="0,10,0,0">
+                        <StackLayout
+                            BindableLayout.ItemsSource="{Binding Profiles}"
+                            >
+                            
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding LastName}"
+                                               FontSize="16"
+                                               FontFamily="ArchivoRegular"
+                                               TextColor="Black" />
+                                        <FlexLayout
+                                            Direction="Row"
+                                            AlignItems="Center"
+                                            JustifyContent="SpaceBetween">
+                                            <Label Text="&#xf2bd;"
+                                                   FontSize="54"
+                                                   TextColor="Black"
+                                                   FontFamily="{StaticResource FontAwesomeSolid}"
+                                                   VerticalOptions="Center" />
+                                            <StackLayout
+                                                Spacing="0">
+                                                <Label Text="{Binding Name}"
+                                                       FontSize="16"
+                                                       FontFamily="ArchivoRegular"
+                                                       TextColor="Black"/>
+                                                <Label Text="{Binding LastName}"
+                                                       FontSize="16"
+                                                       FontFamily="ArchivoRegular"
+                                                       TextColor="Black" />
+                                                <Label Text="Edad: 8 años"
+                                                       FontSize="14"
+                                                       FontFamily="ArchivoRegular"
+                                                       TextColor="#707070" />
+                                            </StackLayout>
+
+                                            <Label Text="&#xf054;"
+                                                   FontSize="14"
+                                                   FontFamily="{StaticResource FontAwesomeSolid}"
+                                                   TextColor="Black"
+                                                   HeightRequest="56" />
+
+                                        </FlexLayout>
+                                    </DataTemplate>
+
+                                </BindableLayout.ItemTemplate>
+
+                        </StackLayout>
+
+
+                    </ScrollView>
+                </StackLayout>
+
+
+            </Frame>
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
