@@ -52,5 +52,17 @@ namespace MyHealthApp.Services
             
             return myProfile;
         }
+
+        public async Task<Profile> GetProfileById(long id)
+        {
+            _requestUri = new Uri($"http://192.168.1.15:8383/api/profile/{id.ToString()}");
+            var response = await _client.GetAsync(_requestUri);
+            
+            var myProfile = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<Profile>(response.Content.ReadAsStringAsync().Result)
+                : null;
+            
+            return myProfile;
+        }
     }
 }
