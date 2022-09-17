@@ -68,7 +68,7 @@ namespace MyHealthApp.Views.Register
                 {
                     //Creamos un especialista o un paciente
 
-                    if (profile.RoleId == 0)
+                    if (profile.RoleId == 1)
                     {
                         var patient = new Patient() { ProfileId = profile.Id };
                         await PatientService.Instance.PostPatient(patient);

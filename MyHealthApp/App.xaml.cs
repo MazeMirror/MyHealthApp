@@ -54,11 +54,11 @@ namespace MyHealthApp
 
                 switch (roleLogged)
                 {
-                    case 0: MainPage = new NavigationPage(new TabbedPatient());
+                    case 1: MainPage = new NavigationPage(new TabbedPatient());
                         break;
-                    case 1: MainPage = new NavigationPage(new TabbedSpecialist());
+                    case 2: MainPage = new NavigationPage(new TabbedSpecialist());
                         break;
-                    case 2: MainPage = new NavigationPage(new WelcomePage());
+                    case 3: MainPage = new NavigationPage(new WelcomePage());
                         break;
                 }
                 

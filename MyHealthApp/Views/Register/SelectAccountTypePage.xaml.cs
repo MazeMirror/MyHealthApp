@@ -28,7 +28,7 @@ namespace MyHealthApp.Views.Register
             this.LabelPatient.TextColor = Color.FromHex("#FF9467");
             this.LabelDoctor.TextColor = Color.White;
             this.NextPageButton.IsEnabled = true;
-            _role.Id = 0;
+            _role.Id = 1;
         }
 
 
@@ -37,7 +37,7 @@ namespace MyHealthApp.Views.Register
             this.LabelDoctor.TextColor = Color.FromHex("#FF9467");
             this.LabelPatient.TextColor = Color.White;
             this.NextPageButton.IsEnabled = true;
-            _role.Id = 1;
+            _role.Id = 2;
         }
     }
 }

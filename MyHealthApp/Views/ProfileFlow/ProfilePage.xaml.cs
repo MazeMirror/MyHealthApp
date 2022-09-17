@@ -67,7 +67,7 @@ namespace MyHealthApp.Views.ProfileFlow
             LabelLastname.SetBinding(Label.TextProperty, new Binding(){ Path = "LastName"});
             
 
-            if (LocalProfile.RoleId == 0)
+            if (LocalProfile.RoleId == 1)
             {
                 var patient = await PatientService.Instance.GetPatientByProfileId(LocalProfile.Id);
                 

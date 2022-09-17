@@ -15,7 +15,7 @@ namespace MyHealthApp.Views
         public TabbedSpecialist()
         {
             InitializeComponent();
-            Application.Current.Properties["RoleLogged"] = 1;
+            Application.Current.Properties["RoleLogged"] = 2;
         }
         
         protected override bool OnBackButtonPressed()

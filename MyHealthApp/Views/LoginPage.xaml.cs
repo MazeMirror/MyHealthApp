@@ -77,7 +77,7 @@ namespace MyHealthApp.Views
             
             
             //Dependiendo del rolID de perfil mandamos el Tabbed de patient O Specialist
-            if(profile.RoleId == 0 ) await Navigation.PushModalAsync(new TabbedPatient());
+            if(profile.RoleId == 1 ) await Navigation.PushModalAsync(new TabbedPatient());
             else await Navigation.PushModalAsync(new TabbedSpecialist());
         }
     }
