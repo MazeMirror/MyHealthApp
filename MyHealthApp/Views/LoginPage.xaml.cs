@@ -40,6 +40,8 @@ namespace MyHealthApp.Views
                     "Hay presencia de campos vacíos, por favor complételos antes de continuar", "Ok");
                 return;
             }
+            
+            
 
             //Hacemos la peticion al backend para autenticar
             //Y recibimos el perfil asociado al user
@@ -72,7 +74,6 @@ namespace MyHealthApp.Views
                 Id = user.Id,
                 Email = user.Email
             });
-            
             
             
             //Dependiendo del rolID de perfil mandamos el Tabbed de patient O Specialist

@@ -3,6 +3,8 @@ using System.IO;
 using MyHealthApp.Helpers;
 using MyHealthApp.Views;
 using Xamarin.Forms;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using Xamarin.Forms.Xaml;
 
 [assembly: ExportFont("Archivo-Bold.ttf", Alias = "ArchivoBold")]
@@ -18,16 +20,17 @@ namespace MyHealthApp
         public App()
         {
             InitializeComponent();
+            Globals.BuildGlobals();
 
             //MainPage = new NavigationPage( new WelcomePage());
         }
 
         public static SqLiteHelper SqLiteDb =>
-            _db ?? (_db = new SqLiteHelper(
+            _db ??= new SqLiteHelper(
                 Path.Combine(
                     Environment.GetFolderPath(
                         Environment.SpecialFolder.LocalApplicationData),
-                    "Myhealth.db3")));
+                    "Myhealth.db3"));
 
         protected override void OnStart()
         {
@@ -65,6 +68,16 @@ namespace MyHealthApp
                 MainPage = new NavigationPage(new WelcomePage());
             }
         }
+        
+        public static async void RequestLocationPermission()
+        {
+            var permissionStatus = await CrossPermissions.Current.CheckPermissionStatusAsync<LocationPermission>();
+            if (permissionStatus != PermissionStatus.Granted)
+            {
+                await CrossPermissions.Current.RequestPermissionAsync<LocationPermission>();
+            }
+        }
+        
     }
     
     
