@@ -13,9 +13,9 @@
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp">
              
-    <local:DevicePage Title="Inicio" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.home.png}"/>
+    <local:PatientHomePage Title="Inicio" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.home.png}"/>
     <ContentPage Title="Plan Alimenticio"  IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.diet.png}" BackgroundColor="#F0F3F4"/>
     <ContentPage Title="Reporte" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.focus.png}" BackgroundColor="#F0F3F4"/>
-    <!--<profileFlow:ProfilePage Title="Perfil" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.user.png}"/>-->
+    <profileFlow:ProfilePage Title="Perfil" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.user.png}"/>
     
 </TabbedPage>

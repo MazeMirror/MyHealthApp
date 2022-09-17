@@ -45,6 +45,11 @@ namespace MyHealthApp.Views
                 knownDevice.Connect(CallbackHandler.OnConnect);
             }
         }
-        
+
+        private async void RegisterSmartwatch_OnClicked(object sender, EventArgs e)
+        {
+            //await Application.Current.MainPage.Navigation.PushAsync(new DevicePage());
+            await Navigation.PushAsync(new DevicePage());
+        }
     }
 }

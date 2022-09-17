@@ -14,7 +14,7 @@
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp">
     
     <local:SpecialistHomePage Title="Inicio" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.home.png}"/>
-    <ContentPage Title="Lista de pacientes"  IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.list.png}" BackgroundColor="#F0F3F4"/>
+    <local:PatientsListPage Title="Lista de pacientes"  IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.list.png}" BackgroundColor="#F0F3F4"/>
     <profileFlow:ProfilePage Title="Perfil" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.user.png}"/>
 
 </TabbedPage>

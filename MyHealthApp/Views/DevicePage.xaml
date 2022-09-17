@@ -4,12 +4,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
              NavigationPage.HasNavigationBar="False"
              mc:Ignorable="d"
              x:Class="MyHealthApp.Views.DevicePage">
     
-    <AbsoluteLayout x:Name="absoluteLayout">
-    </AbsoluteLayout>
+    <ContentPage.Content>
+        <StackLayout
+            BackgroundColor="#F0F3F4">
+            <FlexLayout
+                HeightRequest="90"
+                Direction="Row"
+                HorizontalOptions="FillAndExpand"
+                AlignItems="Center"
+                JustifyContent="Center"
+                BackgroundColor="White"
+            >
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                       Scale="0.90"
+                />
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                       Margin="10,0,0,0"
+                       effects:IconTintColorEffect.TintColor="Black"
+                       Scale="0.90"
+                />
+                
+            </FlexLayout>
+        
+            <AbsoluteLayout x:Name="absoluteLayout"/>
+        </StackLayout>
+    </ContentPage.Content>
+    
+   
     
     
 </ContentPage>

@@ -27,15 +27,15 @@ namespace MyHealthApp.ViewModels
             if (DeviceList == null)
                 DeviceList = new ObservableCollection<BLEScanResult>();
             if (Windesheart.PairedDevice == null)
-                StatusText = "Disconnected";
-            ScanButtonText = "Scan for devices";
+                StatusText = "Desconectado";
+            ScanButtonText = "Escanear \ndispostvos";
         }
         public void DisconnectButtonClicked(object sender, EventArgs args)
         {
             IsLoading = true;
             Windesheart.PairedDevice?.Disconnect();
             IsLoading = false;
-            StatusText = "Disconnected";
+            StatusText = "Desconectado";
             DeviceList = new ObservableCollection<BLEScanResult>();
             //Globals.HomePageViewModel.Heartrate = 0;
             //Globals.HomePageViewModel.Battery = 0;
@@ -116,7 +116,7 @@ namespace MyHealthApp.ViewModels
                 if (CrossBleAdapter.Current.IsScanning)
                 {
                     Windesheart.StopScanning();
-                    ScanButtonText = "Scan for devices";
+                    ScanButtonText = "Escanear \ndispostvos";
                     IsLoading = false;
                 }
                 else
@@ -133,14 +133,14 @@ namespace MyHealthApp.ViewModels
                     //If started scanning
                     if (Windesheart.StartScanning(OnDeviceFound))
                     {
-                        ScanButtonText = "Stop scanning";
-                        StatusText = "Scanning...";
+                        ScanButtonText = "Detener \nescaneo";
+                        StatusText = "Escaneando...";
                         IsLoading = true;
                     }
                     else
                     {
                         StatusText = "Could not start scanning.";
-                        ScanButtonText = "Scan for devices";
+                        ScanButtonText = "Escanear \ndispostvos";
                     }
                 }
             }
@@ -155,11 +155,11 @@ namespace MyHealthApp.ViewModels
         /// </summary>
         public void OnDisappearing()
         {
-            Console.WriteLine("Stopping scanning...");
+            Console.WriteLine("Deteniendo escaneo...");
             Windesheart.StopScanning();
             IsLoading = false;
             StatusText = "";
-            ScanButtonText = "Scan for devices";
+            ScanButtonText = "Escanear \ndispostvos";
             DeviceList = new ObservableCollection<BLEScanResult>();
         }
 
@@ -179,7 +179,7 @@ namespace MyHealthApp.ViewModels
             {
                 Windesheart.StopScanning();
 
-                StatusText = "Connecting...";
+                StatusText = "Conectando...";
                 IsLoading = true;
 
                 if (App.Current.Properties.ContainsKey(_propertyKey))

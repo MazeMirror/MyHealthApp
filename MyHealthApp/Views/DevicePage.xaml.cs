@@ -21,7 +21,7 @@ namespace MyHealthApp.Views
         public DevicePage()
         {
             InitializeComponent();
-           BindingContext = Globals.DevicePageViewModel;
+            BindingContext = Globals.DevicePageViewModel;
 
             BuildPage();
         }
@@ -37,10 +37,10 @@ namespace MyHealthApp.Views
             absoluteLayout = new AbsoluteLayout();
             PageBuilder.BuildPageBasics(absoluteLayout, this);
             //PageBuilder.AddHeaderImages(absoluteLayout);
-            PageBuilder.AddLabel(absoluteLayout, "Device", 0.05, 0.10, Globals.LightTextColor, "", 0);
+            PageBuilder.AddLabel(absoluteLayout, "Dispositivos", 0.05, 0.10, Globals.LightTextColor, "", 0);
             PageBuilder.AddReturnButton(absoluteLayout, this);
 
-            ScanButton = PageBuilder.AddButton(absoluteLayout, "", Globals.DevicePageViewModel.ScanButtonClicked, 0.15, 0.25, 120, 50, 14, 12, AbsoluteLayoutFlags.PositionProportional, Globals.SecondaryColor);
+            ScanButton = PageBuilder.AddButton(absoluteLayout, "", Globals.DevicePageViewModel.ScanButtonClicked, 0.05, 0.25, 120, 50, 14, 12, AbsoluteLayoutFlags.PositionProportional, Color.FromHex("#FF7E10"));
             ScanButton.SetBinding(Button.TextProperty, "ScanButtonText");
             PageBuilder.AddActivityIndicator(absoluteLayout, "IsLoading", 0.50, 0.25, 50, 50, AbsoluteLayoutFlags.PositionProportional, Globals.LightTextColor);
             PageBuilder.AddActivityIndicator(absoluteLayout, "IsLoading", 0.50, 0.25, 50, 50, AbsoluteLayoutFlags.PositionProportional, Globals.LightTextColor);
@@ -75,7 +75,7 @@ namespace MyHealthApp.Views
 
                 return new ViewCell { View = grid };
             });
-            DeviceList = new ListView { BackgroundColor = Globals.SecondaryColor, ItemTemplate = deviceTemplate };
+            DeviceList = new ListView { BackgroundColor = Color.White, ItemTemplate = deviceTemplate };
             DeviceList.SetBinding(ListView.SelectedItemProperty, new Binding("SelectedDevice", BindingMode.TwoWay));
             DeviceList.SetBinding(ListView.ItemsSourceProperty, new Binding("DeviceList"));
             AbsoluteLayout.SetLayoutBounds(DeviceList, new Rectangle(0.5, 0.55, 0.90, 0.4));
@@ -84,7 +84,7 @@ namespace MyHealthApp.Views
             #endregion
 
             #region disconnectButton
-            Button disconnectButton = PageBuilder.AddButton(absoluteLayout, "Disconnect", Globals.DevicePageViewModel.DisconnectButtonClicked, 0.15, 0.85, 120, 50, 14, 12, AbsoluteLayoutFlags.PositionProportional, Globals.SecondaryColor);
+            Button disconnectButton = PageBuilder.AddButton(absoluteLayout, "Desconectar", Globals.DevicePageViewModel.DisconnectButtonClicked, 0.05, 0.82, 120, 50, 14, 12, AbsoluteLayoutFlags.PositionProportional, Color.Red);
             #endregion
         }
         
