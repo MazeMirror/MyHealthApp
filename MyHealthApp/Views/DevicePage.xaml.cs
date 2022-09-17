@@ -21,7 +21,7 @@ namespace MyHealthApp.Views
         public DevicePage()
         {
             InitializeComponent();
-           //BindingContext = devicePageViewModel;
+           BindingContext = Globals.DevicePageViewModel;
 
             BuildPage();
         }
@@ -60,25 +60,17 @@ namespace MyHealthApp.Views
                     }
                 };
 
-                Label label = new Label
-                {
-                    FontAttributes = FontAttributes.Bold, 
-                    VerticalTextAlignment = TextAlignment.Center, 
-                    HorizontalTextAlignment = TextAlignment.Center, 
-                    FontSize = 12,
-                    BackgroundColor = Color.Red,
-                    TextColor = Color.Black
-                };
+                Label label = new Label { TextColor = Color.Black, FontAttributes = FontAttributes.Bold, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center,FontSize = 12,};
                 label.SetBinding(Label.TextProperty, "Device.Name");
                 grid.Children.Add(label, 0, 0);
 
 
-                Label label2 = new Label { VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontAttributes = FontAttributes.Italic, FontSize = 12 };
+                Label label2 = new Label { TextColor = Color.Black, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontAttributes = FontAttributes.Italic, FontSize = 12 };
                 label2.SetBinding(Label.TextProperty, "Rssi");
 
                 grid.Children.Add(label2, 2, 0);
 
-                Label label3 = new Label { Text = "Signal strength:", VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 12 };
+                Label label3 = new Label { TextColor = Color.Black, Text = "Signal strength:", VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = 12 };
                 grid.Children.Add(label3, 1, 0);
 
                 return new ViewCell { View = grid };
