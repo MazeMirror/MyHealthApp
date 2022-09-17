@@ -8,7 +8,7 @@ using MyHealthApp.Models;
 
 namespace MyHealthApp.ViewModels
 {
-    public class PatientsProfilesViewModel 
+    public class PatientsProfilesViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Profile> _profiles;
 
@@ -19,13 +19,22 @@ namespace MyHealthApp.ViewModels
             { 
                 if(_profiles == value) return;
                 _profiles = value;
-                
+                OnPropertyChanged();
             }
         }
         
         public PatientsProfilesViewModel()
         {
-            _profiles = new ObservableCollection<Profile>(){new Profile(){Name = "", LastName = ""}};
+            _profiles = new ObservableCollection<Profile>();
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+       
     }
 }

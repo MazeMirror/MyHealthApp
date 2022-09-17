@@ -61,7 +61,7 @@ namespace MyHealthApp.Services
             
             var myPatients = response.StatusCode == HttpStatusCode.OK
                 ? JsonConvert.DeserializeObject<List<Patient>>(response.Content.ReadAsStringAsync().Result)
-                : null;
+                : new List<Patient>();
             
             return myPatients;
         }
