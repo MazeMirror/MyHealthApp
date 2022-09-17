@@ -53,14 +53,14 @@
                         >
                         <!--Nombres-->
                         <Label x:Name="LabelName"
-                            Text="Alejandro Augusto"
+                            
                             FontFamily="ArchivoSemiBold"
                             TextColor="Black"
                             FontSize="18"
                             />
                         <!--Apellidos-->
                         <Label x:Name="LabelLastname"
-                            Text="Espejo Gonzalez"
+                           
                             FontFamily="ArchivoSemiBold"
                             TextColor="Black"
                             FontSize="18"
