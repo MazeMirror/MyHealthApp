@@ -95,20 +95,27 @@ namespace MyHealthApp.Views.ProfileFlow
             /*var a = new EditProfileNamesPage();
             var tabbeChildren = a as TabbedPage;
             await Navigation.PushAsync(new EditProfileNamesPage());*/
-            //NOTA PERSONAL: Los tabbed page no soportan lanzar hijos con NavigationPage PushAsync 
+            //NOTA PERSONAL: Los tabbed page no soportan lanzar hijos con NavigationPage PushAsync
+            //Si fueron los tabbed page envueltos en ModalPage
+            //Recordar poner <Navigation></> para las pages internas de 
+            //las tabbed en XAML que requieran navegarse
             //await Application.Current.MainPage.Navigation.PushAsync(new EditProfileNamesPage());
-            await Navigation.PushModalAsync(new EditProfileNamesPage() );
+            await Navigation.PushAsync(new EditProfileNamesPage() );
             //Este es el truco
         }
 
-        private void LabelEditDetails_OnTapped(object sender, EventArgs e)
+        private async void LabelEditDetails_OnTapped(object sender, EventArgs e)
         {
-            
+            //await Navigation.PushAsync(new EditProfileDetailsPage() );
         }
 
-        private void LabelDeleteAccount_OnTapped(object sender, EventArgs e)
+        private async void LabelLogout_OnTapped(object sender, EventArgs e)
         {
-            
+            await App.SqLiteDb.DeleteAllProfileAsync();
+            await App.SqLiteDb.DeleteAllUsersAsync();
+            Application.Current.Properties["RoleLogged"] = 3;
+            Application.Current.MainPage = new NavigationPage(new WelcomePage());
+            //await Navigation.PopToRootAsync();
         }
     }
 }

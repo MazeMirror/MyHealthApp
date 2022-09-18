@@ -5,7 +5,12 @@ using System.Runtime.CompilerServices;
 
 namespace MyHealthApp.Models
 {
-    public class Profile :INotifyPropertyChanged
+    public interface IPrototype<T>
+    {
+        T CreateDeepCopy();
+    }
+    
+    public class Profile :INotifyPropertyChanged, IPrototype<Profile>
     {
         private long _id;
         private long _userId;
@@ -100,6 +105,11 @@ namespace MyHealthApp.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        
+
+        public Profile CreateDeepCopy()
+        {
+            var profile = (Profile)MemberwiseClone();
+            return profile;
+        }
     }
 }

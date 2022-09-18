@@ -41,13 +41,30 @@ namespace MyHealthApp.ViewModels
             OnPropertyChanged();
         }
 
+        public void AddCollectionOfSpecialistElements(Profile profile, Specialist specialist, UserEntity user)
+        {
+            IList<ItemProfileModel> source = new List<ItemProfileModel>()
+            {
+                new ItemProfileModel() { TitleText = $"Género: {profile.Gender}"},
+                new ItemProfileModel() { TitleText = $"Edad: {(DateTime.Today.Year - profile.BirthDate.Year).ToString()} Años"},
+                new ItemProfileModel() { TitleText = $"Fecha de nacimiento: {profile.BirthDate.ToString(CultureInfo.CurrentCulture)}"},
+                new ItemProfileModel() { TitleText = $"Especialidad: {specialist.Specialty}"},
+                new ItemProfileModel() { TitleText = $"Correo: {user.Email}"},
+            };
+            
+            _items = new ObservableCollection<ItemProfileModel>(source);
+            
+            OnPropertyChanged();
+        }
+
+
 
         public SlProfileDetailsViewModel(Profile profile, Specialist specialist, UserEntity user)
         {
             IList<ItemProfileModel> source = new List<ItemProfileModel>()
             {
                 new ItemProfileModel() { TitleText = $"Género: {profile.Gender}"},
-                new ItemProfileModel() { TitleText = $"Edad: 50 años"},
+                new ItemProfileModel() { TitleText = $"Edad: {(DateTime.Today.Year - profile.BirthDate.Year).ToString()} Años"},
                 new ItemProfileModel() { TitleText = $"Fecha de nacimiento: {profile.BirthDate.ToString(CultureInfo.CurrentCulture)}"},
                 new ItemProfileModel() { TitleText = $"Especialidad: {specialist.Specialty}"},
                 new ItemProfileModel() { TitleText = $"Correo: {user.Email}"},
@@ -68,7 +85,7 @@ namespace MyHealthApp.ViewModels
             IList<ItemProfileModel> source = new List<ItemProfileModel>()
             {
                 new ItemProfileModel() { TitleText = $"Género: {profile.Gender}"},
-                new ItemProfileModel() { TitleText = $"Edad: 8 años"},
+                new ItemProfileModel() { TitleText = $"Edad: {(DateTime.Today.Year - profile.BirthDate.Year).ToString()} Años"},
                 new ItemProfileModel() { TitleText = $"Fecha de nacimiento: {profile.BirthDate.ToString(CultureInfo.CurrentCulture)}"},
                 new ItemProfileModel(){TitleText = $"Estatura: {patient.Height.ToString(CultureInfo.CurrentCulture)}"},
                 new ItemProfileModel() { TitleText = $"Peso: {patient.Weight.ToString(CultureInfo.CurrentCulture)}"},
