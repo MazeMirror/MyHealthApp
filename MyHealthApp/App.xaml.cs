@@ -54,17 +54,28 @@ namespace MyHealthApp
 
                 switch (roleLogged)
                 {
-                    case 1: MainPage = new NavigationPage(new TabbedPatient());
+                    case 1:
+                    {
+                        MainPage = new NavigationPage(new TabbedPatient());
+                    }
                         break;
                     case 2: MainPage = new NavigationPage(new TabbedSpecialist());
                         break;
-                    case 3: MainPage = new NavigationPage(new WelcomePage());
+                    case 3:
+                    {
+                        //await SqLiteDb.DeleteAllProfileAsync();
+                        //await SqLiteDb.DeleteAllUsersAsync();
+                        MainPage = new NavigationPage(new WelcomePage());
+                    }
                         break;
                 }
                 
             }
             else
             {
+                //Para asegurarme ante un salto abrupto a la pagina root
+                //await SqLiteDb.DeleteAllProfileAsync();
+                //await SqLiteDb.DeleteAllUsersAsync();
                 MainPage = new NavigationPage(new WelcomePage());
             }
         }
