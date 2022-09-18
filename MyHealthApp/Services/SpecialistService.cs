@@ -65,5 +65,14 @@ namespace MyHealthApp.Services
             
             return myPatients;
         }
+
+        public async Task<bool> AssignSpecialistWitPatient(long specialistId, long patientId)
+        {
+            _requestUri = new Uri($"http://192.168.1.15:8383/api/specialist/{specialistId.ToString()}/patients/{patientId.ToString()}");
+            var contentJson = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync(_requestUri,contentJson);
+
+            return response.StatusCode == HttpStatusCode.OK ? true : false;
+        }
     }
 }

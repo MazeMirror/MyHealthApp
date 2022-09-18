@@ -14,7 +14,14 @@
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp">
     
     <local:SpecialistHomePage Title="Inicio" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.home.png}"/>
-    <local:PatientsListPage Title="Lista de pacientes"  IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.list.png}" BackgroundColor="#F0F3F4"/>
+    
+    <NavigationPage HasNavigationBar="False" Title="Lista de pacientes"  IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.list.png}">
+        <x:Arguments>
+            <local:PatientsListPage />
+        </x:Arguments>
+    </NavigationPage>
+    
+    
     <NavigationPage  HasNavigationBar="False" Title="Perfil" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.user.png}">
         <x:Arguments>
             <profileFlow:ProfilePage />

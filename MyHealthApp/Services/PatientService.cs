@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -50,6 +52,18 @@ namespace MyHealthApp.Services
                 : null;
             
             return myPatient;
+        }
+
+        public async Task<IList<Patient>> GetAllPatients()
+        {
+            _requestUri = new Uri($"http://192.168.1.15:8383/api/patient");
+            var response = await _client.GetAsync(_requestUri);
+            
+            var myPatients = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<List<Patient>>(response.Content.ReadAsStringAsync().Result)
+                : new List<Patient>();
+            
+            return myPatients;
         }
     }
 }

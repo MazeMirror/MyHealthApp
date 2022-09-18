@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.SearchedPatientsListPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#F0F3F4">
+            <StackLayout
+                HeightRequest="90"
+                Orientation="Horizontal"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="White">
+                <Label Text="&#xf053;"
+                       FontSize="18"
+                       Margin="35,0,0,0"
+                       VerticalOptions="Center"
+                       FontFamily="{StaticResource FontAwesomeSolid}"
+                       TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="LabelBack_OnTapped"
+                            NumberOfTapsRequired="1" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                       Scale="0.90"
+                       Margin="68,0,0,0" />
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                       Margin="10,0,0,0"
+                       effects:IconTintColorEffect.TintColor="Black"
+                       Scale="0.90" />
+            </StackLayout>
+
+            <Label Text="BUSCA UN PACIENTE Y AGRÉGALO &#10;A TU LISTA"
+                   Padding="0,20,0,0"
+                   FontFamily="ArchivoSemiBold"
+                   TextColor="Black"
+                   FontSize="18"
+                   HorizontalTextAlignment="Center" />
+
+            <Frame
+                HasShadow="False"
+                BorderColor="Black"
+                CornerRadius="5"
+                Margin="30,20,30,0"
+                Padding="20,5">
+                <StackLayout
+
+                    Orientation="Horizontal">
+                    <Label Text="&#xf002;"
+                           FontSize="24"
+                           TextColor="Black"
+                           FontFamily="{StaticResource FontAwesomeSolid}"
+                           VerticalOptions="Center" />
+                    <Entry Placeholder="Busca por nombre"
+                           IsSpellCheckEnabled="False"
+                           HorizontalOptions="FillAndExpand"
+                           FontSize="16"
+                           Margin="10,0,0,0" />
+                </StackLayout>
+
+            </Frame>
+
+
+            <ScrollView
+
+                Margin="30,10,30,0">
+                <StackLayout
+                    x:Name="StackLayoutPatients"
+                    BindableLayout.ItemsSource="{Binding Profiles}">
+                    <!--NUNCA PONER DOS CHILDS DENTRO DEL DATA TEMPLATE, ERROR XAMCL TASK MUERTE SUBITA HORROROSO
+                                   EN NINGUN LADO TE LO DICEN, TE ODIO XAMARIN FORMS, OJALA MUERAS COMO EL WINDOWS PHONE PRONTO-->
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Frame
+                                HasShadow="False"
+                                BorderColor="Black"
+                                CornerRadius="10"
+                                Margin="0,0,0,10">
+                                <FlexLayout
+                                    Direction="Row"
+                                    AlignItems="Start"
+                                    JustifyContent="SpaceAround">
+                                    <Label Text="&#xf2bd;"
+                                           FontSize="70"
+                                           TextColor="Black"
+                                           FontFamily="{StaticResource FontAwesomeSolid}"
+                                           VerticalOptions="Center" />
+                                    <StackLayout
+                                        Spacing="0">
+                                        <Label Text="{Binding Name}"
+                                               FontSize="16"
+                                               FontFamily="ArchivoRegular"
+                                               TextColor="Black" />
+                                        <Label Text="{Binding LastName}"
+                                               FontSize="16"
+                                               FontFamily="ArchivoRegular"
+                                               TextColor="Black" />
+                                        <Label Text="{Binding BirthDate.Year}"
+                                               FontSize="14"
+                                               FontFamily="ArchivoRegular"
+                                               TextColor="#707070" />
+                                        <Button x:Name="ButtonAddPattient"
+                                                Text="Agregar"
+                                                Margin="0,15,0,0"
+                                                BackgroundColor="#FF9162"
+                                                TextTransform="None"
+                                                TextColor="White"
+                                                HeightRequest="40"
+                                                WidthRequest="170"
+                                                CornerRadius="5"
+                                                Clicked="ButtonAddPatient_OnClick"
+                                                CommandParameter="{Binding Id}" />
+                                    </StackLayout>
+
+
+                                </FlexLayout>
+
+                            </Frame>
+
+                        </DataTemplate>
+
+                    </BindableLayout.ItemTemplate>
+
+                </StackLayout>
+
+
+            </ScrollView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

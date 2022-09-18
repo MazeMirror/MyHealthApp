@@ -15,35 +15,37 @@ namespace MyHealthApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PatientsListPage : ContentPage
     {
-        private PatientsProfilesViewModel _viewModel;
+        public static PatientsProfilesViewModel _viewModel;
+        public Specialist Specialist;
+        
 
         public PatientsListPage()
         {
             
             InitializeComponent();
             _viewModel = new PatientsProfilesViewModel();
-            GetListOfPatientsProfiles();
+            GetListOfMyPatientsProfiles();
             
             BindingContext = _viewModel;
         }
 
-        private async void GetListOfPatientsProfiles()
+        private async void GetListOfMyPatientsProfiles()
         {
-            var specialistProfile = await App.SqLiteDb.GetProfileAsync();
-            var specialist = await SpecialistService.Instance.GetSpecialistByProfileId(specialistProfile.Id);
+            var specialistProfile = await App.SqLiteDb.GetProfileAsync(); 
+            Specialist = await SpecialistService.Instance.GetSpecialistByProfileId(specialistProfile.Id);
             
-            var localPatients = await SpecialistService.Instance.GetPatientsBySpecialistId(specialist.Id);
+            var localPatients = await SpecialistService.Instance.GetPatientsBySpecialistId(Specialist.Id);
 
             foreach (var item in localPatients)
             {
                 var patientProfile = await ProfileService.Instance.GetProfileById(item.ProfileId);
-                this._viewModel.Profiles.Add(patientProfile);
+                _viewModel.Profiles.Add(patientProfile);
                 //Profiles.Add(patientProfile);
             }
 
-            if (_viewModel.Profiles.Count == 0)
+            /*if (_viewModel.Profiles.Count == 0)
             {
-                Label label = new Label
+                 Label = new Label
                 {
                     Text = "Usted todavía no cuenta con pacientes. \nAñada nuevos a la lista",
                     TextColor = Color.FromHex("#6EB3CD"),
@@ -53,8 +55,8 @@ namespace MyHealthApp.Views
                     Padding = new Thickness(0,20,0,0)
                 };
                 
-                StackLayoutPatients.Children.Add(label);
-            }
+                StackLayoutPatients.Children.Add(Label);
+            }*/
             
             /*_viewModel.Profiles.Add(new Profile(){Name = "Jose",LastName = "Uru"});
             _viewModel.Profiles.Add(new Profile(){Name = "Josias",LastName = "Mura"});
@@ -64,9 +66,9 @@ namespace MyHealthApp.Views
             
         }
 
-        private void LabelAddPatient_OnTapped(object sender, EventArgs e)
+        private async void LabelAddPatient_OnTapped(object sender, EventArgs e)
         {
-            
+            await Navigation.PushAsync(new SearchedPatientsListPage(Specialist));
         }
     }
 }

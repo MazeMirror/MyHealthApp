@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
              xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             NavigationPage.HasNavigationBar="False"
              xmlns:viewModels="clr-namespace:MyHealthApp.ViewModels;assembly=MyHealthApp"
              x:Class="MyHealthApp.Views.PatientsListPage">
     <ContentPage.Content>

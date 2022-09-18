@@ -22,7 +22,25 @@ namespace MyHealthApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
+        public bool ItemAlreadyExist(Profile pro)
+        {
+            bool exist = false;
+
+            foreach (var item in Profiles)
+            {
+                if (item.Id == pro.Id) exist = true;
+            }
+
+            return exist;
+        }
+
+        public void AddProfileToList(Profile pro)
+        {
+            _profiles.Add(pro);
+            OnPropertyChanged();
+        }
+
         public PatientsProfilesViewModel()
         {
             _profiles = new ObservableCollection<Profile>();
