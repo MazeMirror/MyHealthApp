@@ -32,13 +32,18 @@ namespace MyHealthApp.Views
             if (Windesheart.PairedDevice == null) return;
         }
         
+        private async void ReturnButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
+        
         private void BuildPage()
         {
             absoluteLayout = new AbsoluteLayout();
             PageBuilder.BuildPageBasics(absoluteLayout, this);
             //PageBuilder.AddHeaderImages(absoluteLayout);
             PageBuilder.AddLabel(absoluteLayout, "Dispositivos", 0.05, 0.10, Globals.LightTextColor, "", 0);
-            PageBuilder.AddReturnButton(absoluteLayout, this);
+            PageBuilder.AddReturnButton2(absoluteLayout, this,ReturnButton_Clicked);
 
             ScanButton = PageBuilder.AddButton(absoluteLayout, "", Globals.DevicePageViewModel.ScanButtonClicked, 0.05, 0.25, 120, 50, 14, 12, AbsoluteLayoutFlags.PositionProportional, Color.FromHex("#FF7E10"));
             ScanButton.SetBinding(Button.TextProperty, "ScanButtonText");

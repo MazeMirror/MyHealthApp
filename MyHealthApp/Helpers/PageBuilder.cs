@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace MyHealthApp.Helpers
 {
-    public static class PageBuilder
+    public static class PageBuilder 
     {
         public static void BuildPageBasics(AbsoluteLayout layout, object sender)
         {
@@ -25,19 +25,30 @@ namespace MyHealthApp.Helpers
             AbsoluteLayout.SetLayoutBounds(returnGrid, new Rectangle(0.95, 0.95, Globals.ScreenHeight / 100 * 8.5, Globals.ScreenHeight / 100 * 8.5));
             AbsoluteLayout.SetLayoutFlags(returnGrid, AbsoluteLayoutFlags.PositionProportional);
 
-            //ImageButton returnButton = new ImageButton { Source = "GoBack.png", BackgroundColor = Color.Transparent };
-            //returnButton.Clicked += ReturnButton_Clicked;
-            //AbsoluteLayout.SetLayoutBounds(returnButton, new Rectangle(0.95, 0.95, Globals.ScreenHeight / 100 * 6, Globals.ScreenHeight / 100 * 6));
-            //AbsoluteLayout.SetLayoutFlags(returnButton, AbsoluteLayoutFlags.PositionProportional);
+            Button returnButton = new Button() { Text = "Back",TextColor = Color.Black,FontSize = 16,WidthRequest = 150,HeightRequest = 50};
+            returnButton.Clicked += ReturnButton_Clicked;
+            AbsoluteLayout.SetLayoutBounds(returnButton, new Rectangle(0.95, 0.95, Globals.ScreenHeight / 100 * 6, Globals.ScreenHeight / 100 * 6));
+            AbsoluteLayout.SetLayoutFlags(returnButton, AbsoluteLayoutFlags.PositionProportional);
 
             layout.Children.Add(returnGrid);
-            //layout.Children.Add(returnButton);
+            layout.Children.Add(returnButton);
+        }
+        
+        public static void AddReturnButton2(AbsoluteLayout layout, object sender,EventHandler eventHandler)
+        {
+            
+            Button returnButton = new Button() { Text = "Back",TextColor = Color.Black,FontSize = 16,WidthRequest = 150,HeightRequest = 50};
+            returnButton.Clicked += eventHandler;
+            AbsoluteLayout.SetLayoutBounds(returnButton, new Rectangle(0.95, 0.95, 200, 70));
+            AbsoluteLayout.SetLayoutFlags(returnButton, AbsoluteLayoutFlags.PositionProportional);
+            
+            layout.Children.Add(returnButton);
         }
 
         private static void ReturnButton_Clicked(object sender, EventArgs e)
         {
             
-            //Application.Current.MainPage.Navigation.PopAsync();
+            Application.Current.MainPage.Navigation.PopAsync();
         }
 
         public static ActivityIndicator AddActivityIndicator(AbsoluteLayout layout, string bindingPath, double x, double y, double width, double height, AbsoluteLayoutFlags flags, Color color)
