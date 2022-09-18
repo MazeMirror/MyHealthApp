@@ -51,8 +51,8 @@ namespace MyHealthApp.Views.Register
                 Email = _user.Email
             });
             
-            if(_profile.RoleId == 0 ) await Navigation.PushModalAsync(new TabbedPatient());
-            else await Navigation.PushModalAsync(new TabbedSpecialist());
+            if(_profile.RoleId == 1 ) await Navigation.PushAsync(new TabbedPatient());
+            else await Navigation.PushAsync(new TabbedSpecialist());
             
         }
 

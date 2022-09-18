@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using MyHealthApp.Models;
+using MyHealthApp.Models.SqlLite;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -57,6 +58,21 @@ namespace MyHealthApp.Services
         {
             _requestUri = new Uri($"http://192.168.1.15:8383/api/profile/{id.ToString()}");
             var response = await _client.GetAsync(_requestUri);
+            
+            var myProfile = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<Profile>(response.Content.ReadAsStringAsync().Result)
+                : null;
+            
+            return myProfile;
+        }
+
+        public async Task<Profile> PutProfileByProfileAndId(Profile profile, long id)
+        {
+            _requestUri = new Uri($"http://192.168.1.15:8383/api/profile/{id.ToString()}");
+            var json = JsonConvert.SerializeObject(profile, _settingsJson);
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+            
+            var response = await _client.PutAsync(_requestUri,contentJson);
             
             var myProfile = response.StatusCode == HttpStatusCode.OK
                 ? JsonConvert.DeserializeObject<Profile>(response.Content.ReadAsStringAsync().Result)

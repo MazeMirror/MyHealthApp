@@ -7,20 +7,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyHealthApp.Views
+namespace MyHealthApp.Views.ProfileFlow
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TabbedSpecialist : TabbedPage
+    public partial class EditProfileDetailsPage : ContentPage
     {
-        public TabbedSpecialist()
+        public EditProfileDetailsPage()
         {
             InitializeComponent();
-            Application.Current.Properties["RoleLogged"] = 2;
-        }
-        
-        protected override bool OnBackButtonPressed()
-        {
-            return true;
         }
     }
 }

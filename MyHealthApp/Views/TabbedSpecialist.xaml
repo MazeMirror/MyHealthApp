@@ -15,6 +15,10 @@
     
     <local:SpecialistHomePage Title="Inicio" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.home.png}"/>
     <local:PatientsListPage Title="Lista de pacientes"  IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.list.png}" BackgroundColor="#F0F3F4"/>
-    <profileFlow:ProfilePage Title="Perfil" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.user.png}"/>
-
+    <NavigationPage  HasNavigationBar="False" Title="Perfil" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.user.png}">
+        <x:Arguments>
+            <profileFlow:ProfilePage />
+        </x:Arguments>
+    </NavigationPage>
+    
 </TabbedPage>

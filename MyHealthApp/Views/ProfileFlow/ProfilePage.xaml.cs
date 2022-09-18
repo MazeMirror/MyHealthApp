@@ -11,7 +11,8 @@ namespace MyHealthApp.Views.ProfileFlow
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
-        private SlProfileDetailsViewModel _model;
+        public static SlProfileDetailsViewModel Model;
+        public static Profile LocalProfile;
         public ProfilePage()
         {
             InitializeComponent();
@@ -45,25 +46,33 @@ namespace MyHealthApp.Views.ProfileFlow
             };*/
             ////////////////////////////////////////////////////////
             var user = await App.SqLiteDb.GetUserAsync();
-            var profile = await App.SqLiteDb.GetProfileAsync();
+            var profileEntity = await App.SqLiteDb.GetProfileAsync();
 
-            LabelName.Text = profile.Name;
-            LabelLastname.Text = profile.LastName;
-
-            if (profile.RoleId == 0)
+            LocalProfile = new Profile()
             {
-                //Hacemos peticion al backend para obtener el paciente por RoleId
-                /*var patient = new Patient()
-                {
-                    Height = 35.2,
-                    Weight = 45.5,
-                    EmergencyPhone = 912457857,
-                };*/
+                Id = profileEntity.Id,
+                Name = profileEntity.Name,
+                LastName = profileEntity.LastName,
+                Gender = profileEntity.Gender,
+                BirthDate = profileEntity.BirthDate,
+                ImageUrl = profileEntity.ImageUrl,
+                RoleId = profileEntity.RoleId,
+                UserId = profileEntity.UserId
+            };
 
-                var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
+            LabelName.BindingContext = LocalProfile;
+            LabelName.SetBinding(Label.TextProperty, new Binding() { Path = "Name" });
+
+            LabelLastname.BindingContext = LocalProfile;
+            LabelLastname.SetBinding(Label.TextProperty, new Binding(){ Path = "LastName"});
+            
+
+            if (LocalProfile.RoleId == 1)
+            {
+                var patient = await PatientService.Instance.GetPatientByProfileId(LocalProfile.Id);
                 
-                _model = new SlProfileDetailsViewModel(profile, patient, user);
-                BindingContext = _model;
+                Model = new SlProfileDetailsViewModel(LocalProfile, patient, user);
+                BindingContext = Model;
             }
             else
             {
@@ -73,27 +82,40 @@ namespace MyHealthApp.Views.ProfileFlow
                 {
                     Specialty = "Pediatria",
                 };*/
-                var specialist = await SpecialistService.Instance.GetSpecialistByProfileId(profile.Id);
+                var specialist = await SpecialistService.Instance.GetSpecialistByProfileId(LocalProfile.Id);
                 
-                _model = new SlProfileDetailsViewModel(profile, specialist, user);
-                BindingContext = _model;
+                Model = new SlProfileDetailsViewModel(LocalProfile, specialist, user);
+                BindingContext = Model;
             }
         }
         
 
-        private void LabelEditName_OnTapped(object sender, EventArgs e)
+        private async void LabelEditName_OnTapped(object sender, EventArgs e)
         {
-            
+            /*var a = new EditProfileNamesPage();
+            var tabbeChildren = a as TabbedPage;
+            await Navigation.PushAsync(new EditProfileNamesPage());*/
+            //NOTA PERSONAL: Los tabbed page no soportan lanzar hijos con NavigationPage PushAsync
+            //Si fueron los tabbed page envueltos en ModalPage
+            //Recordar poner <Navigation></> para las pages internas de 
+            //las tabbed en XAML que requieran navegarse
+            //await Application.Current.MainPage.Navigation.PushAsync(new EditProfileNamesPage());
+            await Navigation.PushAsync(new EditProfileNamesPage() );
+            //Este es el truco
         }
 
-        private void LabelEditDetails_OnTapped(object sender, EventArgs e)
+        private async void LabelEditDetails_OnTapped(object sender, EventArgs e)
         {
-            
+            //await Navigation.PushAsync(new EditProfileDetailsPage() );
         }
 
-        private void LabelDeleteAccount_OnTapped(object sender, EventArgs e)
+        private async void LabelLogout_OnTapped(object sender, EventArgs e)
         {
-            
+            await App.SqLiteDb.DeleteAllProfileAsync();
+            await App.SqLiteDb.DeleteAllUsersAsync();
+            Application.Current.Properties["RoleLogged"] = 3;
+            Application.Current.MainPage = new NavigationPage(new WelcomePage());
+            //await Navigation.PopToRootAsync();
         }
     }
 }

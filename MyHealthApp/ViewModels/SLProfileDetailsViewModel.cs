@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using MyHealthApp.Models;
 using MyHealthApp.Models.SqlLite;
@@ -9,9 +11,19 @@ using Xamarin.Forms;
 
 namespace MyHealthApp.ViewModels
 {
-    public class SlProfileDetailsViewModel
+    public class SlProfileDetailsViewModel :INotifyPropertyChanged
     {
-        public ObservableCollection<ItemProfileModel> Items { get; set; }// this is for the BindableLayout.ItemsSource
+        private ObservableCollection<ItemProfileModel> _items;
+        
+        public ObservableCollection<ItemProfileModel> Items
+        {
+            get { return _items;}
+            set
+            {
+                Items = value;
+                OnPropertyChanged();
+            } 
+        }// this is for the BindableLayout.ItemsSource
         /*IList<ItemProfileModel> source = new List<ItemProfileModel>()
         {
             new ItemProfileModel() { TitleText = "1"},
@@ -23,18 +35,42 @@ namespace MyHealthApp.ViewModels
         
         public ICommand ChangeTextCommand { get; set; }
 
-        public SlProfileDetailsViewModel(ProfileEntity profile, Specialist specialist, UserEntity user)
+        public void AddElementToCollection(ItemProfileModel item)
+        {
+            _items.Add(item);
+            OnPropertyChanged();
+        }
+
+        public void AddCollectionOfSpecialistElements(Profile profile, Specialist specialist, UserEntity user)
         {
             IList<ItemProfileModel> source = new List<ItemProfileModel>()
             {
                 new ItemProfileModel() { TitleText = $"Género: {profile.Gender}"},
-                new ItemProfileModel() { TitleText = $"Edad: 50 años"},
+                new ItemProfileModel() { TitleText = $"Edad: {(DateTime.Today.Year - profile.BirthDate.Year).ToString()} Años"},
                 new ItemProfileModel() { TitleText = $"Fecha de nacimiento: {profile.BirthDate.ToString(CultureInfo.CurrentCulture)}"},
                 new ItemProfileModel() { TitleText = $"Especialidad: {specialist.Specialty}"},
                 new ItemProfileModel() { TitleText = $"Correo: {user.Email}"},
             };
             
-            Items = new ObservableCollection<ItemProfileModel>(source);
+            _items = new ObservableCollection<ItemProfileModel>(source);
+            
+            OnPropertyChanged();
+        }
+
+
+
+        public SlProfileDetailsViewModel(Profile profile, Specialist specialist, UserEntity user)
+        {
+            IList<ItemProfileModel> source = new List<ItemProfileModel>()
+            {
+                new ItemProfileModel() { TitleText = $"Género: {profile.Gender}"},
+                new ItemProfileModel() { TitleText = $"Edad: {(DateTime.Today.Year - profile.BirthDate.Year).ToString()} Años"},
+                new ItemProfileModel() { TitleText = $"Fecha de nacimiento: {profile.BirthDate.ToString(CultureInfo.CurrentCulture)}"},
+                new ItemProfileModel() { TitleText = $"Especialidad: {specialist.Specialty}"},
+                new ItemProfileModel() { TitleText = $"Correo: {user.Email}"},
+            };
+            
+            _items = new ObservableCollection<ItemProfileModel>(source);
             
             /*ChangeTextCommand = new Command(() => { 
                 foreach (var itemModel in Items)
@@ -44,12 +80,12 @@ namespace MyHealthApp.ViewModels
             });*/
         }
         
-        public SlProfileDetailsViewModel(ProfileEntity profile, Patient patient , UserEntity user)
+        public SlProfileDetailsViewModel(Profile profile, Patient patient , UserEntity user)
         {
             IList<ItemProfileModel> source = new List<ItemProfileModel>()
             {
                 new ItemProfileModel() { TitleText = $"Género: {profile.Gender}"},
-                new ItemProfileModel() { TitleText = $"Edad: 8 años"},
+                new ItemProfileModel() { TitleText = $"Edad: {(DateTime.Today.Year - profile.BirthDate.Year).ToString()} Años"},
                 new ItemProfileModel() { TitleText = $"Fecha de nacimiento: {profile.BirthDate.ToString(CultureInfo.CurrentCulture)}"},
                 new ItemProfileModel(){TitleText = $"Estatura: {patient.Height.ToString(CultureInfo.CurrentCulture)}"},
                 new ItemProfileModel() { TitleText = $"Peso: {patient.Weight.ToString(CultureInfo.CurrentCulture)}"},
@@ -57,8 +93,9 @@ namespace MyHealthApp.ViewModels
                 new ItemProfileModel() { TitleText = $"Contacto de emergencias: {patient.EmergencyPhone.ToString()}"},
             };
             
-            Items = new ObservableCollection<ItemProfileModel>(source);
+            _items = new ObservableCollection<ItemProfileModel>(source);
             
+
             /*ChangeTextCommand = new Command(() => { 
                 foreach (var itemModel in Items)
                 {
@@ -66,7 +103,15 @@ namespace MyHealthApp.ViewModels
                 }
             });*/
         }
-        
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         
     }
 }

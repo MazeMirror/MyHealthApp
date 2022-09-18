@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
              xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             NavigationPage.HasNavigationBar="False"
              xmlns:viewModels="clr-namespace:MyHealthApp.ViewModels;assembly=MyHealthApp"
              x:Class="MyHealthApp.Views.ProfileFlow.ProfilePage">
     
@@ -53,14 +54,14 @@
                         >
                         <!--Nombres-->
                         <Label x:Name="LabelName"
-                            Text="Alejandro Augusto"
+                            
                             FontFamily="ArchivoSemiBold"
                             TextColor="Black"
                             FontSize="18"
                             />
                         <!--Apellidos-->
                         <Label x:Name="LabelLastname"
-                            Text="Espejo Gonzalez"
+                           
                             FontFamily="ArchivoSemiBold"
                             TextColor="Black"
                             FontSize="18"
@@ -203,8 +204,8 @@
             
             <Label
                 x:Name="LabelDeleteAccount"
-                Text="Eliminar cuenta"
-                Padding="0,20,0,0"
+                Text="Cerrar sesión"
+                Margin="0,20,0,0"
                 HorizontalOptions="Center"
                 TextDecorations="Underline"
                 TextColor="#FF4848"
@@ -212,7 +213,7 @@
                 >
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer
-                        Tapped="LabelDeleteAccount_OnTapped"
+                        Tapped="LabelLogout_OnTapped"
                         NumberOfTapsRequired="1"
                     />
                 </Label.GestureRecognizers>

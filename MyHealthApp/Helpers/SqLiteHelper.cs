@@ -25,6 +25,16 @@ namespace MyHealthApp.Helpers
             return db.InsertAsync(profile);
         }
 
+        public Task<int> DeleteAllUsersAsync()
+        {
+            return db.DeleteAllAsync<UserEntity>();
+        }
+        
+        public Task<int> DeleteAllProfileAsync()
+        {
+            return db.DeleteAllAsync<ProfileEntity>();
+        }
+
         public Task<UserEntity> GetUserAsync()
         {
             return db.Table<UserEntity>().FirstAsync();

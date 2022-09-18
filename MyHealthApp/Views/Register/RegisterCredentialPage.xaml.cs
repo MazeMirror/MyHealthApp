@@ -68,7 +68,7 @@ namespace MyHealthApp.Views.Register
                 {
                     //Creamos un especialista o un paciente
 
-                    if (profile.RoleId == 0)
+                    if (profile.RoleId == 1)
                     {
                         var patient = new Patient() { ProfileId = profile.Id };
                         await PatientService.Instance.PostPatient(patient);
@@ -79,7 +79,7 @@ namespace MyHealthApp.Views.Register
                         await SpecialistService.Instance.PostSpecialist(specialist);
                     }
                     
-                    await Navigation.PushModalAsync(new SuccessfulRegisterPage(user, profile));
+                    await Navigation.PushAsync(new SuccessfulRegisterPage(user, profile));
                 }
             }
             
