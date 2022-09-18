@@ -79,7 +79,7 @@ namespace MyHealthApp.Views.Register
                         await SpecialistService.Instance.PostSpecialist(specialist);
                     }
                     
-                    await Navigation.PushModalAsync(new SuccessfulRegisterPage(user, profile));
+                    await Navigation.PushAsync(new SuccessfulRegisterPage(user, profile));
                 }
             }
             
