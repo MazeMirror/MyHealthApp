@@ -21,7 +21,6 @@ namespace MyHealthApp.Services
         private readonly JsonSerializerSettings _settingsJson;
         UserService()
         {
-            _requestUri = new Uri("http://192.168.1.15:8383/api/user");
             _client = new HttpClient();
             _settingsJson = new JsonSerializerSettings
                 { ContractResolver = new CamelCasePropertyNamesContractResolver() };
@@ -29,6 +28,7 @@ namespace MyHealthApp.Services
         
         public async Task<User> PostUser(User user)
         {
+            _requestUri = new Uri("http://192.168.1.15:8383/api/user");
             var json = JsonConvert.SerializeObject(user, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             

@@ -22,7 +22,7 @@ namespace MyHealthApp.Services
         private readonly JsonSerializerSettings _settingsJson;
         ProfileService()
         {
-            _requestUri = new Uri("http://192.168.1.15:8383/api/profile");
+            
             _client = new HttpClient();
             _settingsJson = new JsonSerializerSettings
                 { ContractResolver = new CamelCasePropertyNamesContractResolver() };
@@ -30,6 +30,7 @@ namespace MyHealthApp.Services
         
         public async Task<Profile> PostProfile(Profile profile)
         {
+            _requestUri = new Uri("http://192.168.1.15:8383/api/profile");
             var json = JsonConvert.SerializeObject(profile, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             
