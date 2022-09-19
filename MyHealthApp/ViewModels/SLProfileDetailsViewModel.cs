@@ -40,19 +40,33 @@ namespace MyHealthApp.ViewModels
             _items.Add(item);
             OnPropertyChanged();
         }
+        
+        public void ClearElementsCollection()
+        {
+            _items.Clear();
+            OnPropertyChanged();
+        }
+        
 
         public void AddCollectionOfSpecialistElements(Profile profile, Specialist specialist, UserEntity user)
         {
-            IList<ItemProfileModel> source = new List<ItemProfileModel>()
+            ClearElementsCollection();
+            AddElementToCollection(new ItemProfileModel() { TitleText = $"Género: {profile.Gender}"});
+            AddElementToCollection(new ItemProfileModel() { TitleText = $"Edad: {(DateTime.Today.Year - profile.BirthDate.Year).ToString()} Años"});
+            AddElementToCollection(new ItemProfileModel() { TitleText = $"Fecha de nacimiento: {profile.BirthDate.ToString(CultureInfo.CurrentCulture)}"});
+            AddElementToCollection(new ItemProfileModel() { TitleText = $"Especialidad: {specialist.Specialty}"});
+            AddElementToCollection(new ItemProfileModel() { TitleText = $"Correo: {user.Email}"});
+            
+            /*IList<ItemProfileModel> source = new List<ItemProfileModel>()
             {
                 new ItemProfileModel() { TitleText = $"Género: {profile.Gender}"},
                 new ItemProfileModel() { TitleText = $"Edad: {(DateTime.Today.Year - profile.BirthDate.Year).ToString()} Años"},
                 new ItemProfileModel() { TitleText = $"Fecha de nacimiento: {profile.BirthDate.ToString(CultureInfo.CurrentCulture)}"},
                 new ItemProfileModel() { TitleText = $"Especialidad: {specialist.Specialty}"},
                 new ItemProfileModel() { TitleText = $"Correo: {user.Email}"},
-            };
+            };*/
             
-            _items = new ObservableCollection<ItemProfileModel>(source);
+            //_items = new ObservableCollection<ItemProfileModel>(source);
             
             OnPropertyChanged();
         }
@@ -87,10 +101,10 @@ namespace MyHealthApp.ViewModels
                 new ItemProfileModel() { TitleText = $"Género: {profile.Gender}"},
                 new ItemProfileModel() { TitleText = $"Edad: {(DateTime.Today.Year - profile.BirthDate.Year).ToString()} Años"},
                 new ItemProfileModel() { TitleText = $"Fecha de nacimiento: {profile.BirthDate.ToString(CultureInfo.CurrentCulture)}"},
-                new ItemProfileModel(){TitleText = $"Estatura: {patient.Height.ToString(CultureInfo.CurrentCulture)}"},
-                new ItemProfileModel() { TitleText = $"Peso: {patient.Weight.ToString(CultureInfo.CurrentCulture)}"},
+                new ItemProfileModel(){TitleText = $"Estatura: {patient.Height.ToString(CultureInfo.CurrentCulture)} metros"},
+                new ItemProfileModel() { TitleText = $"Peso: {patient.Weight.ToString(CultureInfo.CurrentCulture)} Kg"},
                 new ItemProfileModel() { TitleText = $"Correo: {user.Email}"},
-                new ItemProfileModel() { TitleText = $"Contacto de emergencias: {patient.EmergencyPhone.ToString()}"},
+                new ItemProfileModel() { TitleText = $"Contacto de emergencias: +51 {patient.EmergencyPhone.ToString()}"},
             };
             
             _items = new ObservableCollection<ItemProfileModel>(source);

@@ -44,6 +44,16 @@ namespace MyHealthApp.Helpers
         {
             return db.Table<ProfileEntity>().FirstAsync();
         }
+        
+        public Task<int> UpdateUserAsync(UserEntity user)
+        {
+            return db.UpdateAsync(user);
+        }
+        
+        public Task<int> UpdateProfileAsync(ProfileEntity profile)
+        {
+            return db.UpdateAsync(profile);
+        }
 
     }
 }
