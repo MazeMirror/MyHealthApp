@@ -65,5 +65,20 @@ namespace MyHealthApp.Services
             
             return myPatients;
         }
+
+        public async Task<Patient> PutPatientByPatientAndId(Patient patient, long patientId)
+        {
+            _requestUri = new Uri($"http://192.168.1.15:8383/api/patient/{patientId.ToString()}");
+            var json = JsonConvert.SerializeObject(patient, _settingsJson);
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+            
+            var response = await _client.PutAsync(_requestUri,contentJson);
+            
+            var myPatient = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<Patient>(response.Content.ReadAsStringAsync().Result)
+                : null;
+            
+            return myPatient;
+        }
     }
 }

@@ -51,9 +51,9 @@ namespace MyHealthApp.Views.ProfileFlow
                 ProfilePage.LocalProfile.Name = EntryName.Text;
                 ProfilePage.LocalProfile.LastName = EntryLastName.Text;
                 
-                await App.SqLiteDb.DeleteAllProfileAsync();
-                await App.SqLiteDb.SaveProfileAsync(ConvertToEntity.ConvertToProfileEntity(updatedProfile));
-                
+                //await App.SqLiteDb.DeleteAllProfileAsync();
+                //await App.SqLiteDb.SaveProfileAsync(ConvertToEntity.ConvertToProfileEntity(updatedProfile));
+                await App.SqLiteDb.UpdateProfileAsync(ConvertToEntity.ConvertToProfileEntity(ProfilePage.LocalProfile));
                 await Navigation.PopAsync();
             }
            

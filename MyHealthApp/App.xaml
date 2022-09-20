@@ -44,6 +44,9 @@
             <Style x:Key="ValidTextEntryStyle" TargetType="Entry">
                 <Setter Property="TextColor" Value="White"></Setter>
             </Style>
+            <Style x:Key="ValidTextBlackEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Black"></Setter>
+            </Style>
             
         </ResourceDictionary>
     </Application.Resources>

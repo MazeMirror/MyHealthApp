@@ -75,5 +75,20 @@ namespace MyHealthApp.Services
 
             return response.StatusCode == HttpStatusCode.OK ? true : false;
         }
+
+        public async Task<Specialist> PutSpecialistBySpecialistAndId(Specialist specialist, long specialistId)
+        {
+            _requestUri = new Uri($"http://192.168.1.15:8383/api/specialist/{specialistId.ToString()}");
+            var json = JsonConvert.SerializeObject(specialist, _settingsJson);
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+            
+            var response = await _client.PutAsync(_requestUri,contentJson);
+            
+            var mySpecialist = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<Specialist>(response.Content.ReadAsStringAsync().Result)
+                : null;
+            
+            return mySpecialist;
+        }
     }
 }

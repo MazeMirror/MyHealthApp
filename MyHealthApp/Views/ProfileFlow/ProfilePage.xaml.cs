@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MyHealthApp.Models;
+using MyHealthApp.Models.SqlLite;
 using MyHealthApp.Services;
 using MyHealthApp.ViewModels;
 using Xamarin.Forms;
@@ -13,6 +14,9 @@ namespace MyHealthApp.Views.ProfileFlow
     {
         public static SlProfileDetailsViewModel Model;
         public static Profile LocalProfile;
+        public Specialist specialist;
+        public Patient patient;
+        public User user;
         public ProfilePage()
         {
             InitializeComponent();
@@ -45,7 +49,9 @@ namespace MyHealthApp.Views.ProfileFlow
                 Email = "JosiasOlaya@hotmail.com"
             };*/
             ////////////////////////////////////////////////////////
-            var user = await App.SqLiteDb.GetUserAsync();
+            var userEntity = await App.SqLiteDb.GetUserAsync();
+            user = ConvertToModel.ConvertToUserModel(userEntity);
+            
             var profileEntity = await App.SqLiteDb.GetProfileAsync();
 
             LocalProfile = new Profile()
@@ -69,9 +75,9 @@ namespace MyHealthApp.Views.ProfileFlow
 
             if (LocalProfile.RoleId == 1)
             {
-                var patient = await PatientService.Instance.GetPatientByProfileId(LocalProfile.Id);
+                patient = await PatientService.Instance.GetPatientByProfileId(LocalProfile.Id);
                 
-                Model = new SlProfileDetailsViewModel(LocalProfile, patient, user);
+                Model = new SlProfileDetailsViewModel(LocalProfile, patient, userEntity);
                 BindingContext = Model;
             }
             else
@@ -82,9 +88,9 @@ namespace MyHealthApp.Views.ProfileFlow
                 {
                     Specialty = "Pediatria",
                 };*/
-                var specialist = await SpecialistService.Instance.GetSpecialistByProfileId(LocalProfile.Id);
+                specialist = await SpecialistService.Instance.GetSpecialistByProfileId(LocalProfile.Id);
                 
-                Model = new SlProfileDetailsViewModel(LocalProfile, specialist, user);
+                Model = new SlProfileDetailsViewModel(LocalProfile, specialist, userEntity);
                 BindingContext = Model;
             }
         }
@@ -100,12 +106,14 @@ namespace MyHealthApp.Views.ProfileFlow
             //Recordar poner <Navigation></> para las pages internas de 
             //las tabbed en XAML que requieran navegarse
             //await Application.Current.MainPage.Navigation.PushAsync(new EditProfileNamesPage());
-            await Navigation.PushAsync(new EditProfileNamesPage() );
+            await Navigation.PushAsync(new EditProfileNamesPage());
             //Este es el truco
         }
 
         private async void LabelEditDetails_OnTapped(object sender, EventArgs e)
         {
+            if (LocalProfile.RoleId == 1) await Navigation.PushAsync(new EPPatientDetailsPage(LocalProfile,patient,user));
+            else await Navigation.PushAsync(new EPSpecialistDetailsPage(LocalProfile,specialist,user));
             //await Navigation.PushAsync(new EditProfileDetailsPage() );
         }
 

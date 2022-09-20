@@ -59,5 +59,22 @@ namespace MyHealthApp.Services
             return myNewUser;
             //return response.StatusCode == HttpStatusCode.OK ?  long.Parse((string)jObj["id"] ?? "-1") : -1;
         }
+
+        public async Task<User>  PutUserEmail(User user)
+        {
+            _requestUri = new Uri($"http://192.168.1.15:8383/api/user/{user.Id.ToString()}");
+            
+            var json = JsonConvert.SerializeObject(user, _settingsJson);
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+            
+            var response = await _client.PutAsync(_requestUri, contentJson);
+            //var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+
+            var myNewUser = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result)
+                : null;
+            
+            return myNewUser;
+        }
     }
 }
