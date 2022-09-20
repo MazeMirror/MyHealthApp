@@ -112,7 +112,7 @@ namespace MyHealthApp.Views.ProfileFlow
 
         private async void LabelEditDetails_OnTapped(object sender, EventArgs e)
         {
-            if (LocalProfile.RoleId == 1) await Navigation.PushAsync(new EPPatientDetailsPage());
+            if (LocalProfile.RoleId == 1) await Navigation.PushAsync(new EPPatientDetailsPage(LocalProfile,patient,user));
             else await Navigation.PushAsync(new EPSpecialistDetailsPage(LocalProfile,specialist,user));
             //await Navigation.PushAsync(new EditProfileDetailsPage() );
         }
