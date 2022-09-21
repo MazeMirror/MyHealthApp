@@ -8,10 +8,15 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.PatientDetailsPage">
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout BackgroundColor="#F0F3F4" Padding="0,0,0,25">
-                <!--TOPBAR-->
-                <!--<StackLayout
+        <ContentView>
+       
+            <ScrollView>
+             <!--Poner siempre un scrollview dentro del ContentView o sino ciertos datos se esconden (no se renderizan)-->
+            <StackLayout BackgroundColor="#F0F3F4"
+                         Padding="0,0,0,25">
+                <!--TOPBAR -->
+                
+                <StackLayout
                     HeightRequest="90"
                     Orientation="Horizontal"
                     HorizontalOptions="FillAndExpand"
@@ -36,10 +41,10 @@
                            Margin="10,0,0,0"
                            effects:IconTintColorEffect.TintColor="Black"
                            Scale="0.90" />
-                </StackLayout>-->
+                </StackLayout>
 
                 <!--Names patient-->
-                <!--<Frame Margin="20,24,20,0"
+                <Frame Margin="20,24,20,0"
                        BackgroundColor="White"
                        HeightRequest="105"
                        CornerRadius="10"
@@ -56,12 +61,12 @@
                                FontFamily="{StaticResource FontAwesomeSolid}" />
                         <StackLayout
                             Spacing="0">
-                           
+
                             <Label x:Name="LabelName"
                                    FontFamily="ArchivoSemiBold"
                                    TextColor="Black"
                                    FontSize="18" />
-                           
+
                             <Label x:Name="LabelLastname"
                                    FontFamily="ArchivoSemiBold"
                                    TextColor="Black"
@@ -76,7 +81,7 @@
                                     WidthRequest="180" />
                         </StackLayout>
                     </FlexLayout>
-                </Frame>-->
+                </Frame>
 
                 <!--Information patient-->
                 <Frame Margin="20,24,20,0"
@@ -135,6 +140,7 @@
 
                         <StackLayout
                             HorizontalOptions="Center"
+                            Spacing="0"
                             WidthRequest="270">
                             <FlexLayout
                                 JustifyContent="SpaceBetween">
@@ -157,30 +163,129 @@
                             </FlexLayout>
                             <StackLayout Orientation="Horizontal">
                                 <AbsoluteLayout TranslationX="37"
-                                                TranslationY="-58">
-                                    <Label Text="2500"
+                                                TranslationY="-52">
+                                    <Label x:Name="LabelProgressSteps"
+                                           Text="2500"
                                            FontFamily="ArchivoRegular"
                                            TextColor="Black"
                                            FontSize="16" />
-                                    <Label Text="/6000"
+                                    <Label x:Name="LabelGoalSteps"
+                                           Text="/6000"
                                            FontFamily="ArchivoRegular"
                                            TextColor="#A3A3A3"
                                            FontSize="14"
                                            TranslationY="18" />
                                 </AbsoluteLayout>
                                 <AbsoluteLayout TranslationX="151"
-                                                TranslationY="-58">
-                                    <Label Text="28 min"
+                                                TranslationY="-52">
+                                    <Label x:Name="LabelProgressWalk"
+                                           Text="28 min"
                                            FontFamily="ArchivoRegular"
                                            TextColor="Black"
                                            FontSize="16" />
-                                    <Label Text="/60 min"
+                                    <Label x:Name="LabelGoalWalk"
+                                           Text="/60 min"
                                            FontFamily="ArchivoRegular"
                                            TextColor="#A3A3A3"
                                            FontSize="14"
                                            TranslationY="18" />
                                 </AbsoluteLayout>
+                                <AbsoluteLayout TranslationX="98"
+                                                TranslationY="-90">
+                                    <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.shoe.png}"
+                                           effects:IconTintColorEffect.TintColor="#2F6A88"
+                                           TranslationX="-158"
+                                           Scale="1.4" />
+                                    <Label Text="Pasos"
+                                           FontSize="14"
+                                           TextColor="Black"
+                                           FontFamily="ArchivoRegular"
+                                           TranslationX="-158"
+                                           TranslationY="105" />
+                                    <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.walk.png}"
+                                           effects:IconTintColorEffect.TintColor="#FF9162"
+                                           TranslationX="4"
+                                           Scale="1.4" />
+                                    <Label Text="Caminata"
+                                           FontSize="14"
+                                           TextColor="Black"
+                                           FontFamily="ArchivoRegular"
+                                           TranslationX="-8"
+                                           TranslationY="105" />
+                                </AbsoluteLayout>
                             </StackLayout>
+
+                        </StackLayout>
+
+                        <StackLayout Spacing="0"
+                                     Padding="20,20,20,10">
+                            <Label Text="Progreso de objetivos diarios"
+                                   TextColor="Black"
+                                   FontFamily="ArchivoRegular"
+                                   FontSize="12" />
+                            <Label Text="Completados"
+                                   TextColor="#6EB3CD"
+                                   FontFamily="ArchivoRegular"
+                                   FontSize="14" />
+
+                            <!--Cumplimiento de objetivos-->
+                            <FlexLayout JustifyContent="SpaceBetween">
+                                <Label Text="0 / 5"
+                                       TextColor="#6EB3CD"
+                                       FontFamily="ArchivoSemiBold"
+                                       FontSize="16" />
+                                <FlexLayout Direction="Row"
+                                            Wrap="Wrap"
+                                            AlignContent="Start"
+                                            WidthRequest="170"
+                                            HeightRequest="75">
+
+                                    <!--Esto deberia generarse con un data template de binding source-->
+                                    <plugin:ProgressRing HeightRequest="30"
+                                                         WidthRequest="30"
+                                                         RingProgressColor="#2F6A88"
+                                                         RingThickness="5"
+                                                         Progress="0.8"
+                                                         Margin="0,0,5,5"
+                                                         RingBaseColor="#CEE5EE" />
+                                    <plugin:ProgressRing HeightRequest="30"
+                                                         WidthRequest="30"
+                                                         RingProgressColor="#2F6A88"
+                                                         RingThickness="5"
+                                                         Progress="0.6"
+                                                         Margin="0,0,5,5"
+                                                         RingBaseColor="#CEE5EE" />
+                                    <plugin:ProgressRing HeightRequest="30"
+                                                         WidthRequest="30"
+                                                         RingProgressColor="#2F6A88"
+                                                         RingThickness="5"
+                                                         Progress="0.7"
+                                                         Margin="0,0,5,5"
+                                                         RingBaseColor="#CEE5EE" />
+                                    <plugin:ProgressRing HeightRequest="30"
+                                                         WidthRequest="30"
+                                                         RingProgressColor="#2F6A88"
+                                                         RingThickness="5"
+                                                         Progress="0.1"
+                                                         Margin="0,0,5,5"
+                                                         RingBaseColor="#CEE5EE" />
+                                    <plugin:ProgressRing HeightRequest="30"
+                                                         WidthRequest="30"
+                                                         RingProgressColor="#2F6A88"
+                                                         RingThickness="5"
+                                                         Progress="0.5"
+                                                         Margin="0,0,5,5"
+                                                         RingBaseColor="#CEE5EE" />
+
+                                </FlexLayout>
+                            </FlexLayout>
+
+                            <Button Text="Ver Reporte Completo"
+                                    BackgroundColor="#FF9162"
+                                    HeightRequest="40"
+                                    CornerRadius="5"
+                                    TextTransform="None"
+                                    TextColor="White" />
 
 
                         </StackLayout>
@@ -189,5 +294,7 @@
                 </Frame>
             </StackLayout>
         </ScrollView>
+        </ContentView>
+        
     </ContentPage.Content>
 </ContentPage>

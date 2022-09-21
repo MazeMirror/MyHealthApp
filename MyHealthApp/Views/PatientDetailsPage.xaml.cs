@@ -22,8 +22,8 @@ namespace MyHealthApp.Views
         {
             InitializeComponent();
             _profile = profile.CreateDeepCopy();
-            //LabelName.Text = _profile.Name;
-            //LabelLastname.Text = _profile.LastName;
+            LabelName.Text = _profile.Name;
+            LabelLastname.Text = _profile.LastName;
             GetDataInformation();
         }
 

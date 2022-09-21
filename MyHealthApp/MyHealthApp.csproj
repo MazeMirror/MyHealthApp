@@ -94,6 +94,10 @@
     <EmbeddedResource Include="Resources\Images\list.png" />
     <None Remove="Resources\Fonts\Fcraft_Borgo\Fcraft-B.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Fcraft_Borgo\Fcraft-B.ttf" />
+    <None Remove="Resources\Images\shoe.png" />
+    <EmbeddedResource Include="Resources\Images\shoe.png" />
+    <None Remove="Resources\Images\walk.png" />
+    <EmbeddedResource Include="Resources\Images\walk.png" />
   </ItemGroup>
 
   <ItemGroup>
