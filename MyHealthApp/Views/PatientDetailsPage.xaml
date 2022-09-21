@@ -4,13 +4,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.PatientDetailsPage">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout BackgroundColor="#F0F3F4" Padding="0,0,0,25">
                 <!--TOPBAR-->
-                <StackLayout
+                <!--<StackLayout
                     HeightRequest="90"
                     Orientation="Horizontal"
                     HorizontalOptions="FillAndExpand"
@@ -35,10 +36,10 @@
                            Margin="10,0,0,0"
                            effects:IconTintColorEffect.TintColor="Black"
                            Scale="0.90" />
-                </StackLayout>
+                </StackLayout>-->
 
                 <!--Names patient-->
-                <Frame Margin="20,24,20,0"
+                <!--<Frame Margin="20,24,20,0"
                        BackgroundColor="White"
                        HeightRequest="105"
                        CornerRadius="10"
@@ -55,12 +56,12 @@
                                FontFamily="{StaticResource FontAwesomeSolid}" />
                         <StackLayout
                             Spacing="0">
-                            <!--Nombres-->
+                           
                             <Label x:Name="LabelName"
                                    FontFamily="ArchivoSemiBold"
                                    TextColor="Black"
                                    FontSize="18" />
-                            <!--Apellidos-->
+                           
                             <Label x:Name="LabelLastname"
                                    FontFamily="ArchivoSemiBold"
                                    TextColor="Black"
@@ -75,7 +76,7 @@
                                     WidthRequest="180" />
                         </StackLayout>
                     </FlexLayout>
-                </Frame>
+                </Frame>-->
 
                 <!--Information patient-->
                 <Frame Margin="20,24,20,0"
@@ -84,18 +85,12 @@
                        HasShadow="False"
                        Padding="5">
                     <StackLayout>
-                        <FlexLayout
-                            Padding="20,10,20,0"
-                            Direction="Row"
-                            JustifyContent="SpaceBetween">
 
-                            <Label Text="Información del paciente"
-                                   FontFamily="ArchivoSemiBold"
-                                   TextColor="Black"
-                                   FontSize="18" />
-
-
-                        </FlexLayout>
+                        <Label Text="Información del paciente"
+                               Padding="20,10,0,0"
+                               FontFamily="ArchivoSemiBold"
+                               TextColor="Black"
+                               FontSize="18" />
 
                         <StackLayout
                             x:Name="StackLayoutProfileDetails"
@@ -116,6 +111,81 @@
 
                     </StackLayout>
 
+                </Frame>
+
+                <!--Information phisic activity-->
+                <Frame Margin="20,24,20,0"
+                       BackgroundColor="White"
+                       CornerRadius="10"
+                       HasShadow="False"
+                       Padding="5">
+                    <StackLayout Spacing="14">
+
+                        <Label Text="Resumen de actividad física"
+                               Padding="20,10,0,0"
+                               FontFamily="ArchivoSemiBold"
+                               TextColor="Black"
+                               FontSize="18" />
+
+                        <Label Text="Hoy"
+                               HorizontalOptions="CenterAndExpand"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black"
+                               FontSize="14" />
+
+                        <StackLayout
+                            HorizontalOptions="Center"
+                            WidthRequest="270">
+                            <FlexLayout
+                                JustifyContent="SpaceBetween">
+                                <plugin:ProgressRing x:Name="ProgressRingSteps"
+                                                     HeightRequest="110"
+                                                     WidthRequest="110"
+                                                     RingProgressColor="#2F6A88"
+                                                     RingThickness="6"
+                                                     Progress="0.2"
+                                                     RingBaseColor="#CEE5EE" />
+
+                                <plugin:ProgressRing x:Name="ProgressRingWalk"
+                                                     HeightRequest="110"
+                                                     WidthRequest="110"
+                                                     RingProgressColor="#FF9162"
+                                                     RingBaseColor="#fddacb"
+                                                     RingThickness="6"
+                                                     Progress="0.6" />
+
+                            </FlexLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <AbsoluteLayout TranslationX="37"
+                                                TranslationY="-58">
+                                    <Label Text="2500"
+                                           FontFamily="ArchivoRegular"
+                                           TextColor="Black"
+                                           FontSize="16" />
+                                    <Label Text="/6000"
+                                           FontFamily="ArchivoRegular"
+                                           TextColor="#A3A3A3"
+                                           FontSize="14"
+                                           TranslationY="18" />
+                                </AbsoluteLayout>
+                                <AbsoluteLayout TranslationX="151"
+                                                TranslationY="-58">
+                                    <Label Text="28 min"
+                                           FontFamily="ArchivoRegular"
+                                           TextColor="Black"
+                                           FontSize="16" />
+                                    <Label Text="/60 min"
+                                           FontFamily="ArchivoRegular"
+                                           TextColor="#A3A3A3"
+                                           FontSize="14"
+                                           TranslationY="18" />
+                                </AbsoluteLayout>
+                            </StackLayout>
+
+
+                        </StackLayout>
+
+                    </StackLayout>
                 </Frame>
             </StackLayout>
         </ScrollView>
