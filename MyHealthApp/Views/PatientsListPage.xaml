@@ -8,7 +8,7 @@
              xmlns:viewModels="clr-namespace:MyHealthApp.ViewModels;assembly=MyHealthApp"
              x:Class="MyHealthApp.Views.PatientsListPage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout BackgroundColor="#F0F3F4">
             <FlexLayout
                 HeightRequest="90"
                 Direction="Row"
@@ -58,20 +58,17 @@
                         BorderColor="Black"
                         CornerRadius="5"
                         Margin="0,20,0,0"
-                        Padding="20,5">
+                        Padding="0,5">
                         <StackLayout
-
                             Orientation="Horizontal">
-                            <Label Text="&#xf002;"
-                                   FontSize="24"
-                                   TextColor="Black"
-                                   FontFamily="{StaticResource FontAwesomeSolid}"
-                                   VerticalOptions="Center" />
-                            <Entry Placeholder="Busca por nombre"
-                                   IsSpellCheckEnabled="False"
-                                   HorizontalOptions="FillAndExpand"
-                                   FontSize="16"
-                                   Margin="10,0,0,0" />
+                            <SearchBar x:Name="SearchBar"
+                                       Placeholder="Busca por nombre"
+                                       FontSize="16"
+                                       IsSpellCheckEnabled="False"
+                                       HorizontalOptions="FillAndExpand"
+                                       TextColor="Black"
+                                       MaxLength="20"
+                                       SearchButtonPressed="SearchBar_OnSearchButtonPressed" />
                         </StackLayout>
 
                     </Frame>
@@ -82,16 +79,15 @@
                         <StackLayout
                             x:Name="StackLayoutPatients"
                             BindableLayout.ItemsSource="{Binding Profiles}">
-                            <!--NUNCA PONER DOS CHILDS DENTRO DEL DATA TEMPLATE, ERROR XAMCL TASK MUERTE SUBITA HORROROSO
-                                   EN NINGUN LADO TE LO DICEN, TE ODIO XAMARIN FORMS, OJALA MUERAS COMO EL WINDOWS PHONE PRONTO-->
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
+                                    <!--NUNCA PONER DOS CHILDS DENTRO DEL DATA TEMPLATE, ERROR XAMCL TASK DESCONOCIDO
+                                  -->
                                     <Frame
                                         HasShadow="False"
                                         BorderColor="Black"
                                         CornerRadius="10"
-                                        Margin="0,0,0,10"
-                                    >
+                                        Margin="0,0,0,10">
                                         <FlexLayout
                                             Direction="Row"
                                             AlignItems="Center"

@@ -47,20 +47,29 @@
                 BorderColor="Black"
                 CornerRadius="5"
                 Margin="30,20,30,0"
-                Padding="20,5">
+                Padding="10,5">
                 <StackLayout
 
                     Orientation="Horizontal">
-                    <Label Text="&#xf002;"
+                    <!--<Label Text="&#xf002;"
                            FontSize="24"
                            TextColor="Black"
                            FontFamily="{StaticResource FontAwesomeSolid}"
-                           VerticalOptions="Center" />
-                    <Entry Placeholder="Busca por nombre"
+                           VerticalOptions="Center" />-->
+                    <SearchBar x:Name="SearchBar"
+                               Placeholder="Busca por nombre"
+                               FontSize="16"
+                               IsSpellCheckEnabled="False"
+                               HorizontalOptions="FillAndExpand"
+                               TextColor="Black"
+                               MaxLength="20" 
+                               SearchButtonPressed="SearchBar_OnSearchButtonPressed"
+                               />
+                    <!--<Entry Placeholder="Busca por nombre"
                            IsSpellCheckEnabled="False"
                            HorizontalOptions="FillAndExpand"
                            FontSize="16"
-                           Margin="10,0,0,0" />
+                           Margin="10,0,0,0" />-->
                 </StackLayout>
 
             </Frame>

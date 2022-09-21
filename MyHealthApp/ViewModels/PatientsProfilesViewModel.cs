@@ -41,6 +41,12 @@ namespace MyHealthApp.ViewModels
             OnPropertyChanged();
         }
 
+        public void ClearProfileList()
+        {
+            _profiles.Clear();
+            OnPropertyChanged();
+        }
+
         public PatientsProfilesViewModel()
         {
             _profiles = new ObservableCollection<Profile>();

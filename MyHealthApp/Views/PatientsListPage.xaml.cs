@@ -85,5 +85,10 @@ namespace MyHealthApp.Views
                 //await DisplayAlert("Hola", "El Id es " + profileId.ToString(), "Ok");
             }
         }
+
+        private void SearchBar_OnSearchButtonPressed(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

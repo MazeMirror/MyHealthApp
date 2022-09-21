@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -78,6 +79,19 @@ namespace MyHealthApp.Services
             var myProfile = response.StatusCode == HttpStatusCode.OK
                 ? JsonConvert.DeserializeObject<Profile>(response.Content.ReadAsStringAsync().Result)
                 : null;
+            
+            return myProfile;
+        }
+
+        public async Task<IList<Profile>> GetProfileByNameAndRoleId(string searchBarText, string roleId)
+        {
+            _requestUri = new Uri($"http://192.168.1.15:8383/api/profile?name={searchBarText}&roleId={roleId}");
+           
+            var response = await _client.GetAsync(_requestUri);
+            
+            var myProfile = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<List<Profile>>(response.Content.ReadAsStringAsync().Result)
+                : new List<Profile>();
             
             return myProfile;
         }

@@ -22,7 +22,7 @@ namespace MyHealthApp.Views
             this.Specialist = specialist;
             _viewModel = new PatientsProfilesViewModel();
             
-            GetListOfPatientsProfiles();
+            //GetListOfPatientsProfiles();
             
             BindingContext = _viewModel;
         }
@@ -91,6 +91,18 @@ namespace MyHealthApp.Views
                
                 
                 //await DisplayAlert("Alert", currentItem, "Ok");
+            }
+        }
+
+        private async void SearchBar_OnSearchButtonPressed(object sender, EventArgs e)
+        {
+            string roleId = "1"; //Osea de rol paciente 
+            var searchedPatients = await ProfileService.Instance.GetProfileByNameAndRoleId(SearchBar.Text,roleId);
+            _viewModel.ClearProfileList();
+            
+            foreach (var item in searchedPatients)
+            {
+                _viewModel.AddProfileToList(item);
             }
         }
     }
