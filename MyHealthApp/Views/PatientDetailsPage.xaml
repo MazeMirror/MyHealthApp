@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.PatientDetailsPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BackgroundColor="#F0F3F4" Padding="0,0,0,25">
+                <!--TOPBAR-->
+                <StackLayout
+                    HeightRequest="90"
+                    Orientation="Horizontal"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="White">
+                    <Label Text="&#xf053;"
+                           FontSize="18"
+                           Margin="35,0,0,0"
+                           VerticalOptions="Center"
+                           FontFamily="{StaticResource FontAwesomeSolid}"
+                           TextColor="Black">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="LabelBack_OnTapped"
+                                NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                           Scale="0.90"
+                           Margin="68,0,0,0" />
+                    <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                           Margin="10,0,0,0"
+                           effects:IconTintColorEffect.TintColor="Black"
+                           Scale="0.90" />
+                </StackLayout>
+
+                <!--Names patient-->
+                <Frame Margin="20,24,20,0"
+                       BackgroundColor="White"
+                       HeightRequest="105"
+                       CornerRadius="10"
+                       HasShadow="False"
+                       Padding="15">
+
+                    <FlexLayout
+                        Direction="Row"
+                        AlignItems="Start"
+                        JustifyContent="SpaceAround">
+                        <Label Text="&#xf2bd;"
+                               TextColor="Black"
+                               FontSize="75"
+                               FontFamily="{StaticResource FontAwesomeSolid}" />
+                        <StackLayout
+                            Spacing="0">
+                            <!--Nombres-->
+                            <Label x:Name="LabelName"
+                                   FontFamily="ArchivoSemiBold"
+                                   TextColor="Black"
+                                   FontSize="18" />
+                            <!--Apellidos-->
+                            <Label x:Name="LabelLastname"
+                                   FontFamily="ArchivoSemiBold"
+                                   TextColor="Black"
+                                   FontSize="18" />
+                            <Button Text="Eliminar de mi lista"
+                                    BackgroundColor="Red"
+                                    HeightRequest="40"
+                                    TextTransform="None"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    Margin="0,10,0,0"
+                                    WidthRequest="180" />
+                        </StackLayout>
+                    </FlexLayout>
+                </Frame>
+
+                <!--Information patient-->
+                <Frame Margin="20,24,20,0"
+                       BackgroundColor="White"
+                       CornerRadius="10"
+                       HasShadow="False"
+                       Padding="5">
+                    <StackLayout>
+                        <FlexLayout
+                            Padding="20,10,20,0"
+                            Direction="Row"
+                            JustifyContent="SpaceBetween">
+
+                            <Label Text="Información del paciente"
+                                   FontFamily="ArchivoSemiBold"
+                                   TextColor="Black"
+                                   FontSize="18" />
+
+
+                        </FlexLayout>
+
+                        <StackLayout
+                            x:Name="StackLayoutProfileDetails"
+                            Padding="20,17,20,17"
+                            BindableLayout.ItemsSource="{Binding Items}">
+
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        Text="{Binding TitleText}"
+                                        FontFamily="ArchivoRegular"
+                                        TextColor="Black"
+                                        FontSize="12" />
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+
+                        </StackLayout>
+
+                    </StackLayout>
+
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

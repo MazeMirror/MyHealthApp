@@ -91,7 +91,7 @@
                                         BorderColor="Black"
                                         CornerRadius="10"
                                         Margin="0,0,0,10"
-                                        >
+                                    >
                                         <FlexLayout
                                             Direction="Row"
                                             AlignItems="Center"
@@ -124,7 +124,12 @@
                                                    HeightRequest="56" />
 
                                         </FlexLayout>
-                                        
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                CommandParameter="{Binding .}"
+                                                Tapped="FramePatient_OnTapped"
+                                                NumberOfTapsRequired="1" />
+                                        </Frame.GestureRecognizers>
                                     </Frame>
 
                                 </DataTemplate>

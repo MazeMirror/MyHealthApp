@@ -205,7 +205,7 @@
                             <Entry
                                 x:Name="EntryEmail"
                                 FontFamily="ArchivRegular"
-                                MaxLength="15"
+                                MaxLength="35"
                                 IsSpellCheckEnabled="False">
                                 <Entry.Behaviors>
 

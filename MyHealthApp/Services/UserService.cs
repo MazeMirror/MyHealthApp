@@ -41,6 +41,18 @@ namespace MyHealthApp.Services
                 : null;
         }
         
+        public async Task<User> GetUserById(long userId)
+        {
+            _requestUri = new Uri($"http://192.168.1.15:8383/api/user/{userId.ToString()}");
+            
+            var response = await _client.GetAsync(_requestUri);
+            var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+            
+            return response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result)
+                : null;
+        }
+        
         public async Task<User> PostAuthenticateUser(string email,string password)
         {
             var myUser = new User(){Email = email,Password = password};

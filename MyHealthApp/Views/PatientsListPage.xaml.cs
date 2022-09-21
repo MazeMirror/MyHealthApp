@@ -70,5 +70,20 @@ namespace MyHealthApp.Views
         {
             await Navigation.PushAsync(new SearchedPatientsListPage(Specialist));
         }
+
+        private async void FramePatient_OnTapped(object sender, EventArgs e)
+        {
+            var param = ((TappedEventArgs)e).Parameter;
+            if (param != null)
+            {
+                var profile = param as Profile;
+                //var currentIdItem = param.ToString();
+                //var profileId = int.Parse(currentIdItem);
+                //var patient = await PatientService.Instance.GetPatientByProfileId(profileId);
+                await Navigation.PushAsync(new PatientDetailsPage(profile));
+
+                //await DisplayAlert("Hola", "El Id es " + profileId.ToString(), "Ok");
+            }
+        }
     }
 }
