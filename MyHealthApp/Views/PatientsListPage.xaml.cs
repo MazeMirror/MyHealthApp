@@ -80,7 +80,15 @@ namespace MyHealthApp.Views
                 //var currentIdItem = param.ToString();
                 //var profileId = int.Parse(currentIdItem);
                 //var patient = await PatientService.Instance.GetPatientByProfileId(profileId);
-                await Navigation.PushAsync(new PatientDetailsPage(profile));
+
+                if (profile != null)
+                {
+                    //BUG: El progress ring no renderiza del data template con data asíncrona
+                    //Solucion parcial es esta
+                    var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
+                    var dailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientId(patient.Id);
+                    await Navigation.PushAsync(new PatientDetailsPage(profile,patient,dailyGoals));
+                }
 
                 //await DisplayAlert("Hola", "El Id es " + profileId.ToString(), "Ok");
             }
