@@ -38,10 +38,10 @@
                                TextColor="Black"
                                FontSize="18"
                                FontFamily="ArchivoSemiBold" />
-                        <Label Text="&#xf055;"
+                        <Label Text="&#xf0fe;"
                                FontSize="24"
                                TextColor="#EB6C36"
-                               FontFamily="{StaticResource FontAwesomeSolid}"
+                               FontFamily="{StaticResource FontAwesomeRegular}"
                                VerticalOptions="Center"
                                Margin="170,0,0,0">
                             <Label.GestureRecognizers>
@@ -131,6 +131,18 @@
                                 </DataTemplate>
 
                             </BindableLayout.ItemTemplate>
+                            <BindableLayout.EmptyView>
+                                <StackLayout HeightRequest="250">
+                                    <Label Text="Usted todavía no cuenta con pacientes.&#10;Añada nuevos a la lista"
+                                           FontFamily="ArchivoRegular"
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="14"
+                                           TextColor="#6EB3CD"
+                                           VerticalOptions="CenterAndExpand"
+                                    />
+                                </StackLayout>
+                                
+                            </BindableLayout.EmptyView>
 
                         </StackLayout>
 

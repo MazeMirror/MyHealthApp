@@ -7,7 +7,7 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.SearchedPatientsListPage">
     <ContentPage.Content>
-        <StackLayout BackgroundColor="#F0F3F4">
+        <StackLayout BackgroundColor="#f8f8f8">
             <StackLayout
                 HeightRequest="90"
                 Orientation="Horizontal"
@@ -81,8 +81,7 @@
                 <StackLayout
                     x:Name="StackLayoutPatients"
                     BindableLayout.ItemsSource="{Binding Profiles}">
-                    <!--NUNCA PONER DOS CHILDS DENTRO DEL DATA TEMPLATE, ERROR XAMCL TASK MUERTE SUBITA HORROROSO
-                                   EN NINGUN LADO TE LO DICEN, TE ODIO XAMARIN FORMS, OJALA MUERAS COMO EL WINDOWS PHONE PRONTO-->
+                    <!--NUNCA PONER DOS CHILDS DENTRO DEL DATA TEMPLATE, ERROR XAMCL TASK -->
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Frame
@@ -134,6 +133,14 @@
                         </DataTemplate>
 
                     </BindableLayout.ItemTemplate>
+                    <BindableLayout.EmptyView>
+                        <Label Text="La búsqueda actual no arrojó &#10;resultados."
+                               HorizontalTextAlignment="Center"
+                               FontFamily="ArchivoRegular"
+                               TextColor="#6EB3CD"
+                               FontSize="14"
+                               Padding="0,40,0,0"/>
+                    </BindableLayout.EmptyView>
 
                 </StackLayout>
 

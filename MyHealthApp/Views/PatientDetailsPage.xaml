@@ -176,8 +176,7 @@
                                     <StackLayout x:Name="StackLayoutInfoRingSteps"
                                                  WidthRequest="110"
                                                  TranslationY="-92"
-                                                 Spacing="1"
-                                                 >
+                                                 Spacing="1">
                                         <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.shoe.png}"
                                                effects:IconTintColorEffect.TintColor="#2F6A88"
                                                Scale="1.4" />
@@ -208,8 +207,7 @@
                                     <StackLayout x:Name="StackLayoutInfoRingWalk"
                                                  WidthRequest="110"
                                                  TranslationY="-92"
-                                                 Spacing="1"
-                                                 >
+                                                 Spacing="1">
                                         <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.walk.png}"
                                                effects:IconTintColorEffect.TintColor="#FF9162"
                                                Scale="1.4" />
@@ -290,17 +288,28 @@
 
                         </StackLayout>
                     </Frame>
+                    <!--DailyGoals list-->
                     <Frame Margin="20,24,20,0"
                            BackgroundColor="White"
                            CornerRadius="10"
                            HasShadow="False"
                            Padding="5">
                         <StackLayout Spacing="14">
-                            <Label Text="Objetivos diarios"
-                                   Padding="20,10,0,0"
-                                   FontFamily="ArchivoSemiBold"
-                                   TextColor="Black"
-                                   FontSize="18" />
+                            <FlexLayout Padding="20,10,20,0"
+                                        Direction="Row"
+                                        JustifyContent="SpaceBetween"
+                                        AlignItems="Center">
+                                <Label Text="Objetivos diarios"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                                <Label Text="&#xf0fe;"
+                                       FontSize="24"
+                                       TextColor="#EB6C36"
+                                       FontFamily="{StaticResource FontAwesomeRegular}"
+                                       VerticalOptions="Center">
+                                </Label>
+                            </FlexLayout>
                             <StackLayout x:Name="StackLayoutDailyGoals"
                                          Spacing="20"
                                          Padding="20,5,20,20"
@@ -344,8 +353,79 @@
                                         <Label Text="No hay objetivos diarios"
                                                FontFamily="ArchivoRegular"
                                                Padding="20"
-                                               HorizontalTextAlignment="Center"
-                                        />
+                                               HorizontalTextAlignment="Center" />
+                                    </DataTemplate>
+                                </BindableLayout.EmptyViewTemplate>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                    <!--WeeklyGoals list-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+                        <StackLayout Spacing="14">
+                            <FlexLayout Padding="20,10,20,0"
+                                        Direction="Row"
+                                        JustifyContent="SpaceBetween"
+                                        AlignItems="Center">
+                                <Label Text="Objetivos semanales"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                                <Label Text="&#xf0fe;"
+                                       FontSize="24"
+                                       TextColor="#EB6C36"
+                                       FontFamily="{StaticResource FontAwesomeRegular}"
+                                       VerticalOptions="Center">
+                                </Label>
+                            </FlexLayout>
+
+                            <StackLayout x:Name="StackLayoutWeeklyGoals"
+                                         Spacing="20"
+                                         Padding="20,5,20,20"
+                                         BindableLayout.ItemsSource="{Binding WeeklyGoals}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <FlexLayout
+                                            Direction="Row"
+                                            AlignItems="Start"
+
+                                            JustifyContent="SpaceBetween">
+                                            <StackLayout Orientation="Horizontal"
+                                                         Spacing="25">
+                                                <plugin:ProgressRing HeightRequest="35"
+                                                                     WidthRequest="35"
+                                                                     RingProgressColor="#2F6A88"
+                                                                     RingThickness="6"
+                                                                     Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
+                                                                     RingBaseColor="#CEE5EE" />
+                                                <StackLayout Spacing="0">
+                                                    <Label TextColor="Black"
+                                                           FontFamily="ArchivoRegular"
+                                                           Text="{Binding DescriptionObjective}"
+                                                           FontSize="14" />
+                                                    <Label TextColor="Black"
+                                                           FontFamily="ArchivoSemiBold"
+                                                           Text="{Binding DescriptionProgress}"
+                                                           FontSize="14" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <Label Text="&#xf054;"
+                                                   FontSize="14"
+                                                   Margin="0,5,0,0"
+                                                   FontFamily="{StaticResource FontAwesomeSolid}"
+                                                   TextColor="Black" />
+                                        </FlexLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                                <BindableLayout.EmptyViewTemplate>
+                                    <DataTemplate>
+                                        <Label Text="No hay objetivos semanales"
+                                               FontFamily="ArchivoRegular"
+                                               Padding="20"
+                                               HorizontalTextAlignment="Center" />
                                     </DataTemplate>
                                 </BindableLayout.EmptyViewTemplate>
                             </StackLayout>

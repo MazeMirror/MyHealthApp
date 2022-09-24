@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace MyHealthApp.Models
 {
-    public class DailyGoal :INotifyPropertyChanged, IPrototype<DailyGoal>
+    public class WeeklyGoal :INotifyPropertyChanged, IPrototype<WeeklyGoal>
     {
         private long _id;
 
@@ -12,15 +12,14 @@ namespace MyHealthApp.Models
 
         private double _progress;
 
-        private DateTime _date;
-        
         private double _percentage;
 
         private long _patientId;
 
         private long _activityId;
-
+        
         private string _descriptionObjective;
+        
         private string _descriptionProgress;
         
         public long Id { get => _id;
@@ -63,13 +62,6 @@ namespace MyHealthApp.Models
             }
         }
         
-        public DateTime Date { get => _date;
-            set
-            {
-                _date = value;
-                OnPropertyChanged();
-            }
-        }
         
         public double Percentage { get => _percentage;
             set
@@ -104,10 +96,10 @@ namespace MyHealthApp.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         
-        public DailyGoal CreateDeepCopy()
+        public WeeklyGoal CreateDeepCopy()
         {
-            var dailyGoal = (DailyGoal)MemberwiseClone();
-            return dailyGoal;
+            var weeklyGoal = (WeeklyGoal)MemberwiseClone();
+            return weeklyGoal;
         }
     }
 }
