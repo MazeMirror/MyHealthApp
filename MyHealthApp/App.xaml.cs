@@ -68,7 +68,9 @@ namespace MyHealthApp
                         MainPage = new NavigationPage(new WelcomePage());
                     }
                         break;
-                }
+                    default:MainPage = new NavigationPage(new WelcomePage());
+                        break;
+                } 
                 
             }
             else

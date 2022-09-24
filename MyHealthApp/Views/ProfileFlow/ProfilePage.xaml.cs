@@ -4,6 +4,7 @@ using MyHealthApp.Models;
 using MyHealthApp.Models.SqlLite;
 using MyHealthApp.Services;
 using MyHealthApp.ViewModels;
+using MyHealthApp.Views.Register;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -121,6 +122,10 @@ namespace MyHealthApp.Views.ProfileFlow
         {
             await App.SqLiteDb.DeleteAllProfileAsync();
             await App.SqLiteDb.DeleteAllUsersAsync();
+            SuccessfulRegisterPage.WeeklyGoals = null;
+            SuccessfulRegisterPage.DailyGoals = null;
+            LoginPage.DailyGoals = null;
+            LoginPage.WeeklyGoals = null;
             Application.Current.Properties["RoleLogged"] = 3;
             Application.Current.MainPage = new NavigationPage(new WelcomePage());
             //await Navigation.PopToRootAsync();

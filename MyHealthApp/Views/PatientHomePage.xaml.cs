@@ -90,6 +90,11 @@ namespace MyHealthApp.Views
         {
             _dailyGoalsViewModel.AdjustProgressPercentages();
             
+            var completedDgGoals = _dailyGoalsViewModel.DailyGoals.Count(goal => goal.Progress == goal.Quantity);
+            LabelDgCompleted.Text = $"{completedDgGoals.ToString()} / {_dailyGoalsViewModel.DailyGoals.Count.ToString()}";
+            var completedWgGoals = _weeklyGoalViewModel.WeeklyGoals.Count(goal => goal.Progress == goal.Quantity);
+            LabelWgCompleted.Text = $"{completedWgGoals.ToString()} / {_weeklyGoalViewModel.WeeklyGoals.Count.ToString()}";
+            
             //Los dailyGoals
             FlexLayoutDailyGoals.BindingContext = _dailyGoalsViewModel;
             
