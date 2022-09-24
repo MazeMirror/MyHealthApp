@@ -64,11 +64,8 @@
     <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-ThinItalic.ttf" />
     <None Remove="Resources\Fonts\Fjalla_One\FjallaOne-Regular.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Fjalla_One\FjallaOne-Regular.ttf" />
-    <None Remove="Resources\Fonts\Font_Awesome\FABrands-Regular-400.otf" />
-    <EmbeddedResource Include="Resources\Fonts\Font_Awesome\FABrands-Regular-400.otf" />
-    <None Remove="Resources\Fonts\Font_Awesome\FARegular-400.otf" />
-    <EmbeddedResource Include="Resources\Fonts\Font_Awesome\FARegular-400.otf" />
     <None Remove="Resources\Fonts\Font_Awesome\FASolid-900.otf" />
+    <EmbeddedResource Include="Resources\Fonts\Font_Awesome\FARegular-400.otf" />
     <EmbeddedResource Include="Resources\Fonts\Font_Awesome\FASolid-900.otf" />
     <None Remove="Resources\Images\background-login.jpg" />
     <EmbeddedResource Include="Resources\Images\background-login.jpg" />
@@ -98,6 +95,7 @@
     <EmbeddedResource Include="Resources\Images\shoe.png" />
     <None Remove="Resources\Images\walk.png" />
     <EmbeddedResource Include="Resources\Images\walk.png" />
+    <None Remove="Resources\Fonts\Font_Awesome\FARegular-400.otf" />
   </ItemGroup>
 
   <ItemGroup>

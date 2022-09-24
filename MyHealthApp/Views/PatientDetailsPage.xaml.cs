@@ -21,9 +21,10 @@ namespace MyHealthApp.Views
         private readonly Profile _profile;
         private SlProfileDetailsViewModel _model;
         private readonly PatientDailyGoalsViewModel _dailyGoalsViewModel;
+        private readonly PatientWeeklyGoalViewModel _weeklyGoalViewModel;
         private readonly Patient _patient;
 
-        public PatientDetailsPage(Profile profile,Patient patient, List<DailyGoal> dailyGoals)
+        public PatientDetailsPage(Profile profile,Patient patient, List<DailyGoal> dailyGoals, List<WeeklyGoal> weeklyGoals)
         {
             InitializeComponent();
             _profile = profile.CreateDeepCopy();
@@ -32,10 +33,11 @@ namespace MyHealthApp.Views
             LabelLastname.Text = _profile.LastName;
             
             _dailyGoalsViewModel = new PatientDailyGoalsViewModel(dailyGoals);
+            _weeklyGoalViewModel = new PatientWeeklyGoalViewModel(weeklyGoals);
             
-            GetDailyGoalsInformation();
+            GetGoalsInformation();
             GetDailyGoalsStepAndWalk();
-            GetDataInformation();
+            GetPersonalDataInformation();
         }
 
         private void GetDailyGoalsStepAndWalk()
@@ -90,7 +92,7 @@ namespace MyHealthApp.Views
             
         }
 
-        private void GetDailyGoalsInformation()
+        private void GetGoalsInformation()
         {
             
            
@@ -138,6 +140,9 @@ namespace MyHealthApp.Views
             
             StackLayoutDailyGoals.BindingContext = _dailyGoalsViewModel;
             FlexLayoutDailyGoals.BindingContext = _dailyGoalsViewModel;
+            
+            //Los weeklyGoals
+            StackLayoutWeeklyGoals.BindingContext = _weeklyGoalViewModel;
             //BindableLayout.SetItemsSource(FlexLayoutDailyGoals,_dailyGoalsViewModel.DailyGoals);
             //BindableLayout.SetItemTemplate(FlexLayoutDailyGoals,progressRingTemplate);
         }
@@ -147,7 +152,7 @@ namespace MyHealthApp.Views
             await Navigation.PopAsync();
         }
 
-        private async void GetDataInformation()
+        private async void GetPersonalDataInformation()
         {
             //var patient = await PatientService.Instance.GetPatientByProfileId(_profile.Id);
             var user = await UserService.Instance.GetUserById(_profile.UserId);

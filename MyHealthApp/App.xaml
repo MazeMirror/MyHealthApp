@@ -7,6 +7,9 @@
             <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeSolid">
                 <On Platform="Android" Value="FASolid-900.otf#Solid"/>
             </OnPlatform>
+            <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesomeRegular">
+                <On Platform="Android" Value="FARegular-400.otf#Regular"/>
+            </OnPlatform>
             
             <Style x:Key="ButtonStyle" TargetType="Button">
                 <Style.Triggers>

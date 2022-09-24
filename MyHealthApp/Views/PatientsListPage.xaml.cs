@@ -87,7 +87,8 @@ namespace MyHealthApp.Views
                     //Solucion parcial es esta
                     var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
                     var dailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientId(patient.Id);
-                    await Navigation.PushAsync(new PatientDetailsPage(profile,patient,dailyGoals));
+                    var weeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(patient.Id);
+                    await Navigation.PushAsync(new PatientDetailsPage(profile,patient,dailyGoals,weeklyGoals));
                 }
 
                 //await DisplayAlert("Hola", "El Id es " + profileId.ToString(), "Ok");
