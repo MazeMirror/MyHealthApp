@@ -4,48 +4,329 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.PatientHomePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:ValueToDoubleConverter x:Key="ToDoubleConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout
-            BackgroundColor="#F0F3F4">
-            <FlexLayout
-                HeightRequest="90"
-                Direction="Row"
-                HorizontalOptions="FillAndExpand"
-                AlignItems="Center"
-                JustifyContent="Center"
-                BackgroundColor="White"
-                >
-                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
-                       Scale="0.90"
-                       />
-                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
-                       Margin="10,0,0,0"
-                       xct:IconTintColorEffect.TintColor="Black"
-                       Scale="0.90"
-                       />
-                <!--<Label Text="MY HEALT"
+        <ContentView>
+            <ScrollView>
+                <StackLayout
+                    BackgroundColor="#F0F3F4">
+                    <FlexLayout
+                        HeightRequest="90"
+                        Direction="Row"
+                        HorizontalOptions="FillAndExpand"
+                        AlignItems="Center"
+                        JustifyContent="Center"
+                        BackgroundColor="White">
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                               Scale="0.90" />
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                               Margin="10,0,0,0"
+                               xct:IconTintColorEffect.TintColor="Black"
+                               Scale="0.90" />
+                        <!--<Label Text="MY HEALT"
                        Margin="20,0,0,0"
                        FontFamily="FCraftBorgoBold"
                        FontSize="23"
                        TextColor="Black"
                 />-->
-            </FlexLayout>
-            
-            <Button
-                Margin="20,24,20,0"
-                HeightRequest="50"
-                Text="Registrar nuevo SmartWatch"
-                TextTransform="None"
-                FontFamily="ArchivoSemiBold"
-                FontSize="16"
-                TextColor="White"
-                BackgroundColor="#FF7E10"
-                CornerRadius="5"
-                Clicked="RegisterSmartwatch_OnClicked"
-            />
-            
-        </StackLayout>
+                    </FlexLayout>
+
+                    <Button
+                        Margin="20,24,20,0"
+                        HeightRequest="50"
+                        Text="Registrar nuevo SmartWatch"
+                        TextTransform="None"
+                        FontFamily="ArchivoSemiBold"
+                        FontSize="16"
+                        TextColor="White"
+                        BackgroundColor="#FF7E10"
+                        CornerRadius="5"
+                        Clicked="RegisterSmartwatch_OnClicked" />
+
+
+                    <!--Information physic activity-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5"
+                           HeightRequest="250">
+                        <StackLayout Spacing="14">
+
+                            <Label Text="Tu progreso de hoy"
+                                   Padding="20,10,0,0"
+                                   FontFamily="ArchivoSemiBold"
+                                   TextColor="Black"
+                                   FontSize="18" />
+
+                            <StackLayout
+                                HorizontalOptions="Center"
+                                Spacing="0"
+                                Padding="0,20,0,0"
+                                WidthRequest="270">
+                                <FlexLayout
+                                    x:Name="FlexLayoutRingsToday"
+                                    JustifyContent="SpaceBetween">
+                                    <plugin:ProgressRing x:Name="ProgressRingSteps"
+                                                         HeightRequest="110"
+                                                         WidthRequest="110"
+                                                         RingProgressColor="#2F6A88"
+                                                         RingThickness="6"
+                                                         Progress="0.2"
+                                                         RingBaseColor="#CEE5EE" />
+
+                                    <plugin:ProgressRing x:Name="ProgressRingWalk"
+                                                         HeightRequest="110"
+                                                         WidthRequest="110"
+                                                         RingProgressColor="#FF9162"
+                                                         RingBaseColor="#fddacb"
+                                                         RingThickness="6"
+                                                         Progress="0.6" />
+
+                                </FlexLayout>
+
+                                <FlexLayout
+                                    x:Name="FlexLayoutRingsInfoToday"
+                                    JustifyContent="SpaceBetween">
+                                    <StackLayout x:Name="StackLayoutInfoRingSteps"
+                                                 WidthRequest="110"
+                                                 TranslationY="-92"
+                                                 Spacing="1">
+                                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.shoe.png}"
+                                               xct:IconTintColorEffect.TintColor="#2F6A88"
+                                               Scale="1.4" />
+
+                                        <StackLayout Spacing="-5">
+                                            <Label x:Name="LabelProgressSteps"
+                                                   Text="10"
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="Black"
+                                                   FontSize="16"
+                                                   HorizontalTextAlignment="Center" />
+                                            <Label x:Name="LabelGoalSteps"
+                                                   Text="/400"
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="#A3A3A3"
+                                                   FontSize="14"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label Text="Pasos"
+                                               FontSize="14"
+                                               TextColor="Black"
+                                               FontFamily="ArchivoRegular"
+                                               HorizontalOptions="Center"
+                                               TranslationY="30" />
+
+                                    </StackLayout>
+                                    <StackLayout x:Name="StackLayoutInfoRingWalk"
+                                                 WidthRequest="110"
+                                                 TranslationY="-92"
+                                                 Spacing="1">
+                                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.walk.png}"
+                                               xct:IconTintColorEffect.TintColor="#FF9162"
+                                               Scale="1.4" />
+
+                                        <StackLayout Spacing="-5">
+                                            <Label x:Name="LabelProgressWalk"
+                                                   Text="200 min"
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="Black"
+                                                   FontSize="16"
+                                                   HorizontalTextAlignment="Center" />
+                                            <Label x:Name="LabelGoalWalk"
+                                                   Text="/3000 min"
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="#A3A3A3"
+                                                   FontSize="14"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label Text="Caminata"
+                                               FontSize="14"
+                                               TextColor="Black"
+                                               FontFamily="ArchivoRegular"
+                                               HorizontalOptions="Center"
+                                               TranslationY="30" />
+                                    </StackLayout>
+                                </FlexLayout>
+
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+
+                    <!--DailyGoals list-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+                        <StackLayout Spacing="14">
+                            <FlexLayout Padding="20,10,20,0"
+                                        Direction="Row"
+                                        JustifyContent="SpaceBetween"
+                                        AlignItems="Center">
+                                <Label Text="Tus objetivos diarios"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                                <Label Text="&#xf054;"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       FontFamily="{StaticResource FontAwesomeSolid}"
+                                       VerticalOptions="Center">
+                                </Label>
+                            </FlexLayout>
+                            <Label Text="Progreso de hoy"
+                                   Margin="20,-5,0,0"
+                                   TextColor="Black"
+                                   FontSize="12"
+                                   />
+                            <FlexLayout Padding="20,10,20,20"
+                                        JustifyContent="SpaceBetween"
+                                        AlignItems="Start"
+                                        HeightRequest="30"
+                                        >
+                                <StackLayout WidthRequest="90"
+                                             Spacing="-5">
+                                    <Label x:Name="LabelDgCompleted"
+                                           Text="0/0"
+                                           TextColor="#6EB3CD"
+                                           FontFamily="ArchivoSemiBold"
+                                           FontSize="18" />
+                                    <Label Text="Completados"
+                                           TextColor="#6EB3CD"
+                                           FontFamily="ArchivoRegular"
+                                           FontSize="14"/>
+                                </StackLayout>
+                                <FlexLayout x:Name="FlexLayoutDailyGoals"
+                                            Direction="Row"
+                                            Wrap="Wrap"
+                                            AlignContent="Start"
+                                            JustifyContent="End"
+                                            WidthRequest="210"
+                                            BindableLayout.ItemsSource="{Binding DailyGoals}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <plugin:ProgressRing HeightRequest="35"
+                                                                 WidthRequest="35"
+                                                                 RingProgressColor="#2F6A88"
+                                                                 RingThickness="5"
+                                                                 Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
+                                                                 Margin="0,0,5,20"
+                                                                 RingBaseColor="#CEE5EE" />
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                    
+                                    <BindableLayout.EmptyViewTemplate>
+                                        <DataTemplate>
+                                            <StackLayout WidthRequest="200" HeightRequest="30">
+                                                <Label Text="No hay objetivos diarios"
+                                                       FontFamily="ArchivoRegular"
+                                                       HorizontalTextAlignment="Center"
+                                                       VerticalOptions="Center"/>
+                                            </StackLayout>
+                                            
+                                        </DataTemplate>
+                                        
+                                    </BindableLayout.EmptyViewTemplate>
+                                   
+                                </FlexLayout>
+                            </FlexLayout>
+                            
+                        </StackLayout>
+                    </Frame>
+                    <!--WeeklyGoals list-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+                        <StackLayout Spacing="14">
+                            <FlexLayout Padding="20,10,20,0"
+                                        Direction="Row"
+                                        JustifyContent="SpaceBetween"
+                                        AlignItems="Center">
+                                <Label Text="Tus objetivos semanales"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                                <Label Text="&#xf054;"
+                                       FontSize="16"
+                                       TextColor="Black"
+                                       FontFamily="{StaticResource FontAwesomeSolid}"
+                                       VerticalOptions="Center">
+                                </Label>
+                            </FlexLayout>
+                            <Label Text="Progreso de esta semana"
+                                   Margin="20,-5,0,0"
+                                   TextColor="Black"
+                                   FontSize="12"
+                            />
+
+                            <FlexLayout Padding="20,10,20,20"
+                                        JustifyContent="SpaceBetween"
+                                        AlignItems="Start"
+                                        HeightRequest="30"
+                                        >
+                                <StackLayout WidthRequest="90"
+                                             Spacing="-5">
+                                    <Label x:Name="LabelWgCompleted"
+                                           Text="0/0"
+                                           TextColor="#6EB3CD"
+                                           FontFamily="ArchivoSemiBold"
+                                           FontSize="18" />
+                                    <Label Text="Completados"
+                                           TextColor="#6EB3CD"
+                                           FontFamily="ArchivoRegular"
+                                           FontSize="14"/>
+                                </StackLayout>
+                                <FlexLayout x:Name="FlexLayoutWeeklyGoals"
+                                            Direction="Row"
+                                            Wrap="Wrap"
+                                            AlignContent="Start"
+                                            JustifyContent="End"
+                                            WidthRequest="210"
+                                            BindableLayout.ItemsSource="{Binding WeeklyGoals}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <plugin:ProgressRing HeightRequest="35"
+                                                                 WidthRequest="35"
+                                                                 RingProgressColor="#2F6A88"
+                                                                 RingThickness="5"
+                                                                 Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
+                                                                 Margin="0,0,5,20"
+                                                                 RingBaseColor="#CEE5EE" />
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                    
+                                    <BindableLayout.EmptyViewTemplate>
+                                        <DataTemplate>
+                                            <StackLayout WidthRequest="200" HeightRequest="30">
+                                                <Label Text="No hay objetivos semanales"
+                                                       FontFamily="ArchivoRegular"
+                                                       HorizontalTextAlignment="Center"
+                                                       VerticalOptions="Center"/>
+                                            </StackLayout>
+                                            
+                                        </DataTemplate>
+                                        
+                                    </BindableLayout.EmptyViewTemplate>
+                                   
+                                </FlexLayout>
+                            </FlexLayout>
+                        </StackLayout>
+                    </Frame>
+
+                </StackLayout>
+            </ScrollView>
+        </ContentView>
     </ContentPage.Content>
 </ContentPage>

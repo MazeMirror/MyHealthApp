@@ -15,6 +15,8 @@ namespace MyHealthApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        public static List<WeeklyGoal> WeeklyGoals;
+        public static List<DailyGoal> DailyGoals;
         public LoginPage()
         {
             InitializeComponent();
@@ -77,7 +79,13 @@ namespace MyHealthApp.Views
             
             
             //Dependiendo del rolID de perfil mandamos el Tabbed de patient O Specialist
-            if(profile.RoleId == 1 ) await Navigation.PushAsync(new TabbedPatient());
+            if (profile.RoleId == 1)
+            {
+                var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
+                DailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientId(patient.Id);
+                WeeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(patient.Id);
+                await Navigation.PushAsync(new TabbedPatient());
+            }
             else await Navigation.PushAsync(new TabbedSpecialist());
         }
     }
