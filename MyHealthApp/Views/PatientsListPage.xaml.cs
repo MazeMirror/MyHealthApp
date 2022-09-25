@@ -21,9 +21,8 @@ namespace MyHealthApp.Views
 
         public PatientsListPage()
         {
-            
+            _viewModel = SpecialistHomePage.ViewModel;
             InitializeComponent();
-            _viewModel = new PatientsProfilesViewModel();
             GetListOfMyPatientsProfiles();
             
             BindingContext = _viewModel;

@@ -22,12 +22,22 @@ namespace MyHealthApp.Views
             this.Specialist = specialist;
             _viewModel = new PatientsProfilesViewModel();
             
+            GetListOfPatientsProfiles();
             //GetListOfPatientsProfiles();
             
             BindingContext = _viewModel;
         }
 
         private async void GetListOfPatientsProfiles()
+        {
+            var totalProfiles = await ProfileService.Instance.GetProfilesByRoleId(1);
+            foreach (var itemProfile in totalProfiles)
+            {
+                _viewModel.AddProfileToList(itemProfile);
+            }
+        }
+
+        /*private async void GetListOfPatientsProfiles()
         {
             var totalPatients = await PatientService.Instance.GetAllPatients();
 
@@ -39,12 +49,12 @@ namespace MyHealthApp.Views
             }
             
             
-            /*var patient1 = new Profile() {Name = "Josias", LastName = "Olaya",BirthDate = DateTime.Now};
+            var patient1 = new Profile() {Name = "Josias", LastName = "Olaya",BirthDate = DateTime.Now};
             this._viewModel.Profiles.Add(patient1);
             this._viewModel.Profiles.Add(patient1);
             this._viewModel.Profiles.Add(patient1);
-            this._viewModel.Profiles.Add(patient1);*/
-        }
+            this._viewModel.Profiles.Add(patient1);
+        }*/
 
         private async void LabelBack_OnTapped(object sender, EventArgs e)
         {

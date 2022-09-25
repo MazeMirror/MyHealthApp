@@ -107,7 +107,7 @@
                                                        FontSize="16"
                                                        FontFamily="ArchivoRegular"
                                                        TextColor="Black" />
-                                                <Label Text="{Binding BirthDate.Year}"
+                                                <Label Text="{Binding Years,StringFormat='Edad: {0} años'}"
                                                        FontSize="14"
                                                        FontFamily="ArchivoRegular"
                                                        TextColor="#707070" />

@@ -20,6 +20,7 @@ namespace MyHealthApp.Models
         private string _gender;
         private string _imageUrl;
         private DateTime _birthDate;
+        //private int _years;
         
         
         public long Id { get => _id;
@@ -95,6 +96,15 @@ namespace MyHealthApp.Models
             {
                 _birthDate = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public int Years
+        {
+            get
+            {
+                var years = DateTime.Now.Year - _birthDate.Year;
+                return years;
             }
         }
 
