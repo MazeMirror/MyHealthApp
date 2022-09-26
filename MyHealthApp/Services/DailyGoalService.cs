@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using MyHealthApp.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
 namespace MyHealthApp.Services
@@ -36,6 +38,18 @@ namespace MyHealthApp.Services
             
             return dailyGoals;
         }
-        
+
+        public async Task<DailyGoal> PostDailyGoalByPatientId(long patientId, DailyGoal dailyGoal)
+        {
+            _requestUri = new Uri($"http://192.168.1.15:8383/api/patient/{patientId.ToString()}/dailyGoal");
+            var json = JsonConvert.SerializeObject(dailyGoal, _settingsJson);
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+            
+            
+            var response = await _client.PostAsync(_requestUri, contentJson);
+
+            return response.StatusCode == HttpStatusCode.Created ?  JsonConvert.DeserializeObject<DailyGoal>(response.Content.ReadAsStringAsync().Result)
+                : null;
+        }
     }
 }

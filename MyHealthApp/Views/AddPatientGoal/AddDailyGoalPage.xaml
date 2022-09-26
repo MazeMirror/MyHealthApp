@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.AddPatientGoal.AddDailyGoalPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#F0F3F4">
+            <StackLayout
+                HeightRequest="90"
+                Orientation="Horizontal"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="White">
+                <Label Text="&#xf053;"
+                       FontSize="18"
+                       Margin="35,0,0,0"
+                       VerticalOptions="Center"
+                       FontFamily="{StaticResource FontAwesomeSolid}"
+                       TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="LabelBack_OnTapped"
+                            NumberOfTapsRequired="1" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                       Scale="0.90"
+                       Margin="68,0,0,0" />
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                       Margin="10,0,0,0"
+                       effects:IconTintColorEffect.TintColor="Black"
+                       Scale="0.90" />
+            </StackLayout>
+
+            <Frame Margin="20,24,20,0"
+                   BackgroundColor="White"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   Padding="20">
+                <StackLayout>
+                    <Label Text="Nuevo objetivo diario"
+                           FontSize="18"
+                           FontFamily="ArchivoSemiBold"
+                           TextColor="Black" />
+                    <FlexLayout JustifyContent="SpaceBetween"
+                                AlignItems="Start"
+                                Padding="15,25,10,0">
+                        <Label Text="Tipo"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black" />
+
+                        <Frame HasShadow="False"
+                               BorderColor="Black"
+                               CornerRadius="5"
+                               Padding="20,0,5,0"
+                               WidthRequest="170"
+                               HeightRequest="55">
+                            <FlexLayout
+                                Direction="Row"
+                                JustifyContent="SpaceBetween"
+                                AlignItems="Center">
+                                <Picker
+                                    WidthRequest="130"
+                                    x:Name="PickerActivity"
+                                    HorizontalOptions="FillAndExpand"
+                                    FontFamily="ArchivoRegular"
+                                    FontSize="16"
+                                    TextColor="Black"
+                                    Title="Seleccionar"
+                                    TitleColor="#516A7B"
+                                    ItemDisplayBinding="{Binding Name}"
+                                    SelectedIndexChanged="PickerActivity_OnSelectedIndexChanged">
+
+                                    <!--<Picker.ItemsSource>
+                                        <x:Array Type="{x:Type x:String}">
+                                            <x:String>Pasos</x:String>
+                                            <x:String>Femenino</x:String>
+                                        </x:Array>
+                                    </Picker.ItemsSource>-->
+                                    <!--<Picker.SelectedIndex>0</Picker.SelectedIndex>-->
+                                </Picker>
+                                <Label
+                                    VerticalOptions="Center"
+                                    FontSize="18"
+                                    WidthRequest="25"
+                                    Text="&#xf0d7;"
+                                    TextColor="Black"
+                                    FontFamily="{StaticResource FontAwesomeSolid}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                              Tapped="PickerActivity_OnTappedChevron"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </FlexLayout>
+
+                        </Frame>
+                    </FlexLayout>
+                    <FlexLayout JustifyContent="SpaceBetween"
+                                AlignItems="Start"
+                                Padding="15,35,10,0">
+                        <Label Text="Meta"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black" />
+                        
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="15">
+                            <Frame HasShadow="False"
+                                   BorderColor="Black"
+                                   CornerRadius="5"
+                                   Padding="20,0,20,0"
+                                   WidthRequest="80"
+                                   HeightRequest="55">
+                                <Entry
+                                    x:Name="EntryGoal"
+                                    Keyboard="Numeric"
+                                    MaxLength="4"
+                                    HorizontalOptions="FillAndExpand"
+                                    FontFamily="ArchivoRegular"
+                                    FontSize="16"
+                                    TextColor="Black"/>
+                            </Frame>
+                            
+                            <Label x:Name="LabelActivitySelected"
+                                   FontFamily="ArchivoRegular"
+                                   Text="minutos"
+                                   FontSize="16"
+                                   VerticalOptions="CenterAndExpand"/>
+                        </StackLayout>
+                    </FlexLayout>
+                    
+                    <Button Text="Añadir objetivo"
+                            Margin="0,20,0,0"
+                            BackgroundColor="#FF9162"
+                            HeightRequest="40"
+                            CornerRadius="5"
+                            TextTransform="None"
+                            TextColor="White" 
+                            Clicked="AddGoalButton_OnClicked"
+                            />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
