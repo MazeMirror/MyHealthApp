@@ -22,7 +22,7 @@ namespace MyHealthApp.Views
         private readonly Profile _profile;
         private SlProfileDetailsViewModel _model;
         public static  PatientDailyGoalsViewModel DailyGoalsViewModel;
-        private readonly PatientWeeklyGoalViewModel _weeklyGoalViewModel;
+        public static PatientWeeklyGoalViewModel WeeklyGoalViewModel;
         private readonly Patient _patient;
 
         public PatientDetailsPage(Profile profile,Patient patient, List<DailyGoal> dailyGoals, List<WeeklyGoal> weeklyGoals)
@@ -34,7 +34,7 @@ namespace MyHealthApp.Views
             LabelLastname.Text = _profile.LastName;
             
             DailyGoalsViewModel = new PatientDailyGoalsViewModel(dailyGoals);
-            _weeklyGoalViewModel = new PatientWeeklyGoalViewModel(weeklyGoals);
+            WeeklyGoalViewModel = new PatientWeeklyGoalViewModel(weeklyGoals);
             
             GetGoalsInformation();
             GetDailyGoalsStepAndWalk();
@@ -143,7 +143,7 @@ namespace MyHealthApp.Views
             FlexLayoutDailyGoals.BindingContext = DailyGoalsViewModel;
             
             //Los weeklyGoals
-            StackLayoutWeeklyGoals.BindingContext = _weeklyGoalViewModel;
+            StackLayoutWeeklyGoals.BindingContext = WeeklyGoalViewModel;
             //BindableLayout.SetItemsSource(FlexLayoutDailyGoals,_dailyGoalsViewModel.DailyGoals);
             //BindableLayout.SetItemTemplate(FlexLayoutDailyGoals,progressRingTemplate);
         }
@@ -164,6 +164,11 @@ namespace MyHealthApp.Views
         private async void LabelAddDailyGoal_OnTapped(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AddDailyGoalPage(_patient.Id));
+        }
+
+        private async void LabelAddWeeklyGoal_OnTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddWeeklyGoalPage(_patient.Id));
         }
     }
 }

@@ -393,6 +393,12 @@
                                        TextColor="#EB6C36"
                                        FontFamily="{StaticResource FontAwesomeRegular}"
                                        VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="LabelAddWeeklyGoal_OnTapped"
+                                            NumberOfTapsRequired="1"
+                                        />
+                                    </Label.GestureRecognizers>
                                 </Label>
                             </FlexLayout>
 
