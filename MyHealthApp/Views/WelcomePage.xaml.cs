@@ -11,11 +11,18 @@ namespace MyHealthApp.Views
         public WelcomePage()
         {
             InitializeComponent();
+            FallbackIfWelcomeIsStartPageByInterruptError();
         }
 
         private async void StartButton_OnClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new LoginPage());
+        }
+
+        private async void FallbackIfWelcomeIsStartPageByInterruptError()
+        {
+            await App.SqLiteDb.DeleteAllProfileAsync();
+            await App.SqLiteDb.DeleteAllUsersAsync();
         }
     }
 }

@@ -31,9 +31,9 @@
                 <StackLayout
                     Padding="5,5">
 
-                    <StackLayout
-                        Orientation="Horizontal"
-                        VerticalOptions="Start">
+                    <FlexLayout
+                        Direction="Row"
+                        JustifyContent="SpaceBetween">
                         <Label Text="Mis pacientes"
                                TextColor="Black"
                                FontSize="18"
@@ -43,14 +43,14 @@
                                TextColor="#EB6C36"
                                FontFamily="{StaticResource FontAwesomeRegular}"
                                VerticalOptions="Center"
-                               Margin="170,0,0,0">
+                               >
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer
                                     Tapped="LabelAddPatient_OnTapped"
                                     NumberOfTapsRequired="1" />
                             </Label.GestureRecognizers>
                         </Label>
-                    </StackLayout>
+                    </FlexLayout>
 
 
                     <Frame
