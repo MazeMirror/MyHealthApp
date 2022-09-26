@@ -26,7 +26,7 @@ namespace MyHealthApp.ViewModels
         {
             double calc = wg.Progress / wg.Quantity;
             wg.Percentage = Math.Round(calc, 2);
-            
+            CompleteDescriptionWg(wg);
             _weeklyGoals.Add(wg);
             OnPropertyChanged();
         }
@@ -43,7 +43,7 @@ namespace MyHealthApp.ViewModels
             {
                 case 1:
                 {
-                    item.DescriptionObjective = String.Format("Realizar {0} pasos en el día",item.Quantity);
+                    item.DescriptionObjective = String.Format("Realizar {0} pasos en la semana",item.Quantity);
                     item.DescriptionProgress = String.Format("Progreso: {0} pasos",item.Progress);
                 }; break;
                 case 2:

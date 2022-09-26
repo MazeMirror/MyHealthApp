@@ -16,7 +16,9 @@
         <ContentView>
             <ScrollView>
                 <StackLayout
-                    BackgroundColor="#F0F3F4">
+                    BackgroundColor="#F0F3F4"
+                    Padding="0,0,0,20"
+                    >
                     <FlexLayout
                         HeightRequest="90"
                         Direction="Row"

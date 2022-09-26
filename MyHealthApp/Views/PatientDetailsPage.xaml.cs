@@ -9,6 +9,7 @@ using MyHealthApp.Models;
 using MyHealthApp.Models.SqlLite;
 using MyHealthApp.Services;
 using MyHealthApp.ViewModels;
+using MyHealthApp.Views.AddPatientGoal;
 using ProgressRingControl.Forms.Plugin;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -20,8 +21,8 @@ namespace MyHealthApp.Views
     {
         private readonly Profile _profile;
         private SlProfileDetailsViewModel _model;
-        private readonly PatientDailyGoalsViewModel _dailyGoalsViewModel;
-        private readonly PatientWeeklyGoalViewModel _weeklyGoalViewModel;
+        public static  PatientDailyGoalsViewModel DailyGoalsViewModel;
+        public static PatientWeeklyGoalViewModel WeeklyGoalViewModel;
         private readonly Patient _patient;
 
         public PatientDetailsPage(Profile profile,Patient patient, List<DailyGoal> dailyGoals, List<WeeklyGoal> weeklyGoals)
@@ -32,8 +33,8 @@ namespace MyHealthApp.Views
             LabelName.Text = _profile.Name;
             LabelLastname.Text = _profile.LastName;
             
-            _dailyGoalsViewModel = new PatientDailyGoalsViewModel(dailyGoals);
-            _weeklyGoalViewModel = new PatientWeeklyGoalViewModel(weeklyGoals);
+            DailyGoalsViewModel = new PatientDailyGoalsViewModel(dailyGoals);
+            WeeklyGoalViewModel = new PatientWeeklyGoalViewModel(weeklyGoals);
             
             GetGoalsInformation();
             GetDailyGoalsStepAndWalk();
@@ -46,7 +47,7 @@ namespace MyHealthApp.Views
             DailyGoal firstWalkDg;
             try
             {
-                firstStepDg = _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 1 && e.Progress < e.Quantity).ToList().First();
+                firstStepDg = DailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 1 && e.Progress < e.Quantity).ToList().First();
                 LabelProgressSteps.Text = firstStepDg.Progress.ToString(CultureInfo.CurrentCulture);
                 LabelGoalSteps.Text = "/"+firstStepDg.Quantity.ToString(CultureInfo.CurrentCulture);
                 ProgressRingSteps.Progress = firstStepDg.Percentage;
@@ -61,7 +62,7 @@ namespace MyHealthApp.Views
 
             try
             {
-                firstWalkDg = _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 2 && e.Progress < e.Quantity).ToList().First();
+                firstWalkDg = DailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 2 && e.Progress < e.Quantity).ToList().First();
                 LabelProgressWalk.Text = firstWalkDg.Progress.ToString(CultureInfo.CurrentCulture)+" min";
                 LabelGoalWalk.Text = "/"+firstWalkDg.Quantity.ToString(CultureInfo.CurrentCulture)+" min";
                 ProgressRingWalk.Progress = firstWalkDg.Percentage;
@@ -111,11 +112,11 @@ namespace MyHealthApp.Views
                 _dailyGoalsViewModel.AddDailyGoalToList(item);
             }*/ 
             
-            _dailyGoalsViewModel.AdjustProgressPercentages();
+            //_dailyGoalsViewModel.AdjustProgressPercentages();
            
             
-            var completedGoals = _dailyGoalsViewModel.DailyGoals.Count(goal => goal.Progress == goal.Quantity);
-            LabelDgCompleted.Text = $"{completedGoals.ToString()} / {_dailyGoalsViewModel.DailyGoals.Count.ToString()}";
+            //var completedGoals = DailyGoalsViewModel.DailyGoals.Count(goal => goal.Progress == goal.Quantity);
+            //LabelDgCompleted.Text = $"{completedGoals.ToString()} / {DailyGoalsViewModel.DailyGoals.Count.ToString()}";
             
             
             /*DataTemplate progressRingTemplate = new DataTemplate(() =>
@@ -137,12 +138,12 @@ namespace MyHealthApp.Views
                 
                 return progressRing;
             });*/
-            
-            StackLayoutDailyGoals.BindingContext = _dailyGoalsViewModel;
-            FlexLayoutDailyGoals.BindingContext = _dailyGoalsViewModel;
+            LabelDgCompleted.BindingContext = DailyGoalsViewModel;
+            StackLayoutDailyGoals.BindingContext = DailyGoalsViewModel;
+            FlexLayoutDailyGoals.BindingContext = DailyGoalsViewModel;
             
             //Los weeklyGoals
-            StackLayoutWeeklyGoals.BindingContext = _weeklyGoalViewModel;
+            StackLayoutWeeklyGoals.BindingContext = WeeklyGoalViewModel;
             //BindableLayout.SetItemsSource(FlexLayoutDailyGoals,_dailyGoalsViewModel.DailyGoals);
             //BindableLayout.SetItemTemplate(FlexLayoutDailyGoals,progressRingTemplate);
         }
@@ -158,6 +159,16 @@ namespace MyHealthApp.Views
             var user = await UserService.Instance.GetUserById(_profile.UserId);
             _model = new SlProfileDetailsViewModel(_profile, _patient, ConvertToEntity.ConvertToUserEntity(user));
             StackLayoutProfileDetails.BindingContext = _model;
+        }
+
+        private async void LabelAddDailyGoal_OnTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddDailyGoalPage(_patient.Id));
+        }
+
+        private async void LabelAddWeeklyGoal_OnTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddWeeklyGoalPage(_patient.Id));
         }
     }
 }

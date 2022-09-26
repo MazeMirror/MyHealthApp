@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using MyHealthApp.Models;
 
@@ -12,6 +13,7 @@ namespace MyHealthApp.ViewModels
     public class PatientDailyGoalsViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<DailyGoal> _dailyGoals;
+        private int _completedGoals;
 
         public ObservableCollection<DailyGoal> DailyGoals
         {
@@ -22,6 +24,24 @@ namespace MyHealthApp.ViewModels
                 _dailyGoals = value;
                 OnPropertyChanged();
             }
+        }
+
+        public int CompletedGoals
+        {
+            get => _completedGoals;
+            set
+            {
+                _completedGoals = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int Lenght => _dailyGoals.Count();
+
+        private void CalculateCompletedGoals()
+        {
+            CompletedGoals = _dailyGoals.Count(goal => goal.Progress == goal.Quantity);
+            OnPropertyChanged();
         }
 
         public bool ItemAlreadyExist(DailyGoal pro)
@@ -36,11 +56,17 @@ namespace MyHealthApp.ViewModels
             return exist;
         }
 
-        public void AddDailyGoalToList(DailyGoal pro)
+        public void AddDailyGoalToList(DailyGoal dg)
         {
-            _dailyGoals.Add(pro);
+            double calc = dg.Progress / dg.Quantity;
+            dg.Percentage = Math.Round(calc, 2);
+            CompleteDescriptionDg(dg);
+            CalculateCompletedGoals();
+            _dailyGoals.Add(dg);
             OnPropertyChanged();
         }
+        
+        
 
         public void ClearDailyGoalList()
         {
@@ -54,26 +80,31 @@ namespace MyHealthApp.ViewModels
             
             foreach (var item in dailyGoals)
             {
-                switch (item.ActivityId)
+                CompleteDescriptionDg(item);
+                AddDailyGoalToList(item);
+            }
+            
+        }
+        
+        private void CompleteDescriptionDg(DailyGoal item)
+        {
+            switch (item.ActivityId)
+            {
+                case 1:
                 {
-                    case 1:
-                    {
-                        item.DescriptionObjective = String.Format("Realizar {0} pasos en el día",item.Quantity);
-                        item.DescriptionProgress = String.Format("Progreso: {0} pasos",item.Progress);
-                    }; break;
-                    case 2:
-                    {
-                        item.DescriptionObjective = String.Format("Realizar {0} minutos de caminata",item.Quantity);
-                        item.DescriptionProgress = String.Format("Progreso: {0} minutos",item.Progress);
-                    } ; break;
-                    case 3:
-                    {
-                        item.DescriptionObjective = String.Format("Recorrer una distancia de {0} m",item.Quantity);
-                        item.DescriptionProgress = String.Format("Progreso: {0} m",item.Progress);
-                    } ; break;
-                }
-                _dailyGoals.Add(item);
-                //AddDailyGoalToList(item.CreateDeepCopy());
+                    item.DescriptionObjective = String.Format("Realizar {0} pasos en el día",item.Quantity);
+                    item.DescriptionProgress = String.Format("Progreso: {0} pasos",item.Progress);
+                }; break;
+                case 2:
+                {
+                    item.DescriptionObjective = String.Format("Realizar {0} minutos de caminata",item.Quantity);
+                    item.DescriptionProgress = String.Format("Progreso: {0} minutos",item.Progress);
+                } ; break;
+                case 3:
+                {
+                    item.DescriptionObjective = String.Format("Recorrer una distancia de {0} m",item.Quantity);
+                    item.DescriptionProgress = String.Format("Progreso: {0} m",item.Progress);
+                } ; break;
             }
         }
 

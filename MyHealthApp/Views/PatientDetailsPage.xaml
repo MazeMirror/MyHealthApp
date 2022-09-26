@@ -254,7 +254,14 @@
                                     <Label x:Name="LabelDgCompleted"
                                            TextColor="#6EB3CD"
                                            FontFamily="ArchivoSemiBold"
-                                           FontSize="16" />
+                                           FontSize="16">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} / {1}">
+                                                <Binding Path="CompletedGoals"/>
+                                                <Binding Path="Lenght"/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
                                     <FlexLayout x:Name="FlexLayoutDailyGoals"
                                                 Direction="Row"
                                                 Wrap="Wrap"
@@ -307,7 +314,14 @@
                                        FontSize="24"
                                        TextColor="#EB6C36"
                                        FontFamily="{StaticResource FontAwesomeRegular}"
-                                       VerticalOptions="Center">
+                                       VerticalOptions="Center"
+                                       >
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="LabelAddDailyGoal_OnTapped"
+                                            NumberOfTapsRequired="1"
+                                        />
+                                    </Label.GestureRecognizers>
                                 </Label>
                             </FlexLayout>
                             <StackLayout x:Name="StackLayoutDailyGoals"
@@ -379,6 +393,12 @@
                                        TextColor="#EB6C36"
                                        FontFamily="{StaticResource FontAwesomeRegular}"
                                        VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="LabelAddWeeklyGoal_OnTapped"
+                                            NumberOfTapsRequired="1"
+                                        />
+                                    </Label.GestureRecognizers>
                                 </Label>
                             </FlexLayout>
 
