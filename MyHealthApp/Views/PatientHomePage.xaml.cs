@@ -22,10 +22,7 @@ namespace MyHealthApp.Views
         private readonly string _propertyKey = "LastConnectedDevice";
         private PatientDailyGoalsViewModel _dailyGoalsViewModel;
         private PatientWeeklyGoalViewModel _weeklyGoalViewModel;
-        
-        private readonly TimeSpan _second = TimeSpan.FromSeconds(10);
-        private StepsViewModel _stepsViewModel;
-        
+
         DailyGoal firstStepDg;
         public PatientHomePage()
         {
@@ -40,34 +37,14 @@ namespace MyHealthApp.Views
                 _weeklyGoalViewModel = new PatientWeeklyGoalViewModel(LoginPage.WeeklyGoals);
             }
             
-            _stepsViewModel = new StepsViewModel();
+            
             
             InitializeComponent();
             GetGoalsInformation();
             GetDailyGoalsStepAndWalk();
-            Setup();
         }
 
-
-        public void Setup()
-        {
-            Device.StartTimer(_second, () => {
-                
-                Device.BeginInvokeOnMainThread(() => RefreshViewSteps());
-                return true;
-            });
-        }
-
-        private void RefreshViewSteps()
-        {
-            _stepsViewModel.UpdateInfo();
-
-            if (_stepsViewModel.TodayStepCount > 0 && firstStepDg != null)
-            {
-                firstStepDg.Progress = _stepsViewModel.TodayStepCount;
-            }
-        }
-
+        
         private void GetDailyGoalsStepAndWalk()
         {
             DailyGoal firstWalkDg;
@@ -174,7 +151,7 @@ namespace MyHealthApp.Views
 
         private async void StepsProgress_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new StepsPage());
+            await Navigation.PushAsync(new StepsPage(firstStepDg));
         }
     }
 }

@@ -52,7 +52,7 @@
                         CornerRadius="5"
                         Clicked="RegisterSmartwatch_OnClicked" />
                     
-                    <!--<Button
+                    <Button
                         Margin="20,24,20,0"
                         HeightRequest="50"
                         Text="Ver progreso de actividad"
@@ -62,7 +62,7 @@
                         TextColor="White"
                         BackgroundColor="CornflowerBlue"
                         CornerRadius="5"
-                        Clicked="StepsProgress_OnClicked" />-->
+                        Clicked="StepsProgress_OnClicked" />
 
 
                     <!--Information physic activity-->
