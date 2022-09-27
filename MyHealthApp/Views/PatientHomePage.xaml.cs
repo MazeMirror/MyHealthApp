@@ -4,10 +4,12 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyHealthApp.Helpers;
 using MyHealthApp.Models;
 using MyHealthApp.Services.MiBand;
 using MyHealthApp.ViewModels;
 using MyHealthApp.Views.Register;
+using ProgressRingControl.Forms.Plugin;
 using WindesHeartSDK;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -20,6 +22,11 @@ namespace MyHealthApp.Views
         private readonly string _propertyKey = "LastConnectedDevice";
         private PatientDailyGoalsViewModel _dailyGoalsViewModel;
         private PatientWeeklyGoalViewModel _weeklyGoalViewModel;
+        
+        private readonly TimeSpan _second = TimeSpan.FromSeconds(10);
+        private StepsViewModel _stepsViewModel;
+        
+        DailyGoal firstStepDg;
         public PatientHomePage()
         {
             if (SuccessfulRegisterPage.DailyGoals != null && SuccessfulRegisterPage.DailyGoals != null)
@@ -33,21 +40,54 @@ namespace MyHealthApp.Views
                 _weeklyGoalViewModel = new PatientWeeklyGoalViewModel(LoginPage.WeeklyGoals);
             }
             
+            _stepsViewModel = new StepsViewModel();
+            
             InitializeComponent();
             GetGoalsInformation();
             GetDailyGoalsStepAndWalk();
+            Setup();
+        }
+
+
+        public void Setup()
+        {
+            Device.StartTimer(_second, () => {
+                
+                Device.BeginInvokeOnMainThread(() => RefreshViewSteps());
+                return true;
+            });
+        }
+
+        private void RefreshViewSteps()
+        {
+            _stepsViewModel.UpdateInfo();
+
+            if (_stepsViewModel.TodayStepCount > 0 && firstStepDg != null)
+            {
+                firstStepDg.Progress = _stepsViewModel.TodayStepCount;
+            }
         }
 
         private void GetDailyGoalsStepAndWalk()
         {
-            DailyGoal firstStepDg;
             DailyGoal firstWalkDg;
             try
             {
                 firstStepDg = _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 1 && e.Progress < e.Quantity).ToList().First();
-                LabelProgressSteps.Text = firstStepDg.Progress.ToString(CultureInfo.CurrentCulture);
-                LabelGoalSteps.Text = "/"+firstStepDg.Quantity.ToString(CultureInfo.CurrentCulture);
-                ProgressRingSteps.Progress = firstStepDg.Percentage;
+                
+                LabelProgressSteps.BindingContext = firstStepDg;
+                LabelProgressSteps.SetBinding(Label.TextProperty,"Progress");
+
+                LabelGoalSteps.BindingContext = firstStepDg;
+                LabelGoalSteps.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default);
+
+                ValueToDoubleConverter valueToDoubleConverter = new ValueToDoubleConverter();
+                ProgressRingSteps.BindingContext = firstStepDg;
+                ProgressRingSteps.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,valueToDoubleConverter);
+                
+                //LabelProgressSteps.Text = firstStepDg.Progress.ToString(CultureInfo.CurrentCulture);
+                //LabelGoalSteps.Text = "/"+firstStepDg.Quantity.ToString(CultureInfo.CurrentCulture);
+                //ProgressRingSteps.Progress = firstStepDg.Percentage;
             }
             catch (InvalidOperationException e)
             {
@@ -109,19 +149,14 @@ namespace MyHealthApp.Views
             //App.RequestLocationPermission();
             if (Windesheart.PairedDevice == null)
                 return;
-           
+
+            HandleAutoConnect();
         }
         
-        private void SetApplicationProperties()
-        {
-            if (Windesheart.PairedDevice != null)
-            {
-                App.Current.Properties[_propertyKey] = Windesheart.PairedDevice.Uuid;
-            }
-        }
+        
 
         //Handle Auto-connect to the last connected device with App-properties
-        private async Task HandleAutoConnect()
+        private async void HandleAutoConnect()
         {
             var knownGuid = App.Current.Properties[_propertyKey].ToString();
             if (!string.IsNullOrEmpty(knownGuid))
@@ -135,6 +170,11 @@ namespace MyHealthApp.Views
         {
             //await Application.Current.MainPage.Navigation.PushAsync(new DevicePage());
             await Navigation.PushAsync(new DevicePage());
+        }
+
+        private async void StepsProgress_OnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new StepsPage());
         }
     }
 }
