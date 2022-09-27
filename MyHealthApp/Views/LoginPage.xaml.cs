@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MyHealthApp.Models;
 using MyHealthApp.Models.SqlLite;
@@ -44,13 +45,29 @@ namespace MyHealthApp.Views
             }
             
             
+            Regex validateEmailRegex = new Regex("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+
+            if (validateEmailRegex.IsMatch(EntryEmail.Text) == false)
+            {
+                await DisplayAlert("Mensaje", "El correo ingresado no es válido, corríjalo para continuar", "Ok");
+                return;
+            }
+
+            if (EntryPassword.Text.Length < 8)
+            {
+                await DisplayAlert("Mensaje", "La contraseña ingresada no debe ser inferior a 8 caracteres", "Ok");
+                return;
+            }
+            
+            
+            
 
             //Hacemos la peticion al backend para autenticar
             //Y recibimos el perfil asociado al user
             User user = await UserService.Instance.PostAuthenticateUser(EntryEmail.Text, EntryPassword.Text);
             if (user == null)
             {
-                await DisplayAlert("Credenciales invalidos", "Revisar", "Ok");
+                await DisplayAlert("Credenciales inválidos", "El correo o la contraseña ingresada es incorrecta", "Ok");
                 return;
             }
 

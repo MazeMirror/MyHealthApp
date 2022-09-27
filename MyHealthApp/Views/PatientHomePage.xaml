@@ -196,7 +196,7 @@
                                         AlignItems="Start"
                                         HeightRequest="30"
                                         >
-                                <StackLayout WidthRequest="90"
+                                <StackLayout WidthRequest="110"
                                              Spacing="-5">
                                     <Label x:Name="LabelDgCompleted"
                                            Text="0/0"
@@ -230,7 +230,7 @@
                                     <BindableLayout.EmptyViewTemplate>
                                         <DataTemplate>
                                             <StackLayout WidthRequest="200" HeightRequest="30">
-                                                <Label Text="No hay objetivos diarios"
+                                                <Label Text="No hay objetivos &#10;diarios"
                                                        FontFamily="ArchivoRegular"
                                                        HorizontalTextAlignment="Center"
                                                        VerticalOptions="Center"/>
@@ -278,7 +278,7 @@
                                         AlignItems="Start"
                                         HeightRequest="30"
                                         >
-                                <StackLayout WidthRequest="90"
+                                <StackLayout WidthRequest="115"
                                              Spacing="-5">
                                     <Label x:Name="LabelWgCompleted"
                                            Text="0/0"
@@ -312,7 +312,7 @@
                                     <BindableLayout.EmptyViewTemplate>
                                         <DataTemplate>
                                             <StackLayout WidthRequest="200" HeightRequest="30">
-                                                <Label Text="No hay objetivos semanales"
+                                                <Label Text="No hay objetivos &#10;semanales"
                                                        FontFamily="ArchivoRegular"
                                                        HorizontalTextAlignment="Center"
                                                        VerticalOptions="Center"/>

@@ -7,7 +7,8 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.Register.SelectAccountTypePage">
     <ContentPage.Content>
-        <ScrollView
+        <ContentView>
+            <ScrollView
             BackgroundColor="#334856"
             >
             <StackLayout Padding="0,0,0,30">
@@ -175,5 +176,7 @@
             
             
         </ScrollView>
+        </ContentView>
+        
     </ContentPage.Content>
 </ContentPage>

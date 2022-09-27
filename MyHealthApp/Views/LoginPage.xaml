@@ -46,7 +46,7 @@
                         PlaceholderColor="#516A7B">
                         <Entry.Behaviors>
                             <xct:EmailValidationBehavior 
-                                Flags="ValidateOnUnfocusing"
+                                Flags="ValidateOnValueChanging"
                                 DecorationFlags="Trim"
                                 InvalidStyle="{StaticResource InvalidTextEntryStyle}"
                                 ValidStyle="{StaticResource ValidTextEntryStyle}"
@@ -75,7 +75,7 @@
                             PlaceholderColor="#516A7B">
                             <Entry.Behaviors>
                                 <xct:TextValidationBehavior 
-                                    Flags="ValidateOnUnfocusing"
+                                    Flags="ValidateOnValueChanging"
                                     MinimumLength="8"
                                     InvalidStyle="{StaticResource InvalidTextEntryStyle}"
                                     ValidStyle="{StaticResource ValidTextEntryStyle}"

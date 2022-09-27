@@ -17,31 +17,26 @@
                 FontSize="28"
                 LineHeight="1.5"
                 TextColor="White"
-                HorizontalOptions="CenterAndExpand"
-                />
-            
+                HorizontalOptions="CenterAndExpand" />
+
             <StackLayout
                 Padding="0,40,0,0"
-                Spacing="40"
-                >
+                Spacing="40">
                 <Image
                     Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
-                    Scale="1.6"
-                />
-                <Image 
+                    Scale="1.6" />
+                <Image
                     Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
-                    Scale="1.4"
-                />
+                    Scale="1.4" />
             </StackLayout>
-            
+
             <Label
                 Padding="0,30,0,0"
                 HorizontalOptions="Center"
                 Text="__________________________"
                 TextColor="White"
-                FontSize="18"
-                />
-            
+                FontSize="18" />
+
             <Label
                 Padding="0,30,0,0"
                 Text="Su cuenta ha sido creada con éxito. &#10;Es hora de alcanzar todas esas &#10;metas y mejorar el rendimiento físico"
@@ -49,9 +44,8 @@
                 TextColor="White"
                 FontSize="18"
                 HorizontalTextAlignment="Center"
-                LineHeight="1.4"
-                />
-            
+                LineHeight="1.4" />
+
             <Button
                 x:Name="NextPageButton"
                 Style="{StaticResource ButtonStyle}"
@@ -63,11 +57,10 @@
                 CharacterSpacing="2.1"
                 CornerRadius="50"
                 IsEnabled="True"
-                Clicked="NextButton_OnClicked"
-            >
-                
+                Clicked="NextButton_OnClicked">
+
             </Button>
-            
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

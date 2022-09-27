@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MyHealthApp.Models;
 using MyHealthApp.Services;
@@ -38,10 +39,24 @@ namespace MyHealthApp.Views.Register
                 return;
             }
             
+            Regex validateEmailRegex = new Regex("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+
+            if (validateEmailRegex.IsMatch(EntryEmail.Text) == false)
+            {
+                await DisplayAlert("Mensaje", "El correo ingresado no es válido, corríjalo para continuar", "Ok");
+                return;
+            }
+
+            if (EntryFirstPassword.Text.Length < 8)
+            {
+                await DisplayAlert("Mensaje", "La contraseña ingresada no debe ser inferior a 8 caracteres", "Ok");
+                return;
+            }
+            
             if (EntryFirstPassword.Text != EntrySecondPassword.Text)
             {
                 await DisplayAlert("Advertencia",
-                    "Las contraseñas no son iguales", "Ok");
+                    "Las contraseñas que ingresó no son iguales, corrijalas para continuar", "Ok");
                 return;
             }
             

@@ -52,15 +52,18 @@
                     Padding="30,40,30,20"
                     CornerRadius="10">
                     <StackLayout>
-                        <StackLayout
-                            Orientation="Horizontal">
+                        <FlexLayout
+                            Direction="Row"
+                            JustifyContent="SpaceBetween"
+                            AlignItems="Center"
+                            >
                             <Label Text="&#xf2bd;"
                                    FontFamily="{StaticResource FontAwesomeSolid}"
                                    FontSize="75"
                                    TextColor="Black" />
                             <Button
                                 VerticalOptions="CenterAndExpand"
-                                Margin="40,0,0,0"
+                                
                                 WidthRequest="170"
                                 HeightRequest="40"
                                 TextTransform="None"
@@ -68,7 +71,7 @@
                                 TextColor="White"
                                 CornerRadius="5"
                                 Text="Seleccionar foto" />
-                        </StackLayout>
+                        </FlexLayout>
 
                         <Label Text="Nombre completo"
                                FontSize="16"

@@ -343,7 +343,7 @@
                                                                      RingThickness="6"
                                                                      Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
                                                                      RingBaseColor="#CEE5EE" />
-                                                <StackLayout Spacing="0">
+                                                <StackLayout Spacing="0" WidthRequest="175">
                                                     <Label TextColor="Black"
                                                            FontFamily="ArchivoRegular"
                                                            Text="{Binding DescriptionObjective}"
@@ -421,7 +421,7 @@
                                                                      RingThickness="6"
                                                                      Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
                                                                      RingBaseColor="#CEE5EE" />
-                                                <StackLayout Spacing="0">
+                                                <StackLayout Spacing="0" WidthRequest="175">
                                                     <Label TextColor="Black"
                                                            FontFamily="ArchivoRegular"
                                                            Text="{Binding DescriptionObjective}"

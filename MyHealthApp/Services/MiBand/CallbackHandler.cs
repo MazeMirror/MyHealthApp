@@ -71,7 +71,7 @@ namespace MyHealthApp.Services.MiBand
                 //Globals.HomePageViewModel.ReadCurrentBattery();
                 //Globals.HomePageViewModel.BandNameLabel = Windesheart.PairedDevice.Name;
 
-                Device.BeginInvokeOnMainThread(delegate { Application.Current.MainPage.Navigation.PopAsync(); });
+                //Device.BeginInvokeOnMainThread(delegate { Application.Current.MainPage.Navigation.PopAsync(); });
                 //Globals.SamplesService.StartFetching();
             }
             else if (result == ConnectionResult.Failed)

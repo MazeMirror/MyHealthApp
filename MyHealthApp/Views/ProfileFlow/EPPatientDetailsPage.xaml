@@ -130,13 +130,13 @@
                             <Frame HasShadow="False"
                                    BorderColor="Black"
                                    CornerRadius="5"
-                                   Padding="20,5,20,5"
+                                   Padding="10,5,10,5"
                                    WidthRequest="70"
                                    Margin="0,10,0,0">
                                     
                                 <Entry
                                     x:Name="EntryHeight"
-                                    FontFamily="ArchivRegular"
+                                    FontFamily="ArchivoRegular"
                                     Keyboard="Numeric"
                                     MaxLength="5"
                                     IsSpellCheckEnabled="False">
@@ -161,7 +161,7 @@
                             <Frame HasShadow="False"
                                    BorderColor="Black"
                                    CornerRadius="5"
-                                   Padding="20,5,20,5"
+                                   Padding="10,5,10,5"
                                    WidthRequest="70"
                                    Margin="0,10,0,0">
 
@@ -185,7 +185,7 @@
                                    FontSize="16"
                                    FontFamily="ArchivoRegular"
                                    TextColor="Black"
-                                   Padding="5,10,5,0" 
+                                   Padding="5,10,0,0" 
                                    VerticalOptions="Center"
                             />
                         </StackLayout>
