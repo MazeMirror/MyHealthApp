@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MyHealthApp.Models;
 using MyHealthApp.Models.SqlLite;
@@ -42,6 +43,30 @@ namespace MyHealthApp.Views.ProfileFlow
 
         private async void SaveChanges_OnClicked(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(EntryEspeciality.Text) ||
+                string.IsNullOrWhiteSpace(EntryEmail.Text))
+            {
+                await DisplayAlert("Advertencia",
+                    "Hay presencia de campos vacíos, por favor complételos antes de continuar", "Ok");
+                return;
+            }
+            
+            
+            Regex validateEmailRegex = new Regex("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+
+            if (validateEmailRegex.IsMatch(EntryEmail.Text) == false)
+            {
+                await DisplayAlert("Mensaje", "El correo ingresado no es válido, corríjalo para continuar", "Ok");
+                return;
+            }
+            
+            
+            
+            
+            
+            
+            
+            
             //Actualizar usuario
             var editUser = _user.CreateDeepCopy();
             editUser.Email = EntryEmail.Text;

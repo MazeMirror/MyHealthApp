@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MyHealthApp.Models;
 using MyHealthApp.Models.SqlLite;
@@ -44,6 +45,23 @@ namespace MyHealthApp.Views.ProfileFlow
 
         private async void SaveChanges_OnClicked(object sender, EventArgs e)
         {
+            
+            if (string.IsNullOrWhiteSpace(EntryEmail.Text))
+            {
+                await DisplayAlert("Advertencia",
+                    "El campo de email no puede estar vacío", "Ok");
+                return;
+            }
+            
+            Regex validateEmailRegex = new Regex("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+
+            if (validateEmailRegex.IsMatch(EntryEmail.Text) == false)
+            {
+                await DisplayAlert("Mensaje", "El correo ingresado no es válido, corríjalo para continuar", "Ok");
+                return;
+            }
+            
+            
             //Actualizar usuario
             var editUser = _user.CreateDeepCopy();
             editUser.Email = EntryEmail.Text;
@@ -83,6 +101,10 @@ namespace MyHealthApp.Views.ProfileFlow
                     editPatient.Height = 0.0;
                 }
             }
+            else
+            {
+                editPatient.Height = 0.0;
+            }
             
             if (!string.IsNullOrWhiteSpace(EntryWeight.Text))
             {
@@ -97,6 +119,10 @@ namespace MyHealthApp.Views.ProfileFlow
                 }
                 
             }
+            else
+            {
+                editPatient.Weight = 0.0;
+            }
             
             if (!string.IsNullOrWhiteSpace(EntryPhone.Text))
             {
@@ -109,6 +135,10 @@ namespace MyHealthApp.Views.ProfileFlow
                 {
                     editPatient.EmergencyPhone = 0;
                 }
+            }
+            else
+            {
+                editPatient.EmergencyPhone = 0;
             }
             
             

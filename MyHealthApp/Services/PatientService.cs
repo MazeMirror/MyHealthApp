@@ -30,7 +30,7 @@ namespace MyHealthApp.Services
         
         public async Task<Patient> PostPatient(Patient patient)
         {
-            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/profile/{patient.ProfileId.ToString()}/patient");
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/profile/{patient.ProfileId.ToString()}/patient");
             var json = JsonConvert.SerializeObject(patient, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             
@@ -44,7 +44,7 @@ namespace MyHealthApp.Services
 
         public async Task<Patient> GetPatientByProfileId(long profileId)
         {
-            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/profile/{profileId.ToString()}/patient");
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/profile/{profileId.ToString()}/patient");
             var response = await _client.GetAsync(_requestUri);
             
             var myPatient = response.StatusCode == HttpStatusCode.OK
@@ -56,7 +56,7 @@ namespace MyHealthApp.Services
 
         public async Task<IList<Patient>> GetAllPatients()
         {
-            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/patient");
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient");
             var response = await _client.GetAsync(_requestUri);
             
             var myPatients = response.StatusCode == HttpStatusCode.OK
@@ -68,7 +68,7 @@ namespace MyHealthApp.Services
 
         public async Task<Patient> PutPatientByPatientAndId(Patient patient, long patientId)
         {
-            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/patient/{patientId.ToString()}");
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}");
             var json = JsonConvert.SerializeObject(patient, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             

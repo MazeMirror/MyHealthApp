@@ -28,7 +28,7 @@ namespace MyHealthApp.Services
         
         public async Task<List<WeeklyGoal>> GetWeeklyGoalsByPatientId(long patientId)
         {
-            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/patient/{patientId.ToString()}/weeklyGoals");
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/weeklyGoals");
             var response = await _client.GetAsync(_requestUri);
             
             var weeklyGoals = response.StatusCode == HttpStatusCode.OK
@@ -40,7 +40,7 @@ namespace MyHealthApp.Services
 
         public async Task<WeeklyGoal> PostWeeklyGoalByPatientId(long patientId, WeeklyGoal weeklyGoal)
         {
-            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/patient/{patientId.ToString()}/weeklyGoal");
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/weeklyGoal");
             var json = JsonConvert.SerializeObject(weeklyGoal, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             

@@ -129,7 +129,9 @@
                                 Placeholder="Nutricionista"
                                 x:Name="EntryEspeciality"
                                 FontFamily="ArchivRegular"
-                                IsSpellCheckEnabled="False" />
+                                IsSpellCheckEnabled="False"
+                                MaxLength="25"
+                                />
                         </Frame>
 
                         <Label Text="Correo"
@@ -147,6 +149,7 @@
                             <Entry
                                 x:Name="EntryEmail"
                                 FontFamily="ArchivRegular"
+                                MaxLength="30"
                                 IsSpellCheckEnabled="False">
                                 <Entry.Behaviors>
 

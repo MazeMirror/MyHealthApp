@@ -31,7 +31,7 @@ namespace MyHealthApp.Services
         
         public async Task<Profile> PostProfile(Profile profile)
         {
-            _requestUri = new Uri("https://myhealth-1664161814891.azurewebsites.net/api/profile");
+            _requestUri = new Uri("https://myhealthnewapi.azurewebsites.net/api/profile");
             var json = JsonConvert.SerializeObject(profile, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             
@@ -46,7 +46,7 @@ namespace MyHealthApp.Services
 
         public async Task<Profile> GetProfileByUserId(long userId)
         {
-            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/user/{userId.ToString()}/profile");
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/user/{userId.ToString()}/profile");
             var response = await _client.GetAsync(_requestUri);
             
             var myProfile = response.StatusCode == HttpStatusCode.OK
@@ -58,7 +58,7 @@ namespace MyHealthApp.Services
 
         public async Task<Profile> GetProfileById(long id)
         {
-            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/profile/{id.ToString()}");
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/profile/{id.ToString()}");
             var response = await _client.GetAsync(_requestUri);
             
             var myProfile = response.StatusCode == HttpStatusCode.OK
@@ -70,7 +70,7 @@ namespace MyHealthApp.Services
 
         public async Task<Profile> PutProfileByProfileAndId(Profile profile, long id)
         {
-            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/profile/{id.ToString()}");
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/profile/{id.ToString()}");
             var json = JsonConvert.SerializeObject(profile, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             
@@ -85,7 +85,7 @@ namespace MyHealthApp.Services
 
         public async Task<IList<Profile>> GetProfileByNameAndRoleId(string searchBarText, string roleId)
         {
-            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/profile?name={searchBarText}&roleId={roleId}");
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/profile?name={searchBarText}&roleId={roleId}");
            
             var response = await _client.GetAsync(_requestUri);
             
@@ -98,7 +98,7 @@ namespace MyHealthApp.Services
 
         public async Task<IList<Profile>> GetProfilesByRoleId(int roleId)
         {
-            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/profile/?roleId={roleId}");
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/profile/?roleId={roleId}");
            
             var response = await _client.GetAsync(_requestUri);
             

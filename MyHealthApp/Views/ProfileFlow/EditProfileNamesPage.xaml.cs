@@ -36,6 +36,16 @@ namespace MyHealthApp.Views.ProfileFlow
 
         private async void SaveChanges_OnClicked(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(EntryName.Text) ||
+                string.IsNullOrWhiteSpace(EntryLastName.Text))
+            {
+                await DisplayAlert("Advertencia",
+                    "Hay presencia de campos vacíos, por favor complételos antes de continuar", "Ok");
+                return;
+            }
+            
+            
+            
             var profile = ProfilePage.LocalProfile.CreateDeepCopy();
             
             profile.Name =  EntryName.Text;
