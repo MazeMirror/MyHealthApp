@@ -28,7 +28,7 @@ namespace MyHealthApp.Services
         
         public async Task<User> PostUser(User user)
         {
-            _requestUri = new Uri("http://192.168.1.15:8383/api/user");
+            _requestUri = new Uri("https://myhealth-1664161814891.azurewebsites.net/api/user");
             var json = JsonConvert.SerializeObject(user, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             
@@ -43,7 +43,7 @@ namespace MyHealthApp.Services
         
         public async Task<User> GetUserById(long userId)
         {
-            _requestUri = new Uri($"http://192.168.1.15:8383/api/user/{userId.ToString()}");
+            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/user/{userId.ToString()}");
             
             var response = await _client.GetAsync(_requestUri);
             var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
@@ -56,7 +56,7 @@ namespace MyHealthApp.Services
         public async Task<User> PostAuthenticateUser(string email,string password)
         {
             var myUser = new User(){Email = email,Password = password};
-            _requestUri = new Uri("http://192.168.1.15:8383/api/user/authenticate");
+            _requestUri = new Uri("https://myhealth-1664161814891.azurewebsites.net/api/user/authenticate");
             
             var json = JsonConvert.SerializeObject(myUser, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
@@ -74,7 +74,7 @@ namespace MyHealthApp.Services
 
         public async Task<User>  PutUserEmail(User user)
         {
-            _requestUri = new Uri($"http://192.168.1.15:8383/api/user/{user.Id.ToString()}");
+            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/user/{user.Id.ToString()}");
             
             var json = JsonConvert.SerializeObject(user, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");

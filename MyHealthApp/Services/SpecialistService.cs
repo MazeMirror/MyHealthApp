@@ -30,7 +30,7 @@ namespace MyHealthApp.Services
         
         public async Task<Specialist> PostSpecialist(Specialist specialist)
         {
-            _requestUri = new Uri("http://192.168.1.15:8383/api/specialist");
+            _requestUri = new Uri("https://myhealth-1664161814891.azurewebsites.net/api/specialist");
             var json = JsonConvert.SerializeObject(specialist, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             
@@ -45,7 +45,7 @@ namespace MyHealthApp.Services
 
         public async Task<Specialist> GetSpecialistByProfileId(long profileId)
         {
-            _requestUri = new Uri($"http://192.168.1.15:8383/api/profile/{profileId.ToString()}/specialist");
+            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/profile/{profileId.ToString()}/specialist");
             var response = await _client.GetAsync(_requestUri);
             
             var mySpecialist = response.StatusCode == HttpStatusCode.OK
@@ -57,7 +57,7 @@ namespace MyHealthApp.Services
         
         public async Task<IList<Patient>> GetPatientsBySpecialistId(long specialistId)
         {
-            _requestUri = new Uri($"http://192.168.1.15:8383/api/specialist/{specialistId.ToString()}/patients");
+            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/specialist/{specialistId.ToString()}/patients");
             var response = await _client.GetAsync(_requestUri);
             
             var myPatients = response.StatusCode == HttpStatusCode.OK
@@ -69,7 +69,7 @@ namespace MyHealthApp.Services
 
         public async Task<bool> AssignSpecialistWitPatient(long specialistId, long patientId)
         {
-            _requestUri = new Uri($"http://192.168.1.15:8383/api/specialist/{specialistId.ToString()}/patients/{patientId.ToString()}");
+            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/specialist/{specialistId.ToString()}/patients/{patientId.ToString()}");
             var contentJson = new StringContent(string.Empty, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync(_requestUri,contentJson);
 
@@ -78,7 +78,7 @@ namespace MyHealthApp.Services
 
         public async Task<Specialist> PutSpecialistBySpecialistAndId(Specialist specialist, long specialistId)
         {
-            _requestUri = new Uri($"http://192.168.1.15:8383/api/specialist/{specialistId.ToString()}");
+            _requestUri = new Uri($"https://myhealth-1664161814891.azurewebsites.net/api/specialist/{specialistId.ToString()}");
             var json = JsonConvert.SerializeObject(specialist, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             
