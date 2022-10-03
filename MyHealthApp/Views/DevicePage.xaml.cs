@@ -16,7 +16,7 @@ namespace MyHealthApp.Views
     {
         public static ListView DeviceList;
         public static Button ScanButton;
-        private readonly string _propertyKey = "LastConnectedDevice";
+        //private readonly string _propertyKey = "LastConnectedDevice";
         
 
         public DevicePage()
@@ -104,7 +104,7 @@ namespace MyHealthApp.Views
         {
             if (Windesheart.PairedDevice != null)
             {
-                App.Current.Properties[_propertyKey] = Windesheart.PairedDevice.Uuid;
+                Application.Current.Properties["LastConnectedDevice"] = Windesheart.PairedDevice.Uuid;
             }
         }
     }

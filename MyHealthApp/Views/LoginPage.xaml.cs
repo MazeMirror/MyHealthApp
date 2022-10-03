@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -36,9 +37,12 @@ namespace MyHealthApp.Views
 
         private async void LoginButton_OnClicked(object sender, EventArgs e)
         {
+            LoginButton.IsEnabled = false;
+            
             if (string.IsNullOrWhiteSpace(EntryEmail.Text) ||
                 string.IsNullOrWhiteSpace(EntryPassword.Text))
             {
+                LoginButton.IsEnabled = true;
                 await DisplayAlert("Advertencia",
                     "Hay presencia de campos vacíos, por favor complételos antes de continuar", "Ok");
                 return;
@@ -49,12 +53,14 @@ namespace MyHealthApp.Views
 
             if (validateEmailRegex.IsMatch(EntryEmail.Text) == false)
             {
+                LoginButton.IsEnabled = true;
                 await DisplayAlert("Mensaje", "El correo ingresado no es válido, corríjalo para continuar", "Ok");
                 return;
             }
 
             if (EntryPassword.Text.Length < 8)
             {
+                LoginButton.IsEnabled = true;
                 await DisplayAlert("Mensaje", "La contraseña ingresada no debe ser inferior a 8 caracteres", "Ok");
                 return;
             }
@@ -67,12 +73,18 @@ namespace MyHealthApp.Views
             User user = await UserService.Instance.PostAuthenticateUser(EntryEmail.Text, EntryPassword.Text);
             if (user == null)
             {
+                LoginButton.IsEnabled = true;
                 await DisplayAlert("Credenciales inválidos", "El correo o la contraseña ingresada es incorrecta", "Ok");
                 return;
             }
 
             Profile profile = await ProfileService.Instance.GetProfileByUserId(user.Id);
-            if (profile == null) return;
+            if (profile == null)
+            {
+                Debug.Print("No se pudo obtener el perfil");
+                return;
+            }
+            
             
             //Si tenemos exito en ello, guardamos en SQLlite los datos de perfil (PerfilId, UserCorreo y datos de perfil) 
             //2 entidades: Profile y User (sin contraseña obviamente)
@@ -99,6 +111,7 @@ namespace MyHealthApp.Views
             if (profile.RoleId == 1)
             {
                 var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
+                Application.Current.Properties["PatientId"] = patient.Id.ToString();
                 DailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientId(patient.Id);
                 WeeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(patient.Id);
                 await Navigation.PushAsync(new TabbedPatient());

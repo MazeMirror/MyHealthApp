@@ -27,7 +27,7 @@ namespace MyHealthApp.Views
                 firstStepDg = dailyGoal;
                 _stepsViewModel = new StepsViewModel();
                 LabelSteps.BindingContext = _stepsViewModel;
-                LabelSteps.SetBinding(Label.TextProperty,"TodayStepCount");
+                //LabelSteps.SetBinding(Label.TextProperty,"TodayStepCount");
                 Setup();
             }
             

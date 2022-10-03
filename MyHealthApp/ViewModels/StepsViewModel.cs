@@ -24,10 +24,16 @@ namespace MyHealthApp.ViewModels
         }
        
         
-        public async void UpdateInfo()
+        public async Task<bool> UpdateInfo()
         { 
-            _todayStepCount = await GetCurrentSteps(); 
-            OnPropertyChanged();
+            var steps = await GetCurrentSteps();
+            if (steps != -1)
+            {
+                TodayStepCount = steps;
+                return true;
+            }
+
+            return false;
         }
 
         private async Task<int> GetCurrentSteps()
@@ -46,10 +52,12 @@ namespace MyHealthApp.ViewModels
                     Debug.WriteLine("Error while trying to get stepcount: " + e.Message);
                     Debug.WriteLine("Falling back to data from DB...");
                     return -1;
+                    //return 0;
                 }
             }
-
-            return 0;
+            
+            Debug.WriteLine("MiBand device is out of range");
+            return -1;
         }
         
         

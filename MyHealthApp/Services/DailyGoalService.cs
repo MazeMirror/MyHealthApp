@@ -51,5 +51,18 @@ namespace MyHealthApp.Services
             return response.StatusCode == HttpStatusCode.Created ?  JsonConvert.DeserializeObject<DailyGoal>(response.Content.ReadAsStringAsync().Result)
                 : null;
         }
+
+        public async Task<DailyGoal> PutDailyGoalByPatientId(long patientId, DailyGoal daily)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/dailyGoal/{daily.Id.ToString()}");
+            var json = JsonConvert.SerializeObject(daily, _settingsJson);
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+            
+            
+            var response = await _client.PutAsync(_requestUri, contentJson);
+
+            return response.StatusCode == HttpStatusCode.Created ?  JsonConvert.DeserializeObject<DailyGoal>(response.Content.ReadAsStringAsync().Result)
+                : null;
+        }
     }
 }
