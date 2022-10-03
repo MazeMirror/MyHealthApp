@@ -22,6 +22,9 @@ namespace MyHealthApp.Models
         
         private string _descriptionProgress;
         
+        private DateTime _startDate;
+        private DateTime _endDate;
+        
         public long Id { get => _id;
             set
             {
@@ -83,6 +86,26 @@ namespace MyHealthApp.Models
             set
             {
                 _activityId = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime StartDate
+        {
+            get => _startDate;
+            set
+            {
+                _startDate = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        public DateTime EndDate
+        {
+            get => _endDate;
+            set
+            {
+                _endDate = value;
                 OnPropertyChanged();
             }
         }
