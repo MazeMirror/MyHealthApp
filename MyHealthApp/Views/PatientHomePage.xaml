@@ -51,8 +51,7 @@
                         BackgroundColor="#FF7E10"
                         CornerRadius="5"
                         Clicked="RegisterSmartwatch_OnClicked" />
-
-
+                    
                     <!--Information physic activity-->
                     <Frame Margin="20,24,20,0"
                            BackgroundColor="White"
@@ -214,7 +213,7 @@
                                             AlignContent="Start"
                                             JustifyContent="End"
                                             WidthRequest="210"
-                                            BindableLayout.ItemsSource="{Binding DailyGoals}">
+                                            >
                                     <BindableLayout.ItemTemplate>
                                         <DataTemplate>
                                             <plugin:ProgressRing HeightRequest="35"

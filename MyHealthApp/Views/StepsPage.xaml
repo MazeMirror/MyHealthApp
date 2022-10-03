@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             NavigationPage.HasNavigationBar="True"
+             x:Class="MyHealthApp.Views.StepsPage">
+    <ContentPage.Content>
+        <StackLayout
+            BackgroundColor="#F0F3F4"
+            >
+            
+            <FlexLayout
+                HeightRequest="90"
+                Direction="Row"
+                HorizontalOptions="FillAndExpand"
+                AlignItems="Center"
+                JustifyContent="Center"
+                BackgroundColor="White">
+                <Image Source="{effects:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                       Scale="0.90" />
+                <Image Source="{effects:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                       Margin="10,0,0,0"
+                       effects:IconTintColorEffect.TintColor="Black"
+                       Scale="0.90" />
+            </FlexLayout>
+            
+            <StackLayout Padding="20,40,20,0">
+                <Label x:Name="LabelSteps"
+                       Text="{Binding TodayStepCount}"
+                       HorizontalOptions="CenterAndExpand"
+                       FontSize="24"
+                       FontFamily="ArchivoSemiBold"
+                       TextColor="Black"
+                />
+                <Label Text="Pasos"
+                       FontSize="18"
+                       TextColor="Black"
+                       FontFamily="ArchivoRegular"
+                       HorizontalOptions="CenterAndExpand"
+                />
+            </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

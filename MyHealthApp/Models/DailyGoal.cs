@@ -94,6 +94,12 @@ namespace MyHealthApp.Models
                 OnPropertyChanged();
             }
         }
+
+        public void CalculatePercentage()
+        {
+            double calc = Progress / Quantity;
+            Percentage = Math.Round(calc, 2);
+        }
         
         
         

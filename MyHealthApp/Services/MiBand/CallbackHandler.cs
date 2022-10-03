@@ -77,7 +77,6 @@ namespace MyHealthApp.Services.MiBand
             else if (result == ConnectionResult.Failed)
             {
                 Debug.WriteLine("FAIL");
-                return;
             }
         }
 

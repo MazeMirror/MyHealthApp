@@ -37,6 +37,7 @@ namespace MyHealthApp.ViewModels
             IsLoading = false;
             StatusText = "Desconectado";
             DeviceList = new ObservableCollection<BLEScanResult>();
+            Application.Current.Properties["LastConnectedDevice"] = string.Empty;
             //Globals.HomePageViewModel.Heartrate = 0;
             //Globals.HomePageViewModel.Battery = 0;
         }
@@ -182,9 +183,9 @@ namespace MyHealthApp.ViewModels
                 StatusText = "Conectando...";
                 IsLoading = true;
 
-                if (App.Current.Properties.ContainsKey(_propertyKey))
+                if (Application.Current.Properties.ContainsKey(_propertyKey))
                 {
-                    var knownGuidString = App.Current.Properties[_propertyKey].ToString();
+                    var knownGuidString = Application.Current.Properties[_propertyKey].ToString();
 
                     if (!string.IsNullOrEmpty(knownGuidString))
                     {

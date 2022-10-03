@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -27,7 +28,7 @@ namespace MyHealthApp.Services
                 { ContractResolver = new CamelCasePropertyNamesContractResolver() };
         }
         
-        public async Task<List<DailyGoal>> GetDailyGoalsByPatientId(long patientId)
+        /*public async Task<List<DailyGoal>> GetDailyGoalsByPatientId(long patientId)
         {
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/dailyGoals");
             var response = await _client.GetAsync(_requestUri);
@@ -37,7 +38,7 @@ namespace MyHealthApp.Services
                 : new List<DailyGoal>();
             
             return dailyGoals;
-        }
+        }*/
 
         public async Task<DailyGoal> PostDailyGoalByPatientId(long patientId, DailyGoal dailyGoal)
         {
@@ -50,6 +51,31 @@ namespace MyHealthApp.Services
 
             return response.StatusCode == HttpStatusCode.Created ?  JsonConvert.DeserializeObject<DailyGoal>(response.Content.ReadAsStringAsync().Result)
                 : null;
+        }
+
+        public async Task<DailyGoal> PutDailyGoalByPatientId(long patientId, DailyGoal daily)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/dailyGoal/{daily.Id.ToString()}");
+            var json = JsonConvert.SerializeObject(daily, _settingsJson);
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+            
+            
+            var response = await _client.PutAsync(_requestUri, contentJson);
+
+            return response.StatusCode == HttpStatusCode.Created ?  JsonConvert.DeserializeObject<DailyGoal>(response.Content.ReadAsStringAsync().Result)
+                : null;
+        }
+
+        public async Task<List<DailyGoal>> GetDailyGoalsByPatientIdAndDate(long patientId, DateTime now)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/dailyGoals?date={now.ToString("d", CultureInfo.InvariantCulture)}");
+            var response = await _client.GetAsync(_requestUri);
+            
+            var dailyGoals = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<List<DailyGoal>>(response.Content.ReadAsStringAsync().Result)
+                : new List<DailyGoal>();
+            
+            return dailyGoals;
         }
     }
 }
