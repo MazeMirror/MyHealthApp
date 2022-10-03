@@ -48,13 +48,38 @@ namespace MyHealthApp.Views
             
             _stepsViewModel = new StepsViewModel();
             _patientId = long.Parse(Application.Current.Properties["PatientId"].ToString());
-
+            
+            GetDailyGoalsAndWeeklyGoals();
             InitializeComponent();
-            GetGoalsInformation();
-            //------------------------------------------------
-            GetDailyGoalStep();
-            GetDailyGoalWalk();
+            
+            
         }
+
+
+
+        private async void GetDailyGoalsAndWeeklyGoals()
+        {
+            
+            /*await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                var dailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientId(_patientId);
+                var weeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(_patientId);
+                _dailyGoalsViewModel = new PatientDailyGoalsViewModel(dailyGoals);
+                _weeklyGoalViewModel = new PatientWeeklyGoalViewModel(weeklyGoals);
+                //------------------------------------------------
+                
+            });*/
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                GetDailyGoalStep();
+                GetDailyGoalWalk();
+                GetGoalsInformation();
+            });
+            
+           
+        }
+        
+        
 
         private void GetDailyGoalStep()
         {
@@ -181,15 +206,21 @@ namespace MyHealthApp.Views
 
         private void GetGoalsInformation()
         {
-            _dailyGoalsViewModel.AdjustProgressPercentages();
-
-            UpdateCompletedDailyGoals();
-            UpdateCompletedWeeklyGoals();
+            
+            UpdateCompletedDailyGoals(); 
+            UpdateCompletedWeeklyGoals(); 
             //Los dailyGoals
             FlexLayoutDailyGoals.BindingContext = _dailyGoalsViewModel;
-            
+            BindableLayout.SetItemsSource(FlexLayoutDailyGoals,_dailyGoalsViewModel.DailyGoals);
+            //Debug.WriteLine("Tengo hijos: " + FlexLayoutDailyGoals.Children.Count);
+            //FlexLayoutDailyGoals.SetBinding(BindableLayout.ItemsSourceProperty,"DailyGoals");
+
             //Los weeklyGoals
             FlexLayoutWeeklyGoals.BindingContext = _weeklyGoalViewModel;
+            BindableLayout.SetItemsSource(FlexLayoutWeeklyGoals,_weeklyGoalViewModel.WeeklyGoals);
+            //Debug.WriteLine("Tengo hijos: " + FlexLayoutWeeklyGoals.Children.Count);
+            
+            
       
         }
 
@@ -212,7 +243,6 @@ namespace MyHealthApp.Views
             else
             {
                 //HandleAutoConnect();
-                
             }
         }
 
@@ -345,24 +375,36 @@ namespace MyHealthApp.Views
                 if (!string.IsNullOrEmpty(knownGuid))
                 {
                     var knownDevice = await Windesheart.GetKnownDevice(Guid.Parse(knownGuid));
-                    
-                    knownDevice.Connect(CallbackHandler.OnConnect);
 
-                    await this.DisplayToastAsync("Intentando conectar MiBand 4 registrado...", 10000);
-                    //Esperamos 10 segundos para que conecte
-                    //await Task.Delay(10000);
-                    
-                    if (Windesheart.PairedDevice != null && Windesheart.PairedDevice.IsAuthenticated())
+                    try
                     {
-                        _isTimerWorking = true;
-                        SetupDailyGoalStep();
-                        Windesheart.PairedDevice.SetStepGoal(int.Parse(firstStepDg.Quantity.ToString()));
-                        await this.DisplayToastAsync("Conexión exitosa", 3500);
+                        //No entiendo porque este metodo se pasa por alto sin esperar
+                        knownDevice.Connect(CallbackHandler.OnConnect);
+                        //
+                        
+                        await this.DisplayToastAsync("Intentando conectar MiBand 4 registrado ...", 15000);
+                        //Esperamos 15 segundos para que conecte
+                        //await Task.Delay(10000);
+                        
+                        if (Windesheart.PairedDevice != null && Windesheart.PairedDevice.IsAuthenticated())
+                        {
+                            _isTimerWorking = true;
+                            SetupDailyGoalStep();
+                            Windesheart.PairedDevice.SetStepGoal(int.Parse(firstStepDg.Quantity.ToString()));
+                            await this.DisplayToastAsync("Conexión exitosa", 3500);
+                        }
+                        else
+                        {
+                            await this.DisplayToastAsync("La operación tardó demasiado", 3500);
+                        }
+                        
                     }
-                    else
+                    catch (Exception _)
                     {
                         await this.DisplayToastAsync("Fallo al conectar", 3500);
                     }
+                    
+                   
                     
                 }
             }

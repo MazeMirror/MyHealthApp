@@ -213,7 +213,7 @@
                                             AlignContent="Start"
                                             JustifyContent="End"
                                             WidthRequest="210"
-                                            BindableLayout.ItemsSource="{Binding DailyGoals}">
+                                            >
                                     <BindableLayout.ItemTemplate>
                                         <DataTemplate>
                                             <plugin:ProgressRing HeightRequest="35"

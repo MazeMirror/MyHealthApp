@@ -52,7 +52,7 @@ namespace WindesHeartSDK.Devices.MiBand4Device.Services
                         }
                         else if (data[1] == MiBand3Resource.AuthSendEncryptedAuthNumber)
                         {
-                            Console.WriteLine("Authenticated & Connected!");
+                            Debug.WriteLine("Authenticated & Connected!");
                             MiBand4.Authenticated = true;
                             MiBand4.ConnectionCallback(ConnectionResult.Succeeded);
                             AuthenticationDisposable.Dispose();
