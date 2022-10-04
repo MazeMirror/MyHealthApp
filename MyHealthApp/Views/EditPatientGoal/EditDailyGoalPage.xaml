@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.EditPatientGoal.EditDailyGoalPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:ValueToDoubleConverter x:Key="ToDoubleConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#F0F3F4">
+            <!--TopBar-->
+            <StackLayout
+                HeightRequest="90"
+                Orientation="Horizontal"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="White">
+                <Label Text="&#xf053;"
+                       FontSize="18"
+                       Margin="35,0,0,0"
+                       VerticalOptions="Center"
+                       FontFamily="{StaticResource FontAwesomeSolid}"
+                       TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="LabelBack_OnTapped"
+                            NumberOfTapsRequired="1" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                       Scale="0.90"
+                       Margin="68,0,0,0" />
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                       Margin="10,0,0,0"
+                       effects:IconTintColorEffect.TintColor="Black"
+                       Scale="0.90" />
+            </StackLayout>
+            
+            <!--A partir de aqui empiezas a trabajar-->
+            <!--EJEMPLO-->
+            <Frame Margin="20,20,20,0" 
+                   BackgroundColor="White"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   >
+                <StackLayout Spacing="0">
+                    <!--Titulo-->
+                    <Label Text="Hola"/>
+                    
+                    <StackLayout Padding="0,25">
+                        <plugin:ProgressRing x:Name="ProgressRing"
+                                             HorizontalOptions="CenterAndExpand"
+                                             HeightRequest="95"
+                                             WidthRequest="95"
+                                             RingProgressColor="#2F6A88"
+                                             RingThickness="6"
+                                             Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
+                                             RingBaseColor="#CEE5EE"/>
+                    </StackLayout>
+                    
+                    <StackLayout HorizontalOptions="Center">
+                        <!--Seteamos binding para que muestre datos, DescriptionObjective es un atributo de DailyGoal -->
+                        <Label x:Name="LabelGoal" Text="{Binding DescriptionObjective}"/>
+                        <Label x:Name="LabelProgress" Text="Progreso ....."/>
+                    </StackLayout>
+                    
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center"
+                                 Padding="0,25,0,0">
+                        <Button Text="Boton 1"/>
+                        <Button Text="Boton 2"/>
+                    </StackLayout>
+                    
+                    
+                </StackLayout>
+                
+            </Frame>
+            <!--EJEMPLO-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

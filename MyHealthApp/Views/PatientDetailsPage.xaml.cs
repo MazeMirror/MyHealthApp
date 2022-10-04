@@ -10,6 +10,7 @@ using MyHealthApp.Models.SqlLite;
 using MyHealthApp.Services;
 using MyHealthApp.ViewModels;
 using MyHealthApp.Views.AddPatientGoal;
+using MyHealthApp.Views.EditPatientGoal;
 using ProgressRingControl.Forms.Plugin;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -169,6 +170,21 @@ namespace MyHealthApp.Views
         private async void LabelAddWeeklyGoal_OnTapped(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AddWeeklyGoalPage(_patient.Id));
+        }
+
+        
+        private async void SpecificDailyGoal_OnTapped(object sender, EventArgs e)
+        {
+            var param = ((TappedEventArgs)e).Parameter;
+            if (param != null)
+            {
+                var dailyGoal = param as DailyGoal;
+
+                if (dailyGoal != null)
+                {
+                    await Navigation.PushAsync(new EditDailyGoalPage(dailyGoal));
+                }
+            }
         }
     }
 }
