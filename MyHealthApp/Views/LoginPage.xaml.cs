@@ -116,7 +116,12 @@ namespace MyHealthApp.Views
                 WeeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(patient.Id);
                 await Navigation.PushAsync(new TabbedPatient());
             }
-            else await Navigation.PushAsync(new TabbedSpecialist());
+            else
+            {
+                //await Navigation.PopToRootAsync();
+                Application.Current.MainPage = new NavigationPage(new TabbedSpecialist());
+                //await Navigation.PushAsync(new TabbedSpecialist());
+            }
         }
     }
 }

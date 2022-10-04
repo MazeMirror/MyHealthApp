@@ -17,10 +17,10 @@ namespace MyHealthApp.Views
             InitializeComponent();
             Application.Current.Properties["RoleLogged"] = 2;
         }
-        
-        protected override bool OnBackButtonPressed()
+
+        /*protected override bool OnBackButtonPressed()
         {
             return true;
-        }
+        }*/
     }
 }

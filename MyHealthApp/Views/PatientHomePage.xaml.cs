@@ -420,5 +420,10 @@ namespace MyHealthApp.Views
         {
             await Navigation.PushAsync(new StepsPage(firstStepDg));
         }
+        
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }

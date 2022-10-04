@@ -130,5 +130,10 @@ namespace MyHealthApp.Views.ProfileFlow
             Application.Current.MainPage = new NavigationPage(new WelcomePage());
             //await Navigation.PopToRootAsync();
         }
+        
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }

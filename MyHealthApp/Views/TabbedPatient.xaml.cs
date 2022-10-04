@@ -18,9 +18,9 @@ namespace MyHealthApp.Views
             Application.Current.Properties["RoleLogged"] = 1;
         }
 
-        protected override bool OnBackButtonPressed()
+        /*protected override bool OnBackButtonPressed()
         {
             return true;
-        }
+        }*/
     }
 }
