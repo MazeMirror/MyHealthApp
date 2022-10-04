@@ -29,7 +29,7 @@ namespace MyHealthApp.Services
         
         public async Task<List<WeeklyGoal>> GetWeeklyGoalsByPatientId(long patientId)
         {
-            DateTime date = DateTime.Now;
+            DateTime date = DateTime.Today;
             int day = (int) date.DayOfWeek;
             DateTime monday = date.AddDays((-1) * (day == 0 ? 6 : day - 1));
             DateTime sunday = date.AddDays((1) * (day== 0 ? day : 7 - day));
@@ -49,7 +49,7 @@ namespace MyHealthApp.Services
 
         public async Task<WeeklyGoal> PostWeeklyGoalByPatientId(long patientId, WeeklyGoal weeklyGoal)
         {
-            DateTime date = DateTime.Now;
+            DateTime date = DateTime.Today;
             int day = (int) date.DayOfWeek;
             DateTime monday = date.AddDays((-1) * (day == 0 ? 6 : day - 1));
             DateTime sunday = date.AddDays((1) * (day== 0 ? day : 7 - day));

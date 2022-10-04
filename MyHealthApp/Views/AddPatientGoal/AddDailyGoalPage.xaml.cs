@@ -69,7 +69,7 @@ namespace MyHealthApp.Views.AddPatientGoal
 
             var dailyGoal = new DailyGoal()
             {
-                Date = DateTime.Now,
+                Date = DateTime.Today,
                 Quantity = quantityGoal,
                 Progress = 0.0,
                 ActivityId = activityId,

@@ -57,7 +57,7 @@ namespace MyHealthApp.Views.Register
             {
                 var patient = await PatientService.Instance.GetPatientByProfileId(_profile.Id);
                 Application.Current.Properties["PatientId"] = patient.Id.ToString();
-                DailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDate(patient.Id,DateTime.Now);
+                DailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDate(patient.Id,DateTime.Today);
                 WeeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(patient.Id);
                 await Navigation.PushAsync(new TabbedPatient());
             }

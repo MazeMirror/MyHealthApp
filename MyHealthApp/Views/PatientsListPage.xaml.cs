@@ -85,7 +85,7 @@ namespace MyHealthApp.Views
                     //BUG: El progress ring no renderiza del data template con data asíncrona
                     //Solucion parcial es esta
                     var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
-                    var dailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDate(patient.Id,DateTime.Now);
+                    var dailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDate(patient.Id,DateTime.Today);
                     var weeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(patient.Id);
                     await Navigation.PushAsync(new PatientDetailsPage(profile,patient,dailyGoals,weeklyGoals));
                 }
