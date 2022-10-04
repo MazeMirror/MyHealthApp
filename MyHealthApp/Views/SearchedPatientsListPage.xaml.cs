@@ -115,5 +115,17 @@ namespace MyHealthApp.Views
                 _viewModel.AddProfileToList(item);
             }
         }
+
+        private async void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            string roleId = "1"; //Osea de rol paciente 
+            var searchedPatients = await ProfileService.Instance.GetProfileByNameAndRoleId(SearchBar.Text,roleId);
+            _viewModel.ClearProfileList();
+            
+            foreach (var item in searchedPatients)
+            {
+                _viewModel.AddProfileToList(item);
+            }
+        }
     }
 }

@@ -62,6 +62,7 @@
                                IsSpellCheckEnabled="False"
                                HorizontalOptions="FillAndExpand"
                                TextColor="Black"
+                               TextChanged="SearchBar_OnTextChanged"
                                MaxLength="20" 
                                SearchButtonPressed="SearchBar_OnSearchButtonPressed"
                                />
