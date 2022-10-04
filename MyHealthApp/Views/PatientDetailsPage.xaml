@@ -168,7 +168,7 @@
                                                          Progress="0.2"
                                                          RingBaseColor="#CEE5EE" />
 
-                                    <plugin:ProgressRing x:Name="ProgressRingWalk"
+                                    <plugin:ProgressRing x:Name="ProgressRingDistance"
                                                          HeightRequest="110"
                                                          WidthRequest="110"
                                                          RingProgressColor="#FF9162"
@@ -212,7 +212,7 @@
                                                TranslationY="30" />
 
                                     </StackLayout>
-                                    <StackLayout x:Name="StackLayoutInfoRingWalk"
+                                    <StackLayout x:Name="StackLayoutInfoRingDistance"
                                                  WidthRequest="110"
                                                  TranslationY="-92"
                                                  Spacing="1">
@@ -221,14 +221,14 @@
                                                Scale="1.4" />
 
                                         <StackLayout Spacing="-5">
-                                            <Label x:Name="LabelProgressWalk"
-                                                   Text="200 min"
+                                            <Label x:Name="LabelProgressDistance"
+                                                   Text="200 m"
                                                    FontFamily="ArchivoRegular"
                                                    TextColor="Black"
                                                    FontSize="16"
                                                    HorizontalTextAlignment="Center" />
-                                            <Label x:Name="LabelGoalWalk"
-                                                   Text="/3000 min"
+                                            <Label x:Name="LabelGoalDistance"
+                                                   Text="/3000 m"
                                                    FontFamily="ArchivoRegular"
                                                    TextColor="#A3A3A3"
                                                    FontSize="14"

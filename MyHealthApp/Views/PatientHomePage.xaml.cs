@@ -25,14 +25,16 @@ namespace MyHealthApp.Views
         private readonly string _propertyKey = "LastConnectedDevice";
         private PatientDailyGoalsViewModel _dailyGoalsViewModel;
         private PatientWeeklyGoalViewModel _weeklyGoalViewModel;
+        private readonly ValueToDoubleConverter _valueToDoubleConverter = new ValueToDoubleConverter();
         
-        private readonly TimeSpan _second = TimeSpan.FromSeconds(5);
+        private readonly TimeSpan _second = TimeSpan.FromSeconds(2);
         private StepsViewModel _stepsViewModel;
         private bool _isTimerWorking = false;
         private bool _isCheckingSteps = false;
         private long _patientId;
 
         DailyGoal firstStepDg;
+        private DailyGoal firstDistanceDg;
         public PatientHomePage()
         {
             if (SuccessfulRegisterPage.DailyGoals != null && SuccessfulRegisterPage.DailyGoals != null)
@@ -72,7 +74,7 @@ namespace MyHealthApp.Views
             Device.BeginInvokeOnMainThread(() =>
             {
                 GetDailyGoalStep();
-                GetDailyGoalWalk();
+                GetDailyGoalDistance();
                 GetGoalsInformation();
             });
             
@@ -91,11 +93,11 @@ namespace MyHealthApp.Views
                 LabelProgressSteps.SetBinding(Label.TextProperty,"Progress");
 
                 LabelGoalSteps.BindingContext = firstStepDg;
-                LabelGoalSteps.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default);
+                LabelGoalSteps.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default,stringFormat:"/{0}");
 
-                ValueToDoubleConverter valueToDoubleConverter = new ValueToDoubleConverter();
+                
                 ProgressRingSteps.BindingContext = firstStepDg;
-                ProgressRingSteps.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,valueToDoubleConverter);
+                ProgressRingSteps.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,_valueToDoubleConverter);
 
                 if (firstStepDg.Progress == 0.0)
                 {
@@ -126,9 +128,9 @@ namespace MyHealthApp.Views
                 LabelGoalSteps.BindingContext = firstStepDg;
                 LabelGoalSteps.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default);
 
-                ValueToDoubleConverter valueToDoubleConverter = new ValueToDoubleConverter();
+                
                 ProgressRingSteps.BindingContext = firstStepDg;
-                ProgressRingSteps.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,valueToDoubleConverter);
+                ProgressRingSteps.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,_valueToDoubleConverter);
                 
                 
                 /*if (firstStepDg != null)
@@ -172,26 +174,65 @@ namespace MyHealthApp.Views
             }
         }
         
-        private void GetDailyGoalWalk()
+        private void GetDailyGoalDistance()
         {
-            DailyGoal firstWalkDg;
             
             try
             {
-                firstWalkDg = _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 2 && e.Progress < e.Quantity).ToList().First();
-                LabelProgressWalk.Text = firstWalkDg.Progress.ToString(CultureInfo.CurrentCulture)+" min";
-                LabelGoalWalk.Text = "/"+firstWalkDg.Quantity.ToString(CultureInfo.CurrentCulture)+" min";
-                ProgressRingWalk.Progress = firstWalkDg.Percentage;
+                firstDistanceDg = _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 3 && e.Progress < e.Quantity).ToList().First();
+                
+                LabelProgressDistance.BindingContext = firstDistanceDg;
+                LabelProgressDistance.SetBinding(Label.TextProperty,"Progress",stringFormat: "{0:#.0} m");
+
+                LabelGoalDistance.BindingContext = firstDistanceDg;
+                LabelGoalDistance.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default,stringFormat: "{0:#.0} m");
+
+                
+                ProgressRingDistance.BindingContext = firstDistanceDg;
+                ProgressRingDistance.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,_valueToDoubleConverter);
+
+                //LabelProgressDistance.Text = firstDistanceDg.Progress.ToString(CultureInfo.CurrentCulture)+" m";
+                //LabelGoalDistance.Text = "/"+firstDistanceDg.Quantity.ToString(CultureInfo.CurrentCulture)+" m";
+                //ProgressRingDistance.Progress = firstDistanceDg.Percentage;
+                
+                if (firstDistanceDg.Progress == 0.0)
+                {
+                    firstDistanceDg.Progress = _stepsViewModel.TodayStepCount*0.762;
+                }
+                
             }
             catch (InvalidOperationException e1)
             {
-                FlexLayoutRingsToday.Children.Remove(ProgressRingWalk);
-                FlexLayoutRingsInfoToday.Children.Remove(StackLayoutInfoRingWalk);
-                FlexLayoutRingsToday.JustifyContent = FlexJustify.Center;
-                FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.Center;
+                //FlexLayoutRingsToday.Children.Remove(ProgressRingDistance);
+                //FlexLayoutRingsInfoToday.Children.Remove(StackLayoutInfoRingDistance);
+                
+                LabelGoalDistance.TextColor = Color.White;
+                
+                firstDistanceDg = new DailyGoal()
+                {
+                    Id = -1,
+                    Percentage = 0,
+                    Quantity = 9999.0,
+                    Progress = _stepsViewModel.TodayStepCount*0.762, //Converting Steps to meters
+                    ActivityId = 3,
+                };
+                
+                LabelProgressDistance.BindingContext = firstDistanceDg;
+                LabelProgressDistance.SetBinding(Label.TextProperty,"Progress",stringFormat: "{0:#.0} m");
+
+                LabelGoalDistance.BindingContext = firstDistanceDg;
+                LabelGoalDistance.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default);
+
+                
+                ProgressRingDistance.BindingContext = firstDistanceDg;
+                ProgressRingDistance.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,_valueToDoubleConverter);
+
+                
+                //FlexLayoutRingsToday.JustifyContent = FlexJustify.Center;
+                //FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.Center;
             }
 
-            if (FlexLayoutRingsToday.Children.Count == 0)
+            /*if (FlexLayoutRingsToday.Children.Count == 0)
             {
                 FlexLayoutRingsToday.Children.Add(new Label()
                 {
@@ -201,7 +242,7 @@ namespace MyHealthApp.Views
                     HorizontalTextAlignment = TextAlignment.Center,
                     FontSize = 14
                 });
-            }
+            }*/
         }
 
         private void GetGoalsInformation()
@@ -237,7 +278,7 @@ namespace MyHealthApp.Views
             if (Windesheart.PairedDevice != null && Windesheart.PairedDevice.IsAuthenticated())
             {
                 _isTimerWorking = true;
-                SetupDailyGoalStep();
+                SetupDailyGoal();
                 Windesheart.PairedDevice.SetStepGoal(int.Parse(firstStepDg.Quantity.ToString()));
             }
             else
@@ -251,34 +292,16 @@ namespace MyHealthApp.Views
             _isTimerWorking = false;
         }
 
-        private void SetupDailyGoalStep()
+        private void UpdatingStepDg()
         {
-            Device.StartTimer(_second, () =>
-            {
-
-                Task.Run(async () =>
-                {
-                    _isCheckingSteps = await _stepsViewModel.UpdateInfo();
-                    if (!_isCheckingSteps)
-                    {
-                        await Device.InvokeOnMainThreadAsync( async () =>
-                        {
-                            _isTimerWorking = false;
-                            Windesheart.PairedDevice?.Disconnect();
-                            await DisplayAlert("Mensaje importante", 
-                                "Se perdió la conexión con el Xiaomi MiBand, vuelva a conectarlo en ajustes.",
-                                "Ok");
-                        });
-                    }
-                });
-                
-                //Es decir su id existe en la base de datos
+            //Es decir su id existe en la base de datos
                 if (firstStepDg.Id != -1)
                 {
                     //_stepsViewModel.UpdateInfo();
                     Debug.Print("Contando..." +_stepsViewModel.TodayStepCount.ToString()+" pasos");
                   
-                    if (firstStepDg.Progress != (double)_stepsViewModel.TodayStepCount)
+                    if (firstStepDg.Progress != (double)_stepsViewModel.TodayStepCount
+                        && _stepsViewModel.TodayStepCount != 0)
                     {
                         
                         //Si mi contador supero mi objetivo
@@ -324,7 +347,6 @@ namespace MyHealthApp.Views
                             firstStepDg.CalculatePercentage();
                             
                             
-                            
                             Task.Run(async () =>
                             {
                                 await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, firstStepDg);
@@ -347,7 +369,112 @@ namespace MyHealthApp.Views
                     
                     //_isTimerWorking = false;
                 }
+        }
+
+
+        private void UpdatingDistanceDg()
+        {
+            //Es decir su id existe en la base de datos
+                if (firstDistanceDg.Id != -1)
+                {
+                    //_stepsViewModel.UpdateInfo();
+                    Debug.Print("Recorridos..." +_stepsViewModel.TodayStepCount*0.762 +" metros");
+                  
+                    if (firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.762)
+                        && _stepsViewModel.TodayStepCount != 0)
+                    {
+                        
+                        //Si mi contador supero mi objetivo
+                        if ((double)(_stepsViewModel.TodayStepCount*0.762) > firstDistanceDg.Quantity)
+                        {
+                           
+                            firstDistanceDg.Progress = (double)firstDistanceDg.Quantity;
+                            firstDistanceDg.CalculatePercentage();
+                            
+                            
+                            Task.Run(async () =>
+                            {
+                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, firstDistanceDg);
+                                
+                                
+                                //Al finalizar el objetivo obtenemos el siguiente
+                                //Si no hay se inventa localmente uno para rastrear tu avance
+                                
+                                Device.BeginInvokeOnMainThread(() =>
+                                {
+                                    //Actualizamo UI importante
+                                    //Cuando estamos dentro de un timer
+                                    UpdateCompletedDailyGoals();
+                                    GetDailyGoalDistance();
+                                    
+                                    //Actualizamos su porcentaje de avance del nuevo objetivo de la cola
+                                    
+                                    firstDistanceDg.CalculatePercentage();
+                                    //Seteamos el nuevo objetivo
+                                    //Windesheart.PairedDevice.SetStepGoal(int.Parse(firstStepDg.Quantity.ToString()));
+                                });
+
+                                
+                                //Si no hay entonces cerramos el timer
+                                //_isTimerWorking = (firstStepDg != null);
+                            });
+                            
+                        }
+                        //Si estoy debajo de mi objetivo
+                        else
+                        {
+                            firstDistanceDg.Progress = (double)(_stepsViewModel.TodayStepCount*0.762); 
+                            firstDistanceDg.CalculatePercentage();
+                            
+                            Task.Run(async () =>
+                            {
+                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, firstDistanceDg);
+                            });
+                        }
+                    
+                    }
+                }
+                else
+                {
+                    
+                    Debug.Print("(local) Recorridos..." +_stepsViewModel.TodayStepCount*0.762 +" metros");
+
+                    if (firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.762))
+                    {
+                        firstDistanceDg.Progress = (_stepsViewModel.TodayStepCount*0.762);
+                        firstDistanceDg.CalculatePercentage();
+                    };
+                    
+                    
+                    //_isTimerWorking = false;
+                }
+        }
+
+        private void SetupDailyGoal()
+        {
+            Device.StartTimer(_second, () =>
+            {
+
+                Task.Run(async () =>
+                {
+                    _isCheckingSteps = await _stepsViewModel.UpdateInfo();
+                    if (!_isCheckingSteps)
+                    {
+                        await Device.InvokeOnMainThreadAsync( async () =>
+                        {
+                            _isTimerWorking = false;
+                            Windesheart.PairedDevice?.Disconnect();
+                            await DisplayAlert("Mensaje importante", 
+                                "Se perdió la conexión con el Xiaomi MiBand, vuelva a conectarlo en ajustes.",
+                                "Ok");
+                        });
+                    }
+                });
                 
+                
+                UpdatingStepDg();
+                UpdatingDistanceDg();
+
                 //LabelSteps.Text = _stepsViewModel.TodayStepCount.ToString();
                 return _isTimerWorking;
             });
@@ -389,7 +516,7 @@ namespace MyHealthApp.Views
                         if (Windesheart.PairedDevice != null && Windesheart.PairedDevice.IsAuthenticated())
                         {
                             _isTimerWorking = true;
-                            SetupDailyGoalStep();
+                            SetupDailyGoal();
                             Windesheart.PairedDevice.SetStepGoal(int.Parse(firstStepDg.Quantity.ToString()));
                             await this.DisplayToastAsync("Conexión exitosa", 3500);
                         }

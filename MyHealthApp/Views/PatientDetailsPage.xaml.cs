@@ -26,7 +26,7 @@ namespace MyHealthApp.Views
         public static PatientWeeklyGoalViewModel WeeklyGoalViewModel;
         private readonly Patient _patient;
         private DailyGoal _firstStepDg;
-        private DailyGoal _firstWalkDg;
+        private DailyGoal _firstDistanceDg;
 
         public PatientDetailsPage(Profile profile,Patient patient, List<DailyGoal> dailyGoals, List<WeeklyGoal> weeklyGoals)
         {
@@ -48,13 +48,15 @@ namespace MyHealthApp.Views
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                GetDailyGoalsStepAndWalk();
+                GetDailyGoalStep();
+                GetDailyGoalDistance();
+                WhenThereAreNotDailyGoals();
+                //GetDailyGoalsStepAndWalk();
             });
         }
 
-        private void GetDailyGoalsStepAndWalk()
+        private void GetDailyGoalStep()
         {
-            
             try
             {
                 _firstStepDg = DailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 1 && e.Progress < e.Quantity).ToList().First();
@@ -77,16 +79,19 @@ namespace MyHealthApp.Views
                 FlexLayoutRingsToday.JustifyContent = FlexJustify.Center;
                 FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.Center;
             }
+        }
 
+        private void GetDailyGoalDistance()
+        {
             try
             {
-                _firstWalkDg = DailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 2 && e.Progress < e.Quantity).ToList().First();
-                LabelProgressWalk.Text = _firstWalkDg.Progress.ToString(CultureInfo.CurrentCulture)+" min";
-                LabelGoalWalk.Text = "/"+_firstWalkDg.Quantity.ToString(CultureInfo.CurrentCulture)+" min";
-                ProgressRingWalk.Progress = _firstWalkDg.Percentage;
+                _firstDistanceDg = DailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 3 && e.Progress < e.Quantity).ToList().First();
+                LabelProgressDistance.Text = Math.Round(_firstDistanceDg.Progress,1) +" m";
+                LabelGoalDistance.Text = "/"+Math.Round(_firstDistanceDg.Quantity,1)+" m";
+                ProgressRingDistance.Progress = _firstDistanceDg.Percentage;
                 
-                ProgressRingWalk.IsVisible = true;
-                StackLayoutInfoRingWalk.IsVisible = true;
+                ProgressRingDistance.IsVisible = true;
+                StackLayoutInfoRingDistance.IsVisible = true;
                 
                 LabelEmptyOfRings.IsVisible = false;
             }
@@ -94,17 +99,18 @@ namespace MyHealthApp.Views
             {
                 //FlexLayoutRingsToday.Children.Remove(ProgressRingWalk);
                 //FlexLayoutRingsInfoToday.Children.Remove(StackLayoutInfoRingWalk);
-                ProgressRingWalk.IsVisible = false;
-                StackLayoutInfoRingWalk.IsVisible = false;
+                ProgressRingDistance.IsVisible = false;
+                StackLayoutInfoRingDistance.IsVisible = false;
                 
                 FlexLayoutRingsToday.JustifyContent = FlexJustify.Center;
                 FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.Center;
                 //FlexLayoutRingsToday.Children.Remove(ProgressRingWalk);
             }
-            
-            
+        }
 
-            if (!StackLayoutInfoRingWalk.IsVisible && !StackLayoutInfoRingSteps.IsVisible)
+        private void WhenThereAreNotDailyGoals()
+        {
+            if (!StackLayoutInfoRingDistance.IsVisible && !StackLayoutInfoRingSteps.IsVisible)
             {
                 LabelEmptyOfRings.IsVisible = true;
                 /*FlexLayoutRingsToday.Children.Add(new Label()
@@ -115,11 +121,11 @@ namespace MyHealthApp.Views
                     HorizontalTextAlignment = TextAlignment.Center,
                     FontSize = 14
                 });*/
+            }else if (StackLayoutInfoRingDistance.IsVisible && StackLayoutInfoRingSteps.IsVisible)
+            {
+                FlexLayoutRingsToday.JustifyContent = FlexJustify.SpaceBetween;
+                FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.SpaceBetween;
             }
-            
-            
-          
-            
         }
 
         private void GetGoalsInformation()

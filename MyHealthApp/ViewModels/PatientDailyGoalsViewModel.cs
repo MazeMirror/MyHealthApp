@@ -70,10 +70,24 @@ namespace MyHealthApp.ViewModels
             double calc = dg.Progress / dg.Quantity;
             dg.Percentage = Math.Round(calc, 2);
             CompleteDescriptionDg(dg);
-            CalculateCompletedGoals();
             _dailyGoals.Add(dg);
+            OrderObservableList();
+            CalculateCompletedGoals();
             Lenght = _dailyGoals.Count;
-            OnPropertyChanged();
+            //OnPropertyChanged();
+        }
+
+        private void OrderObservableList()
+        {
+           var orderedList = _dailyGoals.OrderBy(dg => dg.Quantity).ToList();
+           ClearDailyGoalList();
+           
+           foreach (var item in orderedList)
+           {
+               _dailyGoals.Add(item);
+               OnPropertyChanged();
+           }
+           
         }
         
         
