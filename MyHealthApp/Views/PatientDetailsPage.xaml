@@ -152,6 +152,14 @@
                                 <FlexLayout
                                     x:Name="FlexLayoutRingsToday"
                                     JustifyContent="SpaceBetween">
+                                    <Label x:Name="LabelEmptyOfRings"
+                                           Text="No hay objetivos diarios o pendientes"
+                                           Padding="0,50,0,0"
+                                           FontFamily = "ArchivoRegular"
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="14"
+                                           IsVisible="False"
+                                    />
                                     <plugin:ProgressRing x:Name="ProgressRingSteps"
                                                          HeightRequest="110"
                                                          WidthRequest="110"

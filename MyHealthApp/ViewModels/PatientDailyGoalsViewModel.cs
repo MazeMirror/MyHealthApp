@@ -14,6 +14,7 @@ namespace MyHealthApp.ViewModels
     {
         private ObservableCollection<DailyGoal> _dailyGoals;
         private int _completedGoals;
+        private int _length;
 
         public ObservableCollection<DailyGoal> DailyGoals
         {
@@ -36,7 +37,15 @@ namespace MyHealthApp.ViewModels
             }
         }
 
-        public int Lenght => _dailyGoals.Count();
+        public int Lenght
+        {
+            get => _length;
+            set
+            {
+                _length = value;
+                OnPropertyChanged();
+            }
+        }
 
         private void CalculateCompletedGoals()
         {
@@ -63,6 +72,7 @@ namespace MyHealthApp.ViewModels
             CompleteDescriptionDg(dg);
             CalculateCompletedGoals();
             _dailyGoals.Add(dg);
+            Lenght = _dailyGoals.Count;
             OnPropertyChanged();
         }
         

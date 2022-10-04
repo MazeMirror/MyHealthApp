@@ -25,6 +25,8 @@ namespace MyHealthApp.Views
         public static  PatientDailyGoalsViewModel DailyGoalsViewModel;
         public static PatientWeeklyGoalViewModel WeeklyGoalViewModel;
         private readonly Patient _patient;
+        private DailyGoal _firstStepDg;
+        private DailyGoal _firstWalkDg;
 
         public PatientDetailsPage(Profile profile,Patient patient, List<DailyGoal> dailyGoals, List<WeeklyGoal> weeklyGoals)
         {
@@ -38,55 +40,81 @@ namespace MyHealthApp.Views
             WeeklyGoalViewModel = new PatientWeeklyGoalViewModel(weeklyGoals);
             
             GetGoalsInformation();
-            GetDailyGoalsStepAndWalk();
+            
             GetPersonalDataInformation();
+        }
+
+        protected override void OnAppearing()
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                GetDailyGoalsStepAndWalk();
+            });
         }
 
         private void GetDailyGoalsStepAndWalk()
         {
-            DailyGoal firstStepDg;
-            DailyGoal firstWalkDg;
+            
             try
             {
-                firstStepDg = DailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 1 && e.Progress < e.Quantity).ToList().First();
-                LabelProgressSteps.Text = firstStepDg.Progress.ToString(CultureInfo.CurrentCulture);
-                LabelGoalSteps.Text = "/"+firstStepDg.Quantity.ToString(CultureInfo.CurrentCulture);
-                ProgressRingSteps.Progress = firstStepDg.Percentage;
+                _firstStepDg = DailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 1 && e.Progress < e.Quantity).ToList().First();
+                LabelProgressSteps.Text = _firstStepDg.Progress.ToString(CultureInfo.CurrentCulture);
+                LabelGoalSteps.Text = "/"+_firstStepDg.Quantity.ToString(CultureInfo.CurrentCulture);
+                ProgressRingSteps.Progress = _firstStepDg.Percentage;
+                
+                ProgressRingSteps.IsVisible = true;
+                StackLayoutInfoRingSteps.IsVisible = true;
+                
+                LabelEmptyOfRings.IsVisible = false;
             }
             catch (InvalidOperationException e)
             {
-                FlexLayoutRingsToday.Children.Remove(ProgressRingSteps);
-                FlexLayoutRingsInfoToday.Children.Remove(StackLayoutInfoRingSteps);
+                //FlexLayoutRingsToday.Children.Remove(ProgressRingSteps);
+                //FlexLayoutRingsInfoToday.Children.Remove(StackLayoutInfoRingSteps);
+                ProgressRingSteps.IsVisible = false;
+                StackLayoutInfoRingSteps.IsVisible = false;
+                
                 FlexLayoutRingsToday.JustifyContent = FlexJustify.Center;
                 FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.Center;
             }
 
             try
             {
-                firstWalkDg = DailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 2 && e.Progress < e.Quantity).ToList().First();
-                LabelProgressWalk.Text = firstWalkDg.Progress.ToString(CultureInfo.CurrentCulture)+" min";
-                LabelGoalWalk.Text = "/"+firstWalkDg.Quantity.ToString(CultureInfo.CurrentCulture)+" min";
-                ProgressRingWalk.Progress = firstWalkDg.Percentage;
+                _firstWalkDg = DailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 2 && e.Progress < e.Quantity).ToList().First();
+                LabelProgressWalk.Text = _firstWalkDg.Progress.ToString(CultureInfo.CurrentCulture)+" min";
+                LabelGoalWalk.Text = "/"+_firstWalkDg.Quantity.ToString(CultureInfo.CurrentCulture)+" min";
+                ProgressRingWalk.Progress = _firstWalkDg.Percentage;
+                
+                ProgressRingWalk.IsVisible = true;
+                StackLayoutInfoRingWalk.IsVisible = true;
+                
+                LabelEmptyOfRings.IsVisible = false;
             }
             catch (InvalidOperationException e1)
             {
-                FlexLayoutRingsToday.Children.Remove(ProgressRingWalk);
-                FlexLayoutRingsInfoToday.Children.Remove(StackLayoutInfoRingWalk);
+                //FlexLayoutRingsToday.Children.Remove(ProgressRingWalk);
+                //FlexLayoutRingsInfoToday.Children.Remove(StackLayoutInfoRingWalk);
+                ProgressRingWalk.IsVisible = false;
+                StackLayoutInfoRingWalk.IsVisible = false;
+                
                 FlexLayoutRingsToday.JustifyContent = FlexJustify.Center;
                 FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.Center;
                 //FlexLayoutRingsToday.Children.Remove(ProgressRingWalk);
             }
+            
+            
 
-            if (FlexLayoutRingsToday.Children.Count == 0)
+            if (!StackLayoutInfoRingWalk.IsVisible && !StackLayoutInfoRingSteps.IsVisible)
             {
-                FlexLayoutRingsToday.Children.Add(new Label()
+                LabelEmptyOfRings.IsVisible = true;
+                /*FlexLayoutRingsToday.Children.Add(new Label()
                 {
                     Text = "No hay objetivos diarios o pendientes",
                     FontFamily = "ArchivoRegular",
                     Padding = new Thickness(0,20,0,50),
                     HorizontalTextAlignment = TextAlignment.Center,
                     FontSize = 14
-                });
+                });*/
             }
             
             
