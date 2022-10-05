@@ -52,5 +52,11 @@ namespace MyHealthApp.Views.EditPatientGoal
                 } ; break;
             }
         }
+
+        private async void UpdateDailyGoal_Clicked(object sender, EventArgs e)
+        {
+            DailyGoal dailyGoal = _dailyGoal;
+            await Navigation.PushAsync(new UpdateDailyGoalPage(dailyGoal));
+        }
     }
 }

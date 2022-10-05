@@ -1,12 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
              xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
              xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
              NavigationPage.HasNavigationBar="False"
-             x:Class="MyHealthApp.Views.EditPatientGoal.EditDailyGoalPage">
+             x:Class="MyHealthApp.Views.EditPatientGoal.EditWeeklyGoalPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <helpers:ValueToDoubleConverter x:Key="ToDoubleConverter" />
@@ -41,21 +40,19 @@
                        effects:IconTintColorEffect.TintColor="Black"
                        Scale="0.90" />
             </StackLayout>
-            
-            <!--A partir de aqui empiezas a trabajar-->
+
             <!--EJEMPLO-->
             <Frame Margin="20,20,20,0" 
                    BackgroundColor="White"
                    CornerRadius="10"
-                   HasShadow="False"
-                   >
+                   HasShadow="False">
                 <StackLayout Spacing="0">
                     <!--Titulo-->
-                    <Label Text="Objetivo Diario"
+                    <Label Text="Objetivo Semanal"
                            FontSize="18"
                            FontFamily="ArchivoSemiBold"
                            TextColor="Black"/>
-                    
+
                     <StackLayout Padding="0,25">
                         <plugin:ProgressRing x:Name="ProgressRing"
                                              HorizontalOptions="CenterAndExpand"
@@ -66,17 +63,17 @@
                                              Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
                                              RingBaseColor="#CEE5EE"/>
                     </StackLayout>
-                    
+
                     <StackLayout HorizontalOptions="Center">
-                        <!--Seteamos binding para que muestre datos, DescriptionObjective es un atributo de DailyGoal -->
+                        <!--Seteamos binding para que muestre datos, DescriptionObjective es un atributo de WeeklyGoal -->
                         <Label x:Name="LabelGoal" Text="{Binding DescriptionObjective}"/>
                         <Label x:Name="LabelProgress" Text="Progreso ....."/>
                     </StackLayout>
-                    
+
                     <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="Center"
                                  Padding="0,25,0,0">
-                        <Button x:Name="UpdateDailyGoal"
+                        <Button x:Name="UpdateWeeklyGoal"
                                 Text="Editar"
                                 BackgroundColor="#ffff14"
                                 HeightRequest="40"
@@ -85,8 +82,8 @@
                                 CornerRadius="10"
                                 Margin="0,10,0,0"
                                 WidthRequest="160"
-                                Clicked="UpdateDailyGoal_Clicked"/>
-                        
+                                Clicked="UpdateWeeklyGoal_Clicked"/>
+
                         <Button Text="Eliminar"
                                 BackgroundColor="Red"
                                 HeightRequest="40"
@@ -96,10 +93,10 @@
                                 Margin="0,10,0,0"
                                 WidthRequest="160" />
                     </StackLayout>
-                    
-                    
+
+
                 </StackLayout>
-                
+
             </Frame>
             <!--EJEMPLO-->
         </StackLayout>
