@@ -11,24 +11,22 @@ using Xamarin.Forms.Xaml;
 namespace MyHealthApp.Views.EditPatientGoal
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class changesSaved : ContentPage
+    public partial class SavedGoalChangesPage : ContentPage
     {
-        private DailyGoal _dailyGoal1;
-        public changesSaved(double quantityGoal, DailyGoal dailyGoal)
+        public SavedGoalChangesPage()
         {
             InitializeComponent();
-            _dailyGoal1 = dailyGoal;
-            text.Text = "El objetivo diario se ha actualizado";
             /*texto.Text = _dailyGoal1.Quantity.ToString();
             texto1.Text=_dailyGoal1.Id.ToString();
             texto2.Text=_dailyGoal1.ActivityId.ToString();
             texto.Text=quantityGoal.ToString();*/
         }
 
-        private async void returnToDetailsPage(object sender, EventArgs e)
+        private async void ReturnToDetailsPage(object sender, EventArgs e)
         {
             //await Navigation.PopAsync();
-            await Navigation.PopToRootAsync();
+            await Navigation.PopAsync();
+            await Navigation.PopAsync();
         }
     }
 }

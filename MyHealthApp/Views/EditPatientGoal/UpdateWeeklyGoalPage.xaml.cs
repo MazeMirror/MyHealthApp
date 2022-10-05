@@ -71,8 +71,15 @@ namespace MyHealthApp.Views.EditPatientGoal
             _weeklyGoal.Quantity = quantityGoal;
 
             var weeklyGoalResponse = await WeeklyGoalService.Instance.PutWeeklyGoalByPatientId(_patientId, _weeklyGoal);
-            await Navigation.PushAsync(new ChangesSavedWeek(quantityGoal, _weeklyGoal));
-            //await Navigation.PopAsync();
+            if (weeklyGoalResponse != null)
+            {
+                await Navigation.PushAsync(new SavedGoalChangesPage());
+            }
+            else
+            {
+                await DisplayAlert("Mensaje", "No se pudo actualizar el Weekly Goal", "Ok");
+            }
+            
         }
     }
 }

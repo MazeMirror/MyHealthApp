@@ -137,6 +137,21 @@ namespace MyHealthApp.ViewModels
             
         }
 
-        
+        //ACTULIZAR DESPUES DE CAMBIO EN ELEMENTO
+        public void UpdateDailyGoalOnList(DailyGoal dailyGoal)
+        {
+            foreach (var dg in _dailyGoals)
+            {
+                if (dg.Id == dailyGoal.Id)
+                {
+                    dg.Quantity = dailyGoal.Quantity;
+                    double calc = dg.Progress / dg.Quantity;
+                    dg.Percentage = Math.Round(calc, 2);
+                    CompleteDescriptionDg(dg);
+                    //Si tu metodo no actualiza poner OnPropertyChanged();
+                    //Si igual no lo hace 🙏😔
+                }
+            }
+        }
     }
 }

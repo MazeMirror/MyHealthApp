@@ -73,8 +73,20 @@ namespace MyHealthApp.Views.EditPatientGoal
             }
             _dailyGoal.Quantity = quantityGoal;
            
+            
             var dailyGoalResponse = await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, _dailyGoal);
-            await Navigation.PushAsync(new changesSaved(quantityGoal, _dailyGoal));
+            if (dailyGoalResponse != null)
+            {
+                await Navigation.PushAsync(new SavedGoalChangesPage());
+                //ACTUALIZAR LISTA.....
+                PatientDetailsPage.DailyGoalsViewModel.UpdateDailyGoalOnList(_dailyGoal);
+            }
+            else
+            {
+                await DisplayAlert("Mensaje", "No se pudo actualizar el Daily Goal", "Ok");
+            }
+            
+            
             //await Navigation.PopAsync();
         }
     }

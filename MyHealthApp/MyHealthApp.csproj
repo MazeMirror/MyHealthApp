@@ -96,6 +96,8 @@
     <None Remove="Resources\Images\walk.png" />
     <EmbeddedResource Include="Resources\Images\walk.png" />
     <None Remove="Resources\Fonts\Font_Awesome\FARegular-400.otf" />
+    <None Remove="Resources\Images\objectiveDone.png" />
+    <EmbeddedResource Include="Resources\Images\objectiveDone.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -116,10 +118,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\EditPatientGoal\changesSaved.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\EditPatientGoal\ChangesSavedWeek.xaml">
+    <EmbeddedResource Update="Views\EditPatientGoal\SavedGoalChangesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EditPatientGoal\EditWeeklyGoalPage.xaml">

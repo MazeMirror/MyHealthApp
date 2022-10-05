@@ -82,7 +82,7 @@ namespace MyHealthApp.Services
 
             var response = await _client.PutAsync(_requestUri, contentJson);
 
-            return response.StatusCode == HttpStatusCode.Created ? JsonConvert.DeserializeObject<WeeklyGoal>(response.Content.ReadAsStringAsync().Result)
+            return response.StatusCode == HttpStatusCode.OK ? JsonConvert.DeserializeObject<WeeklyGoal>(response.Content.ReadAsStringAsync().Result)
                 : null;
         }
 

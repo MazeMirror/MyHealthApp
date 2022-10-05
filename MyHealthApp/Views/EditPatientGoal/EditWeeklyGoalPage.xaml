@@ -66,8 +66,16 @@
 
                     <StackLayout HorizontalOptions="Center">
                         <!--Seteamos binding para que muestre datos, DescriptionObjective es un atributo de WeeklyGoal -->
-                        <Label x:Name="LabelGoal" Text="{Binding DescriptionObjective}"/>
-                        <Label x:Name="LabelProgress" Text="Progreso ....."/>
+                        <Label x:Name="LabelGoal" 
+                               FontFamily="ArchivoRegular"
+                               FontSize="16"
+                               TextColor="Black"
+                               Text="{Binding DescriptionObjective}"/>
+                        <Label x:Name="LabelProgress" 
+                               FontFamily="ArchivoSemiBold"
+                               FontSize="16"
+                               TextColor="Black"
+                               Text="{Binding DescriptionProgress}"/>
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal"
@@ -75,7 +83,7 @@
                                  Padding="0,25,0,0">
                         <Button x:Name="UpdateWeeklyGoal"
                                 Text="Editar"
-                                BackgroundColor="#ffff14"
+                                BackgroundColor="#fff14a"
                                 HeightRequest="40"
                                 TextTransform="None"
                                 TextColor="Black"

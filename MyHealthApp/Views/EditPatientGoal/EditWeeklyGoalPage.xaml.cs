@@ -20,6 +20,7 @@ namespace MyHealthApp.Views.EditPatientGoal
             InitializeComponent();
             _weeklyGoal = weeklyGoal;
             LabelGoal.BindingContext = _weeklyGoal;
+            LabelProgress.BindingContext = _weeklyGoal;
             ProgressRing.BindingContext = _weeklyGoal;
         }
 
@@ -30,8 +31,7 @@ namespace MyHealthApp.Views.EditPatientGoal
 
         private async void UpdateWeeklyGoal_Clicked(object sender, EventArgs e)
         {
-            WeeklyGoal weeklyGoal = _weeklyGoal;
-            await Navigation.PushAsync(new UpdateWeeklyGoalPage(weeklyGoal));
+            await Navigation.PushAsync(new UpdateWeeklyGoalPage(_weeklyGoal));
         }
     }
 }
