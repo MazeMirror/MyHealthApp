@@ -166,6 +166,9 @@ namespace MyHealthApp.ViewModels
                     //Si igual no lo hace 🙏😔
                 }
             }
+            //Despues de actualizar ordenamos la lista
+            //Hacer lo mismo para ELIMINAR (solo aplica a dailyGoal)
+            OrderObservableList();
         }
     }
 }

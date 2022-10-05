@@ -77,9 +77,9 @@ namespace MyHealthApp.Views.EditPatientGoal
             var dailyGoalResponse = await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, _dailyGoal);
             if (dailyGoalResponse != null)
             {
-                await Navigation.PushAsync(new SavedGoalChangesPage());
-                //ACTUALIZAR LISTA.....
+                //ACTUALIZAR LISTA.....de dailyGoals
                 PatientDetailsPage.DailyGoalsViewModel.UpdateDailyGoalOnList(_dailyGoal);
+                await Navigation.PushAsync(new SavedGoalChangesPage());
             }
             else
             {

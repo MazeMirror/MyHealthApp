@@ -26,7 +26,7 @@ namespace MyHealthApp.Views.EditPatientGoal
         {
             //await Navigation.PopAsync();
             await Navigation.PopAsync();
-            await Navigation.PopAsync();
+            //await Navigation.PopAsync();
         }
     }
 }
