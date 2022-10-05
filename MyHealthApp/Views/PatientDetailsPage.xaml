@@ -451,6 +451,12 @@
                                                    Margin="0,5,0,0"
                                                    FontFamily="{StaticResource FontAwesomeSolid}"
                                                    TextColor="Black" />
+
+                                            <FlexLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="SpecificWeeklyGoal_OnTapped"
+                                                                      CommandParameter="{Binding .}"
+                                                                      NumberOfTapsRequired="1"/>
+                                            </FlexLayout.GestureRecognizers>
                                         </FlexLayout>
                                     </DataTemplate>
                                 </BindableLayout.ItemTemplate>

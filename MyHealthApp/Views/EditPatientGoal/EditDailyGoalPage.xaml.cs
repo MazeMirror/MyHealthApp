@@ -19,6 +19,8 @@ namespace MyHealthApp.Views.EditPatientGoal
             //Para trabajar con la referencia
             _dailyGoal = dailyGoal;
             LabelGoal.BindingContext = _dailyGoal;
+            LabelProgress.BindingContext = _dailyGoal;
+            
             ProgressRing.BindingContext = _dailyGoal;
 
             //NOTA: Para trabajar sin referencia, a tu criterio si lo amerita 
@@ -30,27 +32,9 @@ namespace MyHealthApp.Views.EditPatientGoal
             await Navigation.PopAsync();
         }
         
-        //Se usa cuando actualizas exitosamente
-        private void UpdateDescriptionDailyGoal(DailyGoal item)
+        private async void UpdateDailyGoal_Clicked(object sender, EventArgs e)
         {
-            switch (item.ActivityId)
-            {
-                case 1:
-                {
-                    item.DescriptionObjective = String.Format("Realizar {0} pasos en el día",item.Quantity);
-                    item.DescriptionProgress = String.Format("Progreso: {0} pasos",item.Progress);
-                }; break;
-                case 2:
-                {
-                    item.DescriptionObjective = String.Format("Realizar {0} minutos de caminata",item.Quantity);
-                    item.DescriptionProgress = String.Format("Progreso: {0} minutos",item.Progress);
-                } ; break;
-                case 3:
-                {
-                    item.DescriptionObjective = String.Format("Recorrer una distancia de {0} m",item.Quantity);
-                    item.DescriptionProgress = String.Format("Progreso: {0} m",item.Progress);
-                } ; break;
-            }
+            await Navigation.PushAsync(new UpdateDailyGoalPage(_dailyGoal));
         }
     }
 }

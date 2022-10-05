@@ -68,6 +68,24 @@ namespace MyHealthApp.Services
                 : null;
         }
 
+        public async Task<WeeklyGoal> PutWeeklyGoalByPatientId(long patientId, WeeklyGoal weekly)
+        {
+            DateTime date = DateTime.Today;
+            int day = (int)date.DayOfWeek;
+            DateTime monday = date.AddDays((-1) * (day == 0 ? 6 : day - 1));
+            DateTime sunday = date.AddDays((1) * (day == 0 ? day : 7 - day));
+
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/weeklyGoalId/{weekly.Id.ToString()}");
+            var json = JsonConvert.SerializeObject(weekly, _settingsJson);
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+
+
+            var response = await _client.PutAsync(_requestUri, contentJson);
+
+            return response.StatusCode == HttpStatusCode.OK ? JsonConvert.DeserializeObject<WeeklyGoal>(response.Content.ReadAsStringAsync().Result)
+                : null;
+        }
+
         /*public async Task<List<WeeklyGoal>> GetWeeklyGoalsByPatientIdAndDate(long patientId, DateTime now)
         {
             //WeeklyGoal aun no tiene filtro por fecha

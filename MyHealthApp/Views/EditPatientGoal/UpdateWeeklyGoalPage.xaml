@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.EditPatientGoal.UpdateWeeklyGoalPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:ValueToDoubleConverter x:Key="ToDoubleConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#F0F3F4">
+
+            <StackLayout
+                    HeightRequest="90"
+                    Orientation="Horizontal"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="White">
+                <Label Text="&#xf053;"
+                           FontSize="18"
+                           Margin="35,0,0,0"
+                           VerticalOptions="Center"
+                           FontFamily="{StaticResource FontAwesomeSolid}"
+                           TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                                Tapped="LabelBack_OnTapped"
+                                NumberOfTapsRequired="1" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                           Scale="0.90"
+                           Margin="68,0,0,0" />
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                           Margin="10,0,0,0"
+                           effects:IconTintColorEffect.TintColor="Black"
+                           Scale="0.90" />
+            </StackLayout>
+
+            <Frame Margin="20,24,20,0"
+                   BackgroundColor="White"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   Padding="20">
+                <StackLayout>
+                    <Label Text="Editar objetivo semanal"
+                           FontSize="18"
+                           FontFamily="ArchivoSemiBold"
+                           TextColor="Black" />
+                    <FlexLayout JustifyContent="SpaceBetween"
+                                AlignItems="Start"
+                                Padding="15,25,10,0">
+                        <Label Text="Tipo"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black" />
+
+                        <Frame HasShadow="False"
+                               BorderColor="Black"
+                               CornerRadius="5"
+                               Padding="20,0,5,0"
+                               WidthRequest="170"
+                               HeightRequest="55">
+                            <FlexLayout
+                                Direction="Row"
+                                JustifyContent="SpaceBetween"
+                                AlignItems="Center">
+                                <Picker
+                                    Title="Seleccionar"
+                                    WidthRequest="130"
+                                    x:Name="SeleccionObjetivoSemanal"
+                                    
+                                    FontFamily="ArchivoRegular"
+                                    FontSize="16"
+                                    TextColor="Black"
+                                    TitleColor="#516A7B" IsEnabled="False" IsTabStop="True">
+                                </Picker>
+                                <Label
+                                    VerticalOptions="Center"
+                                    FontSize="18"
+                                    WidthRequest="25"
+                                    Text="&#xf0d7;"
+                                    TextColor="Black"
+                                    FontFamily="{StaticResource FontAwesomeSolid}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                              />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </FlexLayout>
+
+                        </Frame>
+                    </FlexLayout>
+
+                    <FlexLayout JustifyContent="SpaceBetween"
+                                AlignItems="Start"
+                                Padding="15,35,10,0">
+                        <Label Text="Meta"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black" />
+
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="15">
+                            <Frame HasShadow="False"
+                                   BorderColor="Black"
+                                   CornerRadius="5"
+                                   Padding="20,0,20,0"
+                                   WidthRequest="80"
+                                   HeightRequest="55">
+                                <Entry
+                                    x:Name="EntryGoalUpdate"
+                                    Keyboard="Numeric"
+                                    MaxLength="4"
+                                    HorizontalOptions="FillAndExpand"
+                                    FontFamily="ArchivoRegular"
+                                    FontSize="16"
+                                    TextColor="Black"/>
+                            </Frame>
+
+                            <Label x:Name="LabelActivitySelectedWeek"
+                                   FontFamily="ArchivoRegular"
+                                   Text="pasos"
+                                   FontSize="16"
+                                   VerticalOptions="CenterAndExpand"/>
+                        </StackLayout>
+                    </FlexLayout>
+
+                    <Button x:Name="SaveChangesWeekly"
+                            Text="Guardar Cambias"
+                            Margin="0,20,0,0"
+                            BackgroundColor="#FF9162"
+                            HeightRequest="40"
+                            CornerRadius="5"
+                            TextTransform="None"
+                            TextColor="White" 
+                            Clicked="SaveChangesWeekly_Clicked"/>
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

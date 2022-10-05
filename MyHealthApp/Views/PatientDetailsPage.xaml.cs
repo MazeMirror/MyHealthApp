@@ -220,5 +220,19 @@ namespace MyHealthApp.Views
                 }
             }
         }
+
+        private async void SpecificWeeklyGoal_OnTapped(object sender, EventArgs e)
+        {
+            var param = ((TappedEventArgs)e).Parameter;
+            if (param != null)
+            {
+                var weeklyGoal = param as WeeklyGoal;
+
+                if (weeklyGoal != null)
+                {
+                    await Navigation.PushAsync(new EditWeeklyGoalPage(weeklyGoal));
+                }
+            }
+        }
     }
 }
