@@ -73,6 +73,7 @@ namespace MyHealthApp.Views.EditPatientGoal
             var weeklyGoalResponse = await WeeklyGoalService.Instance.PutWeeklyGoalByPatientId(_patientId, _weeklyGoal);
             if (weeklyGoalResponse != null)
             {
+                PatientDetailsPage.WeeklyGoalViewModel.UpdateWeeklyGoalOnList(_weeklyGoal);
                 await Navigation.PushAsync(new SavedGoalChangesPage());
             }
             else

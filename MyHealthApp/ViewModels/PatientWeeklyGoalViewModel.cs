@@ -76,6 +76,26 @@ namespace MyHealthApp.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+
+        //ACTULIZAR DESPUES DE CAMBIO EN ELEMENTO
+        public void UpdateWeeklyGoalOnList(WeeklyGoal weeklyGoal)
+        {
+            foreach (var wg in _weeklyGoals)
+            {
+                if (wg.Id == weeklyGoal.Id)
+                {
+                    wg.Quantity = weeklyGoal.Quantity;
+                    double calc = wg.Progress / wg.Quantity;
+                    wg.Percentage = Math.Round(calc, 2);
+                    CompleteDescriptionWg(wg);
+                    //Si tu metodo no actualiza poner OnPropertyChanged();
+                    //Si igual no lo hace 🙏😔
+                }
+            }
+            //Despues de actualizar ordenamos la lista
+            //Hacer lo mismo para ELIMINAR (solo aplica a dailyGoal)
+            
+        }
+
     }
 }

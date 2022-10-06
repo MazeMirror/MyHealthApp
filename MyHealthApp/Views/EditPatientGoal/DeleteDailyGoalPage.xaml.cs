@@ -1,0 +1,48 @@
+﻿using MyHealthApp.Models;
+using MyHealthApp.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace MyHealthApp.Views.EditPatientGoal
+{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class DeleteDailyGoalPage : ContentPage
+    {
+        private DailyGoal _dailyGoal;
+        private long _patientId;
+        public DeleteDailyGoalPage(DailyGoal dailyGoal)
+        {
+            InitializeComponent();
+            _dailyGoal = dailyGoal;
+        }
+        private async void LabelBack_OnTapped(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
+
+        private async void DeleteObjectiveDaily_Clicked(object sender, EventArgs e)
+        {
+            _patientId = _dailyGoal.PatientId;
+            var dailyGoalResponse = await DailyGoalService.Instance.DeleteDailyGoalByPatientId(_patientId, _dailyGoal);
+
+
+            if (dailyGoalResponse == null)
+            {
+                //ACTUALIZAR LISTA.....de dailyGoals
+                //PatientDetailsPage.DailyGoalsViewModel.UpdateDailyGoalOnList(_dailyGoal);
+                await Navigation.PushAsync(new DeletedGoalPage());
+            }
+            else
+            {
+                await DisplayAlert("Mensaje", "No se pudo eliminar el Daily Goal", "Ok");
+            }
+
+        }
+    }
+}

@@ -36,5 +36,11 @@ namespace MyHealthApp.Views.EditPatientGoal
         {
             await Navigation.PushAsync(new UpdateDailyGoalPage(_dailyGoal));
         }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new DeleteDailyGoalPage(_dailyGoal));
+
+        }
     }
 }
