@@ -32,7 +32,7 @@
                         />
                     </StackLayout>
 
-                    <Label Text="Si lo elimina, no podra recuperarse"
+                    <Label Text="Si lo elimina, no podrá recuperarse"
                            FontSize="14"
                            HorizontalTextAlignment="Center"
                            TextColor="Black" />

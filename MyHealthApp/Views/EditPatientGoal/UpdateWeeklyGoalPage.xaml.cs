@@ -2,6 +2,7 @@
 using MyHealthApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +48,7 @@ namespace MyHealthApp.Views.EditPatientGoal
 
             SeleccionObjetivoSemanal.Title = name;
             LabelActivitySelectedWeek.Text = unitDaily;
+            EntryGoalUpdate.Text = _weeklyGoal.Quantity.ToString(CultureInfo.InvariantCulture);
         }
 
         private async void LabelBack_OnTapped(object sender, EventArgs e)
