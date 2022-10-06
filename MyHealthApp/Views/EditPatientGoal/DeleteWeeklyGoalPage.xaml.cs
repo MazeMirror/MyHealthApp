@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using MyHealthApp.Views.EditPatientGoal.SuccessfulMessage;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -35,7 +36,7 @@ namespace MyHealthApp.Views.EditPatientGoal
             if (weeklyGoalResponse == HttpStatusCode.OK)
             {
                 PatientDetailsPage.WeeklyGoalViewModel.DeleteWeeklyGoalOnList(_weeklyGoal);
-                await Navigation.PushAsync(new DeletedGoalPage());
+                Navigation.ShowPopup(new DeletedGoalPage());
             }
             else
             {

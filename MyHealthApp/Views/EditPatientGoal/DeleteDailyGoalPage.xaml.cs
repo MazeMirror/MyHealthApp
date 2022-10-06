@@ -7,13 +7,15 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using MyHealthApp.Views.EditPatientGoal.SuccessfulMessage;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MyHealthApp.Views.EditPatientGoal
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DeleteDailyGoalPage : ContentPage
+    public partial class DeleteDailyGoalPage : Popup
     {
         private DailyGoal _dailyGoal;
         private long _patientId;
@@ -24,8 +26,10 @@ namespace MyHealthApp.Views.EditPatientGoal
         }
         private async void LabelBack_OnTapped(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            Dismiss(1);
         }
+        
+        
 
         private async void DeleteObjectiveDaily_Clicked(object sender, EventArgs e)
         {
@@ -37,13 +41,10 @@ namespace MyHealthApp.Views.EditPatientGoal
             {
                 //ELIMINAR DE LISTA.....de dailyGoals
                 PatientDetailsPage.DailyGoalsViewModel.DeleteDailyGoalOnList(_dailyGoal);
-                await Navigation.PushAsync(new DeletedGoalPage());
+                Dismiss(2);
+                Navigation.ShowPopup(new DeletedGoalPage());
             }
-            else
-            {
-                await DisplayAlert("Mensaje", "No se pudo eliminar el Daily Goal", "Ok");
-            }
-
+            
         }
     }
 }

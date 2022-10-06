@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyHealthApp.Models;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -39,7 +40,11 @@ namespace MyHealthApp.Views.EditPatientGoal
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new DeleteDailyGoalPage(_dailyGoal));
+            var result = await Navigation.ShowPopupAsync(new DeleteDailyGoalPage(_dailyGoal));
+            if (result != null && (int)result == 2)
+            {
+                await Navigation.PopAsync();
+            }
 
         }
     }
