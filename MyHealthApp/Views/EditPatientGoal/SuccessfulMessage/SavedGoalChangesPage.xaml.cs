@@ -1,17 +1,12 @@
-﻿using MyHealthApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MyHealthApp.Views.EditPatientGoal
+namespace MyHealthApp.Views.EditPatientGoal.SuccessfulMessage
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SavedGoalChangesPage : ContentPage
+    public partial class SavedGoalChangesPage : Popup
     {
         public SavedGoalChangesPage()
         {

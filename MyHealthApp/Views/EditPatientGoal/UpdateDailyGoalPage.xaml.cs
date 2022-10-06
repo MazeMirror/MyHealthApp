@@ -3,10 +3,12 @@ using MyHealthApp.Services;
 using ProgressRingControl.Forms.Plugin;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using MyHealthApp.Views.EditPatientGoal.SuccessfulMessage;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -48,6 +50,7 @@ namespace MyHealthApp.Views.EditPatientGoal
 
             SeleccionObjetivo.Title = name;
             LabelActivitySelected.Text = unitDaily;
+            EntryGoalUpdate.Text = _dailyGoal.Quantity.ToString(CultureInfo.InvariantCulture);
         }
 
         private async void LabelBack_OnTapped(object sender, EventArgs e)
@@ -72,6 +75,11 @@ namespace MyHealthApp.Views.EditPatientGoal
                 return;
             }
             _dailyGoal.Quantity = quantityGoal;
+
+            if (_dailyGoal.Quantity < _dailyGoal.Progress)
+            {
+                _dailyGoal.Progress = _dailyGoal.Quantity;
+            }
            
             
             var dailyGoalResponse = await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, _dailyGoal);
@@ -79,7 +87,8 @@ namespace MyHealthApp.Views.EditPatientGoal
             {
                 //ACTUALIZAR LISTA.....de dailyGoals
                 PatientDetailsPage.DailyGoalsViewModel.UpdateDailyGoalOnList(_dailyGoal);
-                await Navigation.PushAsync(new SavedGoalChangesPage());
+                Navigation.ShowPopup(new SavedGoalChangesPage());
+                await Navigation.PopAsync();
             }
             else
             {

@@ -109,6 +109,14 @@
       <DependentUpon>SelectAccountTypePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\EditPatientGoal\SuccessfulMessage\DeletedGoalPage.xaml.cs">
+      <DependentUpon>DeletedGoalPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EditPatientGoal\SuccessfulMessage\SavedGoalChangesPage.xaml.cs">
+      <DependentUpon>SavedGoalChangesPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -118,7 +126,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\EditPatientGoal\SavedGoalChangesPage.xaml">
+    <EmbeddedResource Update="Views\EditPatientGoal\DeleteDailyGoalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientGoal\DeleteWeeklyGoalPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EditPatientGoal\EditWeeklyGoalPage.xaml">

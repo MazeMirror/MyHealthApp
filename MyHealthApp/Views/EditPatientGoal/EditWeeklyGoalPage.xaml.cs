@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -32,6 +32,15 @@ namespace MyHealthApp.Views.EditPatientGoal
         private async void UpdateWeeklyGoal_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new UpdateWeeklyGoalPage(_weeklyGoal));
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            var result = await Navigation.ShowPopupAsync(new DeleteWeeklyGoalPage(_weeklyGoal));
+            if (result != null && (int)result == 2)
+            {
+                await Navigation.PopAsync();
+            }
         }
     }
 }

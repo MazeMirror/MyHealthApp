@@ -7,11 +7,7 @@
              xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.EditPatientGoal.UpdateDailyGoalPage">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <helpers:ValueToDoubleConverter x:Key="ToDoubleConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout BackgroundColor="#F0F3F4">
 

@@ -169,6 +169,22 @@ namespace MyHealthApp.ViewModels
             //Despues de actualizar ordenamos la lista
             //Hacer lo mismo para ELIMINAR (solo aplica a dailyGoal)
             OrderObservableList();
+            CalculateCompletedGoals();
+        }
+
+        public void DeleteDailyGoalOnList(DailyGoal dailyGoal)
+        {
+            var newList = _dailyGoals.Where(dg => dg.Id != dailyGoal.Id).ToList();
+            
+            ClearDailyGoalList();
+            foreach (var dg in newList)
+            {
+                _dailyGoals.Add(dg);
+                OnPropertyChanged();
+            }
+            
+            Lenght = _dailyGoals.Count;
+            CalculateCompletedGoals();
         }
     }
 }

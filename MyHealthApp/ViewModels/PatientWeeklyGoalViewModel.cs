@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using MyHealthApp.Models;
 
@@ -76,6 +77,37 @@ namespace MyHealthApp.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+
+        //ACTULIZAR DESPUES DE CAMBIO EN ELEMENTO
+        public void UpdateWeeklyGoalOnList(WeeklyGoal weeklyGoal)
+        {
+            foreach (var wg in _weeklyGoals)
+            {
+                if (wg.Id == weeklyGoal.Id)
+                {
+                    wg.Quantity = weeklyGoal.Quantity;
+                    double calc = wg.Progress / wg.Quantity;
+                    wg.Percentage = Math.Round(calc, 2);
+                    CompleteDescriptionWg(wg);
+                    
+                }
+            }
+            //Despues de actualizar ordenamos la lista
+            //Hacer lo mismo para ELIMINAR (solo aplica a dailyGoal)
+            
+        }
+
+        public void DeleteWeeklyGoalOnList(WeeklyGoal weeklyGoal)
+        {
+            var newList = _weeklyGoals.Where(wg => wg.Id != weeklyGoal.Id).ToList();
+            
+            ClearWeeklyGoalList();
+            foreach (var wg in newList)
+            {
+                _weeklyGoals.Add(wg);
+                OnPropertyChanged();
+            }
+            
+        }
     }
 }

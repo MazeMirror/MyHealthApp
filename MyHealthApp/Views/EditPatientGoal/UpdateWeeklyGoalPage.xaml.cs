@@ -2,10 +2,12 @@
 using MyHealthApp.Services;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using MyHealthApp.Views.EditPatientGoal.SuccessfulMessage;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -46,6 +48,7 @@ namespace MyHealthApp.Views.EditPatientGoal
 
             SeleccionObjetivoSemanal.Title = name;
             LabelActivitySelectedWeek.Text = unitDaily;
+            EntryGoalUpdate.Text = _weeklyGoal.Quantity.ToString(CultureInfo.InvariantCulture);
         }
 
         private async void LabelBack_OnTapped(object sender, EventArgs e)
@@ -69,11 +72,18 @@ namespace MyHealthApp.Views.EditPatientGoal
                 return;
             }
             _weeklyGoal.Quantity = quantityGoal;
+            
+            if (_weeklyGoal.Quantity < _weeklyGoal.Progress)
+            {
+                _weeklyGoal.Progress = _weeklyGoal.Quantity;
+            }
 
             var weeklyGoalResponse = await WeeklyGoalService.Instance.PutWeeklyGoalByPatientId(_patientId, _weeklyGoal);
             if (weeklyGoalResponse != null)
             {
-                await Navigation.PushAsync(new SavedGoalChangesPage());
+                PatientDetailsPage.WeeklyGoalViewModel.UpdateWeeklyGoalOnList(_weeklyGoal);
+                Navigation.ShowPopup(new SavedGoalChangesPage());
+                await Navigation.PopAsync();
             }
             else
             {
