@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using MyHealthApp.Models;
 
@@ -88,8 +89,7 @@ namespace MyHealthApp.ViewModels
                     double calc = wg.Progress / wg.Quantity;
                     wg.Percentage = Math.Round(calc, 2);
                     CompleteDescriptionWg(wg);
-                    //Si tu metodo no actualiza poner OnPropertyChanged();
-                    //Si igual no lo hace 🙏😔
+                    
                 }
             }
             //Despues de actualizar ordenamos la lista
@@ -97,5 +97,17 @@ namespace MyHealthApp.ViewModels
             
         }
 
+        public void DeleteWeeklyGoalOnList(WeeklyGoal weeklyGoal)
+        {
+            var newList = _weeklyGoals.Where(wg => wg.Id != weeklyGoal.Id).ToList();
+            
+            ClearWeeklyGoalList();
+            foreach (var wg in newList)
+            {
+                _weeklyGoals.Add(wg);
+                OnPropertyChanged();
+            }
+            
+        }
     }
 }

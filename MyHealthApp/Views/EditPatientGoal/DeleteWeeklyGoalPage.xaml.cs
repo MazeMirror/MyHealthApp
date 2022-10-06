@@ -3,9 +3,10 @@ using MyHealthApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-
+using MyHealthApp.Views.EditPatientGoal.SuccessfulMessage;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,12 +31,10 @@ namespace MyHealthApp.Views.EditPatientGoal
         {
             _patientId = _weeklyGoal.PatientId;
             var weeklyGoalResponse = await WeeklyGoalService.Instance.DeleteWeeklyGoalByPatientId(_patientId, _weeklyGoal);
-
-
-            if (weeklyGoalResponse == null)
+            
+            if (weeklyGoalResponse == HttpStatusCode.OK)
             {
-                //ACTUALIZAR LISTA.....de dailyGoals
-                //PatientDetailsPage.DailyGoalsViewModel.UpdateDailyGoalOnList(_dailyGoal);
+                PatientDetailsPage.WeeklyGoalViewModel.DeleteWeeklyGoalOnList(_weeklyGoal);
                 await Navigation.PushAsync(new DeletedGoalPage());
             }
             else

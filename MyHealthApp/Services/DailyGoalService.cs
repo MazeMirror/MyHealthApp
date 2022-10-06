@@ -66,13 +66,13 @@ namespace MyHealthApp.Services
                 : null;
         }
 
-        public async Task<DailyGoal> DeleteDailyGoalByPatientId(long patientId, DailyGoal daily)
+        public async Task<HttpStatusCode> DeleteDailyGoalByPatientId(long patientId, DailyGoal daily)
         {
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/dailyGoalId/{daily.Id.ToString()}");
             
             var response = await _client.DeleteAsync(_requestUri);
 
-            return null;
+            return response.StatusCode;
         }
 
         public async Task<List<DailyGoal>> GetDailyGoalsByPatientIdAndDate(long patientId, DateTime now)

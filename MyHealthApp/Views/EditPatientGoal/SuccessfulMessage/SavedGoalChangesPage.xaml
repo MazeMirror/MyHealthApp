@@ -5,7 +5,7 @@
              xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
              xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
              NavigationPage.HasNavigationBar="False"
-             x:Class="MyHealthApp.Views.EditPatientGoal.DeletedGoalPage">
+             x:Class="MyHealthApp.Views.EditPatientGoal.SuccessfulMessage.SavedGoalChangesPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <helpers:ValueToDoubleConverter x:Key="ToDoubleConverter" />
@@ -47,19 +47,26 @@
                    HasShadow="False"
                    Padding="20">
                 <StackLayout>
-                    <Label Text="El objetivo se ha eliminado"
+                    <Label Text="Cambios guardados"
                            TextTransform="Uppercase"
                            FontSize="18"
                            FontFamily="ArchivoSemiBold"
                            HorizontalTextAlignment="Center"
                            TextColor="Black" />
-
+                    
                     <StackLayout Padding="0,50">
                         <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.objectiveDone.png}"
                                Scale="4.00"
                                HorizontalOptions="CenterAndExpand"
                         />
                     </StackLayout>
+                    
+
+                    <Label Text="Objetivo modificado correctamente"
+                           FontSize="14"
+                           HorizontalTextAlignment="Center"
+                           TextColor="Black" />
+
                 </StackLayout>
             </Frame>
         </StackLayout>

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using MyHealthApp.Views.EditPatientGoal.SuccessfulMessage;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -69,6 +69,11 @@ namespace MyHealthApp.Views.EditPatientGoal
                 return;
             }
             _weeklyGoal.Quantity = quantityGoal;
+            
+            if (_weeklyGoal.Quantity < _weeklyGoal.Progress)
+            {
+                _weeklyGoal.Progress = _weeklyGoal.Quantity;
+            }
 
             var weeklyGoalResponse = await WeeklyGoalService.Instance.PutWeeklyGoalByPatientId(_patientId, _weeklyGoal);
             if (weeklyGoalResponse != null)
