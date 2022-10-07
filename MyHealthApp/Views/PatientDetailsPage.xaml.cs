@@ -234,5 +234,10 @@ namespace MyHealthApp.Views
                 }
             }
         }
+
+        private async void ButtonReport_OnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PatientReportPage(_profile,_patient));
+        }
     }
 }

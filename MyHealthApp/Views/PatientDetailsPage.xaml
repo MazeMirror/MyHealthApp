@@ -293,12 +293,15 @@
                                     </FlexLayout>
                                 </FlexLayout>
 
-                                <Button Text="Ver Reporte Completo"
+                                <Button x:Name="ButtonReport"
+                                        Text="Ver Reporte Completo"
                                         BackgroundColor="#FF9162"
                                         HeightRequest="40"
                                         CornerRadius="5"
                                         TextTransform="None"
-                                        TextColor="White" />
+                                        TextColor="White" 
+                                        Clicked="ButtonReport_OnClicked"
+                                        />
                             </StackLayout>
 
                         </StackLayout>
