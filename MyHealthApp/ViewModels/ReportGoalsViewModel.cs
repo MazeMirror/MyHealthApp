@@ -46,18 +46,21 @@ namespace MyHealthApp.ViewModels
             {
                 case 1:
                 {
-                    item.Description = "Pasos realizados";
+                    item.Description = "Pasos \nrealizados";
                     item.Unity = "";
+                    item.ImageSource = "shoe2.png";
                 }; break;
                 case 2:
                 {
-                    item.Description = "Calorías quemadas";
+                    item.Description = "Calorías \nquemadas";
                     item.Unity = "kcal";
+                    item.ImageSource = "fire.png";
                 } ; break;
                 case 3:
                 {
-                    item.Description = "Distancia recorrida";
+                    item.Description = "Distancia \nrecorrida";
                     item.Unity = "m";
+                    item.ImageSource = "map-maker.png";
                 } ; break;
             }
         }

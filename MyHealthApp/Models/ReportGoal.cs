@@ -11,7 +11,17 @@ namespace MyHealthApp.Models
         private long _activityId;
         private string _description;
         private string _unity;
+        private string _imageSource;
 
+        public string ImageSource
+        {
+            get => _imageSource;
+            set
+            {
+                _imageSource = value;
+                OnPropertyChanged();
+            }
+        }
         public double Quantity
         {
             get => _quantity;
