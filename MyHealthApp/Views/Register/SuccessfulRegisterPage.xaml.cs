@@ -16,8 +16,6 @@ namespace MyHealthApp.Views.Register
     {
         private readonly User _user;
         private readonly Profile _profile;
-        public static List<WeeklyGoal> WeeklyGoals;
-        public static List<DailyGoal> DailyGoals;
         public SuccessfulRegisterPage(User user, Profile profile)
         {
             InitializeComponent();
@@ -57,11 +55,9 @@ namespace MyHealthApp.Views.Register
             {
                 var patient = await PatientService.Instance.GetPatientByProfileId(_profile.Id);
                 Application.Current.Properties["PatientId"] = patient.Id.ToString();
-                DailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDate(patient.Id,DateTime.Today);
-                WeeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(patient.Id);
-                await Navigation.PushAsync(new TabbedPatient());
+                Application.Current.MainPage = new NavigationPage(new TabbedPatient());
             }
-            else await Navigation.PushAsync(new TabbedSpecialist());
+            else Application.Current.MainPage = new NavigationPage(new TabbedSpecialist());
             
         }
 

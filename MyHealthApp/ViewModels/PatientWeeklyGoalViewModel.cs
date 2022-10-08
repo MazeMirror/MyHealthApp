@@ -12,6 +12,22 @@ namespace MyHealthApp.ViewModels
     {
         private ObservableCollection<WeeklyGoal> _weeklyGoals;
 
+        public PatientWeeklyGoalViewModel()
+        {
+            _weeklyGoals = new ObservableCollection<WeeklyGoal>();
+        }
+        
+        public PatientWeeklyGoalViewModel(List<WeeklyGoal> weeklyGoals)
+        {
+            _weeklyGoals = new ObservableCollection<WeeklyGoal>();
+            
+            foreach (var item in weeklyGoals)
+            {
+                CompleteDescriptionWg(item);
+                AddWeeklyToList(item);
+            }
+        }
+        
         public ObservableCollection<WeeklyGoal> WeeklyGoals
         {
             get => _weeklyGoals;
@@ -60,20 +76,8 @@ namespace MyHealthApp.ViewModels
             }
         }
 
-        public PatientWeeklyGoalViewModel()
-        {
-            _weeklyGoals = new ObservableCollection<WeeklyGoal>();
-        }
-        public PatientWeeklyGoalViewModel(List<WeeklyGoal> weeklyGoals)
-        {
-            _weeklyGoals = new ObservableCollection<WeeklyGoal>();
-            
-            foreach (var item in weeklyGoals)
-            {
-                CompleteDescriptionWg(item);
-                AddWeeklyToList(item);
-            }
-        }
+        
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 

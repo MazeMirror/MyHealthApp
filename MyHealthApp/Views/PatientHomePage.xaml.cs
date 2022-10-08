@@ -22,9 +22,8 @@ namespace MyHealthApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PatientHomePage : ContentPage
     {
-        private readonly string _propertyKey = "LastConnectedDevice";
-        private PatientDailyGoalsViewModel _dailyGoalsViewModel;
-        private PatientWeeklyGoalViewModel _weeklyGoalViewModel;
+        private readonly PatientDailyGoalsViewModel _dailyGoalsViewModel;
+        private readonly PatientWeeklyGoalViewModel _weeklyGoalViewModel;
         private readonly ValueToDoubleConverter _valueToDoubleConverter = new ValueToDoubleConverter();
         
         private readonly TimeSpan _second = TimeSpan.FromSeconds(2);
@@ -37,7 +36,7 @@ namespace MyHealthApp.Views
         private DailyGoal firstDistanceDg;
         public PatientHomePage()
         {
-            if (SuccessfulRegisterPage.DailyGoals != null && SuccessfulRegisterPage.DailyGoals != null)
+            /*if (SuccessfulRegisterPage.DailyGoals != null && SuccessfulRegisterPage.DailyGoals != null)
             {
                 _dailyGoalsViewModel = new PatientDailyGoalsViewModel(SuccessfulRegisterPage.DailyGoals);
                 _weeklyGoalViewModel = new PatientWeeklyGoalViewModel(SuccessfulRegisterPage.WeeklyGoals);
@@ -46,14 +45,17 @@ namespace MyHealthApp.Views
             {
                 _dailyGoalsViewModel = new PatientDailyGoalsViewModel(LoginPage.DailyGoals);
                 _weeklyGoalViewModel = new PatientWeeklyGoalViewModel(LoginPage.WeeklyGoals);
-            }
+            }*/
+            InitializeComponent();
             
             _stepsViewModel = new StepsViewModel();
+            _dailyGoalsViewModel = new PatientDailyGoalsViewModel();
+            _weeklyGoalViewModel = new PatientWeeklyGoalViewModel();
+            
+            
             _patientId = long.Parse(Application.Current.Properties["PatientId"].ToString());
             
             GetDailyGoalsAndWeeklyGoals();
-            InitializeComponent();
-            
             
         }
 
@@ -62,17 +64,36 @@ namespace MyHealthApp.Views
         private async void GetDailyGoalsAndWeeklyGoals()
         {
             
-            /*await Device.InvokeOnMainThreadAsync(async () =>
+            
+            await Device.InvokeOnMainThreadAsync(async () =>
             {
-                var dailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientId(_patientId);
-                var weeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(_patientId);
-                _dailyGoalsViewModel = new PatientDailyGoalsViewModel(dailyGoals);
-                _weeklyGoalViewModel = new PatientWeeklyGoalViewModel(weeklyGoals);
-                //------------------------------------------------
+                //Los dailyGoals
+                FlexLayoutDailyGoals.BindingContext = _dailyGoalsViewModel;
                 
-            });*/
+                //Los weeklyGoals
+                FlexLayoutWeeklyGoals.BindingContext = _weeklyGoalViewModel;
+                
+                var dailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDate(_patientId,DateTime.Today);
+                var weeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(_patientId);
+                
+                foreach (var item in dailyGoals)
+                {
+                    _dailyGoalsViewModel.AddDailyGoalToList(item);
+                }
+
+                foreach (var item in weeklyGoals)
+                {
+                    _weeklyGoalViewModel.AddWeeklyToList(item);
+                }
+      
+                
+            });
+            
+            
             Device.BeginInvokeOnMainThread(() =>
             {
+                FlexLayoutDailyGoals.IsVisible = true;
+                FlexLayoutWeeklyGoals.IsVisible = true;
                 GetDailyGoalStep();
                 GetDailyGoalDistance();
                 GetGoalsInformation();
@@ -250,15 +271,15 @@ namespace MyHealthApp.Views
             
             UpdateCompletedDailyGoals(); 
             UpdateCompletedWeeklyGoals(); 
-            //Los dailyGoals
-            FlexLayoutDailyGoals.BindingContext = _dailyGoalsViewModel;
-            BindableLayout.SetItemsSource(FlexLayoutDailyGoals,_dailyGoalsViewModel.DailyGoals);
+            
+            
+            //BindableLayout.SetItemsSource(FlexLayoutDailyGoals,_dailyGoalsViewModel.DailyGoals);
             //Debug.WriteLine("Tengo hijos: " + FlexLayoutDailyGoals.Children.Count);
             //FlexLayoutDailyGoals.SetBinding(BindableLayout.ItemsSourceProperty,"DailyGoals");
 
-            //Los weeklyGoals
-            FlexLayoutWeeklyGoals.BindingContext = _weeklyGoalViewModel;
-            BindableLayout.SetItemsSource(FlexLayoutWeeklyGoals,_weeklyGoalViewModel.WeeklyGoals);
+            
+            
+            //BindableLayout.SetItemsSource(FlexLayoutWeeklyGoals,_weeklyGoalViewModel.WeeklyGoals);
             //Debug.WriteLine("Tengo hijos: " + FlexLayoutWeeklyGoals.Children.Count);
             
             
@@ -548,9 +569,5 @@ namespace MyHealthApp.Views
             await Navigation.PushAsync(new StepsPage(firstStepDg));
         }
         
-        protected override bool OnBackButtonPressed()
-        {
-            return true;
-        }
     }
 }

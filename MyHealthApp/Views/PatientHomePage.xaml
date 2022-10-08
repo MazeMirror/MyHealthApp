@@ -80,7 +80,7 @@
                                                          WidthRequest="110"
                                                          RingProgressColor="#2F6A88"
                                                          RingThickness="6"
-                                                         Progress="0.2"
+                                                         Progress="0.0"
                                                          RingBaseColor="#CEE5EE" />
 
                                     <plugin:ProgressRing x:Name="ProgressRingDistance"
@@ -89,7 +89,7 @@
                                                          RingProgressColor="#FF9162"
                                                          RingBaseColor="#fddacb"
                                                          RingThickness="6"
-                                                         Progress="0.6" />
+                                                         Progress="0.0" />
 
                                 </FlexLayout>
 
@@ -106,13 +106,13 @@
 
                                         <StackLayout Spacing="-5">
                                             <Label x:Name="LabelProgressSteps"
-                                                   Text="10"
+                                                   Text="..."
                                                    FontFamily="ArchivoRegular"
                                                    TextColor="Black"
                                                    FontSize="16"
                                                    HorizontalTextAlignment="Center" />
                                             <Label x:Name="LabelGoalSteps"
-                                                   Text="/400"
+                                                   Text="/..."
                                                    FontFamily="ArchivoRegular"
                                                    TextColor="#A3A3A3"
                                                    FontSize="14"
@@ -137,20 +137,20 @@
 
                                         <StackLayout Spacing="-5">
                                             <Label x:Name="LabelProgressDistance"
-                                                   Text="200 min"
+                                                   Text="..."
                                                    FontFamily="ArchivoRegular"
                                                    TextColor="Black"
                                                    FontSize="16"
                                                    HorizontalTextAlignment="Center" />
                                             <Label x:Name="LabelGoalDistance"
-                                                   Text="/3000 min"
+                                                   Text="/..."
                                                    FontFamily="ArchivoRegular"
                                                    TextColor="#A3A3A3"
                                                    FontSize="14"
                                                    HorizontalTextAlignment="Center" />
                                         </StackLayout>
 
-                                        <Label Text="Distancia"
+                                        <Label Text="Caminata"
                                                FontSize="14"
                                                TextColor="Black"
                                                FontFamily="ArchivoRegular"
@@ -208,11 +208,13 @@
                                            FontSize="14"/>
                                 </StackLayout>
                                 <FlexLayout x:Name="FlexLayoutDailyGoals"
+                                            IsVisible="False"
                                             Direction="Row"
                                             Wrap="Wrap"
                                             AlignContent="Start"
                                             JustifyContent="End"
                                             WidthRequest="210"
+                                            BindableLayout.ItemsSource="{Binding DailyGoals}"
                                             >
                                     <BindableLayout.ItemTemplate>
                                         <DataTemplate>
@@ -290,6 +292,7 @@
                                            FontSize="14"/>
                                 </StackLayout>
                                 <FlexLayout x:Name="FlexLayoutWeeklyGoals"
+                                            IsVisible="False"
                                             Direction="Row"
                                             Wrap="Wrap"
                                             AlignContent="Start"
@@ -298,12 +301,12 @@
                                             BindableLayout.ItemsSource="{Binding WeeklyGoals}">
                                     <BindableLayout.ItemTemplate>
                                         <DataTemplate>
-                                            <plugin:ProgressRing HeightRequest="35"
-                                                                 WidthRequest="35"
+                                            <plugin:ProgressRing HeightRequest="30"
+                                                                 WidthRequest="30"
                                                                  RingProgressColor="#2F6A88"
                                                                  RingThickness="5"
                                                                  Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
-                                                                 Margin="0,0,5,20"
+                                                                 Margin="0,0,5,5"
                                                                  RingBaseColor="#CEE5EE" />
                                         </DataTemplate>
                                     </BindableLayout.ItemTemplate>
