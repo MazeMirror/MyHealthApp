@@ -206,6 +206,7 @@
 
                     <!--DailyGoals list-->
                     <Frame Margin="20,24,20,0"
+                           x:Name="FrameDailyGoals"
                            BackgroundColor="White"
                            CornerRadius="10"
                            HasShadow="False"
@@ -286,9 +287,15 @@
                             </FlexLayout>
                             
                         </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  CommandParameter="{Binding DailyGoals}"
+                                                  Tapped="FrameDailyGoals_OnTapped"/>
+                        </Frame.GestureRecognizers>
                     </Frame>
                     <!--WeeklyGoals list-->
                     <Frame Margin="20,24,20,0"
+                           x:Name="FrameWeeklyGoals"
                            BackgroundColor="White"
                            CornerRadius="10"
                            HasShadow="False"
@@ -368,6 +375,11 @@
                                 </FlexLayout>
                             </FlexLayout>
                         </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  CommandParameter="{Binding WeeklyGoals}"
+                                                  Tapped="FrameWeeklyGoals_OnTapped"/>
+                        </Frame.GestureRecognizers>
                     </Frame>
 
                 </StackLayout>

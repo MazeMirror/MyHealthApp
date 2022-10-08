@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -11,6 +12,7 @@ using MyHealthApp.Services;
 using MyHealthApp.Services.MiBand;
 using MyHealthApp.ViewModels;
 using MyHealthApp.Views.Register;
+using MyHealthApp.Views.Report;
 using ProgressRingControl.Forms.Plugin;
 using WindesHeartSDK;
 using Xamarin.CommunityToolkit.Extensions;
@@ -69,10 +71,10 @@ namespace MyHealthApp.Views
             await Device.InvokeOnMainThreadAsync(async () =>
             {
                 //Los dailyGoals
-                FlexLayoutDailyGoals.BindingContext = _dailyGoalsViewModel;
+                FrameDailyGoals.BindingContext = _dailyGoalsViewModel;
                 
                 //Los weeklyGoals
-                FlexLayoutWeeklyGoals.BindingContext = _weeklyGoalViewModel;
+                FrameWeeklyGoals.BindingContext = _weeklyGoalViewModel;
                 
                 var dailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDate(_patientId,DateTime.Today);
                 var weeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(_patientId);
@@ -704,6 +706,34 @@ namespace MyHealthApp.Views
         {
             await Navigation.PushAsync(new StepsPage(_firstStepDg));
         }
-        
+
+        private async void FrameDailyGoals_OnTapped(object sender, EventArgs e)
+        {
+            var param = ((TappedEventArgs)e).Parameter;
+            if (param != null)
+            {
+                var dailyGoals = param as ObservableCollection<DailyGoal>;
+                if (dailyGoals != null)
+                {
+                    await Navigation.PushAsync(new CurrentDayReportPage(dailyGoals));
+                }
+            }
+
+            
+        }
+
+        private async void FrameWeeklyGoals_OnTapped(object sender, EventArgs e)
+        {
+            
+            var param = ((TappedEventArgs)e).Parameter;
+            if (param != null)
+            {
+                var weeklyGoals = param as ObservableCollection<WeeklyGoal>;
+                if (weeklyGoals != null)
+                {
+                    await Navigation.PushAsync(new CurrentWeekReportPage(weeklyGoals));
+                }
+            }
+        }
     }
 }
