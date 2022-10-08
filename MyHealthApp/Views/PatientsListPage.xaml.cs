@@ -87,7 +87,8 @@ namespace MyHealthApp.Views
                     var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
                     var dailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDate(patient.Id,DateTime.Today);
                     var weeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(patient.Id);
-                    await Navigation.PushAsync(new PatientDetailsPage(profile,patient,dailyGoals,weeklyGoals));
+                    var mealPlans = await MealPlanService.Instance.GetMealPlansByPatientId(patient.Id);
+                    await Navigation.PushAsync(new PatientDetailsPage(profile,patient,dailyGoals,weeklyGoals,mealPlans));
                 }
 
                 //await DisplayAlert("Hola", "El Id es " + profileId.ToString(), "Ok");

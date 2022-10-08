@@ -11,7 +11,9 @@ using MyHealthApp.Services;
 using MyHealthApp.ViewModels;
 using MyHealthApp.Views.AddPatientGoal;
 using MyHealthApp.Views.EditPatientGoal;
+using MyHealthApp.Views.EditPatientPlan;
 using ProgressRingControl.Forms.Plugin;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -24,11 +26,12 @@ namespace MyHealthApp.Views
         private SlProfileDetailsViewModel _model;
         public static  PatientDailyGoalsViewModel DailyGoalsViewModel;
         public static PatientWeeklyGoalViewModel WeeklyGoalViewModel;
+        public static PatientMealPlansViewModel MealPlansViewModel;
         private readonly Patient _patient;
         private DailyGoal _firstStepDg;
         private DailyGoal _firstDistanceDg;
 
-        public PatientDetailsPage(Profile profile,Patient patient, List<DailyGoal> dailyGoals, List<WeeklyGoal> weeklyGoals)
+        public PatientDetailsPage(Profile profile,Patient patient, List<DailyGoal> dailyGoals, List<WeeklyGoal> weeklyGoals, List<MealPlan> mealPlans)
         {
             InitializeComponent();
             _profile = profile.CreateDeepCopy();
@@ -38,6 +41,7 @@ namespace MyHealthApp.Views
             
             DailyGoalsViewModel = new PatientDailyGoalsViewModel(dailyGoals);
             WeeklyGoalViewModel = new PatientWeeklyGoalViewModel(weeklyGoals);
+            MealPlansViewModel = new PatientMealPlansViewModel(mealPlans);
             
             GetGoalsInformation();
             
@@ -173,6 +177,11 @@ namespace MyHealthApp.Views
                 
                 return progressRing;
             });*/
+
+            //Los MealPlans
+            StackLayoutMealPlans.BindingContext = MealPlansViewModel;
+
+            //Los DailysGoals
             LabelDgCompleted.BindingContext = DailyGoalsViewModel;
             StackLayoutDailyGoals.BindingContext = DailyGoalsViewModel;
             FlexLayoutDailyGoals.BindingContext = DailyGoalsViewModel;
@@ -238,6 +247,20 @@ namespace MyHealthApp.Views
         private async void ButtonReport_OnClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new PatientReportPage(_profile,_patient));
+        }
+
+        private async void SpecificMealPlan_OnTapped(object sender, EventArgs e)
+        {
+            var param = ((TappedEventArgs)e).Parameter;
+            if (param != null)
+            {
+                var mealPlan = param as MealPlan;
+
+                if (mealPlan != null)
+                {
+                    await Navigation.ShowPopupAsync(new EditMealPlanPage(mealPlan));
+                }
+            }
         }
     }
 }
