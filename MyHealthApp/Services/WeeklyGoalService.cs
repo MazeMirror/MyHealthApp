@@ -108,5 +108,20 @@ namespace MyHealthApp.Services
             
             return weeklyGoals;
         }*/
+        public async Task<List<WeeklyGoal>> GetWeeklyGoalsByPatientIdAndDates(long patientId, DateTime start, DateTime end)
+        {
+            
+            //Obtenemos los weeklyGoals correspondientes a esta semana
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}" +
+                                  $"/weeklyGoals?startDate={start.ToString("d",CultureInfo.InvariantCulture)}" +
+                                  $"&endDate={end.ToString("d",CultureInfo.InvariantCulture)}");
+            var response = await _client.GetAsync(_requestUri);
+            
+            var weeklyGoals = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<List<WeeklyGoal>>(response.Content.ReadAsStringAsync().Result)
+                : new List<WeeklyGoal>();
+            
+            return weeklyGoals;
+        }
     }
 }

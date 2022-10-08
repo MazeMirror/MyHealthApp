@@ -98,6 +98,12 @@
     <None Remove="Resources\Fonts\Font_Awesome\FARegular-400.otf" />
     <None Remove="Resources\Images\objectiveDone.png" />
     <EmbeddedResource Include="Resources\Images\objectiveDone.png" />
+    <None Remove="Resources\Images\map-maker.png" />
+    <EmbeddedResource Include="Resources\Images\map-maker.png" />
+    <None Remove="Resources\Images\fire.png" />
+    <EmbeddedResource Include="Resources\Images\fire.png" />
+    <None Remove="Resources\Images\shoe2.png" />
+    <EmbeddedResource Include="Resources\Images\shoe2.png" />
   </ItemGroup>
 
   <ItemGroup>
