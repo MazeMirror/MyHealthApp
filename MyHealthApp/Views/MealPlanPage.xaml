@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.MealPlanPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#F0F3F4">
+            <!--TopBar-->
+            <FlexLayout
+                HeightRequest="90"
+                Direction="Row"
+                HorizontalOptions="FillAndExpand"
+                AlignItems="Center"
+                JustifyContent="Center"
+                BackgroundColor="White">
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                       Scale="0.90" />
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                       Margin="10,0,0,0"
+                       effects:IconTintColorEffect.TintColor="Black"
+                       Scale="0.90" />
+                      
+            </FlexLayout>
+        </StackLayout>
+        
+        
+        
+        
+        
+        
+        
+    </ContentPage.Content>
+</ContentPage>
