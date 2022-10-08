@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.Report.CurrentWeekReportPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:ValueToImageSourceConverter x:Key="ValueToImageSourceConverter" />
+            <helpers:ValueToDoubleConverter x:Key="ToDoubleConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ContentView>
+            <ScrollView>
+                <StackLayout BackgroundColor="#F0F3F4"
+                             Padding="0,0,0,20">
+                    <!--TopBar-->
+                    <StackLayout
+                        HeightRequest="90"
+                        Orientation="Horizontal"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="White">
+                        <Label Text="&#xf053;"
+                               FontSize="18"
+                               Margin="35,0,0,0"
+                               VerticalOptions="Center"
+                               FontFamily="{StaticResource FontAwesomeSolid}"
+                               TextColor="Black">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="LabelBack_OnTapped"
+                                    NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                               Scale="0.90"
+                               Margin="68,0,0,0" />
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                               Margin="10,0,0,0"
+                               effects:IconTintColorEffect.TintColor="Black"
+                               Scale="0.90" />
+                    </StackLayout>
+
+                    <Frame HasShadow="False"
+                           CornerRadius="10"
+                           Margin="20,25,20,0"
+                           BackgroundColor="White">
+                        <!--Week inform (two dates)-->
+                        <StackLayout x:Name="StackLayoutWeeklyInform"
+                                     IsVisible="True">
+                            <Label Text="Tu resumen semanal"
+                                   FontFamily="ArchivoSemiBold"
+                                   TextColor="Black"
+                                   FontSize="18" />
+                            <StackLayout Orientation="Horizontal"
+                                         HorizontalOptions="Center">
+                                <Label x:Name="LabelCurrentWeekStart"
+                                       FontSize="16"
+                                       FontFamily="ArchivoRegular"
+                                       TextColor="Black"/>
+                                <Label FontSize="16"
+                                       Text="-"
+                                       Padding="15,0"
+                                       FontFamily="ArchivoRegular"
+                                       TextColor="Black"/>
+                                <Label x:Name="LabelCurrentWeekEnd"
+                                       FontSize="16"
+                                       FontFamily="ArchivoRegular"
+                                       TextColor="Black"/>
+                            </StackLayout>
+
+                            <FlexLayout x:Name="FlexLayoutWeeklyInform"
+                                        Direction="Row"
+                                        Wrap="Wrap"
+                                        JustifyContent="SpaceAround"
+                                        Padding="40,15,40,0"
+                                        BindableLayout.ItemsSource="{Binding ReportGoals}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout Spacing="1" Padding="0,15">
+                                            <Image
+                                                Source="{Binding ImageSource, Converter={StaticResource ValueToImageSourceConverter},ConverterParameter='MyHealthApp.Resources.Images'}"
+                                                effects:IconTintColorEffect.TintColor="#FF9162"
+                                                Scale="1.5" />
+                                            <StackLayout Orientation="Horizontal"
+                                                         HorizontalOptions="Center"
+                                                         Padding="0,10,0,0"
+                                                         Spacing="4">
+                                                <Label Text="{Binding Progress}"
+                                                       TextColor="#2F6A88"
+                                                       FontFamily="ArchivoSemiBold"
+                                                       HorizontalOptions="Center"
+                                                       FontSize="16" />
+                                                <Label Text="{Binding Unity}"
+                                                       TextColor="#2F6A88"
+                                                       FontFamily="ArchivoSemiBold"
+                                                       VerticalOptions="End"
+                                                       FontSize="16" />
+                                            </StackLayout>
+                                            <Label Text="{Binding Description}"
+                                                   TextColor="Black"
+                                                   LineHeight="1.2"
+                                                   WidthRequest="100"
+                                                   FontFamily="ArchivoRegular"
+                                                   FontSize="14"
+                                                   HorizontalTextAlignment="Center"
+                                                   HorizontalOptions="Center" />
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                                <BindableLayout.EmptyView>
+                                    <StackLayout Padding="50,20">
+                                        <Label Text="No se registraron objetivos semanales para este rango"
+                                               FontFamily="ArchivoRegular"
+                                               HorizontalTextAlignment="Center"
+                                               FontSize="16"
+                                               TextColor="#6EB3CD"
+                                               VerticalOptions="CenterAndExpand" />
+                                    </StackLayout>
+                                </BindableLayout.EmptyView>
+                            </FlexLayout>
+
+                        </StackLayout>
+                    </Frame>
+                    
+                    <Frame Margin="20,25,0,0"
+                               x:Name="FrameWeeklyGoals"
+                               IsVisible="True"
+                               BackgroundColor="White"
+                               CornerRadius="10"
+                               HasShadow="False"
+                               Padding="5">
+                            <StackLayout Spacing="14">
+                                <FlexLayout Padding="20,10,20,0"
+                                            Direction="Row"
+                                            JustifyContent="Start"
+                                            AlignItems="Center">
+                                    <Label Text="Objetivos semanales"
+                                           FontFamily="ArchivoSemiBold"
+                                           TextColor="Black"
+                                           FontSize="18" />
+                                </FlexLayout>
+                                <StackLayout x:Name="StackLayoutWeeklyGoals"
+                                             Spacing="20"
+                                             Padding="20,5,20,20"
+                                             BindableLayout.ItemsSource="{Binding .}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <FlexLayout
+                                                Direction="Row"
+                                                AlignItems="Start"
+
+                                                JustifyContent="SpaceBetween">
+                                                <StackLayout Orientation="Horizontal"
+                                                             Spacing="25">
+                                                    <plugin:ProgressRing HeightRequest="35"
+                                                                         WidthRequest="35"
+                                                                         RingProgressColor="#2F6A88"
+                                                                         RingThickness="6"
+                                                                         Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
+                                                                         RingBaseColor="#CEE5EE" />
+                                                    <StackLayout Spacing="0">
+                                                        <Label TextColor="Black"
+                                                               FontFamily="ArchivoRegular"
+                                                               Text="{Binding DescriptionObjective}"
+                                                               FontSize="14" />
+                                                        <Label TextColor="Black"
+                                                               FontFamily="ArchivoSemiBold"
+                                                               Text="{Binding DescriptionProgress}"
+                                                               FontSize="14" />
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </FlexLayout>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                    <BindableLayout.EmptyViewTemplate>
+                                        <DataTemplate>
+                                            <Label Text="No hay objetivos semanales"
+                                                   FontFamily="ArchivoRegular"
+                                                   Padding="20"
+                                                   HorizontalTextAlignment="Center" />
+                                        </DataTemplate>
+                                    </BindableLayout.EmptyViewTemplate>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+
+
+                </StackLayout>
+            </ScrollView>
+        </ContentView>
+    </ContentPage.Content>
+</ContentPage>
