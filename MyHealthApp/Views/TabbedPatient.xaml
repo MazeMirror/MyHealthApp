@@ -11,7 +11,8 @@
              xmlns:local="clr-namespace:MyHealthApp.Views;assembly=MyHealthApp"
              xmlns:profileFlow="clr-namespace:MyHealthApp.Views.ProfileFlow;assembly=MyHealthApp"
              xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp">
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:report="clr-namespace:MyHealthApp.Views.Report;assembly=MyHealthApp">
     
     <NavigationPage Title="Inicio" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.home.png}">
         <x:Arguments>
@@ -22,7 +23,7 @@
     
     <NavigationPage Title="Reporte" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.focus.png}">
         <x:Arguments>
-            <local:ReportPage />
+            <report:ReportPage />
         </x:Arguments>
     </NavigationPage>
     
