@@ -330,7 +330,7 @@
                                        >
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer
-                                            Tapped="LabelAddDailyGoal_OnTapped"
+                                            
                                             NumberOfTapsRequired="1"
                                         />
                                     </Label.GestureRecognizers>
