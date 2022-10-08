@@ -235,7 +235,7 @@
                                                    HorizontalTextAlignment="Center" />
                                         </StackLayout>
 
-                                        <Label Text="Caminata"
+                                        <Label Text="Distancia"
                                                FontSize="14"
                                                TextColor="Black"
                                                FontFamily="ArchivoRegular"

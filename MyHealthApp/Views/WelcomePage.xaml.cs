@@ -11,11 +11,12 @@ namespace MyHealthApp.Views
         public WelcomePage()
         {
             InitializeComponent();
-            FallbackIfWelcomeIsStartPageByInterruptError();
+            
         }
 
         private async void StartButton_OnClicked(object sender, EventArgs e)
         {
+            FallbackIfWelcomeIsStartPageByInterruptError();
             await Navigation.PushAsync(new LoginPage());
         }
 

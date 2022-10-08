@@ -17,8 +17,6 @@ namespace MyHealthApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        public static List<WeeklyGoal> WeeklyGoals;
-        public static List<DailyGoal> DailyGoals;
         public LoginPage()
         {
             InitializeComponent();
@@ -112,9 +110,8 @@ namespace MyHealthApp.Views
             {
                 var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
                 Application.Current.Properties["PatientId"] = patient.Id.ToString();
-                DailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDate(patient.Id,DateTime.Today);
-                WeeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(patient.Id);
-                await Navigation.PushAsync(new TabbedPatient());
+                Application.Current.MainPage = new NavigationPage(new TabbedPatient());
+                //await Navigation.PushAsync(new TabbedPatient());
             }
             else
             {

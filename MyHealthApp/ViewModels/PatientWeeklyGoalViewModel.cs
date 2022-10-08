@@ -12,6 +12,22 @@ namespace MyHealthApp.ViewModels
     {
         private ObservableCollection<WeeklyGoal> _weeklyGoals;
 
+        public PatientWeeklyGoalViewModel()
+        {
+            _weeklyGoals = new ObservableCollection<WeeklyGoal>();
+        }
+        
+        public PatientWeeklyGoalViewModel(List<WeeklyGoal> weeklyGoals)
+        {
+            _weeklyGoals = new ObservableCollection<WeeklyGoal>();
+            
+            foreach (var item in weeklyGoals)
+            {
+                CompleteDescriptionWg(item);
+                AddWeeklyToList(item);
+            }
+        }
+        
         public ObservableCollection<WeeklyGoal> WeeklyGoals
         {
             get => _weeklyGoals;
@@ -49,8 +65,8 @@ namespace MyHealthApp.ViewModels
                 }; break;
                 case 2:
                 {
-                    item.DescriptionObjective = String.Format("Realizar {0} minutos de caminata",item.Quantity);
-                    item.DescriptionProgress = String.Format("Progreso: {0} minutos",item.Progress);
+                    item.DescriptionObjective = String.Format("Quemar {0} kilocalorías en la semana",item.Quantity);
+                    item.DescriptionProgress = String.Format("Progreso: {0} kilocalorías",item.Progress);
                 } ; break;
                 case 3:
                 {
@@ -60,20 +76,8 @@ namespace MyHealthApp.ViewModels
             }
         }
 
-        public PatientWeeklyGoalViewModel()
-        {
-            _weeklyGoals = new ObservableCollection<WeeklyGoal>();
-        }
-        public PatientWeeklyGoalViewModel(List<WeeklyGoal> weeklyGoals)
-        {
-            _weeklyGoals = new ObservableCollection<WeeklyGoal>();
-            
-            foreach (var item in weeklyGoals)
-            {
-                CompleteDescriptionWg(item);
-                AddWeeklyToList(item);
-            }
-        }
+        
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
