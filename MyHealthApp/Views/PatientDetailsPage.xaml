@@ -303,6 +303,91 @@
 
                         </StackLayout>
                     </Frame>
+                    
+                    <!--MealPLans List-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+                        <StackLayout Spacing="14">
+                            <FlexLayout Padding="20,10,20,0"
+                                        Direction="Row"
+                                        JustifyContent="SpaceBetween"
+                                        AlignItems="Center">
+                                <Label Text="Planes Alimenticios"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                                <Label Text="&#xf0fe;"
+                                       FontSize="24"
+                                       TextColor="#EB6C36"
+                                       FontFamily="{StaticResource FontAwesomeRegular}"
+                                       VerticalOptions="Center"
+                                       >
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="LabelAddDailyGoal_OnTapped"
+                                            NumberOfTapsRequired="1"
+                                        />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </FlexLayout>
+                            <StackLayout x:Name="StackLayoutMealPlans"
+                                         Spacing="20"
+                                         Padding="20,5,20,20"
+                                         BindableLayout.ItemsSource="{Binding MealPlans}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <FlexLayout
+                                            Direction="Row"
+                                            AlignItems="Start"
+
+                                            JustifyContent="SpaceBetween">
+                                            <StackLayout Orientation="Horizontal"
+                                                         Spacing="120"
+                                                         BackgroundColor="#CEE5EE"
+                                                         effects:CornerRadiusEffect.CornerRadius="10">
+
+                                                <StackLayout Spacing="0" WidthRequest="175">
+                                                    <Label TextColor="Black"
+                                                           FontSize="14"
+                                                           FontFamily="ArchivoSemiBold"
+                                                           Text="{Binding Name}"
+                                                           Margin="15,10,10,10"
+                                                            />
+                                                </StackLayout>
+
+                                                <StackLayout>
+                                                    <Label TextColor="Black"
+                                                           FontSize="14"
+                                                           FontFamily="{StaticResource FontAwesomeSolid}"
+                                                           Text="&#xf054;"
+                                                           Margin="10,10,15,10"
+                                                            /> 
+                                                </StackLayout>
+                                            </StackLayout>
+                                            
+                                            <FlexLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="SpecificMealPlan_OnTapped"
+                                                                      CommandParameter="{Binding .}"
+                                                                      NumberOfTapsRequired="1"/>
+                                            </FlexLayout.GestureRecognizers>
+                                        </FlexLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                                <BindableLayout.EmptyViewTemplate>
+                                    <DataTemplate>
+                                        <Label Text="No hay planes alimenticios"
+                                               FontFamily="ArchivoRegular"
+                                               Padding="20"
+                                               HorizontalTextAlignment="Center" />
+                                    </DataTemplate>
+                                </BindableLayout.EmptyViewTemplate>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+
                     <!--DailyGoals list-->
                     <Frame Margin="20,24,20,0"
                            BackgroundColor="White"

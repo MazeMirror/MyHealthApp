@@ -11,7 +11,9 @@ using MyHealthApp.Services;
 using MyHealthApp.ViewModels;
 using MyHealthApp.Views.AddPatientGoal;
 using MyHealthApp.Views.EditPatientGoal;
+using MyHealthApp.Views.EditPatientPlan;
 using ProgressRingControl.Forms.Plugin;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -24,11 +26,12 @@ namespace MyHealthApp.Views
         private SlProfileDetailsViewModel _model;
         public static  PatientDailyGoalsViewModel DailyGoalsViewModel;
         public static PatientWeeklyGoalViewModel WeeklyGoalViewModel;
+        public static PatientMealPlansViewModel MealPlansViewModel;
         private readonly Patient _patient;
         private DailyGoal _firstStepDg;
         private DailyGoal _firstDistanceDg;
 
-        public PatientDetailsPage(Profile profile,Patient patient, List<DailyGoal> dailyGoals, List<WeeklyGoal> weeklyGoals)
+        public PatientDetailsPage(Profile profile,Patient patient, List<DailyGoal> dailyGoals, List<WeeklyGoal> weeklyGoals, List<MealPlan> mealPlans)
         {
             InitializeComponent();
             _profile = profile.CreateDeepCopy();
@@ -38,6 +41,7 @@ namespace MyHealthApp.Views
             
             DailyGoalsViewModel = new PatientDailyGoalsViewModel(dailyGoals);
             WeeklyGoalViewModel = new PatientWeeklyGoalViewModel(weeklyGoals);
+            MealPlansViewModel = new PatientMealPlansViewModel(mealPlans);
             
             GetGoalsInformation();
             
@@ -130,30 +134,30 @@ namespace MyHealthApp.Views
 
         private void GetGoalsInformation()
         {
-            
-           
+
+
             //_dailyGoalsViewModel.AddDailyGoalToList(new DailyGoal(){Id = 1,Progress = 200,Quantity = 350,ActivityId = 1,PatientId = 1,Percentage = 0});
             //_dailyGoalsViewModel.AddDailyGoalToList(new DailyGoal(){Id = 1,Progress = 20,Quantity = 150,ActivityId = 1,PatientId = 1,Percentage = 0});
             //_dailyGoalsViewModel.AddDailyGoalToList(new DailyGoal(){Id = 1,Progress = 5000,Quantity = 6500,ActivityId = 1,PatientId = 1,Percentage = 0});
 
-            
-           //var responseList = await DailyGoalService.Instance.GetDailyGoalsByPatientId(patient.Id);
-            
-            
-           
+
+            //var responseList = await DailyGoalService.Instance.GetDailyGoalsByPatientId(patient.Id);
+
+
+
             /*foreach (var item in responseList)
             {
                 Esto asigna pero se va a segundo plano o algo asi
                 _dailyGoalsViewModel.AddDailyGoalToList(item);
-            }*/ 
-            
+            }*/
+
             //_dailyGoalsViewModel.AdjustProgressPercentages();
-           
-            
+
+
             //var completedGoals = DailyGoalsViewModel.DailyGoals.Count(goal => goal.Progress == goal.Quantity);
             //LabelDgCompleted.Text = $"{completedGoals.ToString()} / {DailyGoalsViewModel.DailyGoals.Count.ToString()}";
-            
-            
+
+
             /*DataTemplate progressRingTemplate = new DataTemplate(() =>
             {
                 var progressRing = new ProgressRing()
@@ -173,6 +177,11 @@ namespace MyHealthApp.Views
                 
                 return progressRing;
             });*/
+
+            //Los MealPlans
+            StackLayoutMealPlans.BindingContext = MealPlansViewModel;
+
+            //Los DailysGoals
             LabelDgCompleted.BindingContext = DailyGoalsViewModel;
             StackLayoutDailyGoals.BindingContext = DailyGoalsViewModel;
             FlexLayoutDailyGoals.BindingContext = DailyGoalsViewModel;
@@ -231,6 +240,20 @@ namespace MyHealthApp.Views
                 if (weeklyGoal != null)
                 {
                     await Navigation.PushAsync(new EditWeeklyGoalPage(weeklyGoal));
+                }
+            }
+        }
+
+        private async void SpecificMealPlan_OnTapped(object sender, EventArgs e)
+        {
+            var param = ((TappedEventArgs)e).Parameter;
+            if (param != null)
+            {
+                var mealPlan = param as MealPlan;
+
+                if (mealPlan != null)
+                {
+                    await Navigation.ShowPopupAsync(new EditMealPlanPage(mealPlan));
                 }
             }
         }
