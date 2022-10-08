@@ -98,6 +98,11 @@ namespace MyHealthApp.ViewModels
             OnPropertyChanged();
         }
 
+        public PatientDailyGoalsViewModel()
+        {
+            _dailyGoals = new ObservableCollection<DailyGoal>();
+        }
+
         public PatientDailyGoalsViewModel(List<DailyGoal> dailyGoals)
         {
             _dailyGoals = new ObservableCollection<DailyGoal>();

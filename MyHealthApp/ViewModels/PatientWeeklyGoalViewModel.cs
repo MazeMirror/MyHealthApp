@@ -60,6 +60,10 @@ namespace MyHealthApp.ViewModels
             }
         }
 
+        public PatientWeeklyGoalViewModel()
+        {
+            _weeklyGoals = new ObservableCollection<WeeklyGoal>();
+        }
         public PatientWeeklyGoalViewModel(List<WeeklyGoal> weeklyGoals)
         {
             _weeklyGoals = new ObservableCollection<WeeklyGoal>();

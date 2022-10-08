@@ -17,9 +17,13 @@ namespace MyHealthApp.Views
     {
         private readonly Profile _profile;
         private readonly Patient _patient;
-        private ReportGoalsViewModel _reportGoalsDailyViewModel;
+        private readonly ReportGoalsViewModel _reportGoalsDailyViewModel;
 
-        private ReportGoalsViewModel _reportGoalsWeeklyViewModel;
+        private readonly ReportGoalsViewModel _reportGoalsWeeklyViewModel;
+
+        private PatientDailyGoalsViewModel _dailyGoalsViewModel;
+
+        private PatientWeeklyGoalViewModel _weeklyGoalViewModel;
         //private List<DailyGoal> _dailyGoals;
         public PatientReportPage(Profile profile, Patient patient)
         {
@@ -29,90 +33,47 @@ namespace MyHealthApp.Views
             
             _reportGoalsDailyViewModel = new ReportGoalsViewModel();
             _reportGoalsWeeklyViewModel = new ReportGoalsViewModel();
+            _dailyGoalsViewModel = new PatientDailyGoalsViewModel();
+            _weeklyGoalViewModel = new PatientWeeklyGoalViewModel();
+
+            InitConfigurations();
             //_dailyGoals = new List<DailyGoal>();
             //InitReportGoalsVm();
-            FlexLayoutDailyInform.BindingContext = _reportGoalsDailyViewModel;
-            FlexLayoutWeeklyInform.BindingContext = _reportGoalsWeeklyViewModel;
+        }
+
+        private void InitConfigurations()
+        {
+            //Perfil de paciente
             LabelName.Text = _profile.Name;
             LabelLastname.Text = _profile.LastName;
+            //Layouts de informe
+            FlexLayoutDailyInform.BindingContext = _reportGoalsDailyViewModel;
+            FlexLayoutWeeklyInform.BindingContext = _reportGoalsWeeklyViewModel;
+            
+            //Daily Informe
             CalculateInformForDay(DatePickerDailyInform.Date);
             DatePickerDailyInform.MaximumDate = DateTime.Today;
             
-            ///////////Boton semana
-            DatePickerDateWeekStartInform.Date = DateTime.Today.AddDays(-7);
-            DatePickerDateWeekFinishInform.Date = DateTime.Today;
+            //Weekly informe
+            DateTime date = DateTime.Today;
+            int day = (int)date.DayOfWeek;
+            DateTime monday = date.AddDays((-1) * (day == 0 ? 6 : day - 1));
+            DateTime sunday = date.AddDays((1) * (day == 0 ? day : 7 - day));
+            
+            DatePickerDateWeekStartInform.Date = monday;
+            DatePickerDateWeekFinishInform.Date = sunday;
+            
             DatePickerDateWeekStartInform.MaximumDate = DatePickerDateWeekFinishInform.Date.AddDays(-1);
             DatePickerDateWeekFinishInform.MinimumDate = DatePickerDateWeekStartInform.Date.AddDays(1);
+            
+            //Layout daily
+            StackLayoutDailyGoals.BindingContext = _dailyGoalsViewModel;
+            //Layout weekly
+            StackLayoutWeeklyGoals.BindingContext = _weeklyGoalViewModel;
         }
-
-        private void InitReportGoalsVm()
-        {
-            //Pasos
-            /*_dailyGoals.Add(new DailyGoal()
-            {
-                Progress = 400,
-                Quantity = 400,
-                ActivityId = 1
-            });
-            _dailyGoals.Add(new DailyGoal()
-            {
-                Progress = 400,
-                Quantity = 600,
-                ActivityId = 1
-            });
-            _dailyGoals.Add(new DailyGoal()
-            {
-                Progress = 0,
-                Quantity = 800,
-                ActivityId = 1
-            });
-            
-            //Calorias
-            _dailyGoals.Add(new DailyGoal()
-            {
-                Progress = 3000,
-                Quantity = 3000,
-                ActivityId = 2
-            });
-            
-            _dailyGoals.Add(new DailyGoal()
-            {
-                Progress = 3000,
-                Quantity = 3500,
-                ActivityId = 2
-            });
-            
-            _dailyGoals.Add(new DailyGoal()
-            {
-                Progress = 0,
-                Quantity = 4000,
-                ActivityId = 2
-            });
-            
-            //Distancias
-            _dailyGoals.Add(new DailyGoal()
-            {
-                Progress = 435,
-                Quantity = 435,
-                ActivityId = 3
-            });
-            _dailyGoals.Add(new DailyGoal()
-            {
-                Progress = 550,
-                Quantity = 550,
-                ActivityId = 3
-            });
-            _dailyGoals.Add(new DailyGoal()
-            {
-                Progress = 600,
-                Quantity = 800,
-                ActivityId = 3
-            });*/
-            
-        }
-
         
 
+        
         private async void LabelBack_OnTapped(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
@@ -130,8 +91,8 @@ namespace MyHealthApp.Views
             ChangeColorButtonsOnClick(2);
             ChangeFiltersByButtonClicked(2);
             
-            _reportGoalsWeeklyViewModel.ClearElementsCollection();
-            InitWeeklyReport();
+            //_reportGoalsWeeklyViewModel.ClearElementsCollection();
+            
         }
 
         private void ButtonMonth_OnClicked(object sender, EventArgs e)
@@ -193,7 +154,10 @@ namespace MyHealthApp.Views
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         StackLayoutDailyInform.IsVisible = true;
+                        FrameDailyGoals.IsVisible = true;
+                        
                         StackLayoutWeeklyInform.IsVisible = false;
+                        FrameWeeklyGoals.IsVisible = false;
                     });
                     
                 } ; break;
@@ -202,7 +166,10 @@ namespace MyHealthApp.Views
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         StackLayoutDailyInform.IsVisible = false;
+                        FrameDailyGoals.IsVisible = false;
+                        
                         StackLayoutWeeklyInform.IsVisible = true;
+                        FrameWeeklyGoals.IsVisible = true;
                     });
                     
                 } ; break;
@@ -211,7 +178,10 @@ namespace MyHealthApp.Views
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         StackLayoutDailyInform.IsVisible = false;
+                        FrameDailyGoals.IsVisible = false;
+                        
                         StackLayoutWeeklyInform.IsVisible = false;
+                        FrameWeeklyGoals.IsVisible = false;
                     });
                     
                 } ; break;
@@ -235,6 +205,12 @@ namespace MyHealthApp.Views
         private async void CalculateInformForDay(DateTime dateTime)
         {
             var dailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDate(_patient.Id, dateTime);
+            
+            _dailyGoalsViewModel.ClearDailyGoalList();
+            foreach (var item in dailyGoals)
+            {
+                _dailyGoalsViewModel.AddDailyGoalToList(item);
+            }
             
             var listSteps = dailyGoals.Where(dg => dg.ActivityId == 1).ToList();
             var listCalories = dailyGoals.Where(dg => dg.ActivityId == 2).ToList();
@@ -314,7 +290,7 @@ namespace MyHealthApp.Views
 
         #region Weekly Informs
 
-        void InitWeeklyReport()
+        /*void InitWeeklyReport()
         {
             var item1 = new ReportGoal()
             {
@@ -349,10 +325,14 @@ namespace MyHealthApp.Views
             
             _reportGoalsWeeklyViewModel.AddReportGoalToList(item3);
             
-        }
+        }*/
+        
+        
         private void DatePickerDateWeekStartInform_OnDateSelected(object sender, DateChangedEventArgs e)
         {
             DatePickerDateWeekFinishInform.MinimumDate = DatePickerDateWeekStartInform.Date.AddDays(1);
+            _reportGoalsWeeklyViewModel.ClearElementsCollection();
+            CalculateInformForWeek(DatePickerDateWeekStartInform.Date,DatePickerDateWeekFinishInform.Date);
         }
         
         private void LabelDate1WeekChevron_OnTapped(object sender, EventArgs e)
@@ -363,11 +343,96 @@ namespace MyHealthApp.Views
         private void DatePickerDateWeekFinishInform_OnDateSelected(object sender, DateChangedEventArgs e)
         {
             DatePickerDateWeekStartInform.MaximumDate = DatePickerDateWeekFinishInform.Date.AddDays(-1);
+            _reportGoalsWeeklyViewModel.ClearElementsCollection();
+            CalculateInformForWeek(DatePickerDateWeekStartInform.Date,DatePickerDateWeekFinishInform.Date);
         }
         
         private void LabelDate2WeekChevron_OnTapped(object sender, EventArgs e)
         {
             DatePickerDateWeekFinishInform.Focus();
+        }
+        
+        private async void CalculateInformForWeek(DateTime start, DateTime end)
+        {
+            var weeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientIdAndDates(_patient.Id, start,end);
+            
+            _weeklyGoalViewModel.ClearWeeklyGoalList();
+            foreach (var item in weeklyGoals)
+            {
+                _weeklyGoalViewModel.AddWeeklyToList(item);
+            }
+            
+            
+            var listSteps = weeklyGoals.Where(dg => dg.ActivityId == 1).ToList();
+            var listCalories = weeklyGoals.Where(dg => dg.ActivityId == 2).ToList();
+            var listDistances = weeklyGoals.Where(dg => dg.ActivityId == 3).ToList();
+
+            double maxQuantity = 0;
+            double maxProgress = 0;
+            
+            if (!listSteps.IsEmpty())
+            {
+                foreach (var item in listSteps)
+                {
+                    if (item.Progress > maxProgress) maxProgress = item.Progress;
+                    if (item.Quantity > maxQuantity) maxQuantity = item.Quantity;
+                }
+                
+                _reportGoalsWeeklyViewModel.AddReportGoalToList(new ReportGoal()
+                {
+                    Description = "",
+                    ImageSource = "",
+                    Progress = maxProgress,
+                    Quantity = maxQuantity,
+                    ActivityId = 1
+                });
+            }
+            
+            //reiniciamos maximos
+            maxQuantity = 0;
+            maxProgress = 0;
+
+            if (!listCalories.IsEmpty())
+            {
+                foreach (var item in listCalories)
+                {
+                    if (item.Progress > maxProgress) maxProgress = item.Progress;
+                    if (item.Quantity > maxQuantity) maxQuantity = item.Quantity;
+                }
+                
+                _reportGoalsWeeklyViewModel.AddReportGoalToList(new ReportGoal()
+                {
+                    Description = "",
+                    ImageSource = "",
+                    Progress = maxProgress,
+                    Quantity = maxQuantity,
+                    ActivityId = 2
+                });
+            }
+            
+            //reiniciamos maximos
+            maxQuantity = 0;
+            maxProgress = 0;
+
+            if (!listDistances.IsEmpty())
+            {
+                foreach (var item in listDistances)
+                {
+                    if (item.Progress > maxProgress) maxProgress = item.Progress;
+                    if (item.Quantity > maxQuantity) maxQuantity = item.Quantity;
+                }
+                
+                _reportGoalsWeeklyViewModel.AddReportGoalToList(new ReportGoal()
+                {
+                    Description = "",
+                    ImageSource = "",
+                    Progress = maxProgress,
+                    Quantity = maxQuantity,
+                    ActivityId = 3
+                });
+            }
+            
+            
         }
 
         #endregion
