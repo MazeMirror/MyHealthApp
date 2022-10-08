@@ -28,7 +28,7 @@ namespace MyHealthApp.Views.AddPatientGoal
             _activities = new List<Activity>()
             {
                 new Activity() { Id = 1, Name = "Pasos",Unit = "pasos"},
-                new Activity() { Id = 2, Name = "Caminata",Unit = "minutos"},
+                new Activity() { Id = 2, Name = "Kilocalorias",Unit = "kcal"},
                 new Activity() { Id = 3, Name = "Distancia",Unit = "m"}
             };
 

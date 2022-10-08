@@ -38,8 +38,8 @@ namespace MyHealthApp.Views.EditPatientGoal
 
             if (selecionadoId == 2)
             {
-                name = "Caminata";
-                unitDaily = "minutos";
+                name = "Kilocalorias";
+                unitDaily = "kcal";
             }
 
             if (selecionadoId == 3)

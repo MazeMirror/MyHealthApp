@@ -58,7 +58,7 @@
                            CornerRadius="10"
                            HasShadow="False"
                            Padding="5"
-                           HeightRequest="250">
+                           HeightRequest="410">
                         <StackLayout Spacing="14">
 
                             <Label Text="Tu progreso de hoy"
@@ -71,10 +71,13 @@
                                 HorizontalOptions="Center"
                                 Spacing="0"
                                 Padding="0,20,0,0"
-                                WidthRequest="270">
+                                WidthRequest="300">
                                 <FlexLayout
                                     x:Name="FlexLayoutRingsToday"
-                                    JustifyContent="SpaceBetween">
+                                    HeightRequest="280"
+                                    Wrap="Wrap"
+                                    AlignContent="SpaceBetween"
+                                    JustifyContent="SpaceAround">
                                     <plugin:ProgressRing x:Name="ProgressRingSteps"
                                                          HeightRequest="110"
                                                          WidthRequest="110"
@@ -90,15 +93,22 @@
                                                          RingBaseColor="#fddacb"
                                                          RingThickness="6"
                                                          Progress="0.0" />
-
+                                    <plugin:ProgressRing x:Name="ProgressRingKilocalorie"
+                                                         HeightRequest="110"
+                                                         WidthRequest="110"
+                                                         RingProgressColor="#EB5536"
+                                                         RingBaseColor="#FCCACA"
+                                                         RingThickness="6"
+                                                         Progress="0.0" />
                                 </FlexLayout>
 
                                 <FlexLayout
+                                    Wrap="Wrap"
                                     x:Name="FlexLayoutRingsInfoToday"
-                                    JustifyContent="SpaceBetween">
+                                    JustifyContent="SpaceAround">
                                     <StackLayout x:Name="StackLayoutInfoRingSteps"
                                                  WidthRequest="110"
-                                                 TranslationY="-92"
+                                                 TranslationY="-260"
                                                  Spacing="1">
                                         <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.shoe.png}"
                                                xct:IconTintColorEffect.TintColor="#2F6A88"
@@ -129,7 +139,7 @@
                                     </StackLayout>
                                     <StackLayout x:Name="StackLayoutInfoRingDistance"
                                                  WidthRequest="110"
-                                                 TranslationY="-92"
+                                                 TranslationY="-260"
                                                  Spacing="1">
                                         <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.walk.png}"
                                                xct:IconTintColorEffect.TintColor="#FF9162"
@@ -150,7 +160,38 @@
                                                    HorizontalTextAlignment="Center" />
                                         </StackLayout>
 
-                                        <Label Text="Caminata"
+                                        <Label Text="Distancia"
+                                               FontSize="14"
+                                               TextColor="Black"
+                                               FontFamily="ArchivoRegular"
+                                               HorizontalOptions="Center"
+                                               TranslationY="30" />
+                                    </StackLayout>
+                                    <StackLayout x:Name="StackLayoutInfoRingKilocalories"
+                                                 WidthRequest="110"
+                                                 TranslationY="-192"
+                                                 Spacing="1">
+                                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.fire.png}"
+                                               xct:IconTintColorEffect.TintColor="#EB5536"
+                                               Scale="1.2" />
+
+                                        <StackLayout Spacing="-5"
+                                                     Padding="0,3,0,0">
+                                            <Label x:Name="LabelProgresskilocalorie"
+                                                   Text="..."
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="Black"
+                                                   FontSize="16"
+                                                   HorizontalTextAlignment="Center" />
+                                            <Label x:Name="LabelGoalkilocalorie"
+                                                   Text="/..."
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="#A3A3A3"
+                                                   FontSize="14"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label Text="Kilocalorías"
                                                FontSize="14"
                                                TextColor="Black"
                                                FontFamily="ArchivoRegular"

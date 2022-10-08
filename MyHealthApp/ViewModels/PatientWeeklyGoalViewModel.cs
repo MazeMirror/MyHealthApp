@@ -65,8 +65,8 @@ namespace MyHealthApp.ViewModels
                 }; break;
                 case 2:
                 {
-                    item.DescriptionObjective = String.Format("Realizar {0} minutos de caminata",item.Quantity);
-                    item.DescriptionProgress = String.Format("Progreso: {0} minutos",item.Progress);
+                    item.DescriptionObjective = String.Format("Quemar {0} kilocalorías en la semana",item.Quantity);
+                    item.DescriptionProgress = String.Format("Progreso: {0} kilocalorías",item.Progress);
                 } ; break;
                 case 3:
                 {

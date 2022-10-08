@@ -27,13 +27,14 @@ namespace MyHealthApp.Views
         private readonly ValueToDoubleConverter _valueToDoubleConverter = new ValueToDoubleConverter();
         
         private readonly TimeSpan _second = TimeSpan.FromSeconds(2);
-        private StepsViewModel _stepsViewModel;
+        private readonly StepsViewModel _stepsViewModel;
         private bool _isTimerWorking = false;
         private bool _isCheckingSteps = false;
-        private long _patientId;
+        private readonly long _patientId;
 
-        DailyGoal firstStepDg;
-        private DailyGoal firstDistanceDg;
+        private DailyGoal _firstStepDg;
+        private DailyGoal _firstDistanceDg;
+        private DailyGoal _firstKilocalorieDg;
         public PatientHomePage()
         {
             /*if (SuccessfulRegisterPage.DailyGoals != null && SuccessfulRegisterPage.DailyGoals != null)
@@ -96,6 +97,7 @@ namespace MyHealthApp.Views
                 FlexLayoutWeeklyGoals.IsVisible = true;
                 GetDailyGoalStep();
                 GetDailyGoalDistance();
+                GetDailyGoalKilocalorie();
                 GetGoalsInformation();
             });
             
@@ -108,21 +110,21 @@ namespace MyHealthApp.Views
         {
             try
             {
-                firstStepDg = _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 1 && e.Progress < e.Quantity).ToList().First();
+                _firstStepDg = _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 1 && e.Progress < e.Quantity).ToList().First();
                 
-                LabelProgressSteps.BindingContext = firstStepDg;
+                LabelProgressSteps.BindingContext = _firstStepDg;
                 LabelProgressSteps.SetBinding(Label.TextProperty,"Progress");
 
-                LabelGoalSteps.BindingContext = firstStepDg;
+                LabelGoalSteps.BindingContext = _firstStepDg;
                 LabelGoalSteps.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default,stringFormat:"/{0}");
 
                 
-                ProgressRingSteps.BindingContext = firstStepDg;
+                ProgressRingSteps.BindingContext = _firstStepDg;
                 ProgressRingSteps.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,_valueToDoubleConverter);
 
-                if (firstStepDg.Progress == 0.0)
+                if (_firstStepDg.Progress == 0.0)
                 {
-                    firstStepDg.Progress = _stepsViewModel.TodayStepCount;
+                    _firstStepDg.Progress = _stepsViewModel.TodayStepCount;
                 }
                 
                 //LabelProgressSteps.Text = firstStepDg.Progress.ToString(CultureInfo.CurrentCulture);
@@ -134,7 +136,7 @@ namespace MyHealthApp.Views
                 
                 LabelGoalSteps.TextColor = Color.White;
                 
-                firstStepDg = new DailyGoal()
+                _firstStepDg = new DailyGoal()
                 {
                     Id = -1,
                     Percentage = 0,
@@ -143,14 +145,14 @@ namespace MyHealthApp.Views
                     ActivityId = 1,
                 };
                     
-                LabelProgressSteps.BindingContext = firstStepDg;
+                LabelProgressSteps.BindingContext = _firstStepDg;
                 LabelProgressSteps.SetBinding(Label.TextProperty,"Progress");
 
-                LabelGoalSteps.BindingContext = firstStepDg;
+                LabelGoalSteps.BindingContext = _firstStepDg;
                 LabelGoalSteps.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default);
 
                 
-                ProgressRingSteps.BindingContext = firstStepDg;
+                ProgressRingSteps.BindingContext = _firstStepDg;
                 ProgressRingSteps.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,_valueToDoubleConverter);
                 
                 
@@ -200,25 +202,25 @@ namespace MyHealthApp.Views
             
             try
             {
-                firstDistanceDg = _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 3 && e.Progress < e.Quantity).ToList().First();
+                _firstDistanceDg = _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 3 && e.Progress < e.Quantity).ToList().First();
                 
-                LabelProgressDistance.BindingContext = firstDistanceDg;
+                LabelProgressDistance.BindingContext = _firstDistanceDg;
                 LabelProgressDistance.SetBinding(Label.TextProperty,"Progress",stringFormat: "{0:#.0} m");
 
-                LabelGoalDistance.BindingContext = firstDistanceDg;
+                LabelGoalDistance.BindingContext = _firstDistanceDg;
                 LabelGoalDistance.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default,stringFormat: "{0:#.0} m");
 
                 
-                ProgressRingDistance.BindingContext = firstDistanceDg;
+                ProgressRingDistance.BindingContext = _firstDistanceDg;
                 ProgressRingDistance.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,_valueToDoubleConverter);
 
                 //LabelProgressDistance.Text = firstDistanceDg.Progress.ToString(CultureInfo.CurrentCulture)+" m";
                 //LabelGoalDistance.Text = "/"+firstDistanceDg.Quantity.ToString(CultureInfo.CurrentCulture)+" m";
                 //ProgressRingDistance.Progress = firstDistanceDg.Percentage;
                 
-                if (firstDistanceDg.Progress == 0.0)
+                if (_firstDistanceDg.Progress == 0.0)
                 {
-                    firstDistanceDg.Progress = _stepsViewModel.TodayStepCount*0.762;
+                    _firstDistanceDg.Progress = _stepsViewModel.TodayStepCount*0.762;
                 }
                 
             }
@@ -229,7 +231,7 @@ namespace MyHealthApp.Views
                 
                 LabelGoalDistance.TextColor = Color.White;
                 
-                firstDistanceDg = new DailyGoal()
+                _firstDistanceDg = new DailyGoal()
                 {
                     Id = -1,
                     Percentage = 0,
@@ -238,14 +240,14 @@ namespace MyHealthApp.Views
                     ActivityId = 3,
                 };
                 
-                LabelProgressDistance.BindingContext = firstDistanceDg;
+                LabelProgressDistance.BindingContext = _firstDistanceDg;
                 LabelProgressDistance.SetBinding(Label.TextProperty,"Progress",stringFormat: "{0:#.0} m");
 
-                LabelGoalDistance.BindingContext = firstDistanceDg;
+                LabelGoalDistance.BindingContext = _firstDistanceDg;
                 LabelGoalDistance.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default);
 
                 
-                ProgressRingDistance.BindingContext = firstDistanceDg;
+                ProgressRingDistance.BindingContext = _firstDistanceDg;
                 ProgressRingDistance.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,_valueToDoubleConverter);
 
                 
@@ -264,6 +266,61 @@ namespace MyHealthApp.Views
                     FontSize = 14
                 });
             }*/
+        }
+
+        private void GetDailyGoalKilocalorie()
+        {
+            try
+            {
+                _firstKilocalorieDg = _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 2 && e.Progress < e.Quantity).ToList().First();
+                
+                LabelProgresskilocalorie.BindingContext = _firstKilocalorieDg;
+                LabelProgresskilocalorie.SetBinding(Label.TextProperty,"Progress",stringFormat: "{0:#.00} kcal");
+
+                LabelGoalkilocalorie.BindingContext = _firstKilocalorieDg;
+                LabelGoalkilocalorie.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default,stringFormat: "{0:#.00} kcal");
+
+                
+                ProgressRingKilocalorie.BindingContext = _firstKilocalorieDg;
+                ProgressRingKilocalorie.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,_valueToDoubleConverter);
+
+                //LabelProgressDistance.Text = firstDistanceDg.Progress.ToString(CultureInfo.CurrentCulture)+" m";
+                //LabelGoalDistance.Text = "/"+firstDistanceDg.Quantity.ToString(CultureInfo.CurrentCulture)+" m";
+                //ProgressRingDistance.Progress = firstDistanceDg.Percentage;
+                
+                if (_firstKilocalorieDg.Progress == 0.0)
+                {
+                    _firstKilocalorieDg.Progress = _stepsViewModel.TodayStepCount* 0.04/1000;
+                }
+                
+            }
+            catch (InvalidOperationException e1)
+            {
+                //FlexLayoutRingsToday.Children.Remove(ProgressRingDistance);
+                //FlexLayoutRingsInfoToday.Children.Remove(StackLayoutInfoRingDistance);
+                
+                LabelGoalkilocalorie.TextColor = Color.White;
+                
+                _firstKilocalorieDg = new DailyGoal()
+                {
+                    Id = -1,
+                    Percentage = 0,
+                    Quantity = 9999.0,
+                    Progress = _stepsViewModel.TodayStepCount*0.04/1000, //Converting Steps to calories
+                    ActivityId = 2,
+                };
+                
+                LabelProgresskilocalorie.BindingContext = _firstKilocalorieDg;
+                LabelProgresskilocalorie.SetBinding(Label.TextProperty,"Progress",stringFormat: "{0:#.00} kcal");
+
+                LabelGoalkilocalorie.BindingContext = _firstKilocalorieDg;
+                LabelGoalkilocalorie.SetBinding(Label.TextProperty,"Quantity",BindingMode.Default);
+
+                
+                ProgressRingKilocalorie.BindingContext = _firstKilocalorieDg;
+                ProgressRingKilocalorie.SetBinding(ProgressRing.ProgressProperty,"Percentage",BindingMode.Default,_valueToDoubleConverter);
+                
+            }
         }
 
         private void GetGoalsInformation()
@@ -300,7 +357,7 @@ namespace MyHealthApp.Views
             {
                 _isTimerWorking = true;
                 SetupDailyGoal();
-                Windesheart.PairedDevice.SetStepGoal(int.Parse(firstStepDg.Quantity.ToString()));
+                Windesheart.PairedDevice?.SetStepGoal(int.Parse(_firstStepDg.Quantity.ToString()));
             }
             else
             {
@@ -316,26 +373,26 @@ namespace MyHealthApp.Views
         private void UpdatingStepDg()
         {
             //Es decir su id existe en la base de datos
-                if (firstStepDg.Id != -1)
+                if (_firstStepDg.Id != -1)
                 {
                     //_stepsViewModel.UpdateInfo();
                     Debug.Print("Contando..." +_stepsViewModel.TodayStepCount.ToString()+" pasos");
                   
-                    if (firstStepDg.Progress != (double)_stepsViewModel.TodayStepCount
+                    if (_firstStepDg.Progress != (double)_stepsViewModel.TodayStepCount
                         && _stepsViewModel.TodayStepCount != 0)
                     {
                         
                         //Si mi contador supero mi objetivo
-                        if ((double)_stepsViewModel.TodayStepCount > firstStepDg.Quantity)
+                        if ((double)_stepsViewModel.TodayStepCount > _firstStepDg.Quantity)
                         {
                            
-                            firstStepDg.Progress = (double)firstStepDg.Quantity;
-                            firstStepDg.CalculatePercentage();
+                            _firstStepDg.Progress = (double)_firstStepDg.Quantity;
+                            _firstStepDg.CalculatePercentage();
                             
                             
                             Task.Run(async () =>
                             {
-                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, firstStepDg);
+                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, _firstStepDg);
                                 
                                 
                                 //Al finalizar el objetivo obtenemos el siguiente
@@ -350,9 +407,9 @@ namespace MyHealthApp.Views
                                     
                                     //Actualizamos su porcentaje de avance del nuevo objetivo de la cola
                                     
-                                    firstStepDg.CalculatePercentage();
+                                    _firstStepDg.CalculatePercentage();
                                     //Seteamos el nuevo objetivo
-                                    Windesheart.PairedDevice.SetStepGoal(int.Parse(firstStepDg.Quantity.ToString()));
+                                    Windesheart.PairedDevice.SetStepGoal(int.Parse(_firstStepDg.Quantity.ToString()));
                                 });
 
                                 
@@ -364,13 +421,13 @@ namespace MyHealthApp.Views
                         //Si estoy debajo de mi objetivo
                         else
                         {
-                            firstStepDg.Progress = (double)_stepsViewModel.TodayStepCount; 
-                            firstStepDg.CalculatePercentage();
+                            _firstStepDg.Progress = (double)_stepsViewModel.TodayStepCount; 
+                            _firstStepDg.CalculatePercentage();
                             
                             
                             Task.Run(async () =>
                             {
-                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, firstStepDg);
+                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, _firstStepDg);
                             });
                         }
                     
@@ -381,10 +438,10 @@ namespace MyHealthApp.Views
                     
                     Debug.Print("(local) Contando..." +_stepsViewModel.TodayStepCount.ToString()+" pasos");
 
-                    if (firstStepDg.Progress != (double)_stepsViewModel.TodayStepCount)
+                    if (_firstStepDg.Progress != (double)_stepsViewModel.TodayStepCount)
                     {
-                        firstStepDg.Progress = (double)_stepsViewModel.TodayStepCount;
-                        firstStepDg.CalculatePercentage();
+                        _firstStepDg.Progress = (double)_stepsViewModel.TodayStepCount;
+                        _firstStepDg.CalculatePercentage();
                     };
                     
                     
@@ -396,26 +453,26 @@ namespace MyHealthApp.Views
         private void UpdatingDistanceDg()
         {
             //Es decir su id existe en la base de datos
-                if (firstDistanceDg.Id != -1)
+                if (_firstDistanceDg.Id != -1)
                 {
                     //_stepsViewModel.UpdateInfo();
                     Debug.Print("Recorridos..." +_stepsViewModel.TodayStepCount*0.762 +" metros");
                   
-                    if (firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.762)
+                    if (_firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.762)
                         && _stepsViewModel.TodayStepCount != 0)
                     {
                         
                         //Si mi contador supero mi objetivo
-                        if ((double)(_stepsViewModel.TodayStepCount*0.762) > firstDistanceDg.Quantity)
+                        if ((double)(_stepsViewModel.TodayStepCount*0.762) > _firstDistanceDg.Quantity)
                         {
                            
-                            firstDistanceDg.Progress = (double)firstDistanceDg.Quantity;
-                            firstDistanceDg.CalculatePercentage();
+                            _firstDistanceDg.Progress = (double)_firstDistanceDg.Quantity;
+                            _firstDistanceDg.CalculatePercentage();
                             
                             
                             Task.Run(async () =>
                             {
-                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, firstDistanceDg);
+                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, _firstDistanceDg);
                                 
                                 
                                 //Al finalizar el objetivo obtenemos el siguiente
@@ -430,7 +487,7 @@ namespace MyHealthApp.Views
                                     
                                     //Actualizamos su porcentaje de avance del nuevo objetivo de la cola
                                     
-                                    firstDistanceDg.CalculatePercentage();
+                                    _firstDistanceDg.CalculatePercentage();
                                     //Seteamos el nuevo objetivo
                                     //Windesheart.PairedDevice.SetStepGoal(int.Parse(firstStepDg.Quantity.ToString()));
                                 });
@@ -444,12 +501,12 @@ namespace MyHealthApp.Views
                         //Si estoy debajo de mi objetivo
                         else
                         {
-                            firstDistanceDg.Progress = (double)(_stepsViewModel.TodayStepCount*0.762); 
-                            firstDistanceDg.CalculatePercentage();
+                            _firstDistanceDg.Progress = (double)(_stepsViewModel.TodayStepCount*0.762); 
+                            _firstDistanceDg.CalculatePercentage();
                             
                             Task.Run(async () =>
                             {
-                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, firstDistanceDg);
+                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, _firstDistanceDg);
                             });
                         }
                     
@@ -460,10 +517,88 @@ namespace MyHealthApp.Views
                     
                     Debug.Print("(local) Recorridos..." +_stepsViewModel.TodayStepCount*0.762 +" metros");
 
-                    if (firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.762))
+                    if (_firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.762))
                     {
-                        firstDistanceDg.Progress = (_stepsViewModel.TodayStepCount*0.762);
-                        firstDistanceDg.CalculatePercentage();
+                        _firstDistanceDg.Progress = (_stepsViewModel.TodayStepCount*0.762);
+                        _firstDistanceDg.CalculatePercentage();
+                    };
+                    
+                    
+                    //_isTimerWorking = false;
+                }
+        }
+        
+        private void UpdatingKilocalorieDg()
+        {
+            //Es decir su id existe en la base de datos
+                if (_firstKilocalorieDg.Id != -1)
+                {
+                    //_stepsViewModel.UpdateInfo();
+                    Debug.Print("Kilocalorias quemadas..." +_stepsViewModel.TodayStepCount*0.04/1000);
+                  
+                    if (_firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.04/1000)
+                        && _stepsViewModel.TodayStepCount != 0)
+                    {
+                        
+                        //Si mi contador supero mi objetivo
+                        if ((double)(_stepsViewModel.TodayStepCount*0.04/1000) > _firstDistanceDg.Quantity)
+                        {
+                           
+                            _firstKilocalorieDg.Progress = (double)_firstKilocalorieDg.Quantity;
+                            _firstKilocalorieDg.CalculatePercentage();
+                            
+                            
+                            Task.Run(async () =>
+                            {
+                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, _firstKilocalorieDg);
+                                
+                                
+                                //Al finalizar el objetivo obtenemos el siguiente
+                                //Si no hay se inventa localmente uno para rastrear tu avance
+                                
+                                Device.BeginInvokeOnMainThread(() =>
+                                {
+                                    //Actualizamo UI importante
+                                    //Cuando estamos dentro de un timer
+                                    UpdateCompletedDailyGoals();
+                                    GetDailyGoalKilocalorie();
+                                    
+                                    //Actualizamos su porcentaje de avance del nuevo objetivo de la cola
+                                    
+                                    _firstKilocalorieDg.CalculatePercentage();
+                                    //Seteamos el nuevo objetivo
+                                    //Windesheart.PairedDevice.SetStepGoal(int.Parse(firstStepDg.Quantity.ToString()));
+                                });
+
+                                
+                                //Si no hay entonces cerramos el timer
+                                //_isTimerWorking = (firstStepDg != null);
+                            });
+                            
+                        }
+                        //Si estoy debajo de mi objetivo
+                        else
+                        {
+                            _firstKilocalorieDg.Progress = (double)(_stepsViewModel.TodayStepCount*0.04/1000); 
+                            _firstKilocalorieDg.CalculatePercentage();
+                            
+                            Task.Run(async () =>
+                            {
+                                await DailyGoalService.Instance.PutDailyGoalByPatientId(_patientId, _firstKilocalorieDg);
+                            });
+                        }
+                    
+                    }
+                }
+                else
+                {
+                    
+                    Debug.Print("Kilocalorias quemadas..." +_stepsViewModel.TodayStepCount*0.04/1000);
+
+                    if (_firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.04/1000))
+                    {
+                        _firstKilocalorieDg.Progress = (_stepsViewModel.TodayStepCount*0.04/1000);
+                        _firstKilocalorieDg.CalculatePercentage();
                     };
                     
                     
@@ -495,6 +630,7 @@ namespace MyHealthApp.Views
                 
                 UpdatingStepDg();
                 UpdatingDistanceDg();
+                UpdatingKilocalorieDg();
 
                 //LabelSteps.Text = _stepsViewModel.TodayStepCount.ToString();
                 return _isTimerWorking;
@@ -538,7 +674,7 @@ namespace MyHealthApp.Views
                         {
                             _isTimerWorking = true;
                             SetupDailyGoal();
-                            Windesheart.PairedDevice.SetStepGoal(int.Parse(firstStepDg.Quantity.ToString()));
+                            Windesheart.PairedDevice.SetStepGoal(int.Parse(_firstStepDg.Quantity.ToString()));
                             await this.DisplayToastAsync("Conexión exitosa", 3500);
                         }
                         else
@@ -566,7 +702,7 @@ namespace MyHealthApp.Views
 
         private async void StepsProgress_OnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new StepsPage(firstStepDg));
+            await Navigation.PushAsync(new StepsPage(_firstStepDg));
         }
         
     }
