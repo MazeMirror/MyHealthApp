@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
-             Size="400,420"
+             Size="400,340"
              Color="Transparent"
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.EditPatientPlan.GetMealPlanPage">

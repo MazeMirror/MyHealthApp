@@ -28,12 +28,14 @@ namespace MyHealthApp.Views.Register
 
         private async void NextButton_OnClicked(object sender, EventArgs e)
         {
-
+            NextButton.IsEnabled = false;
+            
             if (string.IsNullOrWhiteSpace(EntryFirstPassword.Text) || 
                 string.IsNullOrWhiteSpace(EntrySecondPassword.Text) ||
                 string.IsNullOrWhiteSpace(EntryEmail.Text)
                 )
             {
+                NextButton.IsEnabled = true;
                 await DisplayAlert("Advertencia",
                     "Hay presencia de campos vacíos, por favor complételos antes de continuar", "Ok");
                 return;
@@ -43,18 +45,21 @@ namespace MyHealthApp.Views.Register
 
             if (validateEmailRegex.IsMatch(EntryEmail.Text) == false)
             {
+                NextButton.IsEnabled = true;
                 await DisplayAlert("Mensaje", "El correo ingresado no es válido, corríjalo para continuar", "Ok");
                 return;
             }
 
             if (EntryFirstPassword.Text.Length < 8)
             {
+                NextButton.IsEnabled = true;
                 await DisplayAlert("Mensaje", "La contraseña ingresada no debe ser inferior a 8 caracteres", "Ok");
                 return;
             }
             
             if (EntryFirstPassword.Text != EntrySecondPassword.Text)
             {
+                NextButton.IsEnabled = true;
                 await DisplayAlert("Advertencia",
                     "Las contraseñas que ingresó no son iguales, corrijalas para continuar", "Ok");
                 return;
@@ -68,6 +73,7 @@ namespace MyHealthApp.Views.Register
             
             if (user == null)
             {
+                NextButton.IsEnabled = true;
                 await DisplayAlert("Error", "Ocurrió un error al registrar el usuario", "Ok");
             }
             else
@@ -77,6 +83,7 @@ namespace MyHealthApp.Views.Register
                 Profile profile = await ProfileService.Instance.PostProfile(_profile);
                 if (profile == null)
                 {
+                    NextButton.IsEnabled = true;
                     await DisplayAlert("Error", "Ocurrio un error al registrar el perfil", "Ok");
                 }
                 else
