@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<effects:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+            xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             Size="400,420"
+             Color="Transparent"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.EditPatientPlan.GetMealPlanPage">
+    <effects:Popup.Content>
+        <StackLayout BackgroundColor="Transparent">
+
+            <Frame Margin="20,0" 
+                   BackgroundColor="#CEE5EE"
+                   VerticalOptions="CenterAndExpand"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   >
+                <StackLayout Spacing="0">
+                    <!--Titulo-->
+                    <Label x:Name="texto1"/>
+
+                    <Label x:Name="NameMealPlan"
+                           TextColor="Black"
+                           FontSize="25"
+                           FontFamily="ArchivoSemiBold"
+                           Text="Name"
+                           Margin="0,0,10,10"
+                           />
+
+                    <StackLayout HorizontalOptions="Start">
+                        <Label Text="---"
+                               x:Name="LunesMP" 
+                               FontFamily="ArchivoSemiBold"
+                               FontSize="18"
+                               TextColor="Black"
+                               Margin="10,0,0,0" />
+
+                        <Label x:Name="MartesMP" 
+                               FontFamily="ArchivoSemiBold"
+                               FontSize="18"
+                               TextColor="Black"
+                               Text="---"
+                               Margin="10,0,0,0" />
+
+                        <Label x:Name="MiercolesMP" 
+                               FontFamily="ArchivoSemiBold"
+                               FontSize="18"
+                               TextColor="Black"
+                               Text="---"
+                               Margin="10,0,0,0" />
+
+                        <Label x:Name="JuevesMP" 
+                               FontFamily="ArchivoSemiBold"
+                               FontSize="18"
+                               TextColor="Black"
+                               Text="---"
+                               Margin="10,0,0,0" />
+
+                        <Label x:Name="ViernesMP" 
+                               FontFamily="ArchivoSemiBold"
+                               FontSize="18"
+                               TextColor="Black"
+                               Text="---"
+                               Margin="10,0,0,0" />
+
+                        <Label x:Name="SabadoMP" 
+                               FontFamily="ArchivoSemiBold"
+                               FontSize="18"
+                               TextColor="Black"
+                               Text="---"
+                               Margin="10,0,0,0" />
+
+                        <Label x:Name="DomingoMP" 
+                               FontFamily="ArchivoSemiBold"
+                               FontSize="18"
+                               TextColor="Black"
+                               Text="---"
+                               Margin="10,0,0,0" />
+
+                    </StackLayout>
+                </StackLayout>
+
+            </Frame>
+        </StackLayout>
+    </effects:Popup.Content>
+</effects:Popup>
