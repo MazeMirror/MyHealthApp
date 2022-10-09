@@ -70,6 +70,7 @@ namespace MyHealthApp.Views.EditPatientPlan
 
         private async void DeleteMealPlan_Clicked(object sender, EventArgs e)
         {
+            Dismiss(1);
             var result = await Navigation.ShowPopupAsync(new DeleteMealPlanPlage(_mealPlan));
             if (result != null && (int)result == 2)
             {

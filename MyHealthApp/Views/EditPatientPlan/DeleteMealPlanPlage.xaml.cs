@@ -28,7 +28,7 @@ namespace MyHealthApp.Views.EditPatientPlan
 
         private async void LabelBack_OnTapped(object sender, EventArgs e)
         {
-            Dismiss(2);
+            Dismiss(1);
         }
 
         private async void DeleteMealPlan_Clicked(object sender, EventArgs e)
