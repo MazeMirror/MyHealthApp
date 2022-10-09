@@ -19,7 +19,12 @@
             <local:PatientHomePage />
         </x:Arguments>
     </NavigationPage>
-    <ContentPage Title="Plan Alimenticio"  IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.diet.png}" BackgroundColor="#F0F3F4"/>
+    
+    <NavigationPage Title="Plan Alimenticio"  IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.diet.png}">
+        <x:Arguments>
+            <local:MealPlanPage />
+        </x:Arguments>
+    </NavigationPage>
     
     <NavigationPage Title="Reporte" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.focus.png}">
         <x:Arguments>

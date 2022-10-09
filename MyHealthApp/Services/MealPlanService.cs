@@ -39,5 +39,40 @@ namespace MyHealthApp.Services
 
             return mealPlans;
         }
+
+        public async Task<MealPlan> PostMealPlanByPatientId(long patientId, MealPlan mealPlan)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/mealPlans");
+            var json = JsonConvert.SerializeObject(mealPlan, _settingsJson);
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+
+
+            var response = await _client.PostAsync(_requestUri, contentJson);
+
+            return response.StatusCode == HttpStatusCode.Created ? JsonConvert.DeserializeObject<MealPlan>(response.Content.ReadAsStringAsync().Result)
+                : null;
+        }
+
+        public async Task<MealPlan> PutMealPlanByPatientId(long patientId, MealPlan meal)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/mealPlans/{meal.Id.ToString()}");
+            var json = JsonConvert.SerializeObject(meal, _settingsJson);
+            var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+
+
+            var response = await _client.PutAsync(_requestUri, contentJson);
+
+            return response.StatusCode == HttpStatusCode.OK ? JsonConvert.DeserializeObject<MealPlan>(response.Content.ReadAsStringAsync().Result)
+                : null;
+        }
+
+        public async Task<HttpStatusCode> DeleteMealPlanByPatientId(long patientId, MealPlan meal)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/mealPlans/{meal.Id.ToString()}");
+
+            var response = await _client.DeleteAsync(_requestUri);
+
+            return response.StatusCode;
+        }
     }
 }

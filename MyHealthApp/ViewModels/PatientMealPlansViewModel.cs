@@ -101,12 +101,26 @@ namespace MyHealthApp.ViewModels
         }
 
 
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void DeleteMealPlanlOnList(MealPlan mealPlan)
+        {
+            var newList = _mealPlans.Where(mp => mp.Id != mealPlan.Id).ToList();
+
+            ClearMealPlanList();
+            foreach (var mp in newList)
+            {
+                _mealPlans.Add(mp);
+                OnPropertyChanged();
+            }
+
+            Lenght = _mealPlans.Count;
+            //CalculateCompletedGoals();
         }
 
 
