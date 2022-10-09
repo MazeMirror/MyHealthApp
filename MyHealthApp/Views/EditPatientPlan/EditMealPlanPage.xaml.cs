@@ -11,6 +11,7 @@ using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MyHealthApp.Views.EditPatientGoal;
 
 namespace MyHealthApp.Views.EditPatientPlan
 {
@@ -62,13 +63,18 @@ namespace MyHealthApp.Views.EditPatientPlan
 
         
 
-        private void UpdateMealPlan_Clicked(object sender, EventArgs e)
+        private async void UpdateMealPlan_Clicked(object sender, EventArgs e)
         {
-
+           // await Navigation.PushAsync(new UpdateMealPlanPage(_mealPlan));
         }
 
-        private void DeleteMealPlan_Clicked(object sender, EventArgs e)
+        private async void DeleteMealPlan_Clicked(object sender, EventArgs e)
         {
+            var result = await Navigation.ShowPopupAsync(new DeleteMealPlanPlage(_mealPlan));
+            if (result != null && (int)result == 2)
+            {
+                await Navigation.PopAsync();
+            }
 
         }
     }
