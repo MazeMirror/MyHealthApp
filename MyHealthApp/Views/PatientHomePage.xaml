@@ -41,9 +41,10 @@
                     </FlexLayout>
 
                     <Button
+                        x:Name="ButtonConnectSmartWatch"
                         Margin="20,24,20,0"
                         HeightRequest="50"
-                        Text="Registrar nuevo SmartWatch"
+                        Text="Conectar SmartWatch"
                         TextTransform="None"
                         FontFamily="ArchivoSemiBold"
                         FontSize="16"

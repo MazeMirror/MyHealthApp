@@ -112,7 +112,7 @@
                                 <Entry
                                     x:Name="EntryGoalUpdate"
                                     Keyboard="Numeric"
-                                    MaxLength="4"
+                                    MaxLength="6"
                                     HorizontalOptions="FillAndExpand"
                                     FontFamily="ArchivoRegular"
                                     FontSize="16"

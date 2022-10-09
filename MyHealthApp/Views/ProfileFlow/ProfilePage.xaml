@@ -7,142 +7,130 @@
              NavigationPage.HasNavigationBar="False"
              xmlns:viewModels="clr-namespace:MyHealthApp.ViewModels;assembly=MyHealthApp"
              x:Class="MyHealthApp.Views.ProfileFlow.ProfilePage">
-    
+
     <!--<ContentPage.BindingContext>
         <viewModels:SlProfileDetailsViewModel></viewModels:SlProfileDetailsViewModel>
     </ContentPage.BindingContext>-->
-    
+
     <ContentPage.Content>
-        <StackLayout BackgroundColor="#F0F3F4">
-            <FlexLayout
-                HeightRequest="90"
-                Direction="Row"
-                HorizontalOptions="FillAndExpand"
-                AlignItems="Center"
-                JustifyContent="Center"
-                BackgroundColor="White"
-                >
-                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
-                       Scale="0.90"
-                />
-                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
-                       Margin="10,0,0,0"
-                       effects:IconTintColorEffect.TintColor="Black"
-                       Scale="0.90"
-                />
-            </FlexLayout>
-            
-            <Frame Margin="20,24,20,0"
-                   BackgroundColor="White"
-                   HeightRequest="90"
-                   CornerRadius="10"
-                   HasShadow="False"
-                   Padding="5"
-                   >
-                
-                <FlexLayout
-                    Direction="Row"
-                    AlignItems="Center"
-                    JustifyContent="SpaceAround"
-                >
-                    <Label Text="&#xf2bd;"
-                           TextColor="Black"
-                           FontSize="65"
-                           FontFamily="{StaticResource FontAwesomeSolid}"/>
-                    <StackLayout
-                        Spacing="0"
-                        >
-                        <!--Nombres-->
-                        <Label x:Name="LabelName"
-                            
-                            FontFamily="ArchivoSemiBold"
-                            TextColor="Black"
-                            FontSize="18"
-                            />
-                        <!--Apellidos-->
-                        <Label x:Name="LabelLastname"
-                           
-                            FontFamily="ArchivoSemiBold"
-                            TextColor="Black"
-                            FontSize="18"
-                            />
-                    </StackLayout>
-                    
-                    
-                    <Label
-                        x:Name="LabelEditName"
-                        Text="&#xf304;"
-                        HeightRequest="65"
-                        TextColor="#2F6A88"
-                        FontSize="20"
-                        FontFamily="{StaticResource FontAwesomeSolid}">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Tapped="LabelEditName_OnTapped"
-                                NumberOfTapsRequired="1"
-                            />
-                        </Label.GestureRecognizers>
-                    </Label>
-                    
-                </FlexLayout>
-                
-            </Frame>
-            
-            <!--ESTO ES CONDICIONAL-->
-            <Frame Margin="20,24,20,0"
-                   BackgroundColor="White"
-                   CornerRadius="10"
-                   HasShadow="False"
-                   Padding="5"
-                   >
-                <StackLayout>
+        <ContentView>
+            <ScrollView>
+                <StackLayout BackgroundColor="#F0F3F4"
+                             Padding="0,0,0,20">
                     <FlexLayout
-                        Padding="20,10,20,0"
+                        HeightRequest="90"
                         Direction="Row"
-                        JustifyContent="SpaceBetween"
-                        >
-                        
-                        <Label Text="Información de perfil"
-                               FontFamily="ArchivoSemiBold"
-                               TextColor="Black"
-                               FontSize="18"
-                        />
-                    
-                        <Label
-                            x:Name="LabelEditDetails"
-                            Text="&#xf304;"
-                            TextColor="#2F6A88"
-                            FontSize="20"
-                            FontFamily="{StaticResource FontAwesomeSolid}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Tapped="LabelEditDetails_OnTapped"
-                                    NumberOfTapsRequired="1"
-                                />
-                            </Label.GestureRecognizers>
-                        </Label>
-                    
+                        HorizontalOptions="FillAndExpand"
+                        AlignItems="Center"
+                        JustifyContent="Center"
+                        BackgroundColor="White">
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                               Scale="0.90" />
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                               Margin="10,0,0,0"
+                               effects:IconTintColorEffect.TintColor="Black"
+                               Scale="0.90" />
                     </FlexLayout>
-                    
-                    <StackLayout 
-                        x:Name="StackLayoutProfileDetails"
-                        Padding="20,17,20,17"
-                        BindableLayout.ItemsSource="{Binding Items}"
-                        >
-                        
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate>
-                                <Label 
-                                    Text="{Binding TitleText}"
-                                    FontFamily="ArchivoRegular"
-                                    TextColor="Black"
-                                    FontSize="12"
-                                    />
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                        
-                    </StackLayout>
-                    <!--
+
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           HeightRequest="90"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+
+                        <FlexLayout
+                            Direction="Row"
+                            AlignItems="Center"
+                            JustifyContent="SpaceAround">
+                            <Label Text="&#xf2bd;"
+                                   TextColor="Black"
+                                   FontSize="65"
+                                   FontFamily="{StaticResource FontAwesomeSolid}" />
+                            <StackLayout
+                                Spacing="0">
+                                <!--Nombres-->
+                                <Label x:Name="LabelName"
+
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                                <!--Apellidos-->
+                                <Label x:Name="LabelLastname"
+
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                            </StackLayout>
+
+
+                            <Label
+                                x:Name="LabelEditName"
+                                Text="&#xf304;"
+                                HeightRequest="65"
+                                TextColor="#2F6A88"
+                                FontSize="20"
+                                FontFamily="{StaticResource FontAwesomeSolid}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Tapped="LabelEditName_OnTapped"
+                                        NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                        </FlexLayout>
+
+                    </Frame>
+
+                    <!--ESTO ES CONDICIONAL-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+                        <StackLayout>
+                            <FlexLayout
+                                Padding="20,10,20,0"
+                                Direction="Row"
+                                JustifyContent="SpaceBetween">
+
+                                <Label Text="Información de perfil"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+
+                                <Label
+                                    x:Name="LabelEditDetails"
+                                    Text="&#xf304;"
+                                    TextColor="#2F6A88"
+                                    FontSize="20"
+                                    FontFamily="{StaticResource FontAwesomeSolid}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="LabelEditDetails_OnTapped"
+                                            NumberOfTapsRequired="1" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                            </FlexLayout>
+
+                            <StackLayout
+                                x:Name="StackLayoutProfileDetails"
+                                Padding="20,17,20,17"
+                                BindableLayout.ItemsSource="{Binding Items}">
+
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            Text="{Binding TitleText}"
+                                            FontFamily="ArchivoRegular"
+                                            TextColor="Black"
+                                            FontSize="12" />
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+
+                            </StackLayout>
+                            <!--
                     <StackLayout
                         x:Name="StackLayoutProfileDetails"
                         Padding="20,17,20,17"
@@ -197,29 +185,30 @@
                             <Label.Text>Contacto de emergencia: +51 997329195</Label.Text>
                         </Label>
                     </StackLayout>-->
-                    
+
+                        </StackLayout>
+
+                    </Frame>
+
+                    <Label
+                        x:Name="LabelDeleteAccount"
+                        Text="Cerrar sesión"
+                        Margin="0,20,0,0"
+                        HorizontalOptions="Center"
+                        TextDecorations="Underline"
+                        TextColor="#FF4848"
+                        FontFamily="Archivo-SemiBold">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="LabelLogout_OnTapped"
+                                NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+
                 </StackLayout>
-                
-            </Frame>
-            
-            <Label
-                x:Name="LabelDeleteAccount"
-                Text="Cerrar sesión"
-                Margin="0,20,0,0"
-                HorizontalOptions="Center"
-                TextDecorations="Underline"
-                TextColor="#FF4848"
-                FontFamily="Archivo-SemiBold"
-                >
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer
-                        Tapped="LabelLogout_OnTapped"
-                        NumberOfTapsRequired="1"
-                    />
-                </Label.GestureRecognizers>
-            </Label>
-            
-            
-        </StackLayout>
+            </ScrollView>
+        </ContentView>
+
     </ContentPage.Content>
 </ContentPage>

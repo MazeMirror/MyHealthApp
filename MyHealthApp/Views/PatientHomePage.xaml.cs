@@ -357,12 +357,14 @@ namespace MyHealthApp.Views
             
             if (Windesheart.PairedDevice != null && Windesheart.PairedDevice.IsAuthenticated())
             {
+                ButtonConnectSmartWatch.IsVisible = false;
                 _isTimerWorking = true;
                 SetupDailyGoal();
                 Windesheart.PairedDevice?.SetStepGoal(int.Parse(_firstStepDg.Quantity.ToString()));
             }
             else
             {
+                ButtonConnectSmartWatch.IsVisible = true;
                 //HandleAutoConnect();
             }
         }
@@ -595,7 +597,7 @@ namespace MyHealthApp.Views
                 else
                 {
                     
-                    Debug.Print("Kilocalorias quemadas..." +_stepsViewModel.TodayStepCount*0.04/1000);
+                    Debug.Print("(local) Kilocalorias quemadas..." +_stepsViewModel.TodayStepCount*0.04/1000);
 
                     if (_firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.04/1000))
                     {
@@ -622,6 +624,7 @@ namespace MyHealthApp.Views
                         {
                             _isTimerWorking = false;
                             Windesheart.PairedDevice?.Disconnect();
+                            ButtonConnectSmartWatch.IsVisible = true;
                             await DisplayAlert("Mensaje importante", 
                                 "Se perdió la conexión con el Xiaomi MiBand, vuelva a conectarlo en ajustes.",
                                 "Ok");

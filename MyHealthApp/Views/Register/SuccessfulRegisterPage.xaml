@@ -6,61 +6,66 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.Register.SuccessfulRegisterPage">
     <ContentPage.Content>
-        <StackLayout
-            BackgroundColor="#334856">
-            <Label
-                x:Name="LabelTitle"
-                Text="Hola, &#10;bienvenido a"
-                HorizontalTextAlignment="Center"
-                Padding="0,80,0,0"
-                FontFamily="ArchivoSemiBold"
-                FontSize="28"
-                LineHeight="1.5"
-                TextColor="White"
-                HorizontalOptions="CenterAndExpand" />
+        <ContentView>
+            <ScrollView>
+                <StackLayout
+                    BackgroundColor="#334856">
+                    <Label
+                        x:Name="LabelTitle"
+                        Text="Hola, &#10;bienvenido a"
+                        HorizontalTextAlignment="Center"
+                        Padding="0,80,0,0"
+                        FontFamily="ArchivoSemiBold"
+                        FontSize="28"
+                        LineHeight="1.5"
+                        TextColor="White"
+                        HorizontalOptions="CenterAndExpand" />
 
-            <StackLayout
-                Padding="0,40,0,0"
-                Spacing="40">
-                <Image
-                    Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
-                    Scale="1.6" />
-                <Image
-                    Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
-                    Scale="1.4" />
-            </StackLayout>
+                    <StackLayout
+                        Padding="0,40,0,0"
+                        Spacing="40">
+                        <Image
+                            Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                            Scale="1.6" />
+                        <Image
+                            Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                            Scale="1.4" />
+                    </StackLayout>
 
-            <Label
-                Padding="0,30,0,0"
-                HorizontalOptions="Center"
-                Text="__________________________"
-                TextColor="White"
-                FontSize="18" />
+                    <Label
+                        Padding="0,30,0,0"
+                        HorizontalOptions="Center"
+                        Text="__________________________"
+                        TextColor="White"
+                        FontSize="18" />
 
-            <Label
-                Padding="0,30,0,0"
-                Text="Su cuenta ha sido creada con éxito. &#10;Es hora de alcanzar todas esas &#10;metas y mejorar el rendimiento físico"
-                FontFamily="ArchivoRegular"
-                TextColor="White"
-                FontSize="18"
-                HorizontalTextAlignment="Center"
-                LineHeight="1.4" />
+                    <Label
+                        Padding="0,30,0,0"
+                        Text="Su cuenta ha sido creada con éxito. &#10;Es hora de alcanzar todas esas &#10;metas y mejorar el rendimiento físico"
+                        FontFamily="ArchivoRegular"
+                        TextColor="White"
+                        FontSize="18"
+                        HorizontalTextAlignment="Center"
+                        LineHeight="1.4" />
 
-            <Button
-                x:Name="NextPageButton"
-                Style="{StaticResource ButtonStyle}"
-                Margin="20,36,20,0"
-                Padding="0,17,0,17"
-                Text="Iniciar"
-                FontSize="14"
-                FontFamily="FjallaOne"
-                CharacterSpacing="2.1"
-                CornerRadius="50"
-                IsEnabled="True"
-                Clicked="NextButton_OnClicked">
+                    <Button
+                        x:Name="NextPageButton"
+                        Style="{StaticResource ButtonStyle}"
+                        Margin="20,36,20,0"
+                        Padding="0,17,0,17"
+                        Text="Iniciar"
+                        FontSize="14"
+                        FontFamily="FjallaOne"
+                        CharacterSpacing="2.1"
+                        CornerRadius="50"
+                        IsEnabled="True"
+                        Clicked="NextButton_OnClicked">
 
-            </Button>
+                    </Button>
 
-        </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </ContentView>
+
     </ContentPage.Content>
 </ContentPage>
