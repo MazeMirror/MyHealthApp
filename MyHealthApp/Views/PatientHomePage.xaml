@@ -44,7 +44,7 @@
                         x:Name="ButtonConnectSmartWatch"
                         Margin="20,24,20,0"
                         HeightRequest="50"
-                        Text="Conectar SmartWatch"
+                        Text="Conectar Smartwatch"
                         TextTransform="None"
                         FontFamily="ArchivoSemiBold"
                         FontSize="16"

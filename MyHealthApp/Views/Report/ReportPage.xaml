@@ -125,23 +125,26 @@
                                         <BindableLayout.ItemTemplate>
                                             <DataTemplate>
                                                 <StackLayout Spacing="0" Padding="0,20">
-                                                    <StackLayout Orientation="Horizontal"
-                                                                 HorizontalOptions="Center"
-                                                                 Spacing="4">
-                                                        <Label Text="{Binding Progress}"
-                                                               TextColor="#FF9162"
-                                                               FontFamily="ArchivoRegular"
-                                                               FontSize="16" />
-                                                        <Label Text="{Binding Quantity,StringFormat='/{0}'}"
-                                                               TextColor="#b9b9b9"
-                                                               FontFamily="ArchivoRegular"
-                                                               VerticalOptions="End"
-                                                               FontSize="14" />
-                                                        <Label Text="{Binding Unity}"
-                                                               TextColor="#b9b9b9"
-                                                               FontFamily="ArchivoRegular"
-                                                               VerticalOptions="End"
-                                                               FontSize="14" />
+                                                    <StackLayout WidthRequest="120">
+                                                        <StackLayout Orientation="Horizontal"
+                                                                     HorizontalOptions="Center"
+                                                                     Spacing="4">
+                                                            <Label Text="{Binding Progress}"
+                                                                   TextColor="#FF9162"
+                                                                   FontFamily="ArchivoRegular"
+                                                                   FontSize="16" />
+                                                            <Label Text="{Binding Quantity,StringFormat='/{0}'}"
+                                                                   TextColor="#b9b9b9"
+                                                                   FontFamily="ArchivoRegular"
+                                                                   VerticalOptions="End"
+                                                                   FontSize="14" />
+                                                            <Label Text="{Binding Unity}"
+                                                                   TextColor="#b9b9b9"
+                                                                   FontFamily="ArchivoRegular"
+                                                                   VerticalOptions="End"
+                                                                   FontSize="14" />
+                                                        </StackLayout>
+                                                        
                                                     </StackLayout>
                                                     <Label Text="{Binding Description}"
                                                            TextColor="Black"

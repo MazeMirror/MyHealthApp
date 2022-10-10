@@ -292,7 +292,7 @@ namespace MyHealthApp.Views
                 
                 if (_firstKilocalorieDg.Progress == 0.0)
                 {
-                    _firstKilocalorieDg.Progress = _stepsViewModel.TodayStepCount* 0.04/1000;
+                    _firstKilocalorieDg.Progress = _stepsViewModel.TodayStepCount* 0.048;
                 }
                 
             }
@@ -308,7 +308,7 @@ namespace MyHealthApp.Views
                     Id = -1,
                     Percentage = 0,
                     Quantity = 9999.0,
-                    Progress = _stepsViewModel.TodayStepCount*0.04/1000, //Converting Steps to calories
+                    Progress = _stepsViewModel.TodayStepCount*0.048, //Converting Steps to calories
                     ActivityId = 2,
                 };
                 
@@ -538,14 +538,14 @@ namespace MyHealthApp.Views
                 if (_firstKilocalorieDg.Id != -1)
                 {
                     //_stepsViewModel.UpdateInfo();
-                    Debug.Print("Kilocalorias quemadas..." +_stepsViewModel.TodayStepCount*0.04/1000);
+                    Debug.Print("Kilocalorias quemadas..." +_stepsViewModel.TodayStepCount*0.048);
                   
-                    if (_firstKilocalorieDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.04/1000)
+                    if (_firstKilocalorieDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.048)
                         && _stepsViewModel.TodayStepCount != 0)
                     {
                         
                         //Si mi contador supero mi objetivo
-                        if ((double)(_stepsViewModel.TodayStepCount*0.04/1000) > _firstKilocalorieDg.Quantity)
+                        if ((double)(_stepsViewModel.TodayStepCount*0.048) > _firstKilocalorieDg.Quantity)
                         {
                            
                             _firstKilocalorieDg.Progress = (double)_firstKilocalorieDg.Quantity;
@@ -583,7 +583,7 @@ namespace MyHealthApp.Views
                         //Si estoy debajo de mi objetivo
                         else
                         {
-                            _firstKilocalorieDg.Progress = (double)(_stepsViewModel.TodayStepCount*0.04/1000); 
+                            _firstKilocalorieDg.Progress = (double)(_stepsViewModel.TodayStepCount*0.048); 
                             _firstKilocalorieDg.CalculatePercentage();
                             
                             Task.Run(async () =>
@@ -597,11 +597,11 @@ namespace MyHealthApp.Views
                 else
                 {
                     
-                    Debug.Print("(local) Kilocalorias quemadas..." +_stepsViewModel.TodayStepCount*0.04/1000);
+                    Debug.Print("(local) Kilocalorias quemadas..." +_stepsViewModel.TodayStepCount*0.048);
 
-                    if (_firstKilocalorieDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.04/1000))
+                    if (_firstKilocalorieDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.048))
                     {
-                        _firstKilocalorieDg.Progress = (_stepsViewModel.TodayStepCount*0.04/1000);
+                        _firstKilocalorieDg.Progress = (_stepsViewModel.TodayStepCount*0.048);
                         _firstKilocalorieDg.CalculatePercentage();
                     };
                     
