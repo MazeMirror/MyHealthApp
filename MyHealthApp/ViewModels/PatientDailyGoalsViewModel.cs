@@ -114,6 +114,16 @@ namespace MyHealthApp.ViewModels
             }
             
         }
+
+        public void UpdateDescriptionDg()
+        {
+            foreach (var item in DailyGoals)
+            {
+                CompleteDescriptionDg(item);
+            }
+            OnPropertyChanged();
+        }
+        
         
         private void CompleteDescriptionDg(DailyGoal item)
         {

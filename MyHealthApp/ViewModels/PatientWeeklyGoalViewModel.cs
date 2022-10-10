@@ -117,5 +117,14 @@ namespace MyHealthApp.ViewModels
             }
             
         }
+
+        public void UpdateDescriptionWg()
+        {
+            foreach (var item in WeeklyGoals)
+            {
+                CompleteDescriptionWg(item);
+            }
+            OnPropertyChanged();
+        }
     }
 }

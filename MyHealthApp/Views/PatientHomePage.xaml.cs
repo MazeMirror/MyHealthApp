@@ -540,12 +540,12 @@ namespace MyHealthApp.Views
                     //_stepsViewModel.UpdateInfo();
                     Debug.Print("Kilocalorias quemadas..." +_stepsViewModel.TodayStepCount*0.04/1000);
                   
-                    if (_firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.04/1000)
+                    if (_firstKilocalorieDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.04/1000)
                         && _stepsViewModel.TodayStepCount != 0)
                     {
                         
                         //Si mi contador supero mi objetivo
-                        if ((double)(_stepsViewModel.TodayStepCount*0.04/1000) > _firstDistanceDg.Quantity)
+                        if ((double)(_stepsViewModel.TodayStepCount*0.04/1000) > _firstKilocalorieDg.Quantity)
                         {
                            
                             _firstKilocalorieDg.Progress = (double)_firstKilocalorieDg.Quantity;
@@ -599,7 +599,7 @@ namespace MyHealthApp.Views
                     
                     Debug.Print("(local) Kilocalorias quemadas..." +_stepsViewModel.TodayStepCount*0.04/1000);
 
-                    if (_firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.04/1000))
+                    if (_firstKilocalorieDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.04/1000))
                     {
                         _firstKilocalorieDg.Progress = (_stepsViewModel.TodayStepCount*0.04/1000);
                         _firstKilocalorieDg.CalculatePercentage();
@@ -715,6 +715,7 @@ namespace MyHealthApp.Views
             var param = ((TappedEventArgs)e).Parameter;
             if (param != null)
             {
+                _dailyGoalsViewModel.UpdateDescriptionDg();
                 var dailyGoals = param as ObservableCollection<DailyGoal>;
                 if (dailyGoals != null)
                 {
@@ -731,6 +732,7 @@ namespace MyHealthApp.Views
             var param = ((TappedEventArgs)e).Parameter;
             if (param != null)
             {
+                _weeklyGoalViewModel.UpdateDescriptionWg();
                 var weeklyGoals = param as ObservableCollection<WeeklyGoal>;
                 if (weeklyGoals != null)
                 {
