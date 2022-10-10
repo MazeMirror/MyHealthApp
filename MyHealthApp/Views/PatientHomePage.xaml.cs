@@ -505,7 +505,7 @@ namespace MyHealthApp.Views
                         //Si estoy debajo de mi objetivo
                         else
                         {
-                            _firstDistanceDg.Progress = (double)(_stepsViewModel.TodayStepCount*0.762); 
+                            _firstDistanceDg.Progress = Math.Round(_stepsViewModel.TodayStepCount*0.762,2); 
                             _firstDistanceDg.CalculatePercentage();
                             
                             Task.Run(async () =>
@@ -523,7 +523,7 @@ namespace MyHealthApp.Views
 
                     if (_firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.762))
                     {
-                        _firstDistanceDg.Progress = (_stepsViewModel.TodayStepCount*0.762);
+                        _firstDistanceDg.Progress = Math.Round(_stepsViewModel.TodayStepCount*0.762,2);
                         _firstDistanceDg.CalculatePercentage();
                     };
                     
@@ -583,7 +583,7 @@ namespace MyHealthApp.Views
                         //Si estoy debajo de mi objetivo
                         else
                         {
-                            _firstKilocalorieDg.Progress = (double)(_stepsViewModel.TodayStepCount*0.048); 
+                            _firstKilocalorieDg.Progress = Math.Round(_stepsViewModel.TodayStepCount*0.048,2); 
                             _firstKilocalorieDg.CalculatePercentage();
                             
                             Task.Run(async () =>
@@ -601,7 +601,7 @@ namespace MyHealthApp.Views
 
                     if (_firstKilocalorieDg.Progress != (double)(_stepsViewModel.TodayStepCount*0.048))
                     {
-                        _firstKilocalorieDg.Progress = (_stepsViewModel.TodayStepCount*0.048);
+                        _firstKilocalorieDg.Progress = Math.Round(_stepsViewModel.TodayStepCount*0.048,2);
                         _firstKilocalorieDg.CalculatePercentage();
                     };
                     

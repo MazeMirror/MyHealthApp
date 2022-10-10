@@ -86,5 +86,19 @@ namespace MyHealthApp.Services
             
             return dailyGoals;
         }
+
+        public async Task<List<DailyGoal>> GetDailyGoalsByPatientIdAndDates(long patientId,DateTime startDate, DateTime endDate)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/dailyGoals/filter?" +
+                                  $"startDate={startDate.ToString("d", CultureInfo.InvariantCulture)}&" +
+                                  $"endDate={endDate.ToString("d", CultureInfo.InvariantCulture)}");
+            var response = await _client.GetAsync(_requestUri);
+            
+            var dailyGoals = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<List<DailyGoal>>(response.Content.ReadAsStringAsync().Result)
+                : new List<DailyGoal>();
+            
+            return dailyGoals;
+        }
     }
 }
