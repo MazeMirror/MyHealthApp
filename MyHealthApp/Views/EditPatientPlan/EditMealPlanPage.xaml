@@ -30,55 +30,15 @@
                            />
        
                     <StackLayout HorizontalOptions="Start">
-                        <Label Text="---"
-                               x:Name="LunesMp" 
-                               FontFamily="ArchivoSemiBold"
-                               FontSize="18"
-                               TextColor="Black"
-                               Margin="10,0,0,0" />
 
-                        <Label x:Name="MartesMP" 
+                        <Label x:Name="MPDays"
                                FontFamily="ArchivoSemiBold"
                                FontSize="18"
                                TextColor="Black"
                                Text="---"
-                               Margin="10,0,0,0" />
+                               Margin="10,0,0,0"/>
 
-                        <Label x:Name="MiercolesMP" 
-                               FontFamily="ArchivoSemiBold"
-                               FontSize="18"
-                               TextColor="Black"
-                               Text="---"
-                               Margin="10,0,0,0" />
-
-                        <Label x:Name="JuevesMP" 
-                               FontFamily="ArchivoSemiBold"
-                               FontSize="18"
-                               TextColor="Black"
-                               Text="---"
-                               Margin="10,0,0,0" />
-
-                        <Label x:Name="ViernesMP" 
-                               FontFamily="ArchivoSemiBold"
-                               FontSize="18"
-                               TextColor="Black"
-                               Text="---"
-                               Margin="10,0,0,0" />
-
-                        <Label x:Name="SabadoMP" 
-                               FontFamily="ArchivoSemiBold"
-                               FontSize="18"
-                               TextColor="Black"
-                               Text="---"
-                               Margin="10,0,0,0" />
-
-                        <Label x:Name="DomingoMP" 
-                               FontFamily="ArchivoSemiBold"
-                               FontSize="18"
-                               TextColor="Black"
-                               Text="---"
-                               Margin="10,0,0,0" />
-
+                        
                     </StackLayout>
 
                     <StackLayout Orientation="Horizontal"

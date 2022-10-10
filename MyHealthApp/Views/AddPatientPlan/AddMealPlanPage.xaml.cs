@@ -21,6 +21,8 @@ namespace MyHealthApp.Views.AddPatientPlan
             InitializeComponent();
             _patientId = patientId;
             CounterText.Text = 0.ToString();
+            PlanDescription.Text = "*Lunes: --- \n\n*Martes: --- \n\n*Miercoles: --- " +
+                "\n\n*Jueves: --- \n\n*Viernes: --- \n\n*Sabado: --- \n\n*Domingo: ---";
         }
 
         private async void LabelBack_OnTapped(object sender, EventArgs e)

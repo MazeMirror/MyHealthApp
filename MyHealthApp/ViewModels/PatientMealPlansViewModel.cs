@@ -108,6 +108,27 @@ namespace MyHealthApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        //ACTULIZAR DESPUES DE CAMBIO EN ELEMENTO
+        /*public void UpdateMealPlanOnList(MealPlan mealPlan)
+        {
+            foreach (var mp in _mealPlans)
+            {
+                if (mp.Id == mealPlan.Id)
+                {
+                    dg.Quantity = dailyGoal.Quantity;
+                    double calc = dg.Progress / dg.Quantity;
+                    dg.Percentage = Math.Round(calc, 2);
+                    CompleteDescriptionDg(dg);
+                    //Si tu metodo no actualiza poner OnPropertyChanged();
+                    //Si igual no lo hace 🙏😔
+                }
+            }
+            //Despues de actualizar ordenamos la lista
+            //Hacer lo mismo para ELIMINAR (solo aplica a dailyGoal)
+            OrderObservableList();
+            CalculateCompletedGoals();
+        }*/
+
         public void DeleteMealPlanlOnList(MealPlan mealPlan)
         {
             var newList = _mealPlans.Where(mp => mp.Id != mealPlan.Id).ToList();
