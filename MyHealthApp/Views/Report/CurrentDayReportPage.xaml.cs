@@ -15,16 +15,16 @@ namespace MyHealthApp.Views.Report
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CurrentDayReportPage : ContentPage
     {
-        private readonly ObservableCollection<DailyGoal> _dailyGoalsObservable;
+        //private readonly ObservableCollection<DailyGoal> _dailyGoalsObservable;
         private readonly ReportGoalsViewModel _reportGoalsViewModel;
         public CurrentDayReportPage(ObservableCollection<DailyGoal> dailyGoals)
         {
             InitializeComponent();
-            _dailyGoalsObservable = dailyGoals;
+            //_dailyGoalsObservable = dailyGoals;
             _reportGoalsViewModel = new ReportGoalsViewModel();
             FlexLayoutDailyInform.BindingContext = _reportGoalsViewModel;
-            FrameDailyGoals.BindingContext = _dailyGoalsObservable;
-            CalculateInformForToday();
+            FrameDailyGoals.BindingContext = dailyGoals;
+            CalculateInformForToday(dailyGoals);
         }
 
         private async void LabelBack_OnTapped(object sender, EventArgs e)
@@ -32,18 +32,18 @@ namespace MyHealthApp.Views.Report
             await Navigation.PopAsync();
         }
         
-        private void CalculateInformForToday()
+        private void CalculateInformForToday(ObservableCollection<DailyGoal> dailyGoals)
         {
-            var dailyGoals = new List<DailyGoal>();
+            var dailyGoalsList = new List<DailyGoal>();
 
-            foreach (var item in _dailyGoalsObservable)
+            foreach (var item in dailyGoals)
             {
-                dailyGoals.Add(item);
+                dailyGoalsList.Add(item);
             }
             
-            var listSteps = dailyGoals.Where(dg => dg.ActivityId == 1).ToList();
-            var listCalories = dailyGoals.Where(dg => dg.ActivityId == 2).ToList();
-            var listDistances = dailyGoals.Where(dg => dg.ActivityId == 3).ToList();
+            var listSteps = dailyGoalsList.Where(dg => dg.ActivityId == 1).ToList();
+            var listCalories = dailyGoalsList.Where(dg => dg.ActivityId == 2).ToList();
+            var listDistances = dailyGoalsList.Where(dg => dg.ActivityId == 3).ToList();
 
             double maxQuantity = 0;
             double maxProgress = 0;

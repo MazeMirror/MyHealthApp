@@ -52,7 +52,7 @@ namespace MyHealthApp.ViewModels
                 }; break;
                 case 2:
                 {
-                    item.Description = "Calorías \nquemadas";
+                    item.Description = "Kilocalorias \nquemadas";
                     item.Unity = "kcal";
                     item.ImageSource = "fire.png";
                 } ; break;
