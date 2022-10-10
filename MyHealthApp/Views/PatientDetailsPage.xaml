@@ -330,7 +330,7 @@
                                        >
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer
-                                            
+                                            Tapped="LabelAddMealPlan_OnTapped"
                                             NumberOfTapsRequired="1"
                                         />
                                     </Label.GestureRecognizers>

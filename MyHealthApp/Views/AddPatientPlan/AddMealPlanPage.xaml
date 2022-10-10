@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.AddPatientPlan.AddMealPlanPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#F0F3F4">
+            <StackLayout
+                HeightRequest="90"
+                Orientation="Horizontal"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="White">
+                <Label Text="&#xf053;"
+                       FontSize="18"
+                       Margin="35,0,0,0"
+                       VerticalOptions="Center"
+                       FontFamily="{StaticResource FontAwesomeSolid}"
+                       TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="LabelBack_OnTapped"
+                            NumberOfTapsRequired="1" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                       Scale="0.90"
+                       Margin="68,0,0,0" />
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                       Margin="10,0,0,0"
+                       effects:IconTintColorEffect.TintColor="Black"
+                       Scale="0.90" />
+            </StackLayout>
+
+            <Frame Margin="20,24,20,0"
+                   BackgroundColor="White"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   Padding="20">
+                <StackLayout>
+                    <Label Text="Nuevo Plan Alimenticio"
+                           FontSize="18"
+                           FontFamily="ArchivoSemiBold"
+                           TextColor="Black" />
+
+                    <StackLayout Padding="15,25,10,0">
+
+                        <Label Text="Nombre del Plan"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black" />
+
+                        <Frame HasShadow="False"
+                               BorderColor="Black"
+                               CornerRadius="5"
+                               Padding="20,10,20,10"
+                               >
+                            <Entry x:Name="PlanName"
+                                   Keyboard="Text"/>
+
+                        </Frame>
+
+
+                    </StackLayout>
+                    
+                    <StackLayout Padding="15,25,10,0">
+
+                        <Label Text="Descripción"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black" />
+
+                        <Frame HasShadow="False"
+                                BorderColor="Black"
+                                CornerRadius="5"
+                                Padding="20,0,20,0"
+                                WidthRequest="300"
+                                HeightRequest="200"
+                                >
+                            <Editor
+                                x:Name="PlanDescription"
+                                TextChanged="CountText"
+                                Keyboard="Text"
+                                MaxLength="1000"
+                                HorizontalOptions="FillAndExpand"
+                                FontFamily="ArchivoRegular"
+                                FontSize="16"
+                                TextColor="Black"/>
+                        </Frame>
+
+                        <FlexLayout AlignItems="End"
+                                    JustifyContent="End">
+
+                            <Label x:Name="CounterText"
+                                   FontSize="13"
+                                   FontFamily="ArchivoRegular"
+                                   TextColor="Black"
+                                   Text="count"
+                                   Opacity="0.5"/>
+                            
+                            <Label Text="/1000 caracteres"
+                                   FontSize="13"
+                                   FontFamily="ArchivoRegular"
+                                   TextColor="Black"
+                                   Opacity="0.5"/>
+
+                        </FlexLayout>
+
+                        <Label x:Name="NoteText"
+                               Text="Nota: comenzar los dias con -"
+                               FontSize="14"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black"
+                               Opacity="0.5"/>
+
+                    </StackLayout>
+
+                    <Button Text="Añadir Plan"
+                            Margin="0,20,0,0"
+                            BackgroundColor="#FF9162"
+                            HeightRequest="40"
+                            CornerRadius="5"
+                            TextTransform="None"
+                            TextColor="White" 
+                            Clicked="AddPlanButton_OnClicked"
+                            />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

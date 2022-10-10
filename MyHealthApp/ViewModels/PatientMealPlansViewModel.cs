@@ -60,7 +60,7 @@ namespace MyHealthApp.ViewModels
         }
 
         // Agregar MealPlan a lista
-        public void AddDailyGoalToList(MealPlan mp)
+        public void AddMealPlanToList(MealPlan mp)
         {
             _mealPlans.Add(mp);
             OrderObservableList();
@@ -95,7 +95,7 @@ namespace MyHealthApp.ViewModels
             foreach (var item in mealPlans)
             {
                 //CompleteDescriptionDg(item);
-                AddDailyGoalToList(item);
+                AddMealPlanToList(item);
             }
 
         }

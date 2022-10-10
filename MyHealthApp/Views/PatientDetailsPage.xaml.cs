@@ -10,6 +10,7 @@ using MyHealthApp.Models.SqlLite;
 using MyHealthApp.Services;
 using MyHealthApp.ViewModels;
 using MyHealthApp.Views.AddPatientGoal;
+using MyHealthApp.Views.AddPatientPlan;
 using MyHealthApp.Views.EditPatientGoal;
 using MyHealthApp.Views.EditPatientPlan;
 using ProgressRingControl.Forms.Plugin;
@@ -203,6 +204,11 @@ namespace MyHealthApp.Views
             var user = await UserService.Instance.GetUserById(_profile.UserId);
             _model = new SlProfileDetailsViewModel(_profile, _patient, ConvertToEntity.ConvertToUserEntity(user));
             StackLayoutProfileDetails.BindingContext = _model;
+        }
+
+        private async void LabelAddMealPlan_OnTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddMealPlanPage(_patient.Id));
         }
 
         private async void LabelAddDailyGoal_OnTapped(object sender, EventArgs e)
