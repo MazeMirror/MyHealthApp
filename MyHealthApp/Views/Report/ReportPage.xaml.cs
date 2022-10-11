@@ -36,8 +36,17 @@ namespace MyHealthApp.Views.Report
             InitConfigurations();
         }
 
-        
-        
+        protected override void OnAppearing()
+        {
+            _reportGoalsDailyViewModel.ClearElementsCollection();
+            CalculateInformForDay(DatePickerDailyInform.Date);
+            _reportGoalsWeeklyViewModel.ClearElementsCollection();
+            CalculateInformForMonth(DatePickerMonthInform.Date);
+            _reportGoalsMonthlyViewModel.ClearElementsCollection();
+            CalculateInformForWeek(DatePickerDateWeekStartInform.Date,DatePickerDateWeekFinishInform.Date);
+        }
+
+
         private async void InitConfigurations()
         {
             await Device.InvokeOnMainThreadAsync(async () =>

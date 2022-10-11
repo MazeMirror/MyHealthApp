@@ -124,5 +124,11 @@ namespace MyHealthApp.Models
             var weeklyGoal = (WeeklyGoal)MemberwiseClone();
             return weeklyGoal;
         }
+
+        public void CalculatePercentage()
+        {
+            double calc = Progress / Quantity;
+            Percentage = Math.Round(calc, 2);
+        }
     }
 }
