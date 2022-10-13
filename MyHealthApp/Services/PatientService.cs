@@ -34,36 +34,59 @@ namespace MyHealthApp.Services
             var json = JsonConvert.SerializeObject(patient, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             
+            try {
+                var response = await _client.PostAsync(_requestUri, contentJson);
+
+                return response.StatusCode == HttpStatusCode.OK ? JsonConvert.DeserializeObject<Patient>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
             
-            var response = await _client.PostAsync(_requestUri, contentJson);
-            var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
-            
-            return response.StatusCode == HttpStatusCode.OK ?  JsonConvert.DeserializeObject<Patient>(response.Content.ReadAsStringAsync().Result)
-                : null;
         }
 
         public async Task<Patient> GetPatientByProfileId(long profileId)
         {
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/profile/{profileId.ToString()}/patient");
-            var response = await _client.GetAsync(_requestUri);
             
-            var myPatient = response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<Patient>(response.Content.ReadAsStringAsync().Result)
-                : null;
+
+            try {
+                var response = await _client.GetAsync(_requestUri);
+                var myPatient = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<Patient>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+
+                return myPatient;
+            } 
+            catch (HttpRequestException) 
+            {
+                return null;
+            }
             
-            return myPatient;
         }
 
         public async Task<IList<Patient>> GetAllPatients()
         {
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient");
-            var response = await _client.GetAsync(_requestUri);
             
-            var myPatients = response.StatusCode == HttpStatusCode.OK
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+                var myPatients = response.StatusCode == HttpStatusCode.OK
                 ? JsonConvert.DeserializeObject<List<Patient>>(response.Content.ReadAsStringAsync().Result)
                 : new List<Patient>();
+
+                return myPatients;
+            }
+            catch (HttpRequestException)
+            {
+                return new List<Patient>();
+            }
             
-            return myPatients;
+            
         }
 
         public async Task<Patient> PutPatientByPatientAndId(Patient patient, long patientId)
@@ -72,13 +95,20 @@ namespace MyHealthApp.Services
             var json = JsonConvert.SerializeObject(patient, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
             
-            var response = await _client.PutAsync(_requestUri,contentJson);
+            try {
+                var response = await _client.PutAsync(_requestUri, contentJson);
+
+                var myPatient = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<Patient>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+
+                return myPatient;
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
             
-            var myPatient = response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<Patient>(response.Content.ReadAsStringAsync().Result)
-                : null;
-            
-            return myPatient;
         }
     }
 }
