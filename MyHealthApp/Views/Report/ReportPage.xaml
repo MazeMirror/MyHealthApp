@@ -33,10 +33,10 @@
                                Margin="10,0,0,0"
                                effects:IconTintColorEffect.TintColor="Black"
                                Scale="0.90" />
-                      
+
                     </FlexLayout>
 
-                    
+
                     <StackLayout Padding="20,25,20,0"
                                  Spacing="30">
                         <Label Text="Informe de actividad física"
@@ -144,7 +144,7 @@
                                                                    VerticalOptions="End"
                                                                    FontSize="14" />
                                                         </StackLayout>
-                                                        
+
                                                     </StackLayout>
                                                     <Label Text="{Binding Description}"
                                                            TextColor="Black"
@@ -277,6 +277,91 @@
                                     </FlexLayout>
 
                                 </StackLayout>
+
+
+                                <!--Month inform -->
+                                <StackLayout x:Name="StackLayoutMonthlyInform"
+                                             IsVisible="False">
+                                    <Label Text="Informe mensual"
+                                           FontFamily="ArchivoSemiBold"
+                                           TextColor="Black"
+                                           FontSize="18" />
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="Center">
+                                        <DatePicker x:Name="DatePickerMonthInform"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    Format="MMM"
+                                                    FontSize="16"
+                                                    WidthRequest="60"
+                                                    DateSelected="DatePickerMonthInform_OnDateSelected" />
+                                        <Label
+                                            VerticalOptions="Center"
+                                            FontSize="18"
+                                            WidthRequest="25"
+                                            Text="&#xf0d7;"
+                                            TextColor="Black"
+                                            FontFamily="{StaticResource FontAwesomeSolid}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                      Tapped="LabelMonthChevron_OnTapped" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+
+                                    </StackLayout>
+
+                                    <FlexLayout x:Name="FlexLayoutMonthlyInform"
+                                                Direction="Row"
+                                                Wrap="Wrap"
+                                                JustifyContent="SpaceAround"
+                                                Padding="40,15,40,0"
+                                                BindableLayout.ItemsSource="{Binding ReportGoals}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout Spacing="1" Padding="0,15">
+                                                    <Image
+                                                        Source="{Binding ImageSource, Converter={StaticResource ValueToImageSourceConverter},ConverterParameter='MyHealthApp.Resources.Images'}"
+                                                        effects:IconTintColorEffect.TintColor="#FF9162"
+                                                        Scale="1.5" />
+                                                    <StackLayout Orientation="Horizontal"
+                                                                 HorizontalOptions="Center"
+                                                                 Padding="0,10,0,0"
+                                                                 Spacing="4">
+                                                        <Label Text="{Binding Progress}"
+                                                               TextColor="#2F6A88"
+                                                               FontFamily="ArchivoSemiBold"
+                                                               HorizontalOptions="Center"
+                                                               FontSize="16" />
+                                                        <Label Text="{Binding Unity}"
+                                                               TextColor="#2F6A88"
+                                                               FontFamily="ArchivoSemiBold"
+                                                               VerticalOptions="End"
+                                                               FontSize="16" />
+                                                    </StackLayout>
+                                                    <Label Text="{Binding Description}"
+                                                           TextColor="Black"
+                                                           LineHeight="1.2"
+                                                           WidthRequest="100"
+                                                           FontFamily="ArchivoRegular"
+                                                           FontSize="14"
+                                                           HorizontalTextAlignment="Center"
+                                                           HorizontalOptions="Center" />
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                        <BindableLayout.EmptyView>
+                                            <StackLayout Padding="50,20">
+                                                <Label Text="No se registraron objetivos en esta rango de mes"
+                                                       FontFamily="ArchivoRegular"
+                                                       HorizontalTextAlignment="Center"
+                                                       FontSize="16"
+                                                       TextColor="#6EB3CD"
+                                                       VerticalOptions="CenterAndExpand" />
+                                            </StackLayout>
+                                        </BindableLayout.EmptyView>
+                                    </FlexLayout>
+
+                                </StackLayout>
+
                             </StackLayout>
                         </Frame>
 
@@ -317,7 +402,7 @@
                                                                          RingThickness="6"
                                                                          Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
                                                                          RingBaseColor="#CEE5EE" />
-                                                    <StackLayout Spacing="0" >
+                                                    <StackLayout Spacing="0">
                                                         <Label TextColor="Black"
                                                                FontFamily="ArchivoRegular"
                                                                Text="{Binding DescriptionObjective}"

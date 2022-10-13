@@ -38,13 +38,24 @@ namespace MyHealthApp.Services
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}" +
                                   $"/weeklyGoals?startDate={monday.ToString("d",CultureInfo.InvariantCulture)}" +
                                   $"&endDate={sunday.ToString("d",CultureInfo.InvariantCulture)}");
-            var response = await _client.GetAsync(_requestUri);
+
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+
+                var weeklyGoals = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<List<WeeklyGoal>>(response.Content.ReadAsStringAsync().Result)
+                    : new List<WeeklyGoal>();
+
+                return weeklyGoals;
+            }
+            catch (HttpRequestException)
+            {
+
+                return new List<WeeklyGoal>();
+            }
             
-            var weeklyGoals = response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<List<WeeklyGoal>>(response.Content.ReadAsStringAsync().Result)
-                : new List<WeeklyGoal>();
-            
-            return weeklyGoals;
         }
 
         public async Task<WeeklyGoal> PostWeeklyGoalByPatientId(long patientId, WeeklyGoal weeklyGoal)
@@ -60,12 +71,20 @@ namespace MyHealthApp.Services
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/weeklyGoal");
             var json = JsonConvert.SerializeObject(weeklyGoal, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
-            
-            
-            var response = await _client.PostAsync(_requestUri, contentJson);
 
-            return response.StatusCode == HttpStatusCode.Created ?  JsonConvert.DeserializeObject<WeeklyGoal>(response.Content.ReadAsStringAsync().Result)
-                : null;
+            try
+            {
+                var response = await _client.PostAsync(_requestUri, contentJson);
+
+                return response.StatusCode == HttpStatusCode.Created ? JsonConvert.DeserializeObject<WeeklyGoal>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+            }
+            catch (HttpRequestException)
+            {
+
+                return null;
+            }
+            
         }
 
         public async Task<WeeklyGoal> PutWeeklyGoalByPatientId(long patientId, WeeklyGoal weekly)
@@ -79,20 +98,37 @@ namespace MyHealthApp.Services
             var json = JsonConvert.SerializeObject(weekly, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
 
+            try
+            {
+                var response = await _client.PutAsync(_requestUri, contentJson);
 
-            var response = await _client.PutAsync(_requestUri, contentJson);
+                return response.StatusCode == HttpStatusCode.OK ? JsonConvert.DeserializeObject<WeeklyGoal>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+            }
+            catch (HttpRequestException)
+            {
 
-            return response.StatusCode == HttpStatusCode.OK ? JsonConvert.DeserializeObject<WeeklyGoal>(response.Content.ReadAsStringAsync().Result)
-                : null;
+                return null;
+            }
+            
         }
 
         public async Task<HttpStatusCode> DeleteWeeklyGoalByPatientId(long patientId, WeeklyGoal weekly)
         {
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/weeklyGoalId/{weekly.Id.ToString()}");
 
-            var response = await _client.DeleteAsync(_requestUri);
+            try
+            {
+                var response = await _client.DeleteAsync(_requestUri);
 
-            return response.StatusCode;
+                return response.StatusCode;
+            }
+            catch (HttpRequestException)
+            {
+
+                return HttpStatusCode.BadRequest;
+            }
+            
         }
 
         /*public async Task<List<WeeklyGoal>> GetWeeklyGoalsByPatientIdAndDate(long patientId, DateTime now)
@@ -115,13 +151,23 @@ namespace MyHealthApp.Services
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}" +
                                   $"/weeklyGoals?startDate={start.ToString("d",CultureInfo.InvariantCulture)}" +
                                   $"&endDate={end.ToString("d",CultureInfo.InvariantCulture)}");
-            var response = await _client.GetAsync(_requestUri);
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+
+                var weeklyGoals = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<List<WeeklyGoal>>(response.Content.ReadAsStringAsync().Result)
+                    : new List<WeeklyGoal>();
+
+                return weeklyGoals;
+            }
+            catch (Exception)
+            {
+
+                return new List<WeeklyGoal>();
+            }
             
-            var weeklyGoals = response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<List<WeeklyGoal>>(response.Content.ReadAsStringAsync().Result)
-                : new List<WeeklyGoal>();
-            
-            return weeklyGoals;
         }
     }
 }

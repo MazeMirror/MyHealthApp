@@ -31,26 +31,43 @@ namespace MyHealthApp.Services
             _requestUri = new Uri("https://myhealthnewapi.azurewebsites.net/api/user");
             var json = JsonConvert.SerializeObject(user, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await _client.PostAsync(_requestUri, contentJson);
+
+
+                return response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+            }
+            catch (HttpRequestException e)
+            {
+                return null;
+            }
             
-            
-            var response = await _client.PostAsync(_requestUri, contentJson);
-            var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
-            
-            return response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result)
-                : null;
         }
         
         public async Task<User> GetUserById(long userId)
         {
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/user/{userId.ToString()}");
+
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+
+
+                return response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+            }
+            catch (HttpRequestException)
+            {
+
+                return null;
+            }
             
-            var response = await _client.GetAsync(_requestUri);
-            var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
-            
-            return response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result)
-                : null;
         }
         
         public async Task<User> PostAuthenticateUser(string email,string password)
@@ -60,33 +77,52 @@ namespace MyHealthApp.Services
             
             var json = JsonConvert.SerializeObject(myUser, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
-            
-            var response = await _client.PostAsync(_requestUri, contentJson);
-            //var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
 
-            var myNewUser = response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result)
-                : null;
+
+            try
+            {
+                var response = await _client.PostAsync(_requestUri, contentJson);
+                //var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+
+                var myNewUser = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+
+                return myNewUser;
+            }
+            catch (HttpRequestException)
+            {
+
+                return null;
+            }
             
-            return myNewUser;
             //return response.StatusCode == HttpStatusCode.OK ?  long.Parse((string)jObj["id"] ?? "-1") : -1;
         }
 
-        public async Task<User>  PutUserEmail(User user)
+        public async Task<User> PutUserEmail(User user)
         {
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/user/{user.Id.ToString()}");
             
             var json = JsonConvert.SerializeObject(user, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
-            
-            var response = await _client.PutAsync(_requestUri, contentJson);
-            //var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
 
-            var myNewUser = response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result)
-                : null;
+            try
+            {
+                var response = await _client.PutAsync(_requestUri, contentJson);
+                //var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+
+                var myNewUser = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+
+                return myNewUser;
+            }
+            catch (HttpRequestException)
+            {
+
+                return null;
+            }
             
-            return myNewUser;
         }
     }
 }

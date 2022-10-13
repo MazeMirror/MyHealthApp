@@ -33,47 +33,86 @@ namespace MyHealthApp.Services
             _requestUri = new Uri("https://myhealthnewapi.azurewebsites.net/api/specialist");
             var json = JsonConvert.SerializeObject(specialist, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await _client.PostAsync(_requestUri, contentJson);
+
+
+                return response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<Specialist>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+            }
+            catch (HttpRequestException)
+            {
+
+                return null;
+            }
             
-            
-            var response = await _client.PostAsync(_requestUri, contentJson);
-            var jObj = JObject.Parse(response.Content.ReadAsStringAsync().Result);
-            
-            return response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<Specialist>(response.Content.ReadAsStringAsync().Result)
-                : null;
         }
 
         public async Task<Specialist> GetSpecialistByProfileId(long profileId)
         {
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/profile/{profileId.ToString()}/specialist");
-            var response = await _client.GetAsync(_requestUri);
+
+
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+
+                var mySpecialist = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<Specialist>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+
+                return mySpecialist;
+            }
+            catch (HttpRequestException)
+            {
+
+                return null;
+            }
             
-            var mySpecialist = response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<Specialist>(response.Content.ReadAsStringAsync().Result)
-                : null;
-            
-            return mySpecialist;
         }
         
         public async Task<IList<Patient>> GetPatientsBySpecialistId(long specialistId)
         {
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/specialist/{specialistId.ToString()}/patients");
-            var response = await _client.GetAsync(_requestUri);
-            
-            var myPatients = response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<List<Patient>>(response.Content.ReadAsStringAsync().Result)
-                : new List<Patient>();
-            
-            return myPatients;
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+
+                var myPatients = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<List<Patient>>(response.Content.ReadAsStringAsync().Result)
+                    : new List<Patient>();
+
+                return myPatients;
+            }
+            catch (HttpRequestException)
+            {
+
+                return new List<Patient>();
+            }
         }
 
         public async Task<bool> AssignSpecialistWitPatient(long specialistId, long patientId)
         {
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/specialist/{specialistId.ToString()}/patients/{patientId.ToString()}");
             var contentJson = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync(_requestUri,contentJson);
 
-            return response.StatusCode == HttpStatusCode.OK ? true : false;
+            try
+            {
+                var response = await _client.PostAsync(_requestUri, contentJson);
+
+                return response.StatusCode == HttpStatusCode.OK ? true : false;
+            }
+            catch (HttpRequestException)
+            {
+
+                return false;
+            }
+            
         }
 
         public async Task<Specialist> PutSpecialistBySpecialistAndId(Specialist specialist, long specialistId)
@@ -81,14 +120,22 @@ namespace MyHealthApp.Services
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/specialist/{specialistId.ToString()}");
             var json = JsonConvert.SerializeObject(specialist, _settingsJson);
             var contentJson = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await _client.PutAsync(_requestUri, contentJson);
+
+                var mySpecialist = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<Specialist>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+
+                return mySpecialist;
+            }
+            catch (HttpRequestException)
+            {
+                return null;
+            }
             
-            var response = await _client.PutAsync(_requestUri,contentJson);
-            
-            var mySpecialist = response.StatusCode == HttpStatusCode.OK
-                ? JsonConvert.DeserializeObject<Specialist>(response.Content.ReadAsStringAsync().Result)
-                : null;
-            
-            return mySpecialist;
         }
     }
 }

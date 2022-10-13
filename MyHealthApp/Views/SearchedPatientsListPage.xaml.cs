@@ -66,6 +66,7 @@ namespace MyHealthApp.Views
             var item = sender as Button;
             if (item != null)
             {
+                item.IsEnabled = false;
                 var currentIdItem = item.CommandParameter.ToString();
                 var profileId = int.Parse(currentIdItem);
                 var profile = await ProfileService.Instance.GetProfileById(profileId);
@@ -81,7 +82,7 @@ namespace MyHealthApp.Views
                 if (isPresentInList)
                 {
                     await DisplayAlert("Este paciente ya se encuentra en tu lista", "Selecciona otro", "Ok");
-                    
+                    item.IsEnabled = true;
                 }
                 else
                 {
@@ -90,11 +91,13 @@ namespace MyHealthApp.Views
                     if (!response)
                     {
                         await DisplayAlert("Error", "No se pudo asignar el paciente al especialista", "Ok");
+                        item.IsEnabled = true;
                         return;
                     }
                     
                     PatientsListPage._viewModel.AddProfileToList(profile);
                     await DisplayAlert("Añadido exitosamente", "El paciente aparecerá ahora en tu lista", "Ok");
+                    item.IsEnabled = true;
                     await Navigation.PopAsync();
                 }
 
