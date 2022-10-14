@@ -28,6 +28,9 @@ namespace MyHealthApp.Views
 
         public long id;
         public static UserViewModel userView;
+
+        public long roleIDProfile;
+        public static Profile profileUser;
         //public UserViewModel userView;
 
         public AdminHomePage()
@@ -35,6 +38,7 @@ namespace MyHealthApp.Views
             InitializeComponent();
             //Users = new List<User>();
             Profiles = new List<Profile>();
+            profileUser = new Profile();
             //_viewModel = new PatientsProfilesViewModel(_patient);
             Device.BeginInvokeOnMainThread(() =>
             {
@@ -52,16 +56,16 @@ namespace MyHealthApp.Views
 
         private async void GetData()
         {
-            //var users = await UserService.Instance.GetUserById(1);
-            //var users = await UserService.Instance.GetUserByIdProfile(1);
-            //var profiles = await ProfileService.Instance.GetProfileByUserId(1);
-            //var profiles;
 
             for ( int i = 0; i < 100; i++)
             {
-                if(await ProfileService.Instance.GetProfileById(i) != null)
+                profileUser = await ProfileService.Instance.GetProfileById(i);
+                if (profileUser != null)
                 {
-                    Profiles.Add(await ProfileService.Instance.GetProfileById(i));
+                    if(profileUser.RoleId != 3)
+                    {
+                        Profiles.Add(profileUser);
+                    }
                 }
             }
             profileView = new ProfileViewModel(Profiles);
@@ -76,9 +80,6 @@ namespace MyHealthApp.Views
             if (param != null)
             {
                 var profile = param as Profile;
-                //var currentIdItem = param.ToString();
-                //var profileId = int.Parse(currentIdItem);
-                //var patient = await PatientService.Instance.GetPatientByProfileId(profileId);
 
                 if (profile != null)
                 {
