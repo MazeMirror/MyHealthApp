@@ -146,5 +146,22 @@ namespace MyHealthApp.Services
             }
             
         }
+
+        public async Task<HttpStatusCode> DeleteUserById(long userId)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/user/{userId.ToString()}");
+
+            try
+            {
+                var response = await _client.DeleteAsync(_requestUri);
+
+                return response.StatusCode;
+            }
+            catch (HttpRequestException)
+            {
+                return HttpStatusCode.BadRequest;
+            }
+
+        }
     }
 }

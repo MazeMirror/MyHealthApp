@@ -106,17 +106,27 @@
                                TextColor="Black"
                                FontSize="18" />
 
-                        <Label
+                    <Label
+                                    x:Name="LabelEditDetailsbutton"
+                                    Text="&#xf304;"
+                                    TextColor="#2F6A88"
+                                    FontSize="20"
+                                    FontFamily="{StaticResource FontAwesomeSolid}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                            Tapped="LabelEditDetailsbutton_OnTapped"
+                                            NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label
                             x:Name="LabelEditDetails"
                             Text="details"
                             TextColor="Black"
                             FontSize="16"
                             FontFamily="ArchivoSemiBold">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer
-                                        Tapped="LabelEditDetails_OnTapped"
-                                        NumberOfTapsRequired="1" />
-                            </Label.GestureRecognizers>
+                            
+                            
                         </Label>
 
                     
@@ -152,7 +162,7 @@
                         FontFamily="Archivo-SemiBold">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer
-                                Tapped="LabelLogout_OnTapped"
+                                Tapped="LabelDeleteAccount_OnTapped"
                                 NumberOfTapsRequired="1" />
                 </Label.GestureRecognizers>
             </Label>

@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\Fonts\Fcraft_Borgo" />
+    <Folder Include="Views\EditProfileAsAdmin\SuccesfullMessage\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -179,7 +180,16 @@
     <EmbeddedResource Update="Views\EditPatientPlan\UpdateMealPlanPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditProfileAsAdmin\DeleteEditProfileAsAdminPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\EditProfileAsAdmin\EditProfileAsAdminPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditProfileAsAdmin\EPPatientAsAdminPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditProfileAsAdmin\EPSpecialistAsAdminPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

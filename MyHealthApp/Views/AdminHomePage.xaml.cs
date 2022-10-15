@@ -17,36 +17,20 @@ namespace MyHealthApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AdminHomePage : ContentPage
     {
-        public static SlProfileDetailsViewModel Patient;
-        public static List<Patient> _patient;
-        public static PatientsProfilesViewModel _viewModel;
-        public static List<Specialist> Specialists;
-
-
         public static List<Profile> Profiles;
         public static ProfileViewModel profileView;
-
-        public long id;
-        public static UserViewModel userView;
-
-        public long roleIDProfile;
         public static Profile profileUser;
-        //public UserViewModel userView;
-
+        public long TotalAccounts; 
         public AdminHomePage()
         {
             InitializeComponent();
-            //Users = new List<User>();
             Profiles = new List<Profile>();
             profileUser = new Profile();
-            //_viewModel = new PatientsProfilesViewModel(_patient);
+
             Device.BeginInvokeOnMainThread(() =>
             {
-
                 GetData();
             });
-            //GetData();
-
         }
 
         private async void LabelBack_OnTapped(object sender, EventArgs e)
@@ -56,8 +40,19 @@ namespace MyHealthApp.Views
 
         private async void GetData()
         {
+            var countRole1 = (List<Profile>)await ProfileService.Instance.GetProfilesByRoleId(1);
+            var countRole2 = (List<Profile>)await ProfileService.Instance.GetProfilesByRoleId(2);
 
-            for ( int i = 0; i < 100; i++)
+            if(countRole1.Last().Id > countRole2.Last().Id)
+            {
+                TotalAccounts = countRole1.Last().Id;
+            }
+            else
+            {
+                TotalAccounts = countRole2.Last().Id;
+            }
+
+            for ( int i = 1; i <= TotalAccounts; i++)
             {
                 profileUser = await ProfileService.Instance.GetProfileById(i);
                 if (profileUser != null)
@@ -69,7 +64,6 @@ namespace MyHealthApp.Views
                 }
             }
             profileView = new ProfileViewModel(Profiles);
-
 
             StackLayoutPatients.BindingContext = profileView;
         }
@@ -85,7 +79,7 @@ namespace MyHealthApp.Views
                 {
                     //BUG: El progress ring no renderiza del data template con data asíncrona
                     //Solucion parcial es esta
-                    var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
+                    //var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
                     var profileUser = await ProfileService.Instance.GetProfileById(profile.Id);
 
                     await Navigation.PushAsync(new EditProfileAsAdminPage(profileUser));

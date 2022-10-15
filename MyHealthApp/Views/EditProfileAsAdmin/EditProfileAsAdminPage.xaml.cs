@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MyHealthApp.Models;
 using MyHealthApp.Services;
+using MyHealthApp.Views.EditPatientGoal;
+using MyHealthApp.Views.EditPatientPlan;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -50,12 +52,25 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
             await Navigation.PopAsync();
         }
 
-		private async void LabelLogout_OnTapped(object sender, EventArgs e)
+		private async void LabelDeleteAccount_OnTapped(object sender, EventArgs e)
 		{
-
-		}
-        private async void LabelEditDetails_OnTapped(object sender, EventArgs e)
+            var result = await Navigation.ShowPopupAsync(new DeleteEditProfileAsAdminPage(_profile));
+            if (result != null && (int)result == 2)
+            {
+                await Navigation.PopAsync();
+            }
+        }
+        private async void LabelEditDetailsbutton_OnTapped(object sender, EventArgs e)
         {
+            if(_profile.RoleId == 1)
+            {
+                await Navigation.PushAsync(new EPPatientAsAdminPage(_profile));
+            }
+            else
+            {
+                await Navigation.PushAsync(new EPSpecialistAsAdminPage(_profile));
+            }
+
 
         }
     }
