@@ -4,10 +4,13 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using MyHealthApp.Helpers;
 using MyHealthApp.Models;
+using MyHealthApp.Models.Activities;
 using MyHealthApp.Models.SqlLite;
 using MyHealthApp.Services;
+using MyHealthApp.Services.Activities;
 using MyHealthApp.ViewModels;
 using MyHealthApp.Views.AddPatientGoal;
 using MyHealthApp.Views.AddPatientPlan;
@@ -31,6 +34,7 @@ namespace MyHealthApp.Views
         private readonly Patient _patient;
         private DailyGoal _firstStepDg;
         private DailyGoal _firstDistanceDg;
+        private DailyGoal _firstKilocalorieDg;
 
         public PatientDetailsPage(Profile profile,Patient patient, List<DailyGoal> dailyGoals, List<WeeklyGoal> weeklyGoals, List<MealPlan> mealPlans)
         {
@@ -51,16 +55,24 @@ namespace MyHealthApp.Views
 
         protected override void OnAppearing()
         {
-            Device.BeginInvokeOnMainThread(() =>
+            Device.InvokeOnMainThreadAsync(async() =>
             {
-                GetDailyGoalStep();
-                GetDailyGoalDistance();
-                WhenThereAreNotDailyGoals();
-                //GetDailyGoalsStepAndWalk();
+                await GetDailyGoalStep();
+                await GetDailyGoalDistance();
+                await GetDailyGoalKilocalorie();
+                //await WhenThereAreNotDailyGoals();
             });
+            
+            /*Device.BeginInvokeOnMainThread(() =>
+            {
+                //GetDailyGoalStep();
+                
+                
+                //GetDailyGoalsStepAndWalk();
+            });*/
         }
 
-        private void GetDailyGoalStep()
+        private async Task GetDailyGoalStep()
         {
             try
             {
@@ -72,52 +84,209 @@ namespace MyHealthApp.Views
                 ProgressRingSteps.IsVisible = true;
                 StackLayoutInfoRingSteps.IsVisible = true;
                 
-                LabelEmptyOfRings.IsVisible = false;
+                //LabelEmptyOfRings.IsVisible = false;
             }
             catch (InvalidOperationException e)
             {
                 //FlexLayoutRingsToday.Children.Remove(ProgressRingSteps);
                 //FlexLayoutRingsInfoToday.Children.Remove(StackLayoutInfoRingSteps);
-                ProgressRingSteps.IsVisible = false;
-                StackLayoutInfoRingSteps.IsVisible = false;
+
+                var stepActivityList =
+                    await StepService.Instance.GetStepActivitiesByPatientIdAndDates(_patient.Id, DateTime.Today,
+                        DateTime.Today);
+
+                if (stepActivityList.Count > 0)
+                {
+                    var stepActivity = stepActivityList.First();
+                    
+                    LabelGoalSteps.Text = "Progreso";
+                    LabelProgressSteps.Text = stepActivity.Quantity.ToString(CultureInfo.CurrentCulture);
+
+                    stepActivity.Total = 99999;
+                    stepActivity.CalculatePercentage();
+                    
+                    ProgressRingSteps.Progress = stepActivity.Percentage;
                 
-                FlexLayoutRingsToday.JustifyContent = FlexJustify.Center;
-                FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.Center;
+                    ProgressRingSteps.IsVisible = true;
+                    StackLayoutInfoRingSteps.IsVisible = true;
+                
+                    //LabelEmptyOfRings.IsVisible = false;
+                }
+                else
+                {
+                    var stepActivityLocal = new StepActivity() { Total = 99999, Quantity = 0 };
+                    LabelGoalSteps.Text = "Progreso";
+                    LabelProgressSteps.Text = stepActivityLocal.Quantity.ToString(CultureInfo.CurrentCulture);
+                    
+                    stepActivityLocal.CalculatePercentage();
+                    
+                    ProgressRingSteps.Progress = stepActivityLocal.Percentage;
+                
+                    ProgressRingSteps.IsVisible = true;
+                    StackLayoutInfoRingSteps.IsVisible = true;
+                    
+
+
+                    /*ProgressRingSteps.IsVisible = false;
+                    StackLayoutInfoRingSteps.IsVisible = false;
+                
+                    FlexLayoutRingsToday.JustifyContent = FlexJustify.Center;
+                    FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.Center;*/
+                }
+                
+                
+                
             }
         }
 
-        private void GetDailyGoalDistance()
+        private async Task GetDailyGoalDistance()
         {
             try
             {
                 _firstDistanceDg = DailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 3 && e.Progress < e.Quantity).ToList().First();
-                LabelProgressDistance.Text = Math.Round(_firstDistanceDg.Progress,1) +" m";
-                LabelGoalDistance.Text = "/"+Math.Round(_firstDistanceDg.Quantity,1)+" m";
+                LabelProgressDistance.Text = Math.Round(_firstDistanceDg.Progress,2) +" m";
+                LabelGoalDistance.Text = "/"+Math.Round(_firstDistanceDg.Quantity,2)+" m";
                 ProgressRingDistance.Progress = _firstDistanceDg.Percentage;
                 
                 ProgressRingDistance.IsVisible = true;
                 StackLayoutInfoRingDistance.IsVisible = true;
                 
-                LabelEmptyOfRings.IsVisible = false;
+                //LabelEmptyOfRings.IsVisible = false;
             }
             catch (InvalidOperationException e1)
             {
                 //FlexLayoutRingsToday.Children.Remove(ProgressRingWalk);
                 //FlexLayoutRingsInfoToday.Children.Remove(StackLayoutInfoRingWalk);
-                ProgressRingDistance.IsVisible = false;
-                StackLayoutInfoRingDistance.IsVisible = false;
                 
-                FlexLayoutRingsToday.JustifyContent = FlexJustify.Center;
-                FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.Center;
+                
+                var distanceActivityList =
+                    await DistanceService.Instance.GetDistanceActivitiesByPatientIdAndDates(_patient.Id, DateTime.Today,
+                        DateTime.Today);
+
+                if (distanceActivityList.Count > 0)
+                {
+                    var distanceActivity = distanceActivityList.First();
+                    
+                    LabelGoalDistance.Text = "Progreso";
+                    LabelProgressDistance.Text = Math.Round(distanceActivity.Quantity,2) +" m";
+
+                    distanceActivity.Total = 99999;
+                    distanceActivity.CalculatePercentage();
+                    
+                    ProgressRingDistance.Progress = distanceActivity.Percentage;
+                
+                    ProgressRingDistance.IsVisible = true;
+                    StackLayoutInfoRingDistance.IsVisible = true;
+                
+                    //LabelEmptyOfRings.IsVisible = false;
+                }
+                else
+                {
+                    var distanceActivityLocal = new DistanceActivity() { Quantity = 0, Total = 99999 };
+                    
+                    LabelGoalDistance.Text = "Progreso";
+                    LabelProgressDistance.Text = Math.Round(distanceActivityLocal.Quantity,2) +" m";
+                    
+                    distanceActivityLocal.CalculatePercentage();
+                    
+                    ProgressRingDistance.Progress = distanceActivityLocal.Percentage;
+                
+                    ProgressRingDistance.IsVisible = true;
+                    StackLayoutInfoRingDistance.IsVisible = true;
+                    
+                    /*ProgressRingDistance.IsVisible = false;
+                    StackLayoutInfoRingDistance.IsVisible = false;
+                
+                    FlexLayoutRingsToday.JustifyContent = FlexJustify.Center;
+                    FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.Center;*/
+                }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 //FlexLayoutRingsToday.Children.Remove(ProgressRingWalk);
             }
         }
+        
+        private async Task GetDailyGoalKilocalorie()
+        {
+            try
+            {
+                _firstKilocalorieDg = DailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 2 && e.Progress < e.Quantity).ToList().First();
+                LabelProgressKilocalorie.Text = Math.Round(_firstKilocalorieDg.Progress,2) +" kcal";
+                LabelGoalKilocalorie.Text = "/"+Math.Round(_firstKilocalorieDg.Quantity,2) +" kcal";
+                ProgressRingKilocalorie.Progress = _firstKilocalorieDg.Percentage;
+                
+                ProgressRingKilocalorie.IsVisible = true;
+                StackLayoutInfoRingKilocalorie.IsVisible = true;
+                
+                //LabelEmptyOfRings.IsVisible = false;
+            }
+            catch (InvalidOperationException e)
+            {
+                //FlexLayoutRingsToday.Children.Remove(ProgressRingSteps);
+                //FlexLayoutRingsInfoToday.Children.Remove(StackLayoutInfoRingSteps);
 
-        private void WhenThereAreNotDailyGoals()
+                var kilocalorieActivityList =
+                    await KilocalorieService.Instance.GetKilocalorieActivitiesByPatientIdAndDates(_patient.Id, DateTime.Today,
+                        DateTime.Today);
+
+                if (kilocalorieActivityList.Count > 0)
+                {
+                    var kilocalorieActivity = kilocalorieActivityList.First();
+                    
+                    LabelGoalKilocalorie.Text = "Progreso";
+                    LabelProgressKilocalorie.Text = Math.Round(kilocalorieActivity.Quantity,2) +" kcal";
+
+                    kilocalorieActivity.Total = 99999;
+                    kilocalorieActivity.CalculatePercentage();
+                    
+                    ProgressRingKilocalorie.Progress = kilocalorieActivity.Percentage;
+                
+                    ProgressRingKilocalorie.IsVisible = true;
+                    StackLayoutInfoRingKilocalorie.IsVisible = true;
+                
+                    //LabelEmptyOfRings.IsVisible = false;
+                }
+                else
+                {
+                    var kilocalorieActivityLocal = new KilocalorieActivity() { Total = 99999, Quantity = 0 };
+                    LabelGoalKilocalorie.Text = "Progreso";
+                    LabelProgressKilocalorie.Text = Math.Round(kilocalorieActivityLocal.Quantity,2) +" kcal";
+                    
+                    kilocalorieActivityLocal.CalculatePercentage();
+                    
+                    ProgressRingKilocalorie.Progress = kilocalorieActivityLocal.Percentage;
+                
+                    ProgressRingKilocalorie.IsVisible = true;
+                    StackLayoutInfoRingKilocalorie.IsVisible = true;
+                    
+
+
+                    /*ProgressRingSteps.IsVisible = false;
+                    StackLayoutInfoRingSteps.IsVisible = false;
+                
+                    FlexLayoutRingsToday.JustifyContent = FlexJustify.Center;
+                    FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.Center;*/
+                }
+                
+                
+                
+            }
+        }
+
+        private Task WhenThereAreNotDailyGoals()
         {
             if (!StackLayoutInfoRingDistance.IsVisible && !StackLayoutInfoRingSteps.IsVisible)
             {
-                LabelEmptyOfRings.IsVisible = true;
+                //LabelEmptyOfRings.IsVisible = true;
                 /*FlexLayoutRingsToday.Children.Add(new Label()
                 {
                     Text = "No hay objetivos diarios o pendientes",
@@ -131,6 +300,8 @@ namespace MyHealthApp.Views
                 FlexLayoutRingsToday.JustifyContent = FlexJustify.SpaceBetween;
                 FlexLayoutRingsInfoToday.JustifyContent = FlexJustify.SpaceBetween;
             }
+
+            return null;
         }
 
         private void GetGoalsInformation()

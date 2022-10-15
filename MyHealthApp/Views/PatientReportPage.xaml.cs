@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Acr.Collections;
 using MyHealthApp.Models;
+using MyHealthApp.Models.Activities;
 using MyHealthApp.Services;
+using MyHealthApp.Services.Activities;
 using MyHealthApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -240,15 +242,71 @@ namespace MyHealthApp.Views
                     if (item.Progress > maxProgress) maxProgress = item.Progress;
                     if (item.Quantity > maxQuantity) maxQuantity = item.Quantity;
                 }
+
+                StepActivity stepActivity = null;
+
+                if (maxProgress == maxQuantity)
+                {
+                    var listStepRecord = await 
+                        StepService.Instance.GetStepActivitiesByPatientIdAndDates(_patient.Id, dateTime, dateTime);
+
+                    if (listStepRecord.Count > 0)
+                    {
+                        stepActivity = listStepRecord.First();
+                    }
+                    
+                }
                 
                 _reportGoalsDailyViewModel.AddReportGoalToList(new ReportGoal()
                 {
                     Description = "",
                     ImageSource = "",
-                    Progress = maxProgress,
+                    Progress = stepActivity?.Quantity ?? maxProgress,
                     Quantity = maxQuantity,
                     ActivityId = 1
                 });
+            }
+            else
+            {
+                StepActivity stepActivity = null;
+                var listStepRecord = await 
+                    StepService.Instance.GetStepActivitiesByPatientIdAndDates(_patient.Id, dateTime, dateTime);
+
+                if (listStepRecord.Count > 0)
+                {
+                    stepActivity = listStepRecord.First();
+                }
+                
+                ////////////////////////////////////////////////
+
+                if (stepActivity != null)
+                {
+                    _reportGoalsDailyViewModel.AddReportGoalToList(new ReportGoal()
+                    {
+                        Description = "",
+                        ImageSource = "",
+                        Progress = stepActivity.Quantity,
+                        Quantity = 0,
+                        ActivityId = 1
+                    });
+                }
+                else
+                {
+                    stepActivity = new StepActivity() { Quantity = 0, Total = 0 };
+                    
+                    _reportGoalsDailyViewModel.AddReportGoalToList(new ReportGoal()
+                    {
+                        Description = "",
+                        ImageSource = "",
+                        Progress = stepActivity.Quantity,
+                        Quantity = stepActivity.Total,
+                        ActivityId = 1
+                    });
+                    
+                }
+                
+                
+                
             }
             
             //reiniciamos maximos
@@ -263,14 +321,68 @@ namespace MyHealthApp.Views
                     if (item.Quantity > maxQuantity) maxQuantity = item.Quantity;
                 }
                 
+                KilocalorieActivity kilocalorieActivity = null;
+
+                if (maxProgress == maxQuantity)
+                {
+                    var listKilocalorieRecord = await 
+                        KilocalorieService.Instance.GetKilocalorieActivitiesByPatientIdAndDates(_patient.Id, dateTime, dateTime);
+
+                    if (listKilocalorieRecord.Count > 0)
+                    {
+                        kilocalorieActivity = listKilocalorieRecord.First();
+                    }
+                    
+                }
+                
                 _reportGoalsDailyViewModel.AddReportGoalToList(new ReportGoal()
                 {
                     Description = "",
                     ImageSource = "",
-                    Progress = maxProgress,
+                    Progress = kilocalorieActivity?.Quantity ?? maxProgress,
                     Quantity = maxQuantity,
                     ActivityId = 2
                 });
+            }
+            else
+            {
+                KilocalorieActivity kilocalorieActivity = null;
+                
+                var listKilocalorieRecord = await 
+                    KilocalorieService.Instance.GetKilocalorieActivitiesByPatientIdAndDates(_patient.Id, dateTime, dateTime);
+
+                if (listKilocalorieRecord.Count > 0)
+                {
+                    kilocalorieActivity = listKilocalorieRecord.First();
+                }
+                
+                ////////////////////////////////////////////////
+
+                if (kilocalorieActivity != null)
+                {
+                    _reportGoalsDailyViewModel.AddReportGoalToList(new ReportGoal()
+                    {
+                        Description = "",
+                        ImageSource = "",
+                        Progress = kilocalorieActivity.Quantity,
+                        Quantity = 0,
+                        ActivityId = 2
+                    });
+                }
+                else
+                {
+                    kilocalorieActivity = new KilocalorieActivity() { Quantity = 0, Total = 0 };
+                    
+                    _reportGoalsDailyViewModel.AddReportGoalToList(new ReportGoal()
+                    {
+                        Description = "",
+                        ImageSource = "",
+                        Progress = kilocalorieActivity.Quantity,
+                        Quantity = kilocalorieActivity.Total,
+                        ActivityId = 2
+                    });
+                    
+                }
             }
             
             //reiniciamos maximos
@@ -285,14 +397,68 @@ namespace MyHealthApp.Views
                     if (item.Quantity > maxQuantity) maxQuantity = item.Quantity;
                 }
                 
+                DistanceActivity distanceActivity = null;
+
+                if (maxProgress == maxQuantity)
+                {
+                    var listDistanceRecord = await 
+                        DistanceService.Instance.GetDistanceActivitiesByPatientIdAndDates(_patient.Id, dateTime, dateTime);
+
+                    if (listDistanceRecord.Count > 0)
+                    {
+                        distanceActivity = listDistanceRecord.First();
+                    }
+                    
+                }
+                
                 _reportGoalsDailyViewModel.AddReportGoalToList(new ReportGoal()
                 {
                     Description = "",
                     ImageSource = "",
-                    Progress = maxProgress,
+                    Progress = distanceActivity?.Quantity ?? maxProgress,
                     Quantity = maxQuantity,
                     ActivityId = 3
                 });
+            }
+            else
+            {
+                DistanceActivity distanceActivity = null;
+                
+                var listDistanceRecord = await 
+                    DistanceService.Instance.GetDistanceActivitiesByPatientIdAndDates(_patient.Id, dateTime, dateTime);
+
+                if (listDistanceRecord.Count > 0)
+                {
+                    distanceActivity = listDistanceRecord.First();
+                }
+                
+                ////////////////////////////////////////////////
+
+                if (distanceActivity != null)
+                {
+                    _reportGoalsDailyViewModel.AddReportGoalToList(new ReportGoal()
+                    {
+                        Description = "",
+                        ImageSource = "",
+                        Progress = distanceActivity.Quantity,
+                        Quantity = 0,
+                        ActivityId = 3
+                    });
+                }
+                else
+                {
+                    distanceActivity = new DistanceActivity() { Quantity = 0, Total = 0 };
+                    
+                    _reportGoalsDailyViewModel.AddReportGoalToList(new ReportGoal()
+                    {
+                        Description = "",
+                        ImageSource = "",
+                        Progress = distanceActivity.Quantity,
+                        Quantity = distanceActivity.Total,
+                        ActivityId = 3
+                    });
+                    
+                }
             }
             
             
@@ -304,44 +470,7 @@ namespace MyHealthApp.Views
 
         #region Weekly Informs
 
-        /*void InitWeeklyReport()
-        {
-            var item1 = new ReportGoal()
-            {
-                Progress = 850,
-                Quantity = 950,
-                ActivityId = 1,
-                ImageSource = "",
-                Description = "",
-            };
 
-            var item2 = new ReportGoal()
-            {
-                Progress = 1050,
-                Quantity = 1550,
-                ActivityId = 2,
-                ImageSource = "",
-                Description = "",
-            };
-
-            var item3 = new ReportGoal()
-            {
-                Progress = 550,
-                Quantity = 750,
-                ActivityId = 3,
-                ImageSource = "",
-                Description = "",
-            };
-            
-            _reportGoalsWeeklyViewModel.AddReportGoalToList(item1);
-            
-            _reportGoalsWeeklyViewModel.AddReportGoalToList(item2);
-            
-            _reportGoalsWeeklyViewModel.AddReportGoalToList(item3);
-            
-        }*/
-        
-        
         private void DatePickerDateWeekStartInform_OnDateSelected(object sender, DateChangedEventArgs e)
         {
             DatePickerDateWeekFinishInform.MinimumDate = DatePickerDateWeekStartInform.Date.AddDays(1);
@@ -465,74 +594,74 @@ namespace MyHealthApp.Views
         {
             var firstDayOfMonth = new DateTime(dateTime.Year, dateTime.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-            var goals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDates(_patient.Id,firstDayOfMonth,lastDayOfMonth);
+            //var goals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDates(_patient.Id,firstDayOfMonth,lastDayOfMonth);
             
             
-            var listSteps = goals.Where(dg => dg.ActivityId == 1).ToList();
+            /*var listSteps = goals.Where(dg => dg.ActivityId == 1).ToList();
             var listCalories = goals.Where(dg => dg.ActivityId == 2).ToList();
-            var listDistances = goals.Where(dg => dg.ActivityId == 3).ToList();
+            var listDistances = goals.Where(dg => dg.ActivityId == 3).ToList();*/
 
-            double maxQuantity = 0;
-            double maxProgress = 0;
+            var listSteps = await 
+                StepService.Instance.GetStepActivitiesByPatientIdAndDates(_patient.Id, firstDayOfMonth, lastDayOfMonth);
+            
+            var listCalories = await 
+                KilocalorieService.Instance.GetKilocalorieActivitiesByPatientIdAndDates(_patient.Id, firstDayOfMonth, lastDayOfMonth);
+            
+            var listDistances = await 
+                DistanceService.Instance.GetDistanceActivitiesByPatientIdAndDates(_patient.Id, firstDayOfMonth, lastDayOfMonth);
+
             
             if (!listSteps.IsEmpty())
             {
+                double total = 0.0;
                 foreach (var item in listSteps)
                 {
-                    if (item.Progress > maxProgress) maxProgress = item.Progress;
-                    if (item.Quantity > maxQuantity) maxQuantity = item.Quantity;
+                    total += item.Quantity;
                 }
                 
                 _reportGoalsMonthlyViewModel.AddReportGoalToList(new ReportGoal()
                 {
                     Description = "",
                     ImageSource = "",
-                    Progress = maxProgress,
-                    Quantity = maxQuantity,
+                    Progress = total,
+                    Quantity = 0,
                     ActivityId = 1
                 });
             }
             
-            //reiniciamos maximos
-            maxQuantity = 0;
-            maxProgress = 0;
-
+           
             if (!listCalories.IsEmpty())
             {
+                double total = 0.0;
                 foreach (var item in listCalories)
                 {
-                    if (item.Progress > maxProgress) maxProgress = item.Progress;
-                    if (item.Quantity > maxQuantity) maxQuantity = item.Quantity;
+                    total += item.Quantity;
                 }
                 
                 _reportGoalsMonthlyViewModel.AddReportGoalToList(new ReportGoal()
                 {
                     Description = "",
                     ImageSource = "",
-                    Progress = maxProgress,
-                    Quantity = maxQuantity,
+                    Progress = total,
+                    Quantity = 0,
                     ActivityId = 2
                 });
             }
             
-            //reiniciamos maximos
-            maxQuantity = 0;
-            maxProgress = 0;
-
             if (!listDistances.IsEmpty())
             {
+                double total = 0.0;
                 foreach (var item in listDistances)
                 {
-                    if (item.Progress > maxProgress) maxProgress = item.Progress;
-                    if (item.Quantity > maxQuantity) maxQuantity = item.Quantity;
+                    total += item.Quantity;
                 }
                 
                 _reportGoalsMonthlyViewModel.AddReportGoalToList(new ReportGoal()
                 {
                     Description = "",
                     ImageSource = "",
-                    Progress = maxProgress,
-                    Quantity = maxQuantity,
+                    Progress = total,
+                    Quantity = 0,
                     ActivityId = 3
                 });
             }
