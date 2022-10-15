@@ -54,8 +54,8 @@ namespace MyHealthApp.Views
 
         
 
-        private WeeklyGoal _firstDistanceWeeklyGoal;
-        private WeeklyGoal _firstKilocalorieWeeklyGoal;
+        /*private WeeklyGoal _firstDistanceWeeklyGoal;
+        private WeeklyGoal _firstKilocalorieWeeklyGoal;*/
 
         private bool _IsDisplayedNoInternetMsg = false;
 
@@ -715,71 +715,96 @@ namespace MyHealthApp.Views
             
         }
 
-        private void UpdatingStepWg()
+        private async void UpdatingWeeklyGoals()
         {
-            if (_firstStepWeeklyGoal != null)
+            if (_weeklyGoalViewModel.WeeklyGoals.Count > 0)
             {
+                //Hacemos esto para que trabajemos con los datos de semana, revisar service
+                var recordOfStepsForCurrentWeek = await 
+                    StepService.Instance.GetStepActivitiesByPatientIdAndDates(_patientId, DateTime.MinValue, DateTime.MinValue);
                 
-                //_stepsViewModel.UpdateInfo();
-                Debug.Print("Contando del semanal..." + (_stepsViewModel.TodayStepCount + _firstStepWgProgressAux).ToString() + " pasos");
+                var recordOfDistancesForCurrentWeek = await 
+                    DistanceService.Instance.GetDistanceActivitiesByPatientIdAndDates(_patientId, DateTime.MinValue, DateTime.MinValue);
+                
+                var recordOfKilocaloriesForCurrentWeek = await 
+                    KilocalorieService.Instance.GetKilocalorieActivitiesByPatientIdAndDates(_patientId, DateTime.MinValue, DateTime.MinValue);
 
-                if (_stepsViewModel.TodayStepCount == 0) _firstStepWgProgressAux = 0;
-                if (_firstStepWeeklyGoal.Progress != ((double)_stepsViewModel.TodayStepCount+_firstStepWgProgressAux)
-                    && _stepsViewModel.TodayStepCount != 0)
+
+                double totalSteps = 0;
+                double totalKilocalories = 0;
+                double totalDistances = 0;
+                
+                if (recordOfStepsForCurrentWeek.Count > 0)
                 {
-                    //Si mi contador + progreso actual supero mi objetivo
-                    if (((double)_stepsViewModel.TodayStepCount+_firstStepWgProgressAux) > _firstStepWeeklyGoal.Quantity)
+                    foreach (var item in recordOfStepsForCurrentWeek)
                     {
-                        _firstStepWeeklyGoal.Progress = (double)_firstStepDg.Quantity;
-                        _firstStepWeeklyGoal.CalculatePercentage();
-
-
-                        Task.Run(async () =>
-                        {
-                            await WeeklyGoalService.Instance.PutWeeklyGoalByPatientId(_patientId, _firstStepWeeklyGoal);
-
-
-                            //Al finalizar el objetivo obtenemos el siguiente
-
-                            Device.BeginInvokeOnMainThread(() =>
-                            {
-                                //Actualizamo UI importante
-                                //Cuando estamos dentro de un timer
-                                UpdateCompletedWeeklyGoals();
-                                _firstStepWgProgressAux = _firstStepWeeklyGoal.Progress;
-                                GetWeeklyGoalStep();
-
-                                if (_firstStepWeeklyGoal != null)//Es null si ya no hay weeklygoal en cola
-                                {
-                                    //Actualizamos su porcentaje de avance del nuevo objetivo de la cola
-
-                                    _firstStepWeeklyGoal.CalculatePercentage();
-                                
-                                    //Seteamos el nuevo objetivo, -1 es el dailyGoal pasos si se acabaron los de su cola y actividad
-                                    if (_firstStepDg.Id == -1)
-                                    {
-                                        Windesheart.PairedDevice.SetStepGoal(int.Parse(_firstStepWeeklyGoal.Quantity.ToString()));
-                                    }
-                                }
-                                
-                                
-                            });
-
-                            
-                        });
+                        totalSteps += item.Quantity;
                     }
-                    //Si el contador + progreso esta debajo de mi objetivo 
-                    else
+                    
+                }
+
+                if (recordOfDistancesForCurrentWeek.Count > 0)
+                {
+                    foreach (var item in recordOfDistancesForCurrentWeek)
                     {
-                        _firstStepWeeklyGoal.Progress = _firstStepWgProgressAux + (double)_stepsViewModel.TodayStepCount;
-                        _firstStepWeeklyGoal.CalculatePercentage();
-                        
-                        Task.Run(async () =>
-                        {
-                            await WeeklyGoalService.Instance.PutWeeklyGoalByPatientId(_patientId, _firstStepWeeklyGoal);
-                        });
+                        totalDistances += item.Quantity;
                     }
                 }
+                
+                if (recordOfKilocaloriesForCurrentWeek.Count > 0)
+                {
+                    foreach (var item in recordOfKilocaloriesForCurrentWeek)
+                    {
+                        totalKilocalories += item.Quantity;
+                    }
+                }
+                
+                
+                //Una vez tenemos el avance total de todas las activities en lo que va de la semana
+                //actualizamos en los weeklyGoals
+                foreach (var item2 in _weeklyGoalViewModel.WeeklyGoals.Where(e => e.Progress < e.Quantity).ToList())
+                {
+                    //Es decir pasos
+                    if (item2.ActivityId == 1)
+                    {
+                        if (totalSteps >= item2.Quantity)
+                        {
+                            item2.Progress = item2.Quantity;
+                        }
+                        else
+                        {
+                            item2.Progress = totalSteps;
+                        }
+                        
+                    }else if (item2.ActivityId == 2)
+                    {
+                        if (totalKilocalories >= item2.Quantity)
+                        {
+                            item2.Progress = item2.Quantity;
+                        }
+                        else
+                        {
+                            item2.Progress = totalKilocalories;
+                        }
+                        
+                    }else if (item2.ActivityId == 3)
+                    {
+                        
+                        if (totalDistances >= item2.Quantity)
+                        {
+                            item2.Progress = item2.Quantity;
+                        }
+                        else
+                        {
+                            item2.Progress = totalDistances;
+                        }
+                        
+                    }
+                    
+                    item2.CalculatePercentage();
+                    await WeeklyGoalService.Instance.PutWeeklyGoalByPatientId(_patientId, item2);
+                }
+
             }
             
         }
@@ -973,9 +998,11 @@ namespace MyHealthApp.Views
                         else
                         {
                             UpdatingStepDg();
-                            //UpdatingStepWg();
                             UpdatingDistanceDg();
                             UpdatingKilocalorieDg();
+                            
+                            /////////////////////////
+                            UpdatingWeeklyGoals();
                         }
 
                         _IsDisplayedNoInternetMsg = false;

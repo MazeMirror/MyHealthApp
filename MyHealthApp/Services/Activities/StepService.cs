@@ -66,9 +66,24 @@ namespace MyHealthApp.Services.Activities
         
         public async Task<List<StepActivity>> GetStepActivitiesByPatientIdAndDates(long patientId,DateTime startDate, DateTime endDate)
         {
-            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient-steps/{patientId.ToString()}/steps?" +
-                                  $"startDate={startDate.ToString("d", CultureInfo.InvariantCulture)}&" +
-                                  $"endDate={endDate.ToString("d", CultureInfo.InvariantCulture)}");
+            if (startDate == DateTime.MinValue && endDate == DateTime.MinValue)
+            {
+                DateTime date = DateTime.Today;
+                int day = (int) date.DayOfWeek;
+                DateTime monday = date.AddDays((-1) * (day == 0 ? 6 : day - 1));
+                DateTime sunday = date.AddDays((1) * (day== 0 ? day : 7 - day));
+                
+                _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient-steps/{patientId.ToString()}/steps?" +
+                                      $"startDate={monday.ToString("d", CultureInfo.InvariantCulture)}&" +
+                                      $"endDate={sunday.ToString("d", CultureInfo.InvariantCulture)}");
+            }
+            else
+            {
+                _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient-steps/{patientId.ToString()}/steps?" +
+                                      $"startDate={startDate.ToString("d", CultureInfo.InvariantCulture)}&" +
+                                      $"endDate={endDate.ToString("d", CultureInfo.InvariantCulture)}");
+            }
+            
             
             try
             {
