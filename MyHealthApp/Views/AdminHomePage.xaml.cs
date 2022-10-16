@@ -77,11 +77,7 @@ namespace MyHealthApp.Views
 
                 if (profile != null)
                 {
-                    //BUG: El progress ring no renderiza del data template con data asíncrona
-                    //Solucion parcial es esta
-                    var profileUser = await ProfileService.Instance.GetProfileById(profile.Id);
-
-                    await Navigation.PushAsync(new EditProfileAsAdminPage(profileUser));
+                    await Navigation.PushAsync(new GeneralProfilePage(profile));
                 }
             }
         }
