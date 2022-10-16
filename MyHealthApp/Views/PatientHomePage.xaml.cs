@@ -537,7 +537,7 @@ namespace MyHealthApp.Views
                 
                 
                 LabelProgresskilocalorie.BindingContext = _kilocalorieActivity;
-                LabelProgresskilocalorie.SetBinding(Label.TextProperty, "Quantity", stringFormat: "{0:#.0} m");
+                LabelProgresskilocalorie.SetBinding(Label.TextProperty, "Quantity", stringFormat: "{0} kcal");
 
                 LabelGoalkilocalorie.BindingContext = _kilocalorieActivity;
                 LabelGoalkilocalorie.SetBinding(Label.TextProperty, "Total", BindingMode.Default);

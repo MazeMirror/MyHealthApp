@@ -42,7 +42,9 @@ namespace MyHealthApp.Views.ProfileFlow
 
         private async void DeleteAccount_Clicked(object sender, EventArgs e)
         {
-            if (LocalProfile.RoleId == 1)
+			DeleteAccount.IsEnabled = false;
+
+			if (LocalProfile.RoleId == 1)
             {
 	            DeletePatientAccount();
             }
