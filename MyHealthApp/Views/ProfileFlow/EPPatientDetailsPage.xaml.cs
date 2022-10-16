@@ -61,6 +61,12 @@ namespace MyHealthApp.Views.ProfileFlow
                 return;
             }
             
+            if (EntryPhone.Text.Length < 9)
+            {
+                await DisplayAlert("Mensaje", "El número de celular no debe ser inferior a 9 digitos, corríjalo para continuar", "Ok");
+                return;
+            }
+            
             
             //Actualizar usuario
             var editUser = _user.CreateDeepCopy();

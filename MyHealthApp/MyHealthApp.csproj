@@ -183,7 +183,7 @@
     <EmbeddedResource Update="Views\EditProfileAsAdmin\DeleteEditProfileAsAdminPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\EditProfileAsAdmin\EditProfileAsAdminPage.xaml">
+    <EmbeddedResource Update="Views\EditProfileAsAdmin\GeneralProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EditProfileAsAdmin\EPPatientAsAdminPage.xaml">

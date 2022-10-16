@@ -252,7 +252,7 @@
                                 TextColor="White"
                                 HeightRequest="40"
                                 Margin="0,30,0,0"
-                                
+                                Clicked="SaveChanges_OnClicked"
                                  />
 
                         <Label Text="Cancelar"
@@ -263,7 +263,7 @@
                                Margin="0,15,0,0">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    
+                                    Tapped="LabelCancel_OnTapped"
                                     NumberOfTapsRequired="1" />
                             </Label.GestureRecognizers>
                         </Label>
