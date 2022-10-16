@@ -192,5 +192,8 @@
     <EmbeddedResource Update="Views\EditProfileAsAdmin\EPSpecialistAsAdminPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\ProfileFlow\DeleteProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
