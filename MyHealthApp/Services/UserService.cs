@@ -69,7 +69,29 @@ namespace MyHealthApp.Services
             }
             
         }
-        
+
+        public async Task<User> GetUserByIdProfile(long userId)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/user/{userId.ToString()}/profile");
+
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+
+
+                return response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<User>(response.Content.ReadAsStringAsync().Result)
+                    : null;
+            }
+            catch (HttpRequestException)
+            {
+
+                return null;
+            }
+
+        }
+
         public async Task<User> PostAuthenticateUser(string email,string password)
         {
             var myUser = new User(){Email = email,Password = password};
@@ -123,6 +145,23 @@ namespace MyHealthApp.Services
                 return null;
             }
             
+        }
+
+        public async Task<HttpStatusCode> DeleteUserById(long userId)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/user/{userId.ToString()}");
+
+            try
+            {
+                var response = await _client.DeleteAsync(_requestUri);
+
+                return response.StatusCode;
+            }
+            catch (HttpRequestException)
+            {
+                return HttpStatusCode.BadRequest;
+            }
+
         }
     }
 }

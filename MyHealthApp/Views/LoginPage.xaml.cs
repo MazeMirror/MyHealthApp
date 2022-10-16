@@ -116,11 +116,15 @@ namespace MyHealthApp.Views
                     Application.Current.MainPage = new NavigationPage(new TabbedPatient());
                     //await Navigation.PushAsync(new TabbedPatient());
                 }
-                else
+                if (profile.RoleId == 2)
                 {
                     //await Navigation.PopToRootAsync();
                     Application.Current.MainPage = new NavigationPage(new TabbedSpecialist());
                     //await Navigation.PushAsync(new TabbedSpecialist());
+                }
+                if (profile.RoleId == 3)
+                {
+                    Application.Current.MainPage = new NavigationPage(new AdminHomePage());
                 }
             }
             else

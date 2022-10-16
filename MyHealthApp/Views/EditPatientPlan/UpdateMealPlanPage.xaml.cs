@@ -42,19 +42,25 @@ namespace MyHealthApp.Views.EditPatientPlan
 
         private async void SaveChanges_Clicked(object sender, EventArgs e)
         {
-            _patientId = _mealPlan.PatientId;
-            _mealPlan.Description = PlanDescriptionUpdate.Text;
-
-            var mealPlanResponse = await MealPlanService.Instance.PutMealPlanByPatientId(_patientId, _mealPlan);
-
-            if (mealPlanResponse != null)
+            if (PlanDescriptionUpdate.Text == null)
             {
-                //ACTUALIZAR LISTA.....de mealPlans
-                //PatientDetailsPage.MealPlansViewModel.Update(_dailyGoal);
-                Navigation.ShowPopup(new SavedPlanChangesPage());
-                await Navigation.PopAsync();
+                PlanDescriptionUpdate.Text = "El campo esta vacio";                
             }
+            else
+            {
+                _patientId = _mealPlan.PatientId;
+                _mealPlan.Description = PlanDescriptionUpdate.Text;
 
+                var mealPlanResponse = await MealPlanService.Instance.PutMealPlanByPatientId(_patientId, _mealPlan);
+
+                if (mealPlanResponse != null)
+                {
+                    //ACTUALIZAR LISTA.....de mealPlans
+                    //PatientDetailsPage.MealPlansViewModel.Update(_dailyGoal);
+                    Navigation.ShowPopup(new SavedPlanChangesPage());
+                    await Navigation.PopAsync();
+                }
+            }
         }
 
         private void CountTextUpdate(object sender, TextChangedEventArgs e)

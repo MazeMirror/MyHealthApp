@@ -103,5 +103,25 @@ namespace MyHealthApp.Services
             }
             
         }
+
+        public async Task<List<MealPlan>> GetAllMealPlans()
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/mealPlan");
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+                var mealPlans = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<List<MealPlan>>(response.Content.ReadAsStringAsync().Result)
+                : new List<MealPlan>();
+
+                return mealPlans;
+            }
+            catch (Exception)
+            {
+                return new List<MealPlan>();
+            }
+
+        }
     }
 }

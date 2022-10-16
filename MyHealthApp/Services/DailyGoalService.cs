@@ -215,5 +215,46 @@ namespace MyHealthApp.Services
                 return new List<DailyGoal>();
             }
         }
+
+        public async Task<List<DailyGoal>> GetAllDailyGoals()
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/dailyGoal");
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+                var dailyGoals = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<List<DailyGoal>>(response.Content.ReadAsStringAsync().Result)
+                : new List<DailyGoal>();
+
+                return dailyGoals;
+            }
+            catch (Exception)
+            {
+                return new List<DailyGoal>();
+            }
+
+        }
+
+        public async Task<List<DailyGoal>> GetDailyGoalsByPatientId(long patientId)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/dailyGoals");
+
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+                var dailyGoals = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<List<DailyGoal>>(response.Content.ReadAsStringAsync().Result)
+                : new List<DailyGoal>();
+
+                return dailyGoals;
+            }
+            catch (HttpRequestException)
+            {
+                return new List<DailyGoal>();
+            }
+
+        }
     }
 }

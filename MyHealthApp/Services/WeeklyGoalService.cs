@@ -169,5 +169,46 @@ namespace MyHealthApp.Services
             }
             
         }
+
+        public async Task<List<WeeklyGoal>> GetAllWeeklyGoals()
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/weeklyGoal");
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+                var weeklyGoals = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<List<WeeklyGoal>>(response.Content.ReadAsStringAsync().Result)
+                : new List<WeeklyGoal>();
+
+                return weeklyGoals;
+            }
+            catch (Exception)
+            {
+                return new List<WeeklyGoal>();
+            }
+
+        }
+
+        public async Task<List<WeeklyGoal>> GetAllWeeklyGoalsByPatientId(long patientId)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/weeklyGoals");
+
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+                var weeklyGoals = response.StatusCode == HttpStatusCode.OK
+                ? JsonConvert.DeserializeObject<List<WeeklyGoal>>(response.Content.ReadAsStringAsync().Result)
+                : new List<WeeklyGoal>();
+
+                return weeklyGoals;
+            }
+            catch (HttpRequestException)
+            {
+                return new List<WeeklyGoal>();
+            }
+
+        }
     }
 }

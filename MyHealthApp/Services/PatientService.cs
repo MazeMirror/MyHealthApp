@@ -67,6 +67,8 @@ namespace MyHealthApp.Services
             
         }
 
+
+
         public async Task<IList<Patient>> GetAllPatients()
         {
             _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient");
@@ -109,6 +111,45 @@ namespace MyHealthApp.Services
                 return null;
             }
             
+        }
+
+        public async Task<HttpStatusCode> DeletePatient(long patientId)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId}");
+
+            try
+            {
+                var response = await _client.DeleteAsync(_requestUri);
+
+                return response.StatusCode;
+            }
+            catch (HttpRequestException)
+            {
+                return HttpStatusCode.BadRequest;
+            }
+
+        }
+
+        public async Task<IList<Specialist>> GetSpecialistByPatientId(long patientId)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/patient/{patientId.ToString()}/specialists");
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+
+                var specialists = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<List<Specialist>>(response.Content.ReadAsStringAsync().Result)
+                    : new List<Specialist>();
+
+                return specialists;
+            }
+            catch (HttpRequestException)
+            {
+
+                return new List<Specialist>();
+            }
+
         }
     }
 }
