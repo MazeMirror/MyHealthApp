@@ -25,5 +25,7 @@ namespace MyHealthApp.Views
             await App.SqLiteDb.DeleteAllProfileAsync();
             await App.SqLiteDb.DeleteAllUsersAsync();
         }
+
+        
     }
 }

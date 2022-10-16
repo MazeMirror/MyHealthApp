@@ -5,6 +5,8 @@ using MyHealthApp.Models.SqlLite;
 using MyHealthApp.Services;
 using MyHealthApp.Services.Activities;
 using MyHealthApp.ViewModels;
+using MyHealthApp.Views.ProfileFlow;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -81,6 +83,7 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
 	        {
 		        DeleteSpecialistAccount();
 	        }
+	        
         }
 
         private async void LabelCancel_OnTapped(object sender, EventArgs e)

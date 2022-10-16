@@ -69,65 +69,58 @@
                 </StackLayout>
             </Frame>
             <!--Tercera Fila-->
-            <StackLayout Grid.Row="2"
-                         BackgroundColor="#E5703A"
-                         Orientation="Horizontal"
-                         >
-                <Label 
-                    Text="COMENCEMOS"
-                    FontFamily="FjallaOne"
-                    TextColor="White"
-                    CharacterSpacing="3.2"
-                    FontSize="14"
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"
-                    />
-                <!--<Frame
-                    Padding="0"
-                    BackgroundColor="#000000"
-                    Opacity="0.3"
-                    WidthRequest="60"
-                    >
-                    <Label 
-                        Text=">"
-                        TextColor="White"
-                        HorizontalOptions="CenterAndExpand"
-                        VerticalOptions="CenterAndExpand"
-                        FontSize="30"
-                        FontFamily="Archivo-Bold"
-                        />
-                    
-                </Frame>-->
-                <Button 
-                    Text="&#xf054;"
-                    TextColor="White"
-                    FontSize="18"
-                    FontFamily="{StaticResource FontAwesomeSolid}"
-                    VerticalOptions="FillAndExpand"
-                    CornerRadius="0"
-                    Clicked="StartButton_OnClicked"
-                    >
-                    
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#000000" />
-                                    <Setter Property="Opacity" Value="0.3"></Setter>
-                                </VisualState.Setters>
-                            </VisualState>
-                            <VisualState x:Name="Pressed">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#000000" />
-                                    <Setter Property="Opacity" Value="0.7"></Setter>
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
-                    
-                </Button>
+            
+            <Frame Grid.Row="2"
+                   HasShadow="False"
+                   Padding="0">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                          Tapped="StartButton_OnClicked"/>
+                </Frame.GestureRecognizers>
                 
-            </StackLayout>
+                <StackLayout BackgroundColor="#E5703A"
+                             Orientation="Horizontal">
+                    <Label 
+                        Text="COMENCEMOS"
+                        FontFamily="FjallaOne"
+                        TextColor="White"
+                        CharacterSpacing="3.2"
+                        FontSize="14"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="CenterAndExpand"
+                    />
+                    <Button 
+                        Text="&#xf054;"
+                        TextColor="White"
+                        FontSize="18"
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        VerticalOptions="FillAndExpand"
+                        CornerRadius="0"
+                        Clicked="StartButton_OnClicked"
+                    >
+                    
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#000000" />
+                                        <Setter Property="Opacity" Value="0.3"></Setter>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#000000" />
+                                        <Setter Property="Opacity" Value="0.7"></Setter>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    
+                    </Button>
+                
+                </StackLayout>
+            </Frame>
+            
             
         </Grid>
         

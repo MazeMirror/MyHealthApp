@@ -112,34 +112,40 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
                 try
                 {
                     var height = Double.Parse(EntryHeight.Text);
+                    if (height == 0.0)
+                    {
+                        await DisplayAlert("Mensaje", "La altura no puede ser 0 cm", "Ok");
+                        return;
+                    }
+                    
                     editPatient.Height = height;
                 }
                 catch (FormatException e1)
                 {
-                    editPatient.Height = 0.0;
+                    await DisplayAlert("Mensaje", "La altura debe ser una unidad válida, corríjalo para continuar", "Ok");
+                    return;
                 }
             }
-            else
-            {
-                editPatient.Height = 0.0;
-            }
+           
             
             if (!string.IsNullOrWhiteSpace(EntryWeight.Text))
             {
                 try
                 {
                     var weight = Double.Parse(EntryWeight.Text);
+                    if (weight == 0.0)
+                    {
+                        await DisplayAlert("Mensaje", "El peso no puede ser 0 kg", "Ok");
+                        return;
+                    }
                     editPatient.Weight = weight;
                 }
                 catch (FormatException e2)
                 {
-                    editPatient.Weight = 0.0;
+                    await DisplayAlert("Mensaje", "El peso debe ser una unidad válida, corríjalo para continuar", "Ok");
+                    return;
                 }
                 
-            }
-            else
-            {
-                editPatient.Weight = 0.0;
             }
             
             if (!string.IsNullOrWhiteSpace(EntryPhone.Text))
