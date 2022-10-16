@@ -21,7 +21,7 @@ namespace MyHealthApp.Views
 
         public PatientsListPage()
         {
-            _viewModel = SpecialistHomePage.ViewModel;
+            _viewModel = new PatientsProfilesViewModel();
             InitializeComponent();
             GetListOfMyPatientsProfiles();
             
@@ -38,7 +38,8 @@ namespace MyHealthApp.Views
             foreach (var item in localPatients)
             {
                 var patientProfile = await ProfileService.Instance.GetProfileById(item.ProfileId);
-                _viewModel.Profiles.Add(patientProfile);
+                _viewModel.AddProfileToList(patientProfile);
+                SpecialistHomePage.ViewModel.AddProfileToList(patientProfile);
                 //Profiles.Add(patientProfile);
             }
 
@@ -72,6 +73,7 @@ namespace MyHealthApp.Views
 
         private async void FramePatient_OnTapped(object sender, EventArgs e)
         {
+            
             var param = ((TappedEventArgs)e).Parameter;
             if (param != null)
             {
@@ -98,6 +100,21 @@ namespace MyHealthApp.Views
         private void SearchBar_OnSearchButtonPressed(object sender, EventArgs e)
         {
             
+        }
+
+        private async void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            //xdd Osea retornamos los perfiles de pacientes correspodientes a un especialista asignado con un criterio para el nombre
+            var searchedPatients = await ProfileService.Instance.GetPatientProfilesOfSpecialistByNameAndRoleId(SearchBar.Text,"1",Specialist.Id.ToString());
+            
+            _viewModel.ClearProfileList();
+
+            foreach (var item in searchedPatients)
+            {
+                _viewModel.AddProfileToList(item);
+            }
+            
+            //List<> tempList 
         }
     }
 }

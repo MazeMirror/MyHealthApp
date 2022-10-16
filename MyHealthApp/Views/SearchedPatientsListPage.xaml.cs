@@ -96,6 +96,7 @@ namespace MyHealthApp.Views
                     }
                     
                     PatientsListPage._viewModel.AddProfileToList(profile);
+                    SpecialistHomePage.ViewModel.AddProfileToList(profile);
                     await DisplayAlert("Añadido exitosamente", "El paciente aparecerá ahora en tu lista", "Ok");
                     item.IsEnabled = true;
                     await Navigation.PopAsync();
@@ -111,6 +112,7 @@ namespace MyHealthApp.Views
         {
             string roleId = "1"; //Osea de rol paciente 
             var searchedPatients = await ProfileService.Instance.GetProfileByNameAndRoleId(SearchBar.Text,roleId);
+            
             _viewModel.ClearProfileList();
             
             foreach (var item in searchedPatients)

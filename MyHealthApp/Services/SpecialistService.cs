@@ -114,6 +114,23 @@ namespace MyHealthApp.Services
             }
             
         }
+        
+        public async Task<bool> UnassignSpecialistWitPatient(long specialistId, long patientId)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/specialist/{specialistId.ToString()}/patients/{patientId.ToString()}");
+
+            try
+            {
+                var response = await _client.DeleteAsync(_requestUri);
+
+                return response.StatusCode == HttpStatusCode.OK ? true : false;
+            }
+            catch (HttpRequestException)
+            {
+                return false;
+            }
+            
+        }
 
         public async Task<Specialist> PutSpecialistBySpecialistAndId(Specialist specialist, long specialistId)
         {
