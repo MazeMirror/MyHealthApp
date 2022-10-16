@@ -60,7 +60,12 @@ namespace MyHealthApp.Views.EditPatientGoal
 
         private async void SaveChanges_Clicked(object sender, EventArgs e)
         {
-            
+            if (EntryGoalUpdate.Text == null)
+            {
+                await DisplayAlert("Advertencia", "El campo esta vacio", "Ok");
+                return;
+            }
+
             double quantityGoal = 0.0;
 
             _patientId = _dailyGoal.PatientId;

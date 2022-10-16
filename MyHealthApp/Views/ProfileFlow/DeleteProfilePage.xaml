@@ -6,7 +6,7 @@
              Size="350,350"
              Color="Transparent"
              NavigationPage.HasNavigationBar="False"
-             x:Class="MyHealthApp.Views.EditProfileAsAdmin.DeleteEditProfileAsAdminPage">
+             x:Class="MyHealthApp.Views.ProfileFlow.DeleteProfilePage">
     <effects:Popup.Content>
         <StackLayout BackgroundColor="Transparent">
 
@@ -16,7 +16,7 @@
                    HasShadow="False"
                    Padding="20">
                 <StackLayout>
-                    <Label Text="¿Está seguro que desea eliminar al usuario?"
+                    <Label Text="¿Está seguro que desea eliminar el usuario?"
                            TextTransform="Uppercase"
                            FontSize="18"
                            FontFamily="ArchivoSemiBold"
@@ -24,19 +24,18 @@
                            TextColor="Black" />
 
                     <StackLayout Padding="0,60">
-                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.objectiveDone.png}"
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.user.png}"
                                Scale="4.00"
                                HorizontalOptions="CenterAndExpand"
                         />
                     </StackLayout>
 
-                    <Label 
-                           Text="Si lo elimina, se no podrá recuperar"
+                    <Label Text="Si lo elimina, no podrá recuperarse"
                            FontSize="14"
                            HorizontalTextAlignment="Center"
                            TextColor="Black" />
 
-                    <Button x:Name="DeleteUser"
+                    <Button x:Name="DeleteAccount"
                             Text="ELIMINAR"
                             FontFamily="ArchivoSemiBold"
                             Margin="0,10,0,0"
@@ -45,7 +44,7 @@
                             CornerRadius="5"
                             TextTransform="None"
                             TextColor="White" 
-                            Clicked="DeleteUser_Clicked"
+                            Clicked="DeleteAccount_Clicked"
                             />
 
                     <Label Text="Cancelar"

@@ -35,7 +35,7 @@ namespace MyHealthApp.Views
 
         private async void LabelBack_OnTapped(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            Application.Current.MainPage = new NavigationPage(new WelcomePage());
         }
 
         private async void GetData()
@@ -79,7 +79,6 @@ namespace MyHealthApp.Views
                 {
                     //BUG: El progress ring no renderiza del data template con data asíncrona
                     //Solucion parcial es esta
-                    //var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
                     var profileUser = await ProfileService.Instance.GetProfileById(profile.Id);
 
                     await Navigation.PushAsync(new EditProfileAsAdminPage(profileUser));

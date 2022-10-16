@@ -1,102 +1,64 @@
 ﻿using MyHealthApp.Models;
 using MyHealthApp.Services;
+using MyHealthApp.Views.EditPatientGoal.SuccessfulMessage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using MyHealthApp.Views.EditPatientGoal.SuccessfulMessage;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using MyHealthApp.Views.AddPatientPlan;
-using ProgressRingControl.Forms.Plugin;
 
-namespace MyHealthApp.Views.EditProfileAsAdmin
+namespace MyHealthApp.Views.ProfileFlow
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DeleteEditProfileAsAdminPage : Popup
+    public partial class DeleteProfilePage : Popup
     {
-        private Profile _profile;
-
-        private Patient patient;
-        private Specialist specialist;
-
+        public static Profile LocalProfile;
+        public Specialist specialist;
+        public Patient patient;
+        public User user;
+        private List<Specialist> listSpecialists;
         private Specialist specialistId;
 
         private List<Patient> listPatients;
-        private List<Specialist> listSpecialists;
         private List<DailyGoal> listDailyGoals;
         private List<WeeklyGoal> listWeeklyGoals;
         private List<MealPlan> listMealPLans;
 
 
-        public DeleteEditProfileAsAdminPage(Profile profile)
+        public DeleteProfilePage(Profile profile)
         {
             InitializeComponent();
-            _profile = profile;
+            LocalProfile = profile;
             patient = new Patient();
-            
+
             listPatients = new List<Patient>();
             listDailyGoals = new List<DailyGoal>();
             listWeeklyGoals = new List<WeeklyGoal>();
             listMealPLans = new List<MealPlan>();
         }
 
-        /*private async void GetPatientIdData()
+        private async void LabelBack_OnTapped(object sender, EventArgs e)
         {
-            //listPatients = 
+            Dismiss(1);
+        }
 
-            Patient pa = await PatientService.Instance.GetPatientByProfileId(_profile.Id);
-            //prueba1.Text = listPatients.Last().Id.ToString();
-            //prueba2.Text = listPatients.Last().ProfileId.ToString();
-
-            foreach (Patient patient in listPatients)
-            {
-                if (patient.ProfileId.ToString() == _profile.Id.ToString())
-                {
-                    prueba1.Text = _patientId.Id.ToString();
-                    prueba2.Text = patient.Id.ToString();
-                    _patientId = patient;
-                    //prueba3.Text = _patientId.Id.ToString();
-                    //prueba4.Text = patient.Id.ToString();
-                }
-            }
-
-        }*/
-
-        private async void DeleteUser_Clicked(object sender, EventArgs e)
+        private async void DeleteAccount_Clicked(object sender, EventArgs e)
         {
-
-            if(_profile.RoleId == 1)
+            if (LocalProfile.RoleId == 1)
             {
-                patient = await PatientService.Instance.GetPatientByProfileId(_profile.Id);
+                patient = await PatientService.Instance.GetPatientByProfileId(LocalProfile.Id);
                 listSpecialists = (List<Specialist>)await PatientService.Instance.GetSpecialistByPatientId(patient.Id);
                 specialistId = listSpecialists.Last();
 
                 DeleteUserAsAdmin(patient, specialistId);
             }
 
-            if(_profile.RoleId == 2)
-            {
-                specialist = await SpecialistService.Instance.GetSpecialistByProfileId(_profile.Id);
-                var listPatientsToDelete = await SpecialistService.Instance.GetPatientsBySpecialistId(specialist.Id);
-
-                //prueba1.Text = listSpecialist.Last().Id.ToString();
-                //prueba2.Text = _profile.RoleId.ToString();
-
-                foreach(Patient patientToDelete in listPatientsToDelete)
-                {
-                    DeleteUserAsAdmin(patientToDelete, specialist);
-                }
-
-            }
-            Application.Current.MainPage = new NavigationPage(new AdminHomePage());
-
-            //await Navigation.PushAsync(new AdminHomePage());
-
+            Dismiss(1);
+            Application.Current.MainPage = new NavigationPage(new WelcomePage());
         }
 
         private async void DeleteUserAsAdmin(Patient patientToDelete, Specialist specialist)
@@ -139,18 +101,11 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
 
             //tercero eliminar profile
 
-            await ProfileService.Instance.DeleteProfileById(_profile.Id);
+            await ProfileService.Instance.DeleteProfileById(LocalProfile.Id);
 
             //cuarto eliminar user
 
-            await UserService.Instance.DeleteUserById(_profile.UserId);
-        }
-        
-        private async void LabelBack_OnTapped(object sender, EventArgs e)
-        {
-            Application.Current.MainPage = new NavigationPage(new LoginPage());
-
-            //await Navigation.PushAsync(new LoginPage());
+            await UserService.Instance.DeleteUserById(LocalProfile.UserId);
         }
     }
 }

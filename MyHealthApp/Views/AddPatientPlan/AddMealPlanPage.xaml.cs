@@ -32,6 +32,12 @@ namespace MyHealthApp.Views.AddPatientPlan
 
         private async void AddPlanButton_OnClicked(object sender, EventArgs e)
         {
+            if(PlanName.Text == null || PlanDescription.Text == null)
+            {
+                await DisplayAlert("Advertencia", "Los campos estan vacios", "Ok");
+                return;
+            }
+
             var mealPlan = new MealPlan()
             {
                 Name = PlanName.Text.ToString(),

@@ -205,6 +205,21 @@
                         </Label.GestureRecognizers>
                     </Label>
 
+                    <Label
+                        x:Name="DeleteAccount"
+                        Text="Eliminar cuenta"
+                        Margin="0,20,0,0"
+                        HorizontalOptions="Center"
+                        TextDecorations="Underline"
+                        TextColor="#FF4848"
+                        FontFamily="Archivo-SemiBold">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="DeleteAccount_OnTapped"
+                                NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
 
                 </StackLayout>
             </ScrollView>

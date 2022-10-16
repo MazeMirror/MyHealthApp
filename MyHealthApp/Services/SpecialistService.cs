@@ -137,5 +137,22 @@ namespace MyHealthApp.Services
             }
             
         }
+
+        public async Task<HttpStatusCode> DeletePatientBySpecialistId(long specialistId ,long patientId)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/specialist/{specialistId}/patients/{patientId}");
+
+            try
+            {
+                var response = await _client.DeleteAsync(_requestUri);
+
+                return response.StatusCode;
+            }
+            catch (HttpRequestException)
+            {
+                return HttpStatusCode.BadRequest;
+            }
+
+        }
     }
 }

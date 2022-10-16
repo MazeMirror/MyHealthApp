@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MyHealthApp.Models;
 using MyHealthApp.Models.SqlLite;
 using MyHealthApp.Services;
 using MyHealthApp.ViewModels;
+using MyHealthApp.Views.EditPatientGoal;
 using MyHealthApp.Views.Register;
 using WindesHeartSDK;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,6 +22,10 @@ namespace MyHealthApp.Views.ProfileFlow
         public Specialist specialist;
         public Patient patient;
         public User user;
+        private List<Specialist> listSpecialists;
+        private Specialist specialistId;
+
+
         public ProfilePage()
         {
             InitializeComponent();
@@ -132,6 +139,14 @@ namespace MyHealthApp.Views.ProfileFlow
             Application.Current.MainPage = new NavigationPage(new WelcomePage());
             //await Navigation.PopToRootAsync();
         }
-        
+
+        private async void DeleteAccount_OnTapped(object sender, EventArgs e)
+        {
+            var result = await Navigation.ShowPopupAsync(new DeleteProfilePage(LocalProfile));
+            if (result != null && (int)result == 2)
+            {
+                await Navigation.PopAsync();
+            }
+        }
     }
 }
