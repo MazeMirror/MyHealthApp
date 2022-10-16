@@ -20,6 +20,15 @@ namespace MyHealthApp.Views.Register
         {
             InitializeComponent();
             LabelTitle.Text = $"Hola, {profile.Name}\n bienvenido a";
+            if (profile.RoleId == 1)
+            {
+                LabelWelcomeMessage.Text =
+                    "Su cuenta ha sido creada con éxito. \nEs hora de alcanzar todas esas \nmetas y mejorar el rendimiento físico";
+            }
+            else
+            {
+                LabelWelcomeMessage.Text = "Su cuenta ha sido creada con éxito. \nEs hora de ayudar a las personas \na que mejoren su rendimiento físico";
+            }
             
             _user = user;
             _profile = profile;

@@ -40,8 +40,8 @@
                         FontSize="18" />
 
                     <Label
+                        x:Name="LabelWelcomeMessage"
                         Padding="0,30,0,0"
-                        Text="Su cuenta ha sido creada con éxito. &#10;Es hora de alcanzar todas esas &#10;metas y mejorar el rendimiento físico"
                         FontFamily="ArchivoRegular"
                         TextColor="White"
                         FontSize="18"
