@@ -46,7 +46,7 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
             var profileAux = _profile.CreateDeepCopy();
 
             profileAux.Name = EntryName.Text;
-            profileAux.LastName = EntryName.Text;
+            profileAux.LastName = EntryLastName.Text;
             
             var updatedProfile = await ProfileService.Instance.PutProfileByProfileAndId(profileAux,_profile.Id);
             if (updatedProfile == null)

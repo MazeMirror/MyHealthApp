@@ -119,5 +119,22 @@ namespace MyHealthApp.Services.Activities
                 return null;
             }
         }
+
+        public async Task<HttpStatusCode> DeleteStepActivityByPatientId(long patientId, StepActivity stepRd)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/step/{stepRd.Id.ToString()}");
+           
+            try
+            {
+                var response = await _client.DeleteAsync(_requestUri);
+
+                return response.StatusCode == HttpStatusCode.OK ? HttpStatusCode.OK
+                    : HttpStatusCode.BadRequest;;
+            }
+            catch (HttpRequestException)
+            {
+                return HttpStatusCode.BadRequest;
+            }
+        }
     }
 }
