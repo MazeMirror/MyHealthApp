@@ -57,8 +57,9 @@ namespace MyHealthApp.Views
 
         private async void SearchBar_OnSearchButtonPressed(object sender, EventArgs e)
         {
-            string roleId = "1"; //Osea de rol paciente 
-            var searchedPatients = await ProfileService.Instance.GetProfileByNameAndRoleId(SearchBar.Text, roleId);
+           
+            var searchedPatients = await ProfileService.Instance.GetProfileByNameAndRoleId(SearchBar.Text, "1");
+            var searchedSpecialists = await ProfileService.Instance.GetProfileByNameAndRoleId(SearchBar.Text, "2");
 
             _viewModel.ClearProfileList();
 
@@ -66,15 +67,26 @@ namespace MyHealthApp.Views
             {
                 _viewModel.AddProfileToList(item);
             }
+            
+            foreach (var item in searchedSpecialists)
+            {
+                _viewModel.AddProfileToList(item);
+            }
         }
 
         private async void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            string roleId = "1"; //Osea de rol paciente 
-            var searchedPatients = await ProfileService.Instance.GetProfileByNameAndRoleId(SearchBar.Text, roleId);
+            var searchedPatients = await ProfileService.Instance.GetProfileByNameAndRoleId(SearchBar.Text, "1");
+            var searchedSpecialists = await ProfileService.Instance.GetProfileByNameAndRoleId(SearchBar.Text, "2");
+
             _viewModel.ClearProfileList();
 
             foreach (var item in searchedPatients)
+            {
+                _viewModel.AddProfileToList(item);
+            }
+            
+            foreach (var item in searchedSpecialists)
             {
                 _viewModel.AddProfileToList(item);
             }
