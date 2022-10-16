@@ -159,11 +159,11 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
 
 		        if (resp3 == HttpStatusCode.OK)
 		        {
-			        //Eliminar de la lista si amerita
-			        //...
-			        await Navigation.PopAsync();
-		        }
-		        else
+                    //Eliminar de la lista si amerita
+                    //...
+                    await Navigation.PushAsync(new AdminHomePage());
+                }
+                else
 		        {
 			        await DisplayAlert("Importante", "No se pudo eliminar el paciente y su usuario", "Ok");
 		        }
@@ -203,7 +203,7 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
 				{
 					//Eliminar de la lista si amerita
 					//...
-					await Navigation.PopAsync();
+					await Navigation.PushAsync(new AdminHomePage());
 				}
 				else
 				{
