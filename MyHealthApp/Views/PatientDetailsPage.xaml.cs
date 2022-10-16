@@ -451,6 +451,7 @@ namespace MyHealthApp.Views
             if (resp)
             {
                 PatientsListPage._viewModel.DeletePatientProfileOnList(_profile);
+                SpecialistHomePage.ViewModel.DeletePatientProfileOnList(_profile);
                 await Navigation.PopAsync();
             }
             else

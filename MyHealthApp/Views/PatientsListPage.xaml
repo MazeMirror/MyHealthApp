@@ -68,6 +68,7 @@
                                        HorizontalOptions="FillAndExpand"
                                        TextColor="Black"
                                        MaxLength="20"
+                                       TextChanged="SearchBar_OnTextChanged"
                                        SearchButtonPressed="SearchBar_OnSearchButtonPressed" />
                         </StackLayout>
 
@@ -133,7 +134,7 @@
                             </BindableLayout.ItemTemplate>
                             <BindableLayout.EmptyView>
                                 <StackLayout HeightRequest="250">
-                                    <Label Text="Usted todavía no cuenta con pacientes.&#10;Añada nuevos a la lista"
+                                    <Label Text="La búsqueda actual no arrojó resultados.&#10;Intentelo de nuevo."
                                            FontFamily="ArchivoRegular"
                                            HorizontalTextAlignment="Center"
                                            FontSize="14"

@@ -157,5 +157,24 @@ namespace MyHealthApp.Services
             }
             
         }
+
+        public async Task<IList<Profile>> GetPatientProfilesOfSpecialistByNameAndRoleId(string searchBarText, string roleId, string specialistId)
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/profile?name={searchBarText}&roleId={roleId}&specialistId={specialistId}");
+
+            try {
+                var response = await _client.GetAsync(_requestUri);
+
+                var myProfile = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<List<Profile>>(response.Content.ReadAsStringAsync().Result)
+                    : new List<Profile>();
+
+                return myProfile;
+            }
+            catch (HttpRequestException)
+            {
+                return new List<Profile>();
+            }
+        }
     }
 }
