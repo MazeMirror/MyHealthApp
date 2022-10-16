@@ -439,5 +439,29 @@ namespace MyHealthApp.Views
                 }
             }
         }
+
+        private async void ButtonDeletePatient_OnClicked(object sender, EventArgs e)
+        {
+            ButtonDeletePatient.IsEnabled = false;
+            
+            var specialistProfile = await App.SqLiteDb.GetProfileAsync();
+            var specialist = await SpecialistService.Instance.GetSpecialistByProfileId(specialistProfile.Id);
+
+            var resp = await SpecialistService.Instance.UnassignSpecialistWitPatient(specialist.Id, _patient.Id);
+            if (resp)
+            {
+                PatientsListPage._viewModel.DeletePatientProfileOnList(_profile);
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                ButtonDeletePatient.IsEnabled = true;
+                await DisplayAlert("Importante", "No se pudo desasignar de este paciente, intentelo de nuevo", "Ok");
+            }
+            
+            
+            
+            
+        }
     }
 }

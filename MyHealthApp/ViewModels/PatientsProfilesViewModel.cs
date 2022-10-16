@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using MyHealthApp.Models;
 
@@ -45,6 +46,18 @@ namespace MyHealthApp.ViewModels
         {
             _profiles.Clear();
             OnPropertyChanged();
+        }
+        
+        public void DeletePatientProfileOnList(Profile pro)
+        {
+            var newList = _profiles.Where(dg => dg.Id != pro.Id).ToList();
+            
+            ClearProfileList();
+            foreach (var dg in newList)
+            {
+                _profiles.Add(dg);
+                OnPropertyChanged();
+            }
         }
 
         public PatientsProfilesViewModel()
