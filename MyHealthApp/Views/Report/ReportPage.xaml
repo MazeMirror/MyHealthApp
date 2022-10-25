@@ -5,6 +5,8 @@
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
              xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
              xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms" 
+             xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.Report.ReportPage">
     <ContentPage.Resources>
@@ -365,6 +367,129 @@
                             </StackLayout>
                         </Frame>
 
+                        <StackLayout HorizontalOptions="CenterAndExpand"
+                                     Orientation="Horizontal"
+                                     Spacing="0">
+
+                            <Button x:Name="ButtonStep"
+                                    Text="Pasos"
+                                    FontSize="16"
+                                    TextTransform="None"
+                                    FontFamily="ArchivoSemiBold"
+                                    CornerRadius="5"
+                                    WidthRequest="100"
+                                    Padding="0"
+                                    BackgroundColor="White"
+                                    HeightRequest="40"
+                                    Clicked="ButtonStep_Clicked"/>
+
+                            <Button x:Name="ButtonDistance"
+                                    Text="Distancia"
+                                    FontSize="16"
+                                    TextTransform="None"
+                                    FontFamily="ArchivoSemiBold"
+                                    CornerRadius="5"
+                                    WidthRequest="100"
+                                    Padding="0"
+                                    BackgroundColor="White"
+                                    HeightRequest="40"
+                                    Clicked="ButtonDistance_Clicked"/>
+
+                            <Button x:Name="ButtonWalks"
+                                    Text="K.Calorias"
+                                    FontSize="16"
+                                    TextTransform="None"
+                                    FontFamily="ArchivoSemiBold"
+                                    CornerRadius="5"
+                                    WidthRequest="100"
+                                    Padding="0"
+                                    BackgroundColor="White"
+                                    HeightRequest="40"
+                                    Clicked="ButtonWalks_Clicked"/>
+
+                        </StackLayout>
+
+                        <!--DashBoard bar chart-->
+
+                        <Frame HasShadow="False"
+                               CornerRadius="10"
+                               BackgroundColor="#F0F3F4">
+
+                            
+                            <StackLayout>
+
+                                <!--Day Steps-->
+                                <StackLayout x:Name="DailyStepBar"
+                                             IsVisible="True">
+
+                                    <forms:ChartView x:Name="DailyStepBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+
+                                <!--Day Distance-->
+                                <StackLayout x:Name="DailyDistanceBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="DailyDistanceBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+                                
+                                <!--Day Kilocalories-->
+                                <StackLayout x:Name="DailyKilocalorieBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="DailyKilocalorieBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+                                
+                                <!--Week Steps-->
+                                <StackLayout x:Name="WeeklyStepBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="WeeklyStepBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+                                
+                                <!--Week Distance-->
+                                <StackLayout x:Name="WeeklyDistanceBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="WeeklyDistanceBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+
+                                <!--Week Kilocalories-->
+                                <StackLayout x:Name="WeeklyKilocalorieBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="WeeklyKilocalorieBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+                                
+                                <!--Month Steps-->
+                                <StackLayout x:Name="MonthlyStepBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="MonthlyStepBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+                                <!--Month Distance-->
+                                <StackLayout x:Name="MonthlyDistanceBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="MonthlyDistanceBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+                                <!--Month Walks-->
+                                <StackLayout x:Name="MonthlyKilocalorieBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="MonthlyKilocalorieBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </Frame>
                         <!--DailyGoals list-->
                         <Frame Margin="0,0,0,0"
                                x:Name="FrameDailyGoals"

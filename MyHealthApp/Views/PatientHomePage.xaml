@@ -383,6 +383,87 @@
                         </Frame.GestureRecognizers>
                     </Frame>
 
+                    <!--Week Resume-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+                        <StackLayout Spacing="14">
+                            <FlexLayout Padding="20,10,20,0"
+                                        Direction="Row"
+                                        JustifyContent="SpaceBetween"
+                                        AlignItems="Center">
+                                <Label Text="Tu resumen semanal"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                            </FlexLayout>
+
+                            <StackLayout x:Name="StackLayoutWeekResume"                                        
+                                         Padding="20,5,20,20" >
+                                <FlexLayout x:Name="LayoutData"
+                                            IsVisible="False"
+                                            Direction="Row"
+                                            AlignItems="Center"
+                                            Padding="20"
+                                            JustifyContent="SpaceBetween">
+                                    <StackLayout>
+                                        <Label x:Name="PasosTotales"
+                                               Text="pasos"
+                                               TextColor="#6EB3CD"
+                                               HorizontalTextAlignment="Center"
+                                               FontFamily="ArchivoSemiBold"
+                                               FontSize="18"/>
+                                        <Label Text="Media de pasos diarios"
+                                               TextColor="#6EB3CD"
+                                               FontFamily="ArchivoRegular"
+                                               FontSize="14"/>
+                                    </StackLayout>
+
+                                    <Label Text="|"
+                                           TextColor="#CECECE"
+                                           HorizontalTextAlignment="Center"
+                                           FontFamily="ArchivoSemiBold"
+                                           FontSize="30"/>
+
+                                    <StackLayout>
+                                        <Label x:Name="DistanciaTotal" 
+                                               Text="distancia"
+                                               TextColor="#6EB3CD"
+                                               HorizontalTextAlignment="Center"
+                                               FontFamily="ArchivoSemiBold"
+                                               FontSize="18"/>
+                                        <Label Text="Distancia Total"
+                                               TextColor="#6EB3CD"
+                                               FontFamily="ArchivoRegular"
+                                               FontSize="14"/>
+                                    </StackLayout>
+                                </FlexLayout>
+
+                                <Label x:Name="NoData"
+                                       HorizontalTextAlignment="Center"
+                                       Text=""
+                                       IsVisible="False"
+                                       TextColor="#6EB3CD"
+                                       FontFamily="ArchivoRegular"
+                                       FontSize="14"/>
+
+                                <Button x:Name="ReportResume"
+                                    Text="Ver reporte completo"
+                                    IsVisible="False"
+                                    Margin="0,20,0,0"
+                                    BackgroundColor="#FF9162"
+                                    HeightRequest="40"
+                                    CornerRadius="5"
+                                    TextTransform="None"
+                                    TextColor="White" 
+                                    Clicked="ReportResume_Clicked"/>
+
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+
                 </StackLayout>
             </ScrollView>
         </ContentView>

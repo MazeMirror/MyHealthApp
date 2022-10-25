@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -6,6 +7,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Acr.Collections;
+using Microcharts;
 using MyHealthApp.Helpers;
 using MyHealthApp.Models;
 using MyHealthApp.Models.Activities;
@@ -13,9 +16,11 @@ using MyHealthApp.Services;
 using MyHealthApp.Services.Activities;
 using MyHealthApp.Services.MiBand;
 using MyHealthApp.ViewModels;
+using MyHealthApp.Views.EditPatientGoal;
 using MyHealthApp.Views.Register;
 using MyHealthApp.Views.Report;
 using ProgressRingControl.Forms.Plugin;
+using SkiaSharp;
 using WindesHeartSDK;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Essentials;
@@ -81,6 +86,7 @@ namespace MyHealthApp.Views
             _patientId = long.Parse(Application.Current.Properties["PatientId"].ToString());
 
             GetDailyGoalsAndWeeklyGoals();
+            GetDataOfWeek();
         }
 
 
@@ -815,14 +821,14 @@ namespace MyHealthApp.Views
             //Es decir su id existe en la base de datos
             if (_firstDistanceDg != null)
             {
-                //_stepsViewModel.UpdateInfo();
-                Debug.Print("Recorridos..." + _stepsViewModel.TodayStepCount * 0.62 + " metros");
+                //_stepsViewModel.UpdateInfo(); // distancia anterior: 0.62, 0.66
+                Debug.Print("Recorridos..." + _stepsViewModel.TodayStepCount * 0.65 + " metros");
 
-                if (_firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount * 0.62)
+                if (_firstDistanceDg.Progress != (double)(_stepsViewModel.TodayStepCount * 0.65)
                     && _stepsViewModel.TodayStepCount != 0)
                 {
                     //Si mi contador supero mi objetivo
-                    if ((double)(_stepsViewModel.TodayStepCount * 0.62) >= _firstDistanceDg.Quantity)
+                    if ((double)(_stepsViewModel.TodayStepCount * 0.65) >= _firstDistanceDg.Quantity)
                     {
                         _firstDistanceDg.Progress = (double)_firstDistanceDg.Quantity;
                         _firstDistanceDg.CalculatePercentage();
@@ -864,7 +870,7 @@ namespace MyHealthApp.Views
                         await DailyGoalService.Instance.PutDailyGoalDistanceByPatientId(_patientId, _firstDistanceDg);*/
                         foreach (var item in _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 3 && e.Progress < e.Quantity).ToList())
                         {
-                            item.Progress = Math.Round(_stepsViewModel.TodayStepCount * 0.62, 2);
+                            item.Progress = Math.Round(_stepsViewModel.TodayStepCount * 0.65, 2);
                             item.CalculatePercentage();
                             await DailyGoalService.Instance.PutDailyGoalDistanceByPatientId(_patientId,
                                 item);
@@ -874,14 +880,14 @@ namespace MyHealthApp.Views
             }
             else
             {
-                Debug.Print("(Registrando para hoy) Contando..." + _stepsViewModel.TodayStepCount * 0.62 + " metros");
+                Debug.Print("(Registrando para hoy) Contando..." + _stepsViewModel.TodayStepCount * 0.65 + " metros");
 
             }
             
             //Siempre vamos a estar registrando la distancia
-            if (_distanceActivity.Quantity != (double)_stepsViewModel.TodayStepCount*0.62)
+            if (_distanceActivity.Quantity != (double)_stepsViewModel.TodayStepCount*0.65)
             {
-                _distanceActivity.Quantity = Math.Round(_stepsViewModel.TodayStepCount * 0.62, 2);
+                _distanceActivity.Quantity = Math.Round(_stepsViewModel.TodayStepCount * 0.65, 2);
                 _distanceActivity.CalculatePercentage();
 
                 await DistanceService.Instance.UpdateDistanceActivityByPatientIdAndId(_patientId,_distanceActivity.Id,_distanceActivity);
@@ -895,14 +901,14 @@ namespace MyHealthApp.Views
             //Es decir su id existe en la base de datos
             if (_firstKilocalorieDg != null)
             {
-                //_stepsViewModel.UpdateInfo();
-                Debug.Print("Kilocalorias quemadas..." + _stepsViewModel.TodayStepCount * 0.018);
+                //_stepsViewModel.UpdateInfo(); // caloria anterior: 0.018
+                Debug.Print("Kilocalorias quemadas..." + _stepsViewModel.TodayStepCount * 0.021);
 
-                if (_firstKilocalorieDg.Progress != (double)(_stepsViewModel.TodayStepCount * 0.018)
+                if (_firstKilocalorieDg.Progress != (double)(_stepsViewModel.TodayStepCount * 0.021)
                     && _stepsViewModel.TodayStepCount != 0)
                 {
                     //Si mi contador supero mi objetivo
-                    if ((double)(_stepsViewModel.TodayStepCount * 0.018) >= _firstKilocalorieDg.Quantity)
+                    if ((double)(_stepsViewModel.TodayStepCount * 0.021) >= _firstKilocalorieDg.Quantity)
                     {
                         _firstKilocalorieDg.Progress = (double)_firstKilocalorieDg.Quantity;
                         _firstKilocalorieDg.CalculatePercentage();
@@ -945,7 +951,7 @@ namespace MyHealthApp.Views
 
                         foreach (var item in _dailyGoalsViewModel.DailyGoals.Where(e => e.ActivityId == 2 && e.Progress < e.Quantity).ToList())
                         {
-                            item.Progress = Math.Round(_stepsViewModel.TodayStepCount * 0.018, 2);
+                            item.Progress = Math.Round(_stepsViewModel.TodayStepCount * 0.021, 2);
                             item.CalculatePercentage();
                             await DailyGoalService.Instance.PutDailyGoalKilocalorieByPatientId(_patientId,
                                 item);
@@ -959,14 +965,14 @@ namespace MyHealthApp.Views
             else
             {
                 
-                Debug.Print("(Registrando para hoy) Contando..." + _stepsViewModel.TodayStepCount * 0.018 + " Kilocalorias");
+                Debug.Print("(Registrando para hoy) Contando..." + _stepsViewModel.TodayStepCount * 0.021 + " Kilocalorias");
             }
             
             
             //Siempre vamos a estar registrando las kilocalorias
-            if (_kilocalorieActivity.Quantity != (double)(_stepsViewModel.TodayStepCount * 0.018))
+            if (_kilocalorieActivity.Quantity != (double)(_stepsViewModel.TodayStepCount * 0.021))
             {
-                _kilocalorieActivity.Quantity = Math.Round(_stepsViewModel.TodayStepCount * 0.018, 2);
+                _kilocalorieActivity.Quantity = Math.Round(_stepsViewModel.TodayStepCount * 0.021, 2);
                 _kilocalorieActivity.CalculatePercentage();
 
                 await KilocalorieService.Instance.UpdateKilocalorieActivityByPatientIdAndId(_patientId,_kilocalorieActivity.Id,_kilocalorieActivity);
@@ -1128,6 +1134,80 @@ namespace MyHealthApp.Views
                     await Navigation.PushAsync(new CurrentWeekReportPage(weeklyGoals));
                 }
             }
+        }
+
+        private async void GetDataOfWeek()
+        {
+            List<StepActivity> listStepRecordPerWeek = new List<StepActivity>();
+            List<DistanceActivity> listDistancesPerWeek = new List<DistanceActivity>();
+
+            StepActivity StepActivityDay = new StepActivity();
+            DistanceActivity DistanceActivityDay = new DistanceActivity();
+
+            double totalSteps = 0.0;
+            double totalDistance = 0.0;
+
+            DateTime datePrueba = DateTime.Now;
+            var firstDayOfWeek = new DateTime(datePrueba.Year, datePrueba.Month, datePrueba.Day);
+            
+            if (firstDayOfWeek.DayOfWeek == DayOfWeek.Monday) firstDayOfWeek = firstDayOfWeek.AddDays(0);
+            if (firstDayOfWeek.DayOfWeek == DayOfWeek.Tuesday) firstDayOfWeek = firstDayOfWeek.AddDays(-1);
+            if (firstDayOfWeek.DayOfWeek == DayOfWeek.Wednesday) firstDayOfWeek = firstDayOfWeek.AddDays(-2);
+            if (firstDayOfWeek.DayOfWeek == DayOfWeek.Thursday) firstDayOfWeek = firstDayOfWeek.AddDays(-3);
+            if (firstDayOfWeek.DayOfWeek == DayOfWeek.Friday) firstDayOfWeek = firstDayOfWeek.AddDays(-4);
+            if (firstDayOfWeek.DayOfWeek == DayOfWeek.Saturday) firstDayOfWeek = firstDayOfWeek.AddDays(-5);
+            if (firstDayOfWeek.DayOfWeek == DayOfWeek.Sunday) firstDayOfWeek = firstDayOfWeek.AddDays(-6);
+
+            for (int i = 0; i < 7; i++)
+            {               
+                await Device.InvokeOnMainThreadAsync(async () =>
+                {
+                    listStepRecordPerWeek = await
+                        StepService.Instance.GetStepActivitiesByPatientIdAndDates(_patientId, firstDayOfWeek.AddDays(i), firstDayOfWeek.AddDays(i));
+
+                    listDistancesPerWeek = await
+                        DistanceService.Instance.GetDistanceActivitiesByPatientIdAndDates(_patientId, firstDayOfWeek.AddDays(i), firstDayOfWeek.AddDays(i));
+                });
+                // StepsActivity
+                if (listStepRecordPerWeek.Count > 0)
+                {
+                    StepActivityDay = listStepRecordPerWeek.First();
+                    totalSteps += StepActivityDay.Quantity;
+
+                }
+
+                // DistanceActivity
+                if (listDistancesPerWeek.Count > 0)
+                {
+                    DistanceActivityDay = listDistancesPerWeek.First();
+                    totalDistance += DistanceActivityDay.Quantity;
+                }
+            }
+
+            if (totalSteps == 0 && totalDistance == 0)
+            {
+                LayoutData.IsVisible = false;
+                NoData.IsVisible = true;
+                NoData.Text = "No hay registro de actividad fisica";
+                ReportResume.IsVisible = false;
+            }
+            else
+            {
+                totalSteps = totalSteps / 7; // media
+                //Math.Round(totalSteps, 2); // 2 decimales
+                PasosTotales.Text = Convert.ToSingle(totalSteps).ToString();
+                DistanciaTotal.Text = totalDistance.ToString();
+                LayoutData.IsVisible = true;
+                NoData.IsVisible = false;
+                ReportResume.IsVisible = true;
+            }
+
+        }
+
+        private async void ReportResume_Clicked(object sender, EventArgs e)
+        {
+            //CurrentDayReportPage();
+            //await Navigation.PushAsync(new ReportPage());
         }
     }
 }
