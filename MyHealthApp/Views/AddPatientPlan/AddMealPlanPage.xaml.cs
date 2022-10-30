@@ -1,11 +1,12 @@
 ﻿using MyHealthApp.Models;
 using MyHealthApp.Services;
+using MyHealthApp.Views.SuccesfulMessage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -32,9 +33,15 @@ namespace MyHealthApp.Views.AddPatientPlan
 
         private async void AddPlanButton_OnClicked(object sender, EventArgs e)
         {
-            if(PlanName.Text == null || PlanDescription.Text == null)
+            if(PlanName.Text == null)
             {
-                await DisplayAlert("Advertencia", "Los campos estan vacios", "Ok");
+                await DisplayAlert("Advertencia", "El Nombre esta vacio", "Ok");
+                return;
+            }
+            
+            if(PlanDescription.Text == null || PlanDescription.Text == "")
+            {
+                await DisplayAlert("Advertencia", "La Descripcion esta vacia", "Ok");
                 return;
             }
 
@@ -54,6 +61,7 @@ namespace MyHealthApp.Views.AddPatientPlan
 
             PatientDetailsPage.MealPlansViewModel.AddMealPlanToList(mealPlanResponse);
             await Navigation.PopAsync();
+            Navigation.ShowPopup(new SMPage(1));
         }
 
         private void CountText(object sender, TextChangedEventArgs e)

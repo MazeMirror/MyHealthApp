@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -6,12 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace MyHealthApp.Views.EditPatientGoal.SuccessfulMessage
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class DeletedGoalPage : Popup
+    public partial class SavedGoalPage : Popup
     {
-        public DeletedGoalPage()
+        public SavedGoalPage()
         {
             InitializeComponent();
         }
-        
     }
 }

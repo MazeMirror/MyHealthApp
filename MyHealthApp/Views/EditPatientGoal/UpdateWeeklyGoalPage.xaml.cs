@@ -10,6 +10,7 @@ using MyHealthApp.Views.EditPatientGoal.SuccessfulMessage;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MyHealthApp.Views.SuccesfulMessage;
 
 namespace MyHealthApp.Views.EditPatientGoal
 {
@@ -88,8 +89,8 @@ namespace MyHealthApp.Views.EditPatientGoal
             if (weeklyGoalResponse != null)
             {
                 PatientDetailsPage.WeeklyGoalViewModel.UpdateWeeklyGoalOnList(_weeklyGoal);
-                Navigation.ShowPopup(new SavedGoalChangesPage());
                 await Navigation.PopAsync();
+                Navigation.ShowPopup(new SMPage(5));
             }
             else
             {

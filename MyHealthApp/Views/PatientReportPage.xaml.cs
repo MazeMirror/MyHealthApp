@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Acr.Collections;
+using Microcharts;
 using MyHealthApp.Models;
 using MyHealthApp.Models.Activities;
 using MyHealthApp.Services;
 using MyHealthApp.Services.Activities;
 using MyHealthApp.ViewModels;
+using SkiaSharp;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -93,65 +95,128 @@ namespace MyHealthApp.Views
         {
             ChangeColorButtonsOnClick(1);
             ChangeFiltersByButtonClicked(1);
-
+            buttonsDashBoard.IsVisible = false;
+            dashBoardData.IsVisible = false;
         }
 
         private void ButtonWeek_OnClicked(object sender, EventArgs e)
         {
             ChangeColorButtonsOnClick(2);
             ChangeFiltersByButtonClicked(2);
-            
-            //_reportGoalsWeeklyViewModel.ClearElementsCollection();
-            
+            buttonsDashBoard.IsVisible = true;
+            dashBoardData.IsVisible = true;
+
+            ChangeColorButtonsOnClick(4);
+            ChangeFiltersByButtonClicked(4);
         }
 
         private void ButtonMonth_OnClicked(object sender, EventArgs e)
         {
             ChangeColorButtonsOnClick(3);
             ChangeFiltersByButtonClicked(3);
+            buttonsDashBoard.IsVisible = true;
+            dashBoardData.IsVisible = true;
+
+            ChangeColorButtonsOnClick(4);
+            ChangeFiltersByButtonClicked(4);
         }
 
+        private void ButtonStep_Clicked(object sender, EventArgs e)
+        {
+            ChangeColorButtonsOnClick(4);
+            ChangeFiltersByButtonClicked(4);
+        }
+
+        private void ButtonDistance_Clicked(object sender, EventArgs e)
+        {
+            ChangeColorButtonsOnClick(5);
+            ChangeFiltersByButtonClicked(5);
+
+        }
+
+        private void ButtonWalks_Clicked(object sender, EventArgs e)
+        {
+            ChangeColorButtonsOnClick(6);
+            ChangeFiltersByButtonClicked(6);
+        }
 
         private void ChangeColorButtonsOnClick(int id)
         {
             switch (id)
             {
                 case 1:
-                {
-                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        ButtonDay.BackgroundColor = Color.FromHex("#FF9162");
-                        ButtonDay.TextColor = Color.White;
-                        ButtonWeek.BackgroundColor = Color.White;
-                        ButtonWeek.TextColor = Color.Black;
-                        ButtonMonth.BackgroundColor = Color.White;
-                        ButtonMonth.TextColor = Color.Black;
-                    });
-                }; break;
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            ButtonDay.BackgroundColor = Color.FromHex("#FF9162");
+                            ButtonDay.TextColor = Color.White;
+                            ButtonWeek.BackgroundColor = Color.White;
+                            ButtonWeek.TextColor = Color.Black;
+                            ButtonMonth.BackgroundColor = Color.White;
+                            ButtonMonth.TextColor = Color.Black;
+                        });
+                    }; break;
                 case 2:
-                {
-                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        ButtonWeek.BackgroundColor = Color.FromHex("#FF9162");
-                        ButtonWeek.TextColor = Color.White;
-                        ButtonDay.BackgroundColor = Color.White;
-                        ButtonDay.TextColor = Color.Black;
-                        ButtonMonth.BackgroundColor = Color.White;
-                        ButtonMonth.TextColor = Color.Black;
-                    });   
-                }; break;
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            ButtonWeek.BackgroundColor = Color.FromHex("#FF9162");
+                            ButtonWeek.TextColor = Color.White;
+                            ButtonDay.BackgroundColor = Color.White;
+                            ButtonDay.TextColor = Color.Black;
+                            ButtonMonth.BackgroundColor = Color.White;
+                            ButtonMonth.TextColor = Color.Black;
+                        });
+                    }; break;
                 case 3:
-                {
-                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        ButtonMonth.BackgroundColor = Color.FromHex("#FF9162");
-                        ButtonMonth.TextColor = Color.White;
-                        ButtonWeek.BackgroundColor = Color.White;
-                        ButtonWeek.TextColor = Color.Black;
-                        ButtonDay.BackgroundColor = Color.White;
-                        ButtonDay.TextColor = Color.Black;
-                    });
-                }; break;
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            ButtonMonth.BackgroundColor = Color.FromHex("#FF9162");
+                            ButtonMonth.TextColor = Color.White;
+                            ButtonWeek.BackgroundColor = Color.White;
+                            ButtonWeek.TextColor = Color.Black;
+                            ButtonDay.BackgroundColor = Color.White;
+                            ButtonDay.TextColor = Color.Black;
+                        });
+                    }; break;
+
+                case 4:
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            ButtonStep.BackgroundColor = Color.FromHex("#FF9162");
+                            ButtonStep.TextColor = Color.White;
+                            ButtonDistance.BackgroundColor = Color.White;
+                            ButtonDistance.TextColor = Color.Black;
+                            ButtonWalks.BackgroundColor = Color.White;
+                            ButtonWalks.TextColor = Color.Black;
+                        });
+                    }; break;
+                case 5:
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            ButtonDistance.BackgroundColor = Color.FromHex("#FF9162");
+                            ButtonDistance.TextColor = Color.White;
+                            ButtonStep.BackgroundColor = Color.White;
+                            ButtonStep.TextColor = Color.Black;
+                            ButtonWalks.BackgroundColor = Color.White;
+                            ButtonWalks.TextColor = Color.Black;
+                        });
+                    }; break;
+                case 6:
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            ButtonWalks.BackgroundColor = Color.FromHex("#FF9162");
+                            ButtonWalks.TextColor = Color.White;
+                            ButtonDistance.BackgroundColor = Color.White;
+                            ButtonDistance.TextColor = Color.Black;
+                            ButtonStep.BackgroundColor = Color.White;
+                            ButtonStep.TextColor = Color.Black;
+                        });
+                    }; break;
             }
         }
 
@@ -165,44 +230,125 @@ namespace MyHealthApp.Views
                     {
                         StackLayoutDailyInform.IsVisible = true;
                         FrameDailyGoals.IsVisible = true;
-                        
+
                         StackLayoutWeeklyInform.IsVisible = false;
                         FrameWeeklyGoals.IsVisible = false;
-                        
+
+                        WeeklyStepBar.IsVisible = false;
+                        WeeklyDistanceBar.IsVisible = false;
+                        WeeklyKilocalorieBar.IsVisible = false;
+
                         StackLayoutMonthlyInform.IsVisible = false;
+
+                        MonthlyDistanceBar.IsVisible = false;
+                        MonthlyKilocalorieBar.IsVisible = false;
+                        MonthlyStepBar.IsVisible = false;
                     });
-                    
-                } ; break;
+
+                }; break;
                 case 2:
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         StackLayoutDailyInform.IsVisible = false;
                         FrameDailyGoals.IsVisible = false;
-                        
+
                         StackLayoutWeeklyInform.IsVisible = true;
                         FrameWeeklyGoals.IsVisible = true;
 
+                        WeeklyStepBar.IsVisible = true;
+
                         StackLayoutMonthlyInform.IsVisible = false;
+
+                        MonthlyDistanceBar.IsVisible = false;
+                        MonthlyKilocalorieBar.IsVisible = false;
+                        MonthlyStepBar.IsVisible = false;
                     });
-                    
-                } ; break;
+
+                }; break;
                 case 3:
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         StackLayoutDailyInform.IsVisible = false;
                         FrameDailyGoals.IsVisible = false;
-                        
+
                         StackLayoutWeeklyInform.IsVisible = false;
                         FrameWeeklyGoals.IsVisible = false;
 
+                        WeeklyStepBar.IsVisible = false;
+                        WeeklyDistanceBar.IsVisible = false;
+                        WeeklyKilocalorieBar.IsVisible = false;
+
                         StackLayoutMonthlyInform.IsVisible = true;
+
+                        MonthlyStepBar.IsVisible = true;
                     });
-                    
-                } ; break;
+
+                }; break;
+                case 4:
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        if (StackLayoutWeeklyInform.IsVisible == true)
+                        {
+                            WeeklyStepBar.IsVisible = true;
+                            WeeklyDistanceBar.IsVisible = false;
+                            WeeklyKilocalorieBar.IsVisible = false;
+                        }
+
+                        if (StackLayoutMonthlyInform.IsVisible == true)
+                        {
+                            MonthlyStepBar.IsVisible = true;
+                            MonthlyDistanceBar.IsVisible = false;
+                            MonthlyKilocalorieBar.IsVisible = false;
+                        }
+                    });
+
+                }; break;
+                case 5:
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        if (StackLayoutWeeklyInform.IsVisible == true)
+                        {
+                            WeeklyStepBar.IsVisible = false;
+                            WeeklyDistanceBar.IsVisible = true;
+                            WeeklyKilocalorieBar.IsVisible = false;
+                        }
+
+                        if (StackLayoutMonthlyInform.IsVisible == true)
+                        {
+                            MonthlyStepBar.IsVisible = false;
+                            MonthlyDistanceBar.IsVisible = true;
+                            MonthlyKilocalorieBar.IsVisible = false;
+                        }
+                    });
+
+                }; break;
+                case 6:
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        if (StackLayoutWeeklyInform.IsVisible == true)
+                        {
+                            WeeklyStepBar.IsVisible = false;
+                            WeeklyDistanceBar.IsVisible = false;
+                            WeeklyKilocalorieBar.IsVisible = true;
+                        }
+
+                        if (StackLayoutMonthlyInform.IsVisible == true)
+                        {
+                            MonthlyStepBar.IsVisible = false;
+                            MonthlyDistanceBar.IsVisible = false;
+                            MonthlyKilocalorieBar.IsVisible = true;
+                        }
+                    });
+
+                }; break;
             }
         }
+
 
 
         #region Daily Informs
@@ -467,7 +613,6 @@ namespace MyHealthApp.Views
         #endregion
         
 
-
         #region Weekly Informs
 
 
@@ -574,8 +719,10 @@ namespace MyHealthApp.Views
                     ActivityId = 3
                 });
             }
-            
-            
+
+            GetDataWeekly(1, start, end);
+            GetDataWeekly(2, start, end);
+            GetDataWeekly(3, start, end);
         }
 
         #endregion
@@ -628,8 +775,7 @@ namespace MyHealthApp.Views
                     ActivityId = 1
                 });
             }
-            
-           
+                       
             if (!listCalories.IsEmpty())
             {
                 double total = 0.0;
@@ -665,18 +811,316 @@ namespace MyHealthApp.Views
                     ActivityId = 3
                 });
             }
-            
-            
+
+            GetDataMonthly(dateTime);
         }
-        
+
         private void LabelMonthChevron_OnTapped(object sender, EventArgs e)
         {
             DatePickerMonthInform.Focus();
         }
 
-        
+
         #endregion
 
-       
+        private async void GetDataWeekly(int activityId, DateTime start, DateTime end)
+        {
+            var _chartEntriesStepActivity = new List<ChartEntry>();
+            var _chartEntriesDistanceActivity = new List<ChartEntry>();
+            var _chartEntriesKilocalorieActivity = new List<ChartEntry>();
+
+            string ActivityDay = null;
+
+            StepActivity StepActivityDay = new StepActivity();
+            DistanceActivity DistanceActivityDay = new DistanceActivity();
+            KilocalorieActivity KilocalorieActivityDay = new KilocalorieActivity();
+
+
+            for (int i = 0; i < 7; i++)
+            {
+                if (i == 0) ActivityDay = "L";
+                if (i == 1) ActivityDay = "M";
+                if (i == 2) ActivityDay = "X";
+                if (i == 3) ActivityDay = "J";
+                if (i == 4) ActivityDay = "V";
+                if (i == 5) ActivityDay = "S";
+                if (i == 6) ActivityDay = "D";
+
+                // StepsActivity
+                if (activityId == 1)
+                {
+                    var listStepRecordDay = await
+                        StepService.Instance.GetStepActivitiesByPatientIdAndDates(_patient.Id, start.AddDays(i), start.AddDays(i));
+
+                    if (listStepRecordDay.Count > 0)
+                    {
+                        StepActivityDay = listStepRecordDay.First();
+                        var entriesStep = new ChartEntry(Convert.ToSingle(StepActivityDay.Quantity))
+                        {
+                            ValueLabel = StepActivityDay.Quantity.ToString(),
+                            Label = ActivityDay,
+                            Color = SKColors.Orange,
+                        };
+                        _chartEntriesStepActivity.Add(entriesStep);
+                    }
+                    else
+                    {
+                        var entriesStep = new ChartEntry(0)
+                        {
+                            ValueLabel = "0",
+                            Label = ActivityDay,
+                            Color = SKColors.Black,
+                        };
+                        _chartEntriesStepActivity.Add(entriesStep);
+                    }
+
+                    WeeklyStepBarData.Chart = new BarChart()
+                    {
+                        Entries = _chartEntriesStepActivity,
+                        LabelTextSize = 25,
+                        BarAreaAlpha = 0,
+                        BackgroundColor = SKColor.Parse("#F0F3F4"),
+                        LabelOrientation = Orientation.Horizontal,
+                        ValueLabelOrientation = Orientation.Horizontal,
+                    };
+                }
+
+                // DistancesActivity
+                if (activityId == 2)
+                {
+                    var listDistanceRecordDay = await
+                        DistanceService.Instance.GetDistanceActivitiesByPatientIdAndDates(_patient.Id, start.AddDays(i), start.AddDays(i));
+
+                    if (listDistanceRecordDay.Count > 0)
+                    {
+                        DistanceActivityDay = listDistanceRecordDay.First();
+                        var entriesDistance = new ChartEntry(Convert.ToSingle(DistanceActivityDay.Quantity))
+                        {
+                            ValueLabel = DistanceActivityDay.Quantity.ToString(),
+                            Label = ActivityDay,
+                            Color = SKColors.Orange,
+                        };
+                        _chartEntriesDistanceActivity.Add(entriesDistance);
+                    }
+                    else
+                    {
+                        var entriesDistance = new ChartEntry(0)
+                        {
+                            ValueLabel = "0",
+                            Label = ActivityDay,
+                            Color = SKColors.Black,
+                        };
+                        _chartEntriesDistanceActivity.Add(entriesDistance);
+                    }
+
+                    WeeklyDistanceBarData.Chart = new BarChart()
+                    {
+                        Entries = _chartEntriesDistanceActivity,
+                        LabelTextSize = 25,
+                        BarAreaAlpha = 0,
+                        BackgroundColor = SKColor.Parse("#F0F3F4"),
+                        LabelOrientation = Orientation.Horizontal,
+                        ValueLabelOrientation = Orientation.Horizontal,
+                    };
+                }
+
+                // KilocaloriesActivity
+                if (activityId == 3)
+                {
+                    var listKilocalorieRecordDay = await
+                        KilocalorieService.Instance.GetKilocalorieActivitiesByPatientIdAndDates(_patient.Id, start.AddDays(i), start.AddDays(i));
+
+                    if (listKilocalorieRecordDay.Count > 0)
+                    {
+                        KilocalorieActivityDay = listKilocalorieRecordDay.First();
+                        var entriesKilocalorie = new ChartEntry(Convert.ToSingle(KilocalorieActivityDay.Quantity))
+                        {
+                            ValueLabel = KilocalorieActivityDay.Quantity.ToString(),
+                            Label = ActivityDay,
+                            Color = SKColors.Orange,
+                        };
+                        _chartEntriesKilocalorieActivity.Add(entriesKilocalorie);
+                    }
+                    else
+                    {
+                        var entriesKilocalorie = new ChartEntry(0)
+                        {
+                            ValueLabel = "0",
+                            Label = ActivityDay,
+                            Color = SKColors.Black,
+                        };
+                        _chartEntriesKilocalorieActivity.Add(entriesKilocalorie);
+                    }
+
+                    WeeklyKilocalorieBarData.Chart = new BarChart()
+                    {
+                        Entries = _chartEntriesKilocalorieActivity,
+                        LabelTextSize = 25,
+                        BarAreaAlpha = 0,
+                        BackgroundColor = SKColor.Parse("#F0F3F4"),
+                        LabelOrientation = Orientation.Horizontal,
+                        ValueLabelOrientation = Orientation.Horizontal,
+                    };
+                }
+            }
+        }
+
+        private async void GetDataMonthly(DateTime dateTime)
+        {
+            var _chartEntriesStepActivityMonth = new List<ChartEntry>();
+            var _chartEntriesKilocalorieActivityMonth = new List<ChartEntry>();
+            var _chartEntriesDistanceActivityMonth = new List<ChartEntry>();
+
+            List<StepActivity> listSteps = new List<StepActivity>();
+            List<KilocalorieActivity> listCalories = new List<KilocalorieActivity>();
+            List<DistanceActivity> listDistances = new List<DistanceActivity>();
+
+            string ActivityMonth = null;
+
+            for (int i = 1; i <= 12; i++)
+            {
+                var firstMonthOfYear = new DateTime(dateTime.Year, i, 1);
+
+                var firstDayOfMonth = new DateTime(firstMonthOfYear.Year, firstMonthOfYear.Month, 1);
+                var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                await Device.InvokeOnMainThreadAsync(async () =>
+                {
+                    listSteps = await
+                        StepService.Instance.GetStepActivitiesByPatientIdAndDates(_patient.Id, firstDayOfMonth, lastDayOfMonth);
+
+                    listCalories = await
+                        KilocalorieService.Instance.GetKilocalorieActivitiesByPatientIdAndDates(_patient.Id, firstDayOfMonth, lastDayOfMonth);
+
+                    listDistances = await
+                        DistanceService.Instance.GetDistanceActivitiesByPatientIdAndDates(_patient.Id, firstDayOfMonth, lastDayOfMonth);
+                });
+
+                if (i == 1) ActivityMonth = "Ene";
+                if (i == 2) ActivityMonth = "Feb";
+                if (i == 3) ActivityMonth = "Mar";
+                if (i == 4) ActivityMonth = "Abr";
+                if (i == 5) ActivityMonth = "May";
+                if (i == 6) ActivityMonth = "Jun";
+                if (i == 7) ActivityMonth = "Jul";
+                if (i == 8) ActivityMonth = "Ago";
+                if (i == 9) ActivityMonth = "Set";
+                if (i == 10) ActivityMonth = "Oct";
+                if (i == 11) ActivityMonth = "Nov";
+                if (i == 12) ActivityMonth = "Dic";
+
+                // Steps per Month
+                if (!listSteps.IsEmpty())
+                {
+                    double total = 0.0;
+                    foreach (var item in listSteps)
+                    {
+                        total += item.Quantity;
+                    }
+
+                    var entriesStep = new ChartEntry(Convert.ToSingle(total))
+                    {
+                        ValueLabel = total.ToString(),
+                        Label = ActivityMonth,
+                        Color = SKColors.Orange,
+                    };
+                    _chartEntriesStepActivityMonth.Add(entriesStep);
+                }
+                else
+                {
+                    var entriesStep = new ChartEntry(0)
+                    {
+                        ValueLabel = "0",
+                        Label = ActivityMonth,
+                        Color = SKColors.Black,
+                    };
+                    _chartEntriesStepActivityMonth.Add(entriesStep);
+                }
+
+                // Kilocalorie per Month
+                if (!listCalories.IsEmpty())
+                {
+                    double total = 0.0;
+                    foreach (var item in listCalories)
+                    {
+                        total += item.Quantity;
+                    }
+                    var entriesKilocalorie = new ChartEntry(Convert.ToSingle(total))
+                    {
+                        ValueLabel = total.ToString(),
+                        Label = ActivityMonth,
+                        Color = SKColors.Orange,
+                    };
+                    _chartEntriesKilocalorieActivityMonth.Add(entriesKilocalorie);
+                }
+                else
+                {
+                    var entriesKilocalorie = new ChartEntry(0)
+                    {
+                        ValueLabel = "0",
+                        Label = ActivityMonth,
+                        Color = SKColors.Black,
+                    };
+                    _chartEntriesKilocalorieActivityMonth.Add(entriesKilocalorie);
+                }
+
+                // Distance per Month
+                if (!listDistances.IsEmpty())
+                {
+                    double total = 0.0;
+                    foreach (var item in listDistances)
+                    {
+                        total += item.Quantity;
+                    }
+                    var entriesDistance = new ChartEntry(Convert.ToSingle(total))
+                    {
+                        ValueLabel = total.ToString(),
+                        Label = ActivityMonth,
+                        Color = SKColors.Orange,
+                    };
+                    _chartEntriesDistanceActivityMonth.Add(entriesDistance);
+                }
+                else
+                {
+                    var entriesDistance = new ChartEntry(0)
+                    {
+                        ValueLabel = "0",
+                        Label = ActivityMonth,
+                        Color = SKColors.Black,
+                    };
+                    _chartEntriesDistanceActivityMonth.Add(entriesDistance);
+                }
+            }
+
+            MonthlyStepBarData.Chart = new BarChart()
+            {
+                Entries = _chartEntriesStepActivityMonth,
+                LabelTextSize = 20,
+                BarAreaAlpha = 0,
+                BackgroundColor = SKColor.Parse("#F0F3F4"),
+                LabelOrientation = Orientation.Horizontal,
+                ValueLabelOrientation = Orientation.Horizontal,
+            };
+
+            MonthlyKilocalorieBarData.Chart = new BarChart()
+            {
+                Entries = _chartEntriesKilocalorieActivityMonth,
+                LabelTextSize = 20,
+                BarAreaAlpha = 0,
+                BackgroundColor = SKColor.Parse("#F0F3F4"),
+                LabelOrientation = Orientation.Horizontal,
+                ValueLabelOrientation = Orientation.Horizontal,
+            };
+
+            MonthlyDistanceBarData.Chart = new BarChart()
+            {
+                Entries = _chartEntriesDistanceActivityMonth,
+                LabelTextSize = 18,
+                BarAreaAlpha = 0,
+                BackgroundColor = SKColor.Parse("#F0F3F4"),
+                LabelOrientation = Orientation.Horizontal,
+                ValueLabelOrientation = Orientation.Horizontal,
+            };
+        }
     }
 }

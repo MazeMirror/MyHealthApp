@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MyHealthApp.Models;
 using MyHealthApp.Services;
+using MyHealthApp.Views.SuccesfulMessage;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -51,6 +53,12 @@ namespace MyHealthApp.Views.AddPatientGoal
                 return;
             }
 
+            if (quantityGoal < 0.0)
+            {
+                await DisplayAlert("Advertencia", "El numero ingresado debe ser mayor a 0", "Ok");
+                return;
+            }
+
             var weeklyGoal = new WeeklyGoal()
             {
                 Quantity = quantityGoal,
@@ -68,6 +76,7 @@ namespace MyHealthApp.Views.AddPatientGoal
             
             PatientDetailsPage.WeeklyGoalViewModel.AddWeeklyToList(weeklyGoalResponse);
             await Navigation.PopAsync();
+            Navigation.ShowPopup(new SMPage(7));
         }
 
         private void PickerActivity_OnSelectedIndexChanged(object sender, EventArgs e)

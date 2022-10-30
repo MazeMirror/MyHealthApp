@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Acr.Collections;
 using Microcharts;
 using MyHealthApp.Helpers;
@@ -1131,7 +1132,7 @@ namespace MyHealthApp.Views
                 var weeklyGoals = param as ObservableCollection<WeeklyGoal>;
                 if (weeklyGoals != null)
                 {
-                    await Navigation.PushAsync(new CurrentWeekReportPage(weeklyGoals));
+                    await Navigation.PushAsync(new CurrentWeekReportPage(weeklyGoals, _patientId));
                 }
             }
         }
@@ -1204,10 +1205,26 @@ namespace MyHealthApp.Views
 
         }
 
-        private async void ReportResume_Clicked(object sender, EventArgs e)
+        private void ReportResume_Clicked(object sender, EventArgs e)
         {
+            //OpenAboutCommand = new Command(() => { Shell.Current.GoToAsync("//AboutPage"); });
             //CurrentDayReportPage();
             //await Navigation.PushAsync(new ReportPage());
+
+            //var tab = new ReportPage();
+            //tab.CurrentPage = tab.Children[1];
+
+            //Application.Current.MainPage.Navigation.PushModalAsync(tab);
+
+            OpenAboutCommand = new Command(() =>
+            {
+                var tab = new ReportPage();
+                //tab.CurrentPage = tab.Children[1];
+
+                Application.Current.MainPage.Navigation.PushModalAsync(tab);
+            });
         }
+
+        public ICommand OpenAboutCommand { get; set; }
     }
 }

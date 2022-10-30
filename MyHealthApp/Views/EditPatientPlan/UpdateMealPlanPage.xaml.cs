@@ -1,6 +1,7 @@
 ﻿using MyHealthApp.Models;
 using MyHealthApp.Services;
 using MyHealthApp.Views.EditPatientPlan.SuccessfullMessage;
+using MyHealthApp.Views.SuccesfulMessage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,8 +58,10 @@ namespace MyHealthApp.Views.EditPatientPlan
                 {
                     //ACTUALIZAR LISTA.....de mealPlans
                     //PatientDetailsPage.MealPlansViewModel.Update(_dailyGoal);
-                    Navigation.ShowPopup(new SavedPlanChangesPage());
-                    await Navigation.PopAsync();
+                    //await Navigation.PopAsync();
+                    Dismiss(2);
+                    Navigation.ShowPopup(new SMPage(2));
+
                 }
             }
         }

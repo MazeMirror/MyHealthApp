@@ -11,6 +11,7 @@ using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MyHealthApp.Views.SuccesfulMessage;
 
 namespace MyHealthApp.Views.EditPatientGoal
 {
@@ -42,7 +43,7 @@ namespace MyHealthApp.Views.EditPatientGoal
                 //ELIMINAR DE LISTA.....de dailyGoals
                 PatientDetailsPage.DailyGoalsViewModel.DeleteDailyGoalOnList(_dailyGoal);
                 Dismiss(2);
-                Navigation.ShowPopup(new DeletedGoalPage());
+                Navigation.ShowPopup(new SMPage(6));
             }
             
         }

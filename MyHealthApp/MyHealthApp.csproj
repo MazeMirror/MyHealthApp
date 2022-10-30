@@ -121,10 +121,6 @@
       <DependentUpon>SelectAccountTypePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\EditPatientGoal\SuccessfulMessage\DeletedGoalPage.xaml.cs">
-      <DependentUpon>DeletedGoalPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Views\EditPatientGoal\SuccessfulMessage\SavedGoalChangesPage.xaml.cs">
       <DependentUpon>SavedGoalChangesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -155,6 +151,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EditPatientGoal\EditWeeklyGoalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientGoal\SuccessfulMessage\DeletedGoalsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientGoal\SuccessfulMessage\SavedGoalPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EditPatientGoal\UpdateDailyGoalPage.xaml">
@@ -194,6 +196,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ProfileFlow\DeleteProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SuccesfulMessage\SMPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

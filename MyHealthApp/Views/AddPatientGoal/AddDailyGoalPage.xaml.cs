@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MyHealthApp.Models;
 using MyHealthApp.Services;
+using MyHealthApp.Views.Register;
+using MyHealthApp.Views.SuccesfulMessage;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -67,6 +69,12 @@ namespace MyHealthApp.Views.AddPatientGoal
                 return;
             }
 
+            if(quantityGoal < 0.0)
+            {
+                await DisplayAlert("Advertencia", "El numero ingresado debe ser mayor a 0", "Ok");
+                return;
+            }
+
             var dailyGoal = new DailyGoal()
             {
                 Date = DateTime.Today,
@@ -85,6 +93,7 @@ namespace MyHealthApp.Views.AddPatientGoal
             
             PatientDetailsPage.DailyGoalsViewModel.AddDailyGoalToList(dailyGoalResponse);
             await Navigation.PopAsync();
+            Navigation.ShowPopup(new SMPage(4));
         }
     }
 }

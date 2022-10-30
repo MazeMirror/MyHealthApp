@@ -130,29 +130,36 @@ namespace MyHealthApp.Views.Report
         {
             ChangeColorButtonsOnClick(1);
             ChangeFiltersByButtonClicked(1);
-
+            buttonsDashBoard.IsVisible = false;
+            dashBoardData.IsVisible = false;
         }
 
         private void ButtonWeek_OnClicked(object sender, EventArgs e)
         {
             ChangeColorButtonsOnClick(2);
             ChangeFiltersByButtonClicked(2);
-            
-            
+            buttonsDashBoard.IsVisible = true;
+            dashBoardData.IsVisible = true;
+
+            ChangeColorButtonsOnClick(4);
+            ChangeFiltersByButtonClicked(4);
         }
 
         private void ButtonMonth_OnClicked(object sender, EventArgs e)
         {
             ChangeColorButtonsOnClick(3);
             ChangeFiltersByButtonClicked(3);
+            buttonsDashBoard.IsVisible = true;
+            dashBoardData.IsVisible = true;
+
+            ChangeColorButtonsOnClick(4);
+            ChangeFiltersByButtonClicked(4);
         }
 
         private void ButtonStep_Clicked(object sender, EventArgs e)
         {
             ChangeColorButtonsOnClick(4);
             ChangeFiltersByButtonClicked(4);
-            //LoadDataStepDistanceWalks();
-
         }
 
         private void ButtonDistance_Clicked(object sender, EventArgs e)
@@ -258,7 +265,6 @@ namespace MyHealthApp.Views.Report
                     {
                         StackLayoutDailyInform.IsVisible = true;
                         FrameDailyGoals.IsVisible = true;
-                        DailyStepBar.IsVisible = true;
                         
                         StackLayoutWeeklyInform.IsVisible = false;
                         FrameWeeklyGoals.IsVisible = false;
@@ -281,10 +287,6 @@ namespace MyHealthApp.Views.Report
                     {
                         StackLayoutDailyInform.IsVisible = false;
                         FrameDailyGoals.IsVisible = false;
-
-                        DailyStepBar.IsVisible = false;
-                        DailyDistanceBar.IsVisible = false;
-                        DailyKilocalorieBar.IsVisible = false;
                         
                         StackLayoutWeeklyInform.IsVisible = true;
                         FrameWeeklyGoals.IsVisible = true;
@@ -306,10 +308,6 @@ namespace MyHealthApp.Views.Report
                         StackLayoutDailyInform.IsVisible = false;
                         FrameDailyGoals.IsVisible = false;
 
-                        DailyStepBar.IsVisible = false;
-                        DailyDistanceBar.IsVisible = false;
-                        DailyKilocalorieBar.IsVisible = false;
-
                         StackLayoutWeeklyInform.IsVisible = false;
                         FrameWeeklyGoals.IsVisible = false;
 
@@ -327,12 +325,6 @@ namespace MyHealthApp.Views.Report
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        if (StackLayoutDailyInform.IsVisible == true)
-                        {
-                            DailyStepBar.IsVisible = true;
-                            DailyDistanceBar.IsVisible = false;
-                            DailyKilocalorieBar.IsVisible = false;
-                        }
 
                         if (StackLayoutWeeklyInform.IsVisible == true)
                         {
@@ -354,13 +346,6 @@ namespace MyHealthApp.Views.Report
                 {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            if (StackLayoutDailyInform.IsVisible == true)
-                            {
-                                DailyStepBar.IsVisible = false;
-                                DailyDistanceBar.IsVisible = true;
-                                DailyKilocalorieBar.IsVisible = false;
-                            }
-
                             if (StackLayoutWeeklyInform.IsVisible == true)
                             {
                                 WeeklyStepBar.IsVisible = false;
@@ -381,12 +366,6 @@ namespace MyHealthApp.Views.Report
                 {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            if (StackLayoutDailyInform.IsVisible == true)
-                            {
-                                DailyStepBar.IsVisible = false;
-                                DailyDistanceBar.IsVisible = false;
-                                DailyKilocalorieBar.IsVisible = true;
-                            }
 
                             if (StackLayoutWeeklyInform.IsVisible == true)
                             {
@@ -821,10 +800,11 @@ namespace MyHealthApp.Views.Report
             }
 
 
+            #region pruebas
 
 
             ///////////// PRUEBAS  ///////////////////////
-            
+
             //var listdailyGoalPerWeek = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDates(_patientId, start, end);
             //prueba1.Text = listdailyGoalPerWeek.Count.ToString();
 
@@ -1034,7 +1014,7 @@ namespace MyHealthApp.Views.Report
             prueba8.Text = stepActivitySabado.Quantity.ToString();
             prueba9.Text = stepActivityDomingo.Quantity.ToString();*/
 
-            DailyStepBarData.Chart = new BarChart()
+            /*DailyStepBarData.Chart = new BarChart()
             {
                 Entries = _chartEntries,
                 LabelTextSize = 25,
@@ -1062,7 +1042,9 @@ namespace MyHealthApp.Views.Report
                 BackgroundColor = SKColor.Parse("#F0F3F4"),
                 LabelOrientation = Orientation.Horizontal,
                 ValueLabelOrientation = Orientation.Horizontal,
-            };
+            };*/
+
+            #endregion
 
             GetDataWeekly(1, start, end);
             GetDataWeekly(2, start, end);

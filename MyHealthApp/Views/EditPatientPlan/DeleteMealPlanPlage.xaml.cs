@@ -12,6 +12,7 @@ using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MyHealthApp.Views.EditPatientPlan.SuccessfullMessage;
+using MyHealthApp.Views.SuccesfulMessage;
 
 namespace MyHealthApp.Views.EditPatientPlan
 {
@@ -42,7 +43,7 @@ namespace MyHealthApp.Views.EditPatientPlan
                 //ELIMINAR DE LISTA.....de dailyGoals
                 PatientDetailsPage.MealPlansViewModel.DeleteMealPlanlOnList(_mealPlan);
                 Dismiss(2);
-                Navigation.ShowPopup(new DeletedMealPlan());
+                Navigation.ShowPopup(new SMPage(3));
             }
 
         }
