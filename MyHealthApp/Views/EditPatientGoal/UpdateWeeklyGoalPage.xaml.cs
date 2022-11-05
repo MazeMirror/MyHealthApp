@@ -11,11 +11,12 @@ using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MyHealthApp.Views.SuccesfulMessage;
+using Xamarin.CommunityToolkit.UI.Views;
 
 namespace MyHealthApp.Views.EditPatientGoal
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class UpdateWeeklyGoalPage : ContentPage
+    public partial class UpdateWeeklyGoalPage : Popup
     {
         private long _patientId;
         private WeeklyGoal _weeklyGoal;
@@ -59,9 +60,10 @@ namespace MyHealthApp.Views.EditPatientGoal
 
         private async void SaveChangesWeekly_Clicked(object sender, EventArgs e)
         {
-            if (EntryGoalUpdate.Text == null)
+            if (EntryGoalUpdate.Text == null || EntryGoalUpdate.Text == "")
             {
-                await DisplayAlert("Advertencia", "El campo esta vacio", "Ok");
+                Navigation.ShowPopup(new SMPage("Advertencia", "El campo esta vacio", false, false));
+                //await DisplayAlert("Advertencia", "El campo esta vacio", "Ok");
                 return;
             }
 
@@ -75,7 +77,8 @@ namespace MyHealthApp.Views.EditPatientGoal
             }
             catch (Exception exception)
             {
-                await DisplayAlert("Advertencia", "Ingrese solo números en el campo de meta", "Ok");
+                Navigation.ShowPopup(new SMPage("Advertencia", "Ingrese solo números en el campo de meta", false, false));
+                //await DisplayAlert("Advertencia", "Ingrese solo números en el campo de meta", "Ok");
                 return;
             }
             _weeklyGoal.Quantity = quantityGoal;
@@ -89,12 +92,14 @@ namespace MyHealthApp.Views.EditPatientGoal
             if (weeklyGoalResponse != null)
             {
                 PatientDetailsPage.WeeklyGoalViewModel.UpdateWeeklyGoalOnList(_weeklyGoal);
-                await Navigation.PopAsync();
-                Navigation.ShowPopup(new SMPage(5));
+                //await Navigation.PopAsync();
+                Dismiss(2);
+                Navigation.ShowPopup(new SMPage("Cambios Guardados", "Objetivo modificado correctamente", false, true));
             }
             else
             {
-                await DisplayAlert("Mensaje", "No se pudo actualizar el Weekly Goal", "Ok");
+                Navigation.ShowPopup(new SMPage("Mensaje", "No se pudo actualizar el Weekly Goal", false, false));
+                //await DisplayAlert("Mensaje", "No se pudo actualizar el Weekly Goal", "Ok");
             }
             
         }

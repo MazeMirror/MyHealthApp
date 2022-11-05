@@ -377,23 +377,23 @@ namespace MyHealthApp.Views
             StackLayoutProfileDetails.BindingContext = _model;
         }
 
-        private async void LabelAddMealPlan_OnTapped(object sender, EventArgs e)
+        private void LabelAddMealPlan_OnTapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AddMealPlanPage(_patient.Id));
+            Navigation.ShowPopup(new AddMealPlanPage(_patient.Id));
         }
 
-        private async void LabelAddDailyGoal_OnTapped(object sender, EventArgs e)
+        private void LabelAddDailyGoal_OnTapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AddDailyGoalPage(_patient.Id));
+            Navigation.ShowPopup(new AddDailyGoalPage(_patient.Id));
         }
 
-        private async void LabelAddWeeklyGoal_OnTapped(object sender, EventArgs e)
+        private void LabelAddWeeklyGoal_OnTapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AddWeeklyGoalPage(_patient.Id));
+            Navigation.ShowPopup(new AddWeeklyGoalPage(_patient.Id));
         }
 
         
-        private async void SpecificDailyGoal_OnTapped(object sender, EventArgs e)
+        private void SpecificDailyGoal_OnTapped(object sender, EventArgs e)
         {
             var param = ((TappedEventArgs)e).Parameter;
             if (param != null)
@@ -402,12 +402,12 @@ namespace MyHealthApp.Views
 
                 if (dailyGoal != null)
                 {
-                    await Navigation.PushAsync(new EditDailyGoalPage(dailyGoal));
+                    Navigation.ShowPopup(new EditDailyGoalPage(dailyGoal));
                 }
             }
         }
 
-        private async void SpecificWeeklyGoal_OnTapped(object sender, EventArgs e)
+        private void SpecificWeeklyGoal_OnTapped(object sender, EventArgs e)
         {
             var param = ((TappedEventArgs)e).Parameter;
             if (param != null)
@@ -416,7 +416,7 @@ namespace MyHealthApp.Views
 
                 if (weeklyGoal != null)
                 {
-                    await Navigation.PushAsync(new EditWeeklyGoalPage(weeklyGoal));
+                    Navigation.ShowPopup(new EditWeeklyGoalPage(weeklyGoal));
                 }
             }
         }

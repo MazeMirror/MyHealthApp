@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 using MyHealthApp.Models;
 using MyHealthApp.Services;
 using MyHealthApp.ViewModels;
+using MyHealthApp.Views.SuccesfulMessage;
+using Plugin.BluetoothLE;
+using WindesHeartSDK;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,12 +21,14 @@ namespace MyHealthApp.Views
     public partial class SpecialistHomePage : ContentPage
     {
         public static PatientsProfilesViewModel ViewModel;
+        private bool _isTimerWorking = false;
         public SpecialistHomePage()
         {
             InitializeComponent();
             ViewModel = new PatientsProfilesViewModel();
             
             StackLayoutPatients.BindingContext = ViewModel;
+            checkConnectionWifi();
         }
 
         private async void FramePatient_OnTapped(object sender, EventArgs e)
@@ -43,5 +51,23 @@ namespace MyHealthApp.Views
                 
             }
         }
+
+        private void checkConnectionWifi()
+        {
+            //mostrara el mensaje cada 6 segs
+            Device.StartTimer(new TimeSpan(0, 0, 6), () =>
+            {
+
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    _isTimerWorking = true;                   
+                }
+                else
+                {
+                    DisplayAlert("Importante", "No cuenta con conexion a internet, restablezca su conexión para continuar", "Aceptar");
+                }
+                return _isTimerWorking;
+            });
+        }     
     }
 }

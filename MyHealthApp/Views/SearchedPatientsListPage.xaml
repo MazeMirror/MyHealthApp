@@ -1,40 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<effects:Popup xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
-             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
-             NavigationPage.HasNavigationBar="False"
+               xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+               Size="350,600"
+               Color="Transparent"
+               NavigationPage.HasNavigationBar="False"
              x:Class="MyHealthApp.Views.SearchedPatientsListPage">
-    <ContentPage.Content>
+    <effects:Popup.Content>
         <StackLayout BackgroundColor="#f8f8f8">
-            <StackLayout
-                HeightRequest="90"
-                Orientation="Horizontal"
-                HorizontalOptions="FillAndExpand"
-                BackgroundColor="White">
-                <Label Text="&#xf053;"
-                       FontSize="18"
-                       Margin="35,0,0,0"
-                       VerticalOptions="Center"
-                       FontFamily="{StaticResource FontAwesomeSolid}"
-                       TextColor="Black">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer
-                            Tapped="LabelBack_OnTapped"
-                            NumberOfTapsRequired="1" />
-                    </Label.GestureRecognizers>
-                </Label>
-
-                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
-                       Scale="0.90"
-                       Margin="68,0,0,0" />
-                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
-                       Margin="10,0,0,0"
-                       effects:IconTintColorEffect.TintColor="Black"
-                       Scale="0.90" />
-            </StackLayout>
-
+            
             <Label Text="BUSCA UN PACIENTE Y AGRÉGALO &#10;A TU LISTA"
                    Padding="0,20,0,0"
                    FontFamily="ArchivoSemiBold"
@@ -149,5 +125,5 @@
             </ScrollView>
 
         </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+    </effects:Popup.Content>
+</effects:Popup>

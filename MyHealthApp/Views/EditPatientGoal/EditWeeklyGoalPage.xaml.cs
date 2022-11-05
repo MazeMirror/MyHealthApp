@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MyHealthApp.Views.EditPatientGoal
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EditWeeklyGoalPage : ContentPage
+    public partial class EditWeeklyGoalPage : Popup
     {
         private WeeklyGoal _weeklyGoal;
         public EditWeeklyGoalPage(WeeklyGoal weeklyGoal)
@@ -24,18 +25,25 @@ namespace MyHealthApp.Views.EditPatientGoal
             ProgressRing.BindingContext = _weeklyGoal;
         }
 
-        private async void LabelBack_OnTapped(object sender, EventArgs e)
+        private void LabelBack_OnTapped(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            Dismiss(1);
         }
 
         private async void UpdateWeeklyGoal_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new UpdateWeeklyGoalPage(_weeklyGoal));
+            Dismiss(1);
+            var result = await Navigation.ShowPopupAsync(new UpdateWeeklyGoalPage(_weeklyGoal));
+            if (result != null && (int)result == 2)
+            {
+                await Navigation.PopAsync();
+            }
+            //await Navigation.PushAsync(new UpdateWeeklyGoalPage(_weeklyGoal));
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
+            Dismiss(1);
             var result = await Navigation.ShowPopupAsync(new DeleteWeeklyGoalPage(_weeklyGoal));
             if (result != null && (int)result == 2)
             {

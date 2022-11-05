@@ -39,7 +39,7 @@ namespace MyHealthApp.Views.EditPatientGoal
             {
                 PatientDetailsPage.WeeklyGoalViewModel.DeleteWeeklyGoalOnList(_weeklyGoal);
                 Dismiss(2);
-                Navigation.ShowPopup(new SMPage(6));
+                Navigation.ShowPopup(new SMPage("El objetivo se ha eliminado", "", true, false));
             }
 
 

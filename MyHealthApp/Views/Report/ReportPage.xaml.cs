@@ -722,6 +722,7 @@ namespace MyHealthApp.Views.Report
         private async void CalculateInformForWeek(DateTime start, DateTime end)
         {
             var weeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientIdAndDates(_patientId, start, end);
+            var listDistanceRecordDay = new List<DistanceActivity>();
 
             _weeklyGoalViewModel.ClearWeeklyGoalList();
             foreach (var item in weeklyGoals)
@@ -736,6 +737,8 @@ namespace MyHealthApp.Views.Report
 
             double maxQuantity = 0;
             double maxProgress = 0;
+            //double totalDistance = 0.0;
+
 
             if (!listSteps.IsEmpty())
             {
@@ -781,11 +784,36 @@ namespace MyHealthApp.Views.Report
             maxQuantity = 0;
             maxProgress = 0;
 
-            if (!listDistances.IsEmpty())
+            // se hizo un cambio debido a que en informe semanal daba el valor del objetivo semanal
+            for (int i = 0; i < 7; i++)
+            {
+                listDistanceRecordDay = await
+                        DistanceService.Instance.GetDistanceActivitiesByPatientIdAndDates(_patientId, start.AddDays(i), start.AddDays(i));
+
+                if (listDistanceRecordDay.Count > 0)
+                {
+                    var DistanceActivityDay = listDistanceRecordDay.First();
+                    maxProgress += DistanceActivityDay.Quantity;
+                    if (DistanceActivityDay.Quantity > maxQuantity) maxQuantity = DistanceActivityDay.Quantity;
+                }
+            }
+
+            _reportGoalsWeeklyViewModel.AddReportGoalToList(new ReportGoal()
+            {
+                Description = "",
+                ImageSource = "",
+                Progress = maxProgress,
+                Quantity = maxQuantity,
+                ActivityId = 3
+            });
+
+
+            // original
+            /*if (!listDistances.IsEmpty())
             {
                 foreach (var item in listDistances)
                 {
-                    if (item.Progress > maxProgress) maxProgress = item.Progress;
+                    if (item.Progress > maxProgress) maxProgress = item.Quantity;
                     if (item.Quantity > maxQuantity) maxQuantity = item.Quantity;
                 }
 
@@ -797,8 +825,7 @@ namespace MyHealthApp.Views.Report
                     Quantity = maxQuantity,
                     ActivityId = 3
                 });
-            }
-
+            }*/
 
             #region pruebas
 

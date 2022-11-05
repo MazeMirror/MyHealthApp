@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MyHealthApp.Models;
 using MyHealthApp.Services;
 using MyHealthApp.ViewModels;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -68,7 +69,7 @@ namespace MyHealthApp.Views
 
         private async void LabelAddPatient_OnTapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SearchedPatientsListPage(Specialist));
+            Navigation.ShowPopup(new SearchedPatientsListPage(Specialist));
         }
 
         private async void FramePatient_OnTapped(object sender, EventArgs e)

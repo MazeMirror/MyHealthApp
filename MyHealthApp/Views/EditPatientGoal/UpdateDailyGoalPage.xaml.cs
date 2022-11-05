@@ -12,11 +12,12 @@ using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MyHealthApp.Views.SuccesfulMessage;
+using Xamarin.CommunityToolkit.UI.Views;
 
 namespace MyHealthApp.Views.EditPatientGoal
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class UpdateDailyGoalPage : ContentPage
+    public partial class UpdateDailyGoalPage : Popup
     {
         private long _patientId;
         private DailyGoal _dailyGoal;
@@ -54,16 +55,17 @@ namespace MyHealthApp.Views.EditPatientGoal
             EntryGoalUpdate.Text = _dailyGoal.Quantity.ToString(CultureInfo.InvariantCulture);
         }
 
-        private async void LabelBack_OnTapped(object sender, EventArgs e)
+        private void LabelBack_OnTapped(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            Dismiss(1);
         }
 
         private async void SaveChanges_Clicked(object sender, EventArgs e)
         {
-            if (EntryGoalUpdate.Text == null)
+            if (EntryGoalUpdate.Text == null || EntryGoalUpdate.Text == "")
             {
-                await DisplayAlert("Advertencia", "El campo esta vacio", "Ok");
+                Navigation.ShowPopup(new SMPage("Advertencia", "El campo esta vacio", false, false));
+                //await DisplayAlert("Advertencia", "El campo esta vacio", "Ok");
                 return;
             }
 
@@ -77,7 +79,8 @@ namespace MyHealthApp.Views.EditPatientGoal
             }
             catch (Exception exception)
             {
-                await DisplayAlert("Advertencia", "Ingrese solo números en el campo de meta", "Ok");
+                Navigation.ShowPopup(new SMPage("Advertencia", "Ingrese solo números en el campo de meta", false, false));
+                //await DisplayAlert("Advertencia", "Ingrese solo números en el campo de meta", "Ok");
                 return;
             }
             _dailyGoal.Quantity = quantityGoal;
@@ -93,12 +96,14 @@ namespace MyHealthApp.Views.EditPatientGoal
             {
                 //ACTUALIZAR LISTA.....de dailyGoals
                 PatientDetailsPage.DailyGoalsViewModel.UpdateDailyGoalOnList(_dailyGoal);
-                await Navigation.PopAsync();
-                Navigation.ShowPopup(new SMPage(5));
+                //await Navigation.PopAsync();
+                Dismiss(2);
+                Navigation.ShowPopup(new SMPage("Cambios Guardados", "Objetivo modificado correctamente", false, true));
             }
             else
             {
-                await DisplayAlert("Mensaje", "No se pudo actualizar el Daily Goal", "Ok");
+                Navigation.ShowPopup(new SMPage("Mensaje", "No se pudo actualizar el Daily Goal", false, false));
+                //await DisplayAlert("Mensaje", "No se pudo actualizar el Daily Goal", "Ok");
             }
             
             

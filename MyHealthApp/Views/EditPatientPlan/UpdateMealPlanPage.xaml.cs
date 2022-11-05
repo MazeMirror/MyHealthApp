@@ -36,16 +36,18 @@ namespace MyHealthApp.Views.EditPatientPlan
             PlanNameUpdate.Text = _mealPlan.Name;
             PlanDescriptionUpdate.Text = _mealPlan.Description;
         }
-        private async void LabelBack_OnTapped(object sender, EventArgs e)
+        private void LabelBack_OnTapped(object sender, EventArgs e)
         {
             Dismiss(1);
         }
 
         private async void SaveChanges_Clicked(object sender, EventArgs e)
         {
-            if (PlanDescriptionUpdate.Text == null)
+            if (PlanDescriptionUpdate.Text == null || PlanDescriptionUpdate.Text == "")
             {
-                PlanDescriptionUpdate.Text = "El campo esta vacio";                
+                Navigation.ShowPopup(new SMPage("Advertencia", "El campo esta vacio", false, false));
+                //PlanDescriptionUpdate.Text = "El campo esta vacio";
+                return;
             }
             else
             {
@@ -60,7 +62,7 @@ namespace MyHealthApp.Views.EditPatientPlan
                     //PatientDetailsPage.MealPlansViewModel.Update(_dailyGoal);
                     //await Navigation.PopAsync();
                     Dismiss(2);
-                    Navigation.ShowPopup(new SMPage(2));
+                    Navigation.ShowPopup(new SMPage("Cambios Guardados", "Plan alimenticio modificado correctamente", true, false));
 
                 }
             }

@@ -643,7 +643,8 @@ namespace MyHealthApp.Views
         private async void CalculateInformForWeek(DateTime start, DateTime end)
         {
             var weeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientIdAndDates(_patient.Id, start,end);
-            
+            var listDistanceRecordDay = new List<DistanceActivity>();
+
             _weeklyGoalViewModel.ClearWeeklyGoalList();
             foreach (var item in weeklyGoals)
             {
@@ -702,14 +703,38 @@ namespace MyHealthApp.Views
             maxQuantity = 0;
             maxProgress = 0;
 
-            if (!listDistances.IsEmpty())
+            // se hizo un cambio debido a que en informe semanal daba el valor del objetivo semanal
+            for (int i = 0; i < 7; i++)
+            {
+                listDistanceRecordDay = await
+                        DistanceService.Instance.GetDistanceActivitiesByPatientIdAndDates(_patient.Id, start.AddDays(i), start.AddDays(i));
+
+                if (listDistanceRecordDay.Count > 0)
+                {
+                    var DistanceActivityDay = listDistanceRecordDay.First();
+                    maxProgress += DistanceActivityDay.Quantity;
+                    if (DistanceActivityDay.Quantity > maxQuantity) maxQuantity = DistanceActivityDay.Quantity;
+                }
+            }
+
+            _reportGoalsWeeklyViewModel.AddReportGoalToList(new ReportGoal()
+            {
+                Description = "",
+                ImageSource = "",
+                Progress = maxProgress,
+                Quantity = maxQuantity,
+                ActivityId = 3
+            });
+
+            // original
+            /*if (!listDistances.IsEmpty())
             {
                 foreach (var item in listDistances)
                 {
-                    if (item.Progress > maxProgress) maxProgress = item.Progress;
+                    if (item.Progress > maxProgress) maxProgress = item.Quantity;
                     if (item.Quantity > maxQuantity) maxQuantity = item.Quantity;
                 }
-                
+
                 _reportGoalsWeeklyViewModel.AddReportGoalToList(new ReportGoal()
                 {
                     Description = "",
@@ -718,7 +743,7 @@ namespace MyHealthApp.Views
                     Quantity = maxQuantity,
                     ActivityId = 3
                 });
-            }
+            }*/
 
             GetDataWeekly(1, start, end);
             GetDataWeekly(2, start, end);

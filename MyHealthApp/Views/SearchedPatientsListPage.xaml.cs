@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,16 @@ using System.Threading.Tasks;
 using MyHealthApp.Models;
 using MyHealthApp.Services;
 using MyHealthApp.ViewModels;
+using MyHealthApp.Views.SuccesfulMessage;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MyHealthApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SearchedPatientsListPage : ContentPage
+    public partial class SearchedPatientsListPage : Popup
     {
         public  PatientsProfilesViewModel _viewModel;
         public Specialist Specialist;
@@ -81,7 +85,8 @@ namespace MyHealthApp.Views
 
                 if (isPresentInList)
                 {
-                    await DisplayAlert("Este paciente ya se encuentra en tu lista", "Selecciona otro", "Ok");
+                    Navigation.ShowPopup(new SMPage("Este paciente ya se encuentra en tu lista", "Selecciona otro", false, false));
+                    //await DisplayAlert("Este paciente ya se encuentra en tu lista", "Selecciona otro", "Ok");
                     item.IsEnabled = true;
                 }
                 else
@@ -90,16 +95,19 @@ namespace MyHealthApp.Views
 
                     if (!response)
                     {
-                        await DisplayAlert("Error", "No se pudo asignar el paciente al especialista", "Ok");
+                        Navigation.ShowPopup(new SMPage("Error", "No se pudo asignar el paciente al especialista", false, false));
+                        //await DisplayAlert("Error", "No se pudo asignar el paciente al especialista", "Ok");
                         item.IsEnabled = true;
                         return;
                     }
                     
                     PatientsListPage._viewModel.AddProfileToList(profile);
                     SpecialistHomePage.ViewModel.AddProfileToList(profile);
-                    await DisplayAlert("Añadido exitosamente", "El paciente aparecerá ahora en tu lista", "Ok");
+                    Navigation.ShowPopup(new SMPage("Añadido exitosamente", "El paciente aparecerá ahora en tu lista", false, false));
+                    //await DisplayAlert("Añadido exitosamente", "El paciente aparecerá ahora en tu lista", "Ok");
                     item.IsEnabled = true;
-                    await Navigation.PopAsync();
+                    Dismiss(2);
+                    //await Navigation.PopAsync();
                 }
 
                

@@ -8,13 +8,15 @@ using MyHealthApp.Services;
 using MyHealthApp.Views.Register;
 using MyHealthApp.Views.SuccesfulMessage;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MyHealthApp.Views.AddPatientGoal
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddDailyGoalPage : ContentPage
+    public partial class AddDailyGoalPage : Popup
     {
         private List<Activity> _activities;
         private long _patientId;
@@ -64,14 +66,16 @@ namespace MyHealthApp.Views.AddPatientGoal
                 quantityGoal = Double.Parse(EntryGoal.Text);
             }
             catch (Exception exception)
-            { 
-                await DisplayAlert("Advertencia", "Ingrese solo números en el campo de meta", "Ok"); 
+            {
+                Navigation.ShowPopup(new SMPage("Advertencia", "Ingrese solo números en el campo de meta", false, false));
+                //await DisplayAlert("Advertencia", "Ingrese solo números en el campo de meta", "Ok"); 
                 return;
             }
 
             if(quantityGoal < 0.0)
             {
-                await DisplayAlert("Advertencia", "El numero ingresado debe ser mayor a 0", "Ok");
+                Navigation.ShowPopup(new SMPage("Advertencia", "El numero ingresado debe ser mayor a 0", false, false));
+                //await DisplayAlert("Advertencia", "El numero ingresado debe ser mayor a 0", "Ok");
                 return;
             }
 
@@ -87,13 +91,15 @@ namespace MyHealthApp.Views.AddPatientGoal
 
             if (dailyGoalResponse == null)
             {
-                await DisplayAlert("Error", "No se pudo crear el Daily Goal para este paciente", "Ok");
+                Navigation.ShowPopup(new SMPage("Error", "No se pudo crear el Daily Goal para este paciente", false, false));
+                //await DisplayAlert("Error", "No se pudo crear el Daily Goal para este paciente", "Ok");
                 return;
             }
             
             PatientDetailsPage.DailyGoalsViewModel.AddDailyGoalToList(dailyGoalResponse);
-            await Navigation.PopAsync();
-            Navigation.ShowPopup(new SMPage(4));
+            //await Navigation.PopAsync();
+            Dismiss(2);
+            Navigation.ShowPopup(new SMPage("Añadido exitosamente", "El plan objetivo diario se ha establecido", false, true));
         }
     }
 }

@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MyHealthApp.Views.AddPatientPlan
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddMealPlanPage : ContentPage
+    public partial class AddMealPlanPage : Popup
     {
         private long _patientId;
         private String countDescription;
@@ -33,15 +34,17 @@ namespace MyHealthApp.Views.AddPatientPlan
 
         private async void AddPlanButton_OnClicked(object sender, EventArgs e)
         {
-            if(PlanName.Text == null)
+            if(PlanName.Text == null || PlanName.Text == "")
             {
-                await DisplayAlert("Advertencia", "El Nombre esta vacio", "Ok");
+                Navigation.ShowPopup(new SMPage("Advertencia", "El Nombre esta vacio", false, false));
+                //await DisplayAlert("Advertencia", "El Nombre esta vacio", "Ok");
                 return;
             }
             
             if(PlanDescription.Text == null || PlanDescription.Text == "")
             {
-                await DisplayAlert("Advertencia", "La Descripcion esta vacia", "Ok");
+                Navigation.ShowPopup(new SMPage("Advertencia", "La Descripcion esta vacia", false, false));
+                //await DisplayAlert("Advertencia", "La Descripcion esta vacia", "Ok");
                 return;
             }
 
@@ -55,13 +58,15 @@ namespace MyHealthApp.Views.AddPatientPlan
 
             if (mealPlanResponse == null)
             {
-                await DisplayAlert("Error", "No se pudo crear el Meal Plan para este paciente", "Ok");
+                Navigation.ShowPopup(new SMPage("Error", "No se pudo crear el Meal Plan para este paciente", false, false));
+                //await DisplayAlert("Error", "No se pudo crear el Meal Plan para este paciente", "Ok");
                 return;
             }
 
             PatientDetailsPage.MealPlansViewModel.AddMealPlanToList(mealPlanResponse);
-            await Navigation.PopAsync();
-            Navigation.ShowPopup(new SMPage(1));
+            //await Navigation.PopAsync();
+            Dismiss(2);
+            Navigation.ShowPopup(new SMPage("Añadido exitosamente", "El plan alimenticio se ha agregado", true, false));
         }
 
         private void CountText(object sender, TextChangedEventArgs e)

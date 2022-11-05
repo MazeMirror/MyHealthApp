@@ -43,7 +43,7 @@ namespace MyHealthApp.Views.EditPatientGoal
                 //ELIMINAR DE LISTA.....de dailyGoals
                 PatientDetailsPage.DailyGoalsViewModel.DeleteDailyGoalOnList(_dailyGoal);
                 Dismiss(2);
-                Navigation.ShowPopup(new SMPage(6));
+                Navigation.ShowPopup(new SMPage("El objetivo se ha eliminado", "", false, true));
             }
             
         }

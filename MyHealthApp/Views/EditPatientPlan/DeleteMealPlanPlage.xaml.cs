@@ -43,7 +43,7 @@ namespace MyHealthApp.Views.EditPatientPlan
                 //ELIMINAR DE LISTA.....de dailyGoals
                 PatientDetailsPage.MealPlansViewModel.DeleteMealPlanlOnList(_mealPlan);
                 Dismiss(2);
-                Navigation.ShowPopup(new SMPage(3));
+                Navigation.ShowPopup(new SMPage("El Plan se ha eliminado", "", true, false));
             }
 
         }

@@ -1025,8 +1025,7 @@ namespace MyHealthApp.Views
                                 await DisplayAlert("Importante",
                                 "No cuenta con conexion a internet, restablezca su conexión para continuar", "Aceptar");
                             });
-                                
-                            
+                                                           
                         }
                         
                     }
@@ -1226,5 +1225,6 @@ namespace MyHealthApp.Views
         }
 
         public ICommand OpenAboutCommand { get; set; }
+
     }
 }
