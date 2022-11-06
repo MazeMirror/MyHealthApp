@@ -7,6 +7,8 @@ using MyHealthApp.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace MyHealthApp.Services
 {
@@ -160,6 +162,25 @@ namespace MyHealthApp.Services
             catch (HttpRequestException)
             {
                 return HttpStatusCode.BadRequest;
+            }
+
+        }
+
+        public async Task<List<User>> GetAllUsers()
+        {
+            _requestUri = new Uri($"https://myhealthnewapi.azurewebsites.net/api/user");
+
+            try
+            {
+                var response = await _client.GetAsync(_requestUri);
+                var users = response.StatusCode == HttpStatusCode.OK
+                    ? JsonConvert.DeserializeObject<List<User>>(response.Content.ReadAsStringAsync().Result)
+                : new List<User>();
+                return users;
+            }
+            catch (HttpRequestException)
+            {
+                return new List<User>();
             }
 
         }

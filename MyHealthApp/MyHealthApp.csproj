@@ -144,6 +144,12 @@
     <EmbeddedResource Update="Views\AdminHomePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+	<EmbeddedResource Update="Views\DeletePatient\DeletePatientPage.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+	<EmbeddedResource Update="Views\DeletePatient\SuccessfulMessage\DeletedPatientSucc.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
     <EmbeddedResource Update="Views\EditPatientGoal\DeleteDailyGoalPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -186,6 +192,12 @@
     <EmbeddedResource Update="Views\EditProfileAsAdmin\DeleteEditProfileAsAdminPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+	<EmbeddedResource Update="Views\EditProfileAsAdmin\DeleteProfileMD\DeleteProfileConfirmation.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+	<EmbeddedResource Update="Views\EditProfileAsAdmin\DeleteProfileMD\DeleteProfileSuccess.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
     <EmbeddedResource Update="Views\EditProfileAsAdmin\GeneralProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

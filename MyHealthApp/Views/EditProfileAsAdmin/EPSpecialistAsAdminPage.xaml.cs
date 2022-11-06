@@ -90,7 +90,7 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
             //Actualizar perfil 
             var editProfile = _profile.CreateDeepCopy();
             editProfile.Gender = PickerGenre.SelectedItem.ToString();
-            editProfile.BirthDate = DatePickerBirthdate.Date;
+            editProfile.BirthDate = DatePickerBirthdate.Date.AddDays(1); ;
             
             var profileResponse = await ProfileService.Instance.PutProfileByProfileAndId(editProfile, editProfile.Id);
             if (profileResponse == null)

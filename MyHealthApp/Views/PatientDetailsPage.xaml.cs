@@ -14,6 +14,7 @@ using MyHealthApp.Services.Activities;
 using MyHealthApp.ViewModels;
 using MyHealthApp.Views.AddPatientGoal;
 using MyHealthApp.Views.AddPatientPlan;
+using MyHealthApp.Views.DeletePatient;
 using MyHealthApp.Views.EditPatientGoal;
 using MyHealthApp.Views.EditPatientPlan;
 using ProgressRingControl.Forms.Plugin;
@@ -446,8 +447,16 @@ namespace MyHealthApp.Views
             
             var specialistProfile = await App.SqLiteDb.GetProfileAsync();
             var specialist = await SpecialistService.Instance.GetSpecialistByProfileId(specialistProfile.Id);
-
-            var resp = await SpecialistService.Instance.UnassignSpecialistWitPatient(specialist.Id, _patient.Id);
+            var result = await Navigation.ShowPopupAsync(new DeletePatientPage(specialist.Id, _patient.Id, _profile));
+            if (result != null && (int)result == 2)
+            {
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                ButtonDeletePatient.IsEnabled = true;
+            }
+            /*var resp = await SpecialistService.Instance.UnassignSpecialistWitPatient(specialist.Id, _patient.Id);
             if (resp)
             {
                 PatientsListPage._viewModel.DeletePatientProfileOnList(_profile);
@@ -458,7 +467,7 @@ namespace MyHealthApp.Views
             {
                 ButtonDeletePatient.IsEnabled = true;
                 await DisplayAlert("Importante", "No se pudo desasignar de este paciente, intentelo de nuevo", "Ok");
-            }
+            }*/
             
             
             
