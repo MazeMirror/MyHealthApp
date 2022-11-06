@@ -38,7 +38,7 @@ namespace MyHealthApp.ViewModels
 
         public void AddProfileToList(Profile pro)
         {
-            _profiles.Add(pro);
+            _profiles.Insert(0, pro);
             OnPropertyChanged();
         }
 

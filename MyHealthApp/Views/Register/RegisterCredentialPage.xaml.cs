@@ -67,7 +67,17 @@ namespace MyHealthApp.Views.Register
             
             _user.Email = EntryEmail.Text;
             _user.Password = EntryFirstPassword.Text;
-            
+
+            var usersEmail = await UserService.Instance.GetAllUsers();
+            foreach (var userN in usersEmail)
+            {
+                if (_user.Email == userN.Email)
+                {
+                    NextButton.IsEnabled = true;
+                    await DisplayAlert("Error", "Ese correo ya está registrado", "Ok");
+                    return;
+                }
+            }
             //Creamos el usuario
             User user = await UserService.Instance.PostUser(_user);
             
