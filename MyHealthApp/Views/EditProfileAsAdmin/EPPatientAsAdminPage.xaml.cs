@@ -35,7 +35,7 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
                 _user = await UserService.Instance.GetUserById(_profile.UserId);
                 
                 
-                DatePickerBirthdate.Date = _profile.BirthDate.AddDays(1);
+                DatePickerBirthdate.Date = _profile.BirthDate;
                 PickerGenre.SelectedItem = _profile.Gender;
                 EntryHeight.Text = _patient.Height.ToString(CultureInfo.CurrentCulture);
                 EntryWeight.Text = _patient.Weight.ToString(CultureInfo.CurrentCulture);

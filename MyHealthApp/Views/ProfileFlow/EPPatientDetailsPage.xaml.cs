@@ -30,7 +30,7 @@ namespace MyHealthApp.Views.ProfileFlow
 
         private void CompleteFields()
         {
-            DatePickerBirthdate.Date = _profile.BirthDate.AddDays(1);
+            DatePickerBirthdate.Date = _profile.BirthDate;
             PickerGenre.SelectedItem = _profile.Gender;
             EntryHeight.Text = _patient.Height.ToString(CultureInfo.CurrentCulture);
             EntryWeight.Text = _patient.Weight.ToString(CultureInfo.CurrentCulture);

@@ -33,7 +33,7 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
                 _specialist = await SpecialistService.Instance.GetSpecialistByProfileId(_profile.Id);
                 _user = await UserService.Instance.GetUserById(_profile.UserId);
                 
-                DatePickerBirthdate.Date = _profile.BirthDate.AddDays(1);
+                DatePickerBirthdate.Date = _profile.BirthDate;
                 PickerGenre.SelectedItem = _profile.Gender;
                 EntryEspeciality.Text = _specialist.Specialty;
                 EntryEmail.Text = _user.Email;
