@@ -34,7 +34,7 @@ namespace MyHealthApp.Views.Register
             }
             _profile.Name = EntryName.Text;
             _profile.LastName = EntryLastname.Text;
-            _profile.BirthDate = DatePickerBirthdate.Date;
+            _profile.BirthDate = DatePickerBirthdate.Date.AddDays(1);
             _profile.Gender = PickerGenre.SelectedItem.ToString();
             //aun no tengo userId
             

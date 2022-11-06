@@ -61,11 +61,11 @@ namespace MyHealthApp.Views.ProfileFlow
                 return;
             }
             
-            if (EntryPhone.Text.Length < 9)
+            /*if (EntryPhone.Text.Length < 9)
             {
                 await DisplayAlert("Mensaje", "El número de celular no debe ser inferior a 9 digitos, corríjalo para continuar", "Ok");
                 return;
-            }
+            }*/
 
 
             //Actualizar usuario
@@ -83,7 +83,7 @@ namespace MyHealthApp.Views.ProfileFlow
             //Actualizar perfil 
             var editProfile = _profile.CreateDeepCopy();
             editProfile.Gender = PickerGenre.SelectedItem.ToString();
-            editProfile.BirthDate = DatePickerBirthdate.Date;
+            editProfile.BirthDate = DatePickerBirthdate.Date.AddDays(1);
             
             var profileResponse = await ProfileService.Instance.PutProfileByProfileAndId(editProfile, editProfile.Id);
             if (profileResponse == null)
@@ -100,11 +100,11 @@ namespace MyHealthApp.Views.ProfileFlow
                 try
                 {
                     var height = Double.Parse(EntryHeight.Text);
-                    if (height == 0.0)
+                    /*if (height == 0.0)
                     {
                         await DisplayAlert("Mensaje", "La altura no puede ser 0 cm", "Ok");
                         return;
-                    }
+                    }*/
                     
                     editPatient.Height = height;
                 }
@@ -121,11 +121,11 @@ namespace MyHealthApp.Views.ProfileFlow
                 try
                 {
                     var weight = Double.Parse(EntryWeight.Text);
-                    if (weight == 0.0)
+                    /*if (weight == 0.0)
                     {
                         await DisplayAlert("Mensaje", "El peso no puede ser 0 kg", "Ok");
                         return;
-                    }
+                    }*/
                     editPatient.Weight = weight;
                 }
                 catch (FormatException e2)
@@ -187,7 +187,7 @@ namespace MyHealthApp.Views.ProfileFlow
             
             //Actualizamos en la referencia
             _profile.Gender = PickerGenre.SelectedItem.ToString();
-            _profile.BirthDate = DatePickerBirthdate.Date;
+            _profile.BirthDate = DatePickerBirthdate.Date.AddDays(1);
             
             
         }

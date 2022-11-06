@@ -114,7 +114,8 @@ namespace MyHealthApp.Views
             {
                 _viewModel.AddProfileToList(item);
             }
-            
+
+            //_viewModel.FilterByNameAndLastname(SearchBar.Text);
             //List<> tempList 
         }
     }
