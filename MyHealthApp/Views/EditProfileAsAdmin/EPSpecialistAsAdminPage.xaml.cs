@@ -33,7 +33,7 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
                 _specialist = await SpecialistService.Instance.GetSpecialistByProfileId(_profile.Id);
                 _user = await UserService.Instance.GetUserById(_profile.UserId);
                 
-                DatePickerBirthdate.Date = _profile.BirthDate;
+                DatePickerBirthdate.Date = _profile.BirthDate.AddDays(1);
                 PickerGenre.SelectedItem = _profile.Gender;
                 EntryEspeciality.Text = _specialist.Specialty;
                 EntryEmail.Text = _user.Email;
@@ -90,7 +90,7 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
             //Actualizar perfil 
             var editProfile = _profile.CreateDeepCopy();
             editProfile.Gender = PickerGenre.SelectedItem.ToString();
-            editProfile.BirthDate = DatePickerBirthdate.Date;
+            editProfile.BirthDate = DatePickerBirthdate.Date.AddDays(1);
             
             var profileResponse = await ProfileService.Instance.PutProfileByProfileAndId(editProfile, editProfile.Id);
             if (profileResponse == null)
@@ -128,7 +128,7 @@ namespace MyHealthApp.Views.EditProfileAsAdmin
             
             //Actualizamos en la referencia
             _profile.Gender = PickerGenre.SelectedItem.ToString();
-            _profile.BirthDate = DatePickerBirthdate.Date;
+            _profile.BirthDate = DatePickerBirthdate.Date.AddDays(1);
             
             
             //Actualizamos referencia

@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SelectedDevice>Android Emulator</SelectedDevice>
-    <ActiveDebugProfile>Android Emulator</ActiveDebugProfile>
+    <SelectedDevice>Pixel_XL_API_27</SelectedDevice>
+    <ActiveDebugProfile>Pixel XL API 27 %28Android 8.1 - API 27%29</ActiveDebugProfile>
     <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
+    <DefaultDevice>Pixel_XL_API_27</DefaultDevice>
+    <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
   </PropertyGroup>
 </Project>

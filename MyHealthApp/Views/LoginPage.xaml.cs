@@ -75,7 +75,12 @@ namespace MyHealthApp.Views
                 if (user == null)
                 {
                     LoginButton.IsEnabled = true;
-                    await DisplayAlert("Credenciales inválidos", "El correo o la contraseña ingresada es incorrecta", "Ok");
+                    await DisplayAlert("Credenciales inválidos", "El correo es incorrecto", "Ok");
+                    return;
+                }else if (user.Email == "NoPassword")
+                {
+                    LoginButton.IsEnabled = true;
+                    await DisplayAlert("Credenciales inválidos", "La contraseña es incorrecta", "Ok");
                     return;
                 }
 
