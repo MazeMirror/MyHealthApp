@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+    
+<effects:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+               Size="400,570"
+               Color="Transparent"
+             xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.EditPatientGoal.UpdateDailyGoalPage">
+
+    <effects:Popup.Content>
+        <StackLayout BackgroundColor="Transparent">
+
+            <Frame Margin="20,24,20,0"
+                   BackgroundColor="White"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   Padding="20">
+                <StackLayout>
+                    <Label Text="Editar objetivo diario"
+                           FontSize="18"
+                           FontFamily="ArchivoSemiBold"
+                           TextColor="Black" />
+                    <FlexLayout JustifyContent="SpaceBetween"
+                                AlignItems="Start"
+                                Padding="15,25,10,0">
+                        <Label Text="Tipo"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black" />
+
+                        <Frame HasShadow="False"
+                               BorderColor="Black"
+                               CornerRadius="5"
+                               Padding="20,0,5,0"
+                               WidthRequest="170"
+                               HeightRequest="55">
+                            <FlexLayout
+                                Direction="Row"
+                                JustifyContent="SpaceBetween"
+                                AlignItems="Center">
+                                <Picker
+                                    Title="Seleccionar"
+                                    WidthRequest="130"
+                                    x:Name="SeleccionObjetivo"
+                                    
+                                    FontFamily="ArchivoRegular"
+                                    FontSize="16"
+                                    TextColor="Black"
+                                    TitleColor="#516A7B" IsEnabled="False" IsTabStop="True">
+                                </Picker>
+                                <Label
+                                    VerticalOptions="Center"
+                                    FontSize="18"
+                                    WidthRequest="25"
+                                    Text="&#xf0d7;"
+                                    TextColor="Black"
+                                    FontFamily="{StaticResource FontAwesomeSolid}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                              />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </FlexLayout>
+
+                        </Frame>
+                    </FlexLayout>
+                    
+                    <FlexLayout JustifyContent="SpaceBetween"
+                                AlignItems="Start"
+                                Padding="15,35,10,0">
+                        <Label Text="Meta"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black" />
+
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="15">
+                            <Frame HasShadow="False"
+                                   BorderColor="Black"
+                                   CornerRadius="5"
+                                   Padding="20,0,20,0"
+                                   WidthRequest="80"
+                                   HeightRequest="55">
+                                <Entry
+                                    x:Name="EntryGoalUpdate"
+                                    Keyboard="Numeric"
+                                    MaxLength="6"
+                                    HorizontalOptions="FillAndExpand"
+                                    FontFamily="ArchivoRegular"
+                                    FontSize="16"
+                                    TextColor="Black"/>
+                            </Frame>
+
+                            <Label x:Name="LabelActivitySelected"
+                                   FontFamily="ArchivoRegular"
+                                   Text="pasos"
+                                   FontSize="16"
+                                   VerticalOptions="CenterAndExpand"/>
+                        </StackLayout>
+                    </FlexLayout>
+
+                    <Button x:Name="SaveChanges"
+                            Text="Guardar Cambias"
+                            Margin="0,20,0,0"
+                            BackgroundColor="#FF9162"
+                            HeightRequest="40"
+                            CornerRadius="5"
+                            TextTransform="None"
+                            TextColor="White" 
+                            Clicked="SaveChanges_Clicked"
+                            />
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </effects:Popup.Content>
+</effects:Popup>

@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.LoginPage">
+    <ContentPage.Content>
+        <ContentView>
+            <ScrollView>
+                <StackLayout
+                    BackgroundColor="#334856">
+
+                    <StackLayout
+                        HorizontalOptions="Center"
+                        Spacing="2"
+                        Padding="0,30,0,0">
+                        <Image
+                            Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                            Scale="0.9" />
+                        <Image
+                            Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                            Scale="0.9" />
+                    </StackLayout>
+
+
+                    <StackLayout
+                        Padding="20,20,20,0">
+
+                        <Label
+                            Style="{StaticResource LabelOfTextBox}"
+                            Text="Correo electrónico" />
+                        <Frame
+                            Style="{StaticResource BorderTextBox}">
+                            <Entry
+                                x:Name="EntryEmail"
+                                FontFamily="ArchivoRegular"
+                                Placeholder="ejemplo@hotmail.com"
+                                MaxLength="35"
+                                Keyboard="Email"
+                                FontSize="16"
+                                PlaceholderColor="#516A7B">
+                                <Entry.Behaviors>
+                                    <xct:EmailValidationBehavior
+                                        Flags="ValidateOnValueChanging"
+                                        DecorationFlags="Trim"
+                                        InvalidStyle="{StaticResource InvalidTextEntryStyle}"
+                                        ValidStyle="{StaticResource ValidTextEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
+                        </Frame>
+
+                        <Label
+                            Style="{StaticResource LabelOfTextBox}"
+                            Padding="0,30,0,0"
+                            Text="Contraseña" />
+                        <Frame
+                            Style="{StaticResource BorderTextBox}">
+                            <StackLayout
+                                Orientation="Horizontal">
+                                <Entry
+                                    x:Name="EntryPassword"
+                                    HorizontalOptions="FillAndExpand"
+                                    FontFamily="ArchivoRegular"
+                                    Placeholder="**************"
+                                    MaxLength="15"
+                                    FontSize="16"
+                                    IsPassword="True"
+                                    PlaceholderColor="#516A7B">
+                                    <Entry.Behaviors>
+                                        <xct:TextValidationBehavior
+                                            Flags="ValidateOnValueChanging"
+                                            MinimumLength="8"
+                                            InvalidStyle="{StaticResource InvalidTextEntryStyle}"
+                                            ValidStyle="{StaticResource ValidTextEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
+                                <Button
+                                    x:Name="PasswordButton"
+                                    Text="&#xf070;"
+                                    FontFamily="{StaticResource FontAwesomeSolid}"
+                                    WidthRequest="40"
+                                    BackgroundColor="Transparent"
+                                    TextColor="Accent"
+                                    Clicked="PasswordButton_OnClicked" />
+
+                            </StackLayout>
+                        </Frame>
+
+                    </StackLayout>
+
+                    <Button
+                        x:Name="LoginButton"
+                        Style="{StaticResource ButtonStyle}"
+                        Margin="20,40,20,0"
+                        Padding="0,17,0,17"
+                        Text="INICIAR SESIÓN"
+                        FontSize="14"
+                        FontFamily="FjallaOne"
+                        CharacterSpacing="2.1"
+                        CornerRadius="50"
+                        IsEnabled="True"
+                        Clicked="LoginButton_OnClicked" />
+
+                    <Label
+                        HorizontalOptions="Center"
+                        Padding="0,25,0,0"
+                        Text="¿Olvidaste tu contraseña?"
+                        FontSize="14"
+                        TextColor="#EB6C36"
+                        FontFamily="ArchivoRegular" />
+                    <Label
+                        HorizontalOptions="CenterAndExpand"
+                        Text="__________________________________"
+                        FontSize="15"
+                        TextColor="#2C3F4D" />
+                    <StackLayout
+                        Orientation="Horizontal"
+                        HorizontalOptions="Center"
+                        Padding="0,10,0,0">
+                        <Label
+                            Text="¿No tienes una cuenta?"
+                            TextColor="White"
+                            FontSize="14" />
+                        <Label
+                            Text="Regístrate"
+                            TextColor="#EB6C36"
+                            FontSize="14">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="RegisterLabel_OnTapped"
+                                    NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </ContentView>
+
+    </ContentPage.Content>
+</ContentPage>

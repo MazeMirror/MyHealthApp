@@ -1,0 +1,618 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             xmlns:models="clr-namespace:MyHealthApp.Models;assembly=MyHealthApp"
+             xmlns:viewModels="clr-namespace:MyHealthApp.ViewModels;assembly=MyHealthApp"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.PatientDetailsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:ValueToDoubleConverter x:Key="ToDoubleConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ContentView>
+
+            <ScrollView>
+                <!--Poner siempre un scrollview dentro del ContentView o sino ciertos datos se esconden (no se renderizan)-->
+                <StackLayout BackgroundColor="#F0F3F4"
+                             Padding="0,0,0,25">
+                    <!--TOPBAR -->
+
+                    <StackLayout
+                        HeightRequest="90"
+                        Orientation="Horizontal"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="White">
+                        <Label Text="&#xf053;"
+                               FontSize="18"
+                               Margin="35,0,0,0"
+                               VerticalOptions="Center"
+                               FontFamily="{StaticResource FontAwesomeSolid}"
+                               TextColor="Black">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="LabelBack_OnTapped"
+                                    NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                               Scale="0.90"
+                               Margin="68,0,0,0" />
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                               Margin="10,0,0,0"
+                               effects:IconTintColorEffect.TintColor="Black"
+                               Scale="0.90" />
+                    </StackLayout>
+
+                    <!--Names patient-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           HeightRequest="105"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="15">
+
+                        <FlexLayout
+                            Direction="Row"
+                            AlignItems="Start"
+                            JustifyContent="SpaceAround">
+                            <Label Text="&#xf2bd;"
+                                   TextColor="Black"
+                                   FontSize="75"
+                                   FontFamily="{StaticResource FontAwesomeSolid}" />
+                            <StackLayout
+                                Spacing="0">
+
+                                <Label x:Name="LabelName"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+
+                                <Label x:Name="LabelLastname"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                                <Button Text="Eliminar de mi lista"
+                                        x:Name="ButtonDeletePatient"
+                                        BackgroundColor="Red"
+                                        HeightRequest="40"
+                                        TextTransform="None"
+                                        TextColor="White"
+                                        CornerRadius="10"
+                                        Margin="0,10,0,0"
+                                        WidthRequest="180" 
+                                        Clicked="ButtonDeletePatient_OnClicked"
+                                        />
+                            </StackLayout>
+                        </FlexLayout>
+                    </Frame>
+
+                    <!--Information patient-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+                        <StackLayout>
+
+                            <Label Text="Información del paciente"
+                                   Padding="20,10,0,0"
+                                   FontFamily="ArchivoSemiBold"
+                                   TextColor="Black"
+                                   FontSize="18" />
+
+                            <StackLayout
+                                x:Name="StackLayoutProfileDetails"
+                                Padding="20,17,20,17"
+                                BindableLayout.ItemsSource="{Binding Items}">
+
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label
+                                            Text="{Binding TitleText}"
+                                            FontFamily="ArchivoRegular"
+                                            TextColor="Black"
+                                            FontSize="12" />
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+
+                            </StackLayout>
+
+                        </StackLayout>
+
+                    </Frame>
+
+                    <!--Information physic activity-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+                        <StackLayout Spacing="14">
+
+                            <Label Text="Resumen de actividad física"
+                                   Padding="20,10,0,0"
+                                   FontFamily="ArchivoSemiBold"
+                                   TextColor="Black"
+                                   FontSize="18" />
+
+                            <Label Text="Hoy"
+                                   HorizontalOptions="CenterAndExpand"
+                                   FontFamily="ArchivoRegular"
+                                   TextColor="Black"
+                                   FontSize="14" />
+
+                            <StackLayout
+                                HorizontalOptions="Center"
+                                Spacing="0"
+                                WidthRequest="270">
+                                <FlexLayout
+                                    x:Name="FlexLayoutRingsToday"
+                                    Wrap="Wrap"
+                                    HeightRequest="320"
+                                    JustifyContent="SpaceAround">
+                                    <!--<Label x:Name="LabelEmptyOfRings"
+                                           Text="No hay objetivos diarios pendientes ni registro de actividad aún"
+                                           Padding="0,50,0,0"
+                                           FontFamily = "ArchivoRegular"
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="14"
+                                           IsVisible="False"
+                                    />-->
+                                    
+                                    <plugin:ProgressRing x:Name="ProgressRingSteps"
+                                                         HeightRequest="110"
+                                                         WidthRequest="110"
+                                                         RingProgressColor="#2F6A88"
+                                                         RingThickness="6"
+                                                         Progress="0.2"
+                                                         RingBaseColor="#CEE5EE" />
+
+                                    <plugin:ProgressRing x:Name="ProgressRingDistance"
+                                                         HeightRequest="110"
+                                                         WidthRequest="110"
+                                                         RingProgressColor="#FF9162"
+                                                         RingBaseColor="#fddacb"
+                                                         RingThickness="6"
+                                                         Progress="0.6" />
+                                    
+                                    <plugin:ProgressRing x:Name="ProgressRingKilocalorie"
+                                                         HeightRequest="110"
+                                                         WidthRequest="110"
+                                                         RingProgressColor="#EB5536"
+                                                         RingBaseColor="#FCCACA"
+                                                         RingThickness="6"
+                                                         Progress="0.6" />
+
+                                </FlexLayout>
+                                
+                                
+
+                                <FlexLayout
+                                    x:Name="FlexLayoutRingsInfoToday"
+                                    Wrap="Wrap"
+                                    JustifyContent="SpaceAround">
+                                    <StackLayout x:Name="StackLayoutInfoRingSteps"
+                                                 WidthRequest="110"
+                                                 TranslationY="-305"
+                                                 Spacing="1">
+                                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.shoe.png}"
+                                               effects:IconTintColorEffect.TintColor="#2F6A88"
+                                               Scale="1.4" />
+
+                                        <StackLayout Spacing="-5">
+                                            <Label x:Name="LabelProgressSteps"
+                                                   Text="10"
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="Black"
+                                                   FontSize="16"
+                                                   HorizontalTextAlignment="Center" />
+                                            <Label x:Name="LabelGoalSteps"
+                                                   Text="/400"
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="#A3A3A3"
+                                                   FontSize="14"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label Text="Pasos"
+                                               FontSize="14"
+                                               TextColor="Black"
+                                               FontFamily="ArchivoRegular"
+                                               HorizontalOptions="Center"
+                                               TranslationY="30" />
+
+                                    </StackLayout>
+                                    
+                                    <StackLayout x:Name="StackLayoutInfoRingDistance"
+                                                 WidthRequest="110"
+                                                 TranslationY="-305"
+                                                 Spacing="1">
+                                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.walk.png}"
+                                               effects:IconTintColorEffect.TintColor="#FF9162"
+                                               Scale="1.4" />
+
+                                        <StackLayout Spacing="-5">
+                                            <Label x:Name="LabelProgressDistance"
+                                                   Text="200 m"
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="Black"
+                                                   FontSize="16"
+                                                   HorizontalTextAlignment="Center" />
+                                            <Label x:Name="LabelGoalDistance"
+                                                   Text="/3000 m"
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="#A3A3A3"
+                                                   FontSize="14"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label Text="Distancia"
+                                               FontSize="14"
+                                               TextColor="Black"
+                                               FontFamily="ArchivoRegular"
+                                               HorizontalOptions="Center"
+                                               TranslationY="30" />
+                                    </StackLayout>
+                                    
+                                    <StackLayout x:Name="StackLayoutInfoRingKilocalorie"
+                                                 WidthRequest="110"
+                                                 TranslationY="-240"
+                                                 Spacing="1">
+                                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.fire.png}"
+                                               effects:IconTintColorEffect.TintColor="#EB5536"
+                                               Scale="1.4" />
+
+                                        <StackLayout Spacing="-5">
+                                            <Label x:Name="LabelProgressKilocalorie"
+                                                   Text="200 m"
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="Black"
+                                                   FontSize="16"
+                                                   HorizontalTextAlignment="Center" />
+                                            <Label x:Name="LabelGoalKilocalorie"
+                                                   Text="/3000 m"
+                                                   FontFamily="ArchivoRegular"
+                                                   TextColor="#A3A3A3"
+                                                   FontSize="14"
+                                                   HorizontalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label Text="Kilocalorias"
+                                               FontSize="14"
+                                               TextColor="Black"
+                                               FontFamily="ArchivoRegular"
+                                               HorizontalOptions="Center"
+                                               TranslationY="30" />
+                                    </StackLayout>
+                                </FlexLayout>
+                                
+                                
+
+                            </StackLayout>
+
+                            <StackLayout Spacing="0"
+                                         Margin="20,-190,20,10">
+                                <Label Text="Progreso de objetivos diarios"
+                                       TextColor="Black"
+                                       FontFamily="ArchivoRegular"
+                                       FontSize="12" />
+                                <Label Text="Completados"
+                                       TextColor="#6EB3CD"
+                                       FontFamily="ArchivoRegular"
+                                       FontSize="14" />
+
+                                <!--Cumplimiento de objetivos-->
+                                <FlexLayout JustifyContent="SpaceBetween">
+                                    <Label x:Name="LabelDgCompleted"
+                                           TextColor="#6EB3CD"
+                                           FontFamily="ArchivoSemiBold"
+                                           FontSize="16">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} / {1}">
+                                                <Binding Path="CompletedGoals"/>
+                                                <Binding Path="Lenght"/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                    <FlexLayout x:Name="FlexLayoutDailyGoals"
+                                                Direction="Row"
+                                                Wrap="Wrap"
+                                                AlignContent="Start"
+                                                JustifyContent="End"
+                                                WidthRequest="170"
+                                                HeightRequest="75"
+                                                BindableLayout.ItemsSource="{Binding DailyGoals}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <plugin:ProgressRing HeightRequest="30"
+                                                                     WidthRequest="30"
+                                                                     RingProgressColor="#2F6A88"
+                                                                     RingThickness="5"
+                                                                     Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
+                                                                     Margin="0,0,5,5"
+                                                                     RingBaseColor="#CEE5EE" />
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+
+                                    </FlexLayout>
+                                </FlexLayout>
+
+                                <Button x:Name="ButtonReport"
+                                        Text="Ver Reporte Completo"
+                                        BackgroundColor="#FF9162"
+                                        HeightRequest="40"
+                                        CornerRadius="5"
+                                        TextTransform="None"
+                                        TextColor="White" 
+                                        Clicked="ButtonReport_OnClicked"
+                                        />
+                            </StackLayout>
+
+                        </StackLayout>
+                    </Frame>
+                    
+                    <!--MealPLans List-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+                        <StackLayout Spacing="14">
+                            <FlexLayout Padding="20,10,20,0"
+                                        Direction="Row"
+                                        JustifyContent="SpaceBetween"
+                                        AlignItems="Center">
+                                <Label Text="Planes Alimenticios"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                                <Label Text="&#xf0fe;"
+                                       FontSize="24"
+                                       TextColor="#EB6C36"
+                                       FontFamily="{StaticResource FontAwesomeRegular}"
+                                       VerticalOptions="Center"
+                                       >
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="LabelAddMealPlan_OnTapped"
+                                            NumberOfTapsRequired="1"
+                                        />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </FlexLayout>
+                            <StackLayout x:Name="StackLayoutMealPlans"
+                                         Spacing="20"
+                                         Padding="20,5,20,20"
+                                         BindableLayout.ItemsSource="{Binding MealPlans}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <FlexLayout
+                                            Direction="Row"
+                                            AlignItems="Start"
+
+                                            JustifyContent="SpaceBetween">
+                                            <StackLayout Orientation="Horizontal"
+                                                         Spacing="120"
+                                                         BackgroundColor="#CEE5EE"
+                                                         effects:CornerRadiusEffect.CornerRadius="10">
+
+                                                <StackLayout Spacing="0" WidthRequest="175">
+                                                    <Label TextColor="Black"
+                                                           FontSize="14"
+                                                           FontFamily="ArchivoSemiBold"
+                                                           Text="{Binding Name}"
+                                                           Margin="15,10,10,10"
+                                                            />
+                                                </StackLayout>
+
+                                                <StackLayout>
+                                                    <Label TextColor="Black"
+                                                           FontSize="14"
+                                                           FontFamily="{StaticResource FontAwesomeSolid}"
+                                                           Text="&#xf054;"
+                                                           Margin="10,10,15,10"
+                                                            /> 
+                                                </StackLayout>
+                                            </StackLayout>
+                                            
+                                            <FlexLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="SpecificMealPlan_OnTapped"
+                                                                      CommandParameter="{Binding .}"
+                                                                      NumberOfTapsRequired="1"/>
+                                            </FlexLayout.GestureRecognizers>
+                                        </FlexLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                                <BindableLayout.EmptyViewTemplate>
+                                    <DataTemplate>
+                                        <Label Text="No hay planes alimenticios"
+                                               FontFamily="ArchivoRegular"
+                                               Padding="20"
+                                               HorizontalTextAlignment="Center" />
+                                    </DataTemplate>
+                                </BindableLayout.EmptyViewTemplate>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+
+                    <!--DailyGoals list-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+                        <StackLayout Spacing="14">
+                            <FlexLayout Padding="20,10,20,0"
+                                        Direction="Row"
+                                        JustifyContent="SpaceBetween"
+                                        AlignItems="Center">
+                                <Label Text="Objetivos diarios"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                                <Label Text="&#xf0fe;"
+                                       FontSize="24"
+                                       TextColor="#EB6C36"
+                                       FontFamily="{StaticResource FontAwesomeRegular}"
+                                       VerticalOptions="Center"
+                                       >
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="LabelAddDailyGoal_OnTapped"
+                                            NumberOfTapsRequired="1"
+                                        />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </FlexLayout>
+                            <StackLayout x:Name="StackLayoutDailyGoals"
+                                         Spacing="20"
+                                         Padding="20,5,20,20"
+                                         BindableLayout.ItemsSource="{Binding DailyGoals}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <FlexLayout
+                                            Direction="Row"
+                                            AlignItems="Start"
+
+                                            JustifyContent="SpaceBetween">
+                                            <StackLayout Orientation="Horizontal"
+                                                         Spacing="25">
+                                                <plugin:ProgressRing HeightRequest="35"
+                                                                     WidthRequest="35"
+                                                                     RingProgressColor="#2F6A88"
+                                                                     RingThickness="6"
+                                                                     Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
+                                                                     RingBaseColor="#CEE5EE" />
+                                                <StackLayout Spacing="0" WidthRequest="175">
+                                                    <Label TextColor="Black"
+                                                           FontFamily="ArchivoRegular"
+                                                           Text="{Binding DescriptionObjective}"
+                                                           FontSize="14" />
+                                                    <Label TextColor="Black"
+                                                           FontFamily="ArchivoSemiBold"
+                                                           Text="{Binding DescriptionProgress}"
+                                                           FontSize="14" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <Label Text="&#xf054;"
+                                                   FontSize="14"
+                                                   Margin="0,5,0,0"
+                                                   FontFamily="{StaticResource FontAwesomeSolid}"
+                                                   TextColor="Black" />
+                                            
+                                            <FlexLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="SpecificDailyGoal_OnTapped"
+                                                                      CommandParameter="{Binding .}"
+                                                                      NumberOfTapsRequired="1"/>
+                                            </FlexLayout.GestureRecognizers>
+                                        </FlexLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                                <BindableLayout.EmptyViewTemplate>
+                                    <DataTemplate>
+                                        <Label Text="No hay objetivos diarios"
+                                               FontFamily="ArchivoRegular"
+                                               Padding="20"
+                                               HorizontalTextAlignment="Center" />
+                                    </DataTemplate>
+                                </BindableLayout.EmptyViewTemplate>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                    <!--WeeklyGoals list-->
+                    <Frame Margin="20,24,20,0"
+                           BackgroundColor="White"
+                           CornerRadius="10"
+                           HasShadow="False"
+                           Padding="5">
+                        <StackLayout Spacing="14">
+                            <FlexLayout Padding="20,10,20,0"
+                                        Direction="Row"
+                                        JustifyContent="SpaceBetween"
+                                        AlignItems="Center">
+                                <Label Text="Objetivos semanales"
+                                       FontFamily="ArchivoSemiBold"
+                                       TextColor="Black"
+                                       FontSize="18" />
+                                <Label Text="&#xf0fe;"
+                                       FontSize="24"
+                                       TextColor="#EB6C36"
+                                       FontFamily="{StaticResource FontAwesomeRegular}"
+                                       VerticalOptions="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Tapped="LabelAddWeeklyGoal_OnTapped"
+                                            NumberOfTapsRequired="1"
+                                        />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </FlexLayout>
+
+                            <StackLayout x:Name="StackLayoutWeeklyGoals"
+                                         Spacing="20"
+                                         Padding="20,5,20,20"
+                                         BindableLayout.ItemsSource="{Binding WeeklyGoals}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <FlexLayout
+                                            Direction="Row"
+                                            AlignItems="Start"
+
+                                            JustifyContent="SpaceBetween">
+                                            <StackLayout Orientation="Horizontal"
+                                                         Spacing="25">
+                                                <plugin:ProgressRing HeightRequest="35"
+                                                                     WidthRequest="35"
+                                                                     RingProgressColor="#2F6A88"
+                                                                     RingThickness="6"
+                                                                     Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
+                                                                     RingBaseColor="#CEE5EE" />
+                                                <StackLayout Spacing="0" WidthRequest="175">
+                                                    <Label TextColor="Black"
+                                                           FontFamily="ArchivoRegular"
+                                                           Text="{Binding DescriptionObjective}"
+                                                           FontSize="14" />
+                                                    <Label TextColor="Black"
+                                                           FontFamily="ArchivoSemiBold"
+                                                           Text="{Binding DescriptionProgress}"
+                                                           FontSize="14" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <Label Text="&#xf054;"
+                                                   FontSize="14"
+                                                   Margin="0,5,0,0"
+                                                   FontFamily="{StaticResource FontAwesomeSolid}"
+                                                   TextColor="Black" />
+
+                                            <FlexLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="SpecificWeeklyGoal_OnTapped"
+                                                                      CommandParameter="{Binding .}"
+                                                                      NumberOfTapsRequired="1"/>
+                                            </FlexLayout.GestureRecognizers>
+                                        </FlexLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                                <BindableLayout.EmptyViewTemplate>
+                                    <DataTemplate>
+                                        <Label Text="No hay objetivos semanales"
+                                               FontFamily="ArchivoRegular"
+                                               Padding="20"
+                                               HorizontalTextAlignment="Center" />
+                                    </DataTemplate>
+                                </BindableLayout.EmptyViewTemplate>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </ScrollView>
+        </ContentView>
+
+    </ContentPage.Content>
+</ContentPage>

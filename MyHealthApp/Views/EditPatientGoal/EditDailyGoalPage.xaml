@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<effects:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             Size="400,420"
+             Color="Transparent"
+             xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.EditPatientGoal.EditDailyGoalPage">
+    <effects:Popup.Resources>
+        <ResourceDictionary>
+            <helpers:ValueToDoubleConverter x:Key="ToDoubleConverter" />
+        </ResourceDictionary>
+    </effects:Popup.Resources>
+    <effects:Popup.Content>
+        <StackLayout BackgroundColor="Transparent">
+            
+            <!--EJEMPLO-->
+            <Frame Margin="20,20,20,0" 
+                   BackgroundColor="White"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   >
+                <StackLayout Spacing="0">
+                    <!--Titulo-->
+                    <Label Text="Objetivo Diario"
+                           FontSize="18"
+                           FontFamily="ArchivoSemiBold"
+                           TextColor="Black"/>
+                    
+                    <StackLayout Padding="0,25">
+                        <plugin:ProgressRing x:Name="ProgressRing"
+                                             HorizontalOptions="CenterAndExpand"
+                                             HeightRequest="95"
+                                             WidthRequest="95"
+                                             RingProgressColor="#2F6A88"
+                                             RingThickness="6"
+                                             Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
+                                             RingBaseColor="#CEE5EE"/>
+                    </StackLayout>
+                    
+                    <StackLayout HorizontalOptions="Center">
+                        <!--Seteamos binding para que muestre datos, DescriptionObjective es un atributo de DailyGoal -->
+                        <Label x:Name="LabelGoal" 
+                               FontFamily="ArchivoRegular"
+                               FontSize="16"
+                               TextColor="Black"
+                               Text="{Binding DescriptionObjective}"/>
+                        <Label x:Name="LabelProgress" 
+                               FontFamily="ArchivoSemiBold"
+                               FontSize="16"
+                               TextColor="Black"
+                               Text="{Binding DescriptionProgress}"/>
+                    </StackLayout>
+                    
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center"
+                                 Padding="0,25,0,0">
+                        <Button x:Name="UpdateDailyGoal"
+                                Text="Editar"
+                                BackgroundColor="#fff14a"
+                                HeightRequest="40"
+                                TextTransform="None"
+                                TextColor="Black"
+                                CornerRadius="10"
+                                Margin="0,10,0,0"
+                                WidthRequest="160"
+                                Clicked="UpdateDailyGoal_Clicked"/>
+                        
+                        <Button Text="Eliminar"
+                                BackgroundColor="Red"
+                                HeightRequest="40"
+                                TextTransform="None"
+                                TextColor="White"
+                                CornerRadius="10"
+                                Margin="0,10,0,0"
+                                WidthRequest="160"
+                                Clicked="Button_Clicked"/>
+                    </StackLayout>
+                    
+                    
+                </StackLayout>
+                
+            </Frame>
+            <!--EJEMPLO-->
+        </StackLayout>
+    </effects:Popup.Content>
+</effects:Popup>

@@ -1,0 +1,121 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MyHealthApp.Models;
+using MyHealthApp.Services;
+using MyHealthApp.ViewModels;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace MyHealthApp.Views
+{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class PatientsListPage : ContentPage
+    {
+        public static PatientsProfilesViewModel _viewModel;
+        public Specialist Specialist;
+        
+
+        public PatientsListPage()
+        {
+            _viewModel = new PatientsProfilesViewModel();
+            InitializeComponent();
+            GetListOfMyPatientsProfiles();
+            
+            BindingContext = _viewModel;
+        }
+
+        private async void GetListOfMyPatientsProfiles()
+        {
+            var specialistProfile = await App.SqLiteDb.GetProfileAsync(); 
+            Specialist = await SpecialistService.Instance.GetSpecialistByProfileId(specialistProfile.Id);
+            
+            var localPatients = await SpecialistService.Instance.GetPatientsBySpecialistId(Specialist.Id);
+
+            foreach (var item in localPatients)
+            {
+                var patientProfile = await ProfileService.Instance.GetProfileById(item.ProfileId);
+                _viewModel.AddProfileToList(patientProfile);
+                SpecialistHomePage.ViewModel.AddProfileToList(patientProfile);
+                //Profiles.Add(patientProfile);
+            }
+
+            /*if (_viewModel.Profiles.Count == 0)
+            {
+                 Label = new Label
+                {
+                    Text = "Usted todavía no cuenta con pacientes. \nAñada nuevos a la lista",
+                    TextColor = Color.FromHex("#6EB3CD"),
+                    FontSize = 16,
+                    FontFamily = "ArchivoRegular",
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    Padding = new Thickness(0,20,0,0)
+                };
+                
+                StackLayoutPatients.Children.Add(Label);
+            }*/
+            
+            /*_viewModel.Profiles.Add(new Profile(){Name = "Jose",LastName = "Uru"});
+            _viewModel.Profiles.Add(new Profile(){Name = "Josias",LastName = "Mura"});
+            _viewModel.Profiles.Add(new Profile(){Name = "Maycol",LastName = "Amigg"});
+            _viewModel.Profiles.Add(new Profile(){Name = "Carlos",LastName = "Holaa"});
+            _viewModel.Profiles.Add(new Profile(){Name = "Juan",LastName = "NONO"});*/
+            
+        }
+
+        private async void LabelAddPatient_OnTapped(object sender, EventArgs e)
+        {
+            Navigation.ShowPopup(new SearchedPatientsListPage(Specialist));
+        }
+
+        private async void FramePatient_OnTapped(object sender, EventArgs e)
+        {
+            
+            var param = ((TappedEventArgs)e).Parameter;
+            if (param != null)
+            {
+                var profile = param as Profile;
+                //var currentIdItem = param.ToString();
+                //var profileId = int.Parse(currentIdItem);
+                //var patient = await PatientService.Instance.GetPatientByProfileId(profileId);
+
+                if (profile != null)
+                {
+                    //BUG: El progress ring no renderiza del data template con data asíncrona
+                    //Solucion parcial es esta
+                    var patient = await PatientService.Instance.GetPatientByProfileId(profile.Id);
+                    var dailyGoals = await DailyGoalService.Instance.GetDailyGoalsByPatientIdAndDate(patient.Id,DateTime.Today);
+                    var weeklyGoals = await WeeklyGoalService.Instance.GetWeeklyGoalsByPatientId(patient.Id);
+                    var mealPlans = await MealPlanService.Instance.GetMealPlansByPatientId(patient.Id);
+                    await Navigation.PushAsync(new PatientDetailsPage(profile,patient,dailyGoals,weeklyGoals,mealPlans));
+                }
+
+                //await DisplayAlert("Hola", "El Id es " + profileId.ToString(), "Ok");
+            }
+        }
+
+        private void SearchBar_OnSearchButtonPressed(object sender, EventArgs e)
+        {
+            
+        }
+
+        private async void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            //xdd Osea retornamos los perfiles de pacientes correspodientes a un especialista asignado con un criterio para el nombre
+            var searchedPatients = await ProfileService.Instance.GetPatientProfilesOfSpecialistByNameAndRoleId(SearchBar.Text,"1",Specialist.Id.ToString());
+            
+            _viewModel.ClearProfileList();
+
+            foreach (var item in searchedPatients)
+            {
+                _viewModel.AddProfileToList(item);
+            }
+            
+            //List<> tempList 
+        }
+    }
+}

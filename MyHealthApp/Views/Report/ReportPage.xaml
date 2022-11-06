@@ -1,0 +1,604 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.Report.ReportPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:ValueToImageSourceConverter x:Key="ValueToImageSourceConverter" />
+            <helpers:ValueToDoubleConverter x:Key="ToDoubleConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ContentView>
+            <ScrollView>
+                <StackLayout BackgroundColor="#F0F3F4"
+                             Padding="0,0,0,20">
+
+                    <!--TopBar-->
+                    <FlexLayout
+                        HeightRequest="90"
+                        Direction="Row"
+                        HorizontalOptions="FillAndExpand"
+                        AlignItems="Center"
+                        JustifyContent="Center"
+                        BackgroundColor="White">
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                               Scale="0.90" />
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                               Margin="10,0,0,0"
+                               effects:IconTintColorEffect.TintColor="Black"
+                               Scale="0.90" />
+
+                    </FlexLayout>
+
+
+                    <StackLayout Padding="20,25,20,0"
+                                 Spacing="30">
+                        <Label Text="Informe de actividad física"
+                               FontFamily="ArchivoSemiBold"
+                               FontSize="18"
+                               TextColor="Black" />
+
+                        <StackLayout HorizontalOptions="CenterAndExpand"
+                                     Orientation="Horizontal"
+                                     Spacing="0">
+                            <Button x:Name="ButtonDay"
+                                    Text="Día"
+                                    FontSize="16"
+                                    TextTransform="None"
+                                    FontFamily="ArchivoSemiBold"
+                                    CornerRadius="5"
+                                    WidthRequest="100"
+                                    Padding="0"
+                                    TextColor="White"
+                                    BackgroundColor="#FF9162"
+                                    HeightRequest="40"
+                                    Clicked="ButtonDay_OnClicked" />
+                            <Button x:Name="ButtonWeek"
+                                    Text="Semana"
+                                    FontSize="16"
+                                    TextTransform="None"
+                                    FontFamily="ArchivoSemiBold"
+                                    CornerRadius="5"
+                                    WidthRequest="100"
+                                    Padding="0"
+                                    BackgroundColor="White"
+                                    HeightRequest="40"
+                                    Clicked="ButtonWeek_OnClicked" />
+                            <Button x:Name="ButtonMonth"
+                                    Text="Mes"
+                                    FontSize="16"
+                                    TextTransform="None"
+                                    FontFamily="ArchivoSemiBold"
+                                    CornerRadius="5"
+                                    WidthRequest="100"
+                                    Padding="0"
+                                    BackgroundColor="White"
+                                    HeightRequest="40"
+                                    Clicked="ButtonMonth_OnClicked" />
+                        </StackLayout>
+
+                        <Frame HasShadow="False"
+                               CornerRadius="10"
+                               BackgroundColor="White">
+                            <StackLayout>
+                                <!--Day inform (one date)-->
+                                <StackLayout x:Name="StackLayoutDailyInform"
+                                             IsVisible="True">
+                                    <Label Text="Informe diario"
+                                           FontFamily="ArchivoSemiBold"
+                                           TextColor="Black"
+                                           FontSize="18" />
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="Center">
+                                        <DatePicker x:Name="DatePickerDailyInform"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    Format="d MMM"
+                                                    FontSize="16"
+                                                    WidthRequest="60"
+                                                    DateSelected="DatePickerDailyInform_OnDateSelected" />
+                                        <Label
+                                            VerticalOptions="Center"
+                                            FontSize="18"
+                                            WidthRequest="25"
+                                            Text="&#xf0d7;"
+                                            TextColor="Black"
+                                            FontFamily="{StaticResource FontAwesomeSolid}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                      Tapped="LabelDateChevron_OnTapped" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </StackLayout>
+
+                                    <FlexLayout x:Name="FlexLayoutDailyInform"
+                                                Direction="Row"
+                                                Wrap="Wrap"
+                                                JustifyContent="SpaceAround"
+
+                                                BindableLayout.ItemsSource="{Binding ReportGoals}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout Spacing="0" Padding="0,20">
+                                                    <StackLayout WidthRequest="120">
+                                                        <StackLayout Orientation="Horizontal"
+                                                                     HorizontalOptions="Center"
+                                                                     Spacing="4">
+                                                            <Label Text="{Binding Progress}"
+                                                                   TextColor="#FF9162"
+                                                                   FontFamily="ArchivoRegular"
+                                                                   FontSize="16" />
+                                                            <Label Text="{Binding Quantity,StringFormat='/{0}'}"
+                                                                   TextColor="#b9b9b9"
+                                                                   FontFamily="ArchivoRegular"
+                                                                   VerticalOptions="End"
+                                                                   FontSize="14" />
+                                                            <Label Text="{Binding Unity}"
+                                                                   TextColor="#b9b9b9"
+                                                                   FontFamily="ArchivoRegular"
+                                                                   VerticalOptions="End"
+                                                                   FontSize="14" />
+                                                        </StackLayout>
+
+                                                    </StackLayout>
+                                                    <Label Text="{Binding Description}"
+                                                           TextColor="Black"
+                                                           FontFamily="ArchivoRegular"
+                                                           FontSize="14"
+                                                           HorizontalTextAlignment="Center"
+                                                           HorizontalOptions="Center" />
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                        <BindableLayout.EmptyView>
+                                            <StackLayout Padding="50,20">
+                                                <Label Text="No se registraron objetivos para este día"
+                                                       FontFamily="ArchivoRegular"
+                                                       HorizontalTextAlignment="Center"
+                                                       FontSize="16"
+                                                       TextColor="#6EB3CD"
+                                                       VerticalOptions="CenterAndExpand" />
+                                            </StackLayout>
+                                        </BindableLayout.EmptyView>
+                                    </FlexLayout>
+
+                                </StackLayout>
+
+
+                                <!--Week inform (two dates)-->
+                                <StackLayout x:Name="StackLayoutWeeklyInform"
+                                             IsVisible="False">
+                                    <Label Text="Informe semanal"
+                                           FontFamily="ArchivoSemiBold"
+                                           TextColor="Black"
+                                           FontSize="18" />
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="Center">
+                                        <DatePicker x:Name="DatePickerDateWeekStartInform"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    Format="d MMM"
+                                                    FontSize="16"
+                                                    WidthRequest="60"
+                                                    DateSelected="DatePickerDateWeekStartInform_OnDateSelected" />
+                                        <Label
+                                            VerticalOptions="Center"
+                                            FontSize="18"
+                                            WidthRequest="25"
+                                            Text="&#xf0d7;"
+                                            TextColor="Black"
+                                            FontFamily="{StaticResource FontAwesomeSolid}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                      Tapped="LabelDate1WeekChevron_OnTapped" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+
+                                        <Label Text="-"
+                                               FontSize="16"
+                                               TextColor="Black"
+                                               VerticalOptions="Center"
+                                               Padding="0,0,10,0" />
+
+                                        <DatePicker x:Name="DatePickerDateWeekFinishInform"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    Format="d MMM"
+                                                    FontSize="16"
+                                                    WidthRequest="60"
+                                                    DateSelected="DatePickerDateWeekFinishInform_OnDateSelected" />
+                                        <Label
+                                            VerticalOptions="Center"
+                                            FontSize="18"
+                                            WidthRequest="25"
+                                            Text="&#xf0d7;"
+                                            TextColor="Black"
+                                            FontFamily="{StaticResource FontAwesomeSolid}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                      Tapped="LabelDate2WeekChevron_OnTapped" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+
+                                    </StackLayout>
+
+                                    <FlexLayout x:Name="FlexLayoutWeeklyInform"
+                                                Direction="Row"
+                                                Wrap="Wrap"
+                                                JustifyContent="SpaceAround"
+                                                Padding="40,15,40,0"
+                                                BindableLayout.ItemsSource="{Binding ReportGoals}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout Spacing="1" Padding="0,15">
+                                                    <Image
+                                                        Source="{Binding ImageSource, Converter={StaticResource ValueToImageSourceConverter},ConverterParameter='MyHealthApp.Resources.Images'}"
+                                                        effects:IconTintColorEffect.TintColor="#FF9162"
+                                                        Scale="1.5" />
+                                                    <StackLayout Orientation="Horizontal"
+                                                                 HorizontalOptions="Center"
+                                                                 Padding="0,10,0,0"
+                                                                 Spacing="4">
+                                                        <Label Text="{Binding Progress}"
+                                                               TextColor="#2F6A88"
+                                                               FontFamily="ArchivoSemiBold"
+                                                               HorizontalOptions="Center"
+                                                               FontSize="16" />
+                                                        <Label Text="{Binding Unity}"
+                                                               TextColor="#2F6A88"
+                                                               FontFamily="ArchivoSemiBold"
+                                                               VerticalOptions="End"
+                                                               FontSize="16" />
+                                                    </StackLayout>
+                                                    <Label Text="{Binding Description}"
+                                                           TextColor="Black"
+                                                           LineHeight="1.2"
+                                                           WidthRequest="100"
+                                                           FontFamily="ArchivoRegular"
+                                                           FontSize="14"
+                                                           HorizontalTextAlignment="Center"
+                                                           HorizontalOptions="Center" />
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                        <BindableLayout.EmptyView>
+                                            <StackLayout Padding="50,20">
+                                                <Label Text="No se registraron objetivos semanales para este rango"
+                                                       FontFamily="ArchivoRegular"
+                                                       HorizontalTextAlignment="Center"
+                                                       FontSize="16"
+                                                       TextColor="#6EB3CD"
+                                                       VerticalOptions="CenterAndExpand" />
+                                            </StackLayout>
+                                        </BindableLayout.EmptyView>
+                                    </FlexLayout>
+
+                                </StackLayout>
+
+
+                                <!--Month inform -->
+                                <StackLayout x:Name="StackLayoutMonthlyInform"
+                                             IsVisible="False">
+                                    <Label Text="Informe mensual"
+                                           FontFamily="ArchivoSemiBold"
+                                           TextColor="Black"
+                                           FontSize="18" />
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="Center">
+                                        <DatePicker x:Name="DatePickerMonthInform"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    Format="MMM"
+                                                    FontSize="16"
+                                                    WidthRequest="60"
+                                                    DateSelected="DatePickerMonthInform_OnDateSelected" />
+                                        <Label
+                                            VerticalOptions="Center"
+                                            FontSize="18"
+                                            WidthRequest="25"
+                                            Text="&#xf0d7;"
+                                            TextColor="Black"
+                                            FontFamily="{StaticResource FontAwesomeSolid}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                      Tapped="LabelMonthChevron_OnTapped" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+
+                                    </StackLayout>
+
+                                    <FlexLayout x:Name="FlexLayoutMonthlyInform"
+                                                Direction="Row"
+                                                Wrap="Wrap"
+                                                JustifyContent="SpaceAround"
+                                                Padding="40,15,40,0"
+                                                BindableLayout.ItemsSource="{Binding ReportGoals}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout Spacing="1" Padding="0,15">
+                                                    <Image
+                                                        Source="{Binding ImageSource, Converter={StaticResource ValueToImageSourceConverter},ConverterParameter='MyHealthApp.Resources.Images'}"
+                                                        effects:IconTintColorEffect.TintColor="#FF9162"
+                                                        Scale="1.5" />
+                                                    <StackLayout Orientation="Horizontal"
+                                                                 HorizontalOptions="Center"
+                                                                 Padding="0,10,0,0"
+                                                                 Spacing="4">
+                                                        <Label Text="{Binding Progress}"
+                                                               TextColor="#2F6A88"
+                                                               FontFamily="ArchivoSemiBold"
+                                                               HorizontalOptions="Center"
+                                                               FontSize="16" />
+                                                        <Label Text="{Binding Unity}"
+                                                               TextColor="#2F6A88"
+                                                               FontFamily="ArchivoSemiBold"
+                                                               VerticalOptions="End"
+                                                               FontSize="16" />
+                                                    </StackLayout>
+                                                    <Label Text="{Binding Description}"
+                                                           TextColor="Black"
+                                                           LineHeight="1.2"
+                                                           WidthRequest="100"
+                                                           FontFamily="ArchivoRegular"
+                                                           FontSize="14"
+                                                           HorizontalTextAlignment="Center"
+                                                           HorizontalOptions="Center" />
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                        <BindableLayout.EmptyView>
+                                            <StackLayout Padding="50,20">
+                                                <Label Text="No se registraron objetivos en esta rango de mes"
+                                                       FontFamily="ArchivoRegular"
+                                                       HorizontalTextAlignment="Center"
+                                                       FontSize="16"
+                                                       TextColor="#6EB3CD"
+                                                       VerticalOptions="CenterAndExpand" />
+                                            </StackLayout>
+                                        </BindableLayout.EmptyView>
+                                    </FlexLayout>
+
+                                </StackLayout>
+
+                            </StackLayout>
+                        </Frame>
+
+                        <!--Buttons Dashboard-->
+                        <StackLayout x:Name="buttonsDashBoard"
+                                     IsVisible="False"
+                                     HorizontalOptions="CenterAndExpand"
+                                     Orientation="Horizontal"
+                                     Spacing="0">
+
+                            <Button x:Name="ButtonStep"
+                                    Text="Pasos"
+                                    FontSize="16"
+                                    TextTransform="None"
+                                    FontFamily="ArchivoSemiBold"
+                                    CornerRadius="5"
+                                    WidthRequest="100"
+                                    Padding="0"
+                                    BackgroundColor="White"
+                                    HeightRequest="40"
+                                    Clicked="ButtonStep_Clicked"/>
+
+                            <Button x:Name="ButtonDistance"
+                                    Text="Distancia"
+                                    FontSize="16"
+                                    TextTransform="None"
+                                    FontFamily="ArchivoSemiBold"
+                                    CornerRadius="5"
+                                    WidthRequest="100"
+                                    Padding="0"
+                                    BackgroundColor="White"
+                                    HeightRequest="40"
+                                    Clicked="ButtonDistance_Clicked"/>
+
+                            <Button x:Name="ButtonWalks"
+                                    Text="K.Calorias"
+                                    FontSize="16"
+                                    TextTransform="None"
+                                    FontFamily="ArchivoSemiBold"
+                                    CornerRadius="5"
+                                    WidthRequest="100"
+                                    Padding="0"
+                                    BackgroundColor="White"
+                                    HeightRequest="40"
+                                    Clicked="ButtonWalks_Clicked"/>
+
+                        </StackLayout>
+
+                        <!--DashBoard bar chart-->
+                        <Frame x:Name="dashBoardData"
+                               IsVisible="false"
+                               HasShadow="False"
+                               CornerRadius="10"
+                               BackgroundColor="#F0F3F4">
+                            <StackLayout>
+                                
+                                <!--Week Steps-->
+                                <StackLayout x:Name="WeeklyStepBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="WeeklyStepBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+                                
+                                <!--Week Distance-->
+                                <StackLayout x:Name="WeeklyDistanceBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="WeeklyDistanceBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+
+                                <!--Week Kilocalories-->
+                                <StackLayout x:Name="WeeklyKilocalorieBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="WeeklyKilocalorieBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+                                
+                                <!--Month Steps-->
+                                <StackLayout x:Name="MonthlyStepBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="MonthlyStepBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+                                <!--Month Distance-->
+                                <StackLayout x:Name="MonthlyDistanceBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="MonthlyDistanceBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+                                <!--Month Walks-->
+                                <StackLayout x:Name="MonthlyKilocalorieBar"
+                                             IsVisible="False">
+
+                                    <forms:ChartView x:Name="MonthlyKilocalorieBarData"
+                                                     HeightRequest="100"/>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </Frame>
+                        <!--DailyGoals list-->
+                        <Frame Margin="0,0,0,0"
+                               x:Name="FrameDailyGoals"
+                               BackgroundColor="White"
+                               IsVisible="True"
+                               CornerRadius="10"
+                               HasShadow="False"
+                               Padding="5">
+                            <StackLayout Spacing="14">
+                                <FlexLayout Padding="20,10,20,0"
+                                            Direction="Row"
+                                            JustifyContent="Start"
+                                            AlignItems="Center">
+                                    <Label Text="Objetivos diarios"
+                                           FontFamily="ArchivoSemiBold"
+                                           TextColor="Black"
+                                           FontSize="18" />
+                                </FlexLayout>
+                                <StackLayout x:Name="StackLayoutDailyGoals"
+                                             Spacing="20"
+                                             Padding="20,5,20,20"
+                                             BindableLayout.ItemsSource="{Binding DailyGoals}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <FlexLayout
+                                                Direction="Row"
+                                                AlignItems="Start"
+
+                                                JustifyContent="SpaceBetween">
+                                                <StackLayout Orientation="Horizontal"
+                                                             Spacing="25">
+                                                    <plugin:ProgressRing HeightRequest="35"
+                                                                         WidthRequest="35"
+                                                                         RingProgressColor="#2F6A88"
+                                                                         RingThickness="6"
+                                                                         Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
+                                                                         RingBaseColor="#CEE5EE" />
+                                                    <StackLayout Spacing="0">
+                                                        <Label TextColor="Black"
+                                                               FontFamily="ArchivoRegular"
+                                                               Text="{Binding DescriptionObjective}"
+                                                               FontSize="14" />
+                                                        <Label TextColor="Black"
+                                                               FontFamily="ArchivoSemiBold"
+                                                               Text="{Binding DescriptionProgress}"
+                                                               FontSize="14" />
+                                                    </StackLayout>
+                                                </StackLayout>
+
+                                            </FlexLayout>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                    <BindableLayout.EmptyViewTemplate>
+                                        <DataTemplate>
+                                            <Label Text="No hay objetivos diarios correspondientes a este día"
+                                                   FontFamily="ArchivoRegular"
+                                                   Padding="20"
+                                                   HorizontalTextAlignment="Center" />
+                                        </DataTemplate>
+                                    </BindableLayout.EmptyViewTemplate>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                        <!--WeeklyGoals list-->
+                        <Frame Margin="0,0,0,0"
+                               x:Name="FrameWeeklyGoals"
+                               IsVisible="False"
+                               BackgroundColor="White"
+                               CornerRadius="10"
+                               HasShadow="False"
+                               Padding="5">
+                            <StackLayout Spacing="14">
+                                <FlexLayout Padding="20,10,20,0"
+                                            Direction="Row"
+                                            JustifyContent="Start"
+                                            AlignItems="Center">
+                                    <Label Text="Objetivos semanales"
+                                           FontFamily="ArchivoSemiBold"
+                                           TextColor="Black"
+                                           FontSize="18" />
+                                </FlexLayout>
+                                <StackLayout x:Name="StackLayoutWeeklyGoals"
+                                             Spacing="20"
+                                             Padding="20,5,20,20"
+                                             BindableLayout.ItemsSource="{Binding WeeklyGoals}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <FlexLayout
+                                                Direction="Row"
+                                                AlignItems="Start"
+
+                                                JustifyContent="SpaceBetween">
+                                                <StackLayout Orientation="Horizontal"
+                                                             Spacing="25">
+                                                    <plugin:ProgressRing HeightRequest="35"
+                                                                         WidthRequest="35"
+                                                                         RingProgressColor="#2F6A88"
+                                                                         RingThickness="6"
+                                                                         Progress="{Binding Percentage,Converter={StaticResource ToDoubleConverter}}"
+                                                                         RingBaseColor="#CEE5EE" />
+                                                    <StackLayout Spacing="0">
+                                                        <Label TextColor="Black"
+                                                               FontFamily="ArchivoRegular"
+                                                               Text="{Binding DescriptionObjective}"
+                                                               FontSize="14" />
+                                                        <Label TextColor="Black"
+                                                               FontFamily="ArchivoSemiBold"
+                                                               Text="{Binding DescriptionProgress}"
+                                                               FontSize="14" />
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </FlexLayout>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                    <BindableLayout.EmptyViewTemplate>
+                                        <DataTemplate>
+                                            <Label Text="No hay objetivos semanales correspondientes a este filtro"
+                                                   FontFamily="ArchivoRegular"
+                                                   Padding="20"
+                                                   HorizontalTextAlignment="Center" />
+                                        </DataTemplate>
+                                    </BindableLayout.EmptyViewTemplate>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+
+
+                    </StackLayout>
+
+
+                </StackLayout>
+            </ScrollView>
+        </ContentView>
+    </ContentPage.Content>
+</ContentPage>

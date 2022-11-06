@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 
@@ -10,8 +10,208 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="Xam.Plugins.Forms.ProgressRing" Version="0.1.2" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.4" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Fonts\Fcraft_Borgo" />
+    <Folder Include="Views\EditProfileAsAdmin\SuccesfullMessage\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\Archivo\Archivo-Black.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Black.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-BlackItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-BlackItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Bold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Bold.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-BoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-BoldItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-ExtraBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-ExtraBold.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-ExtraBoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-ExtraBoldItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-ExtraLight.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-ExtraLight.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-ExtraLightItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-ExtraLightItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Italic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Italic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Light.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Light.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-LightItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-LightItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Medium.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Medium.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-MediumItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-MediumItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Regular.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Regular.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-SemiBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-SemiBold.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-SemiBoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-SemiBoldItalic.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-Thin.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-Thin.ttf" />
+    <None Remove="Resources\Fonts\Archivo\Archivo-ThinItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Archivo\Archivo-ThinItalic.ttf" />
+    <None Remove="Resources\Fonts\Fjalla_One\FjallaOne-Regular.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Fjalla_One\FjallaOne-Regular.ttf" />
+    <None Remove="Resources\Fonts\Font_Awesome\FASolid-900.otf" />
+    <EmbeddedResource Include="Resources\Fonts\Font_Awesome\FARegular-400.otf" />
+    <EmbeddedResource Include="Resources\Fonts\Font_Awesome\FASolid-900.otf" />
+    <None Remove="Resources\Images\background-login.jpg" />
+    <EmbeddedResource Include="Resources\Images\background-login.jpg" />
+    <None Remove="Resources\Images\logo-stacked.png" />
+    <EmbeddedResource Include="Resources\Images\logo-stacked.png" />
+    <None Remove="Resources\Images\my-healt.png" />
+    <EmbeddedResource Include="Resources\Images\my-healt.png" />
+    <None Remove="Resources\Images\heart-beat.png" />
+    <EmbeddedResource Include="Resources\Images\heart-beat.png" />
+    <None Remove="Resources\Images\doctor-img.png" />
+    <EmbeddedResource Include="Resources\Images\doctor-img.png" />
+    <None Remove="Resources\Images\patient-img.png" />
+    <EmbeddedResource Include="Resources\Images\patient-img.png" />
+    <None Remove="Resources\Images\home.png" />
+    <EmbeddedResource Include="Resources\Images\home.png" />
+    <None Remove="Resources\Images\diet.png" />
+    <EmbeddedResource Include="Resources\Images\diet.png" />
+    <None Remove="Resources\Images\focus.png" />
+    <EmbeddedResource Include="Resources\Images\focus.png" />
+    <None Remove="Resources\Images\user.png" />
+    <EmbeddedResource Include="Resources\Images\user.png" />
+    <None Remove="Resources\Images\list.png" />
+    <EmbeddedResource Include="Resources\Images\list.png" />
+    <None Remove="Resources\Fonts\Fcraft_Borgo\Fcraft-B.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Fcraft_Borgo\Fcraft-B.ttf" />
+    <None Remove="Resources\Images\shoe.png" />
+    <EmbeddedResource Include="Resources\Images\shoe.png" />
+    <None Remove="Resources\Images\walk.png" />
+    <EmbeddedResource Include="Resources\Images\walk.png" />
+    <None Remove="Resources\Fonts\Font_Awesome\FARegular-400.otf" />
+    <None Remove="Resources\Images\objectiveDone.png" />
+    <EmbeddedResource Include="Resources\Images\objectiveDone.png" />
+    <None Remove="Resources\Images\map-maker.png" />
+    <EmbeddedResource Include="Resources\Images\map-maker.png" />
+    <None Remove="Resources\Images\fire.png" />
+    <EmbeddedResource Include="Resources\Images\fire.png" />
+    <None Remove="Resources\Images\shoe2.png" />
+    <EmbeddedResource Include="Resources\Images\shoe2.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WindesHeartSDK\WindesHeartSDK.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Register\SelectAccountTypePage.xaml.cs">
+      <DependentUpon>SelectAccountTypePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EditPatientGoal\SuccessfulMessage\SavedGoalChangesPage.xaml.cs">
+      <DependentUpon>SavedGoalChangesPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Report\ReportPage.xaml.cs">
+      <DependentUpon>ReportPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Xamarin.CommunityToolkit">
+      <HintPath>..\..\..\..\.nuget\packages\xamarin.communitytoolkit\2.0.4\lib\xamarinios10\Xamarin.CommunityToolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\AddPatientPlan\AddMealPlanPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\AdminHomePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+	<EmbeddedResource Update="Views\DeletePatient\DeletePatientPage.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+	<EmbeddedResource Update="Views\DeletePatient\SuccessfulMessage\DeletedPatientSucc.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientGoal\DeleteDailyGoalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientGoal\DeleteWeeklyGoalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientGoal\EditWeeklyGoalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientGoal\SuccessfulMessage\DeletedGoalsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientGoal\SuccessfulMessage\SavedGoalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientGoal\UpdateDailyGoalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientGoal\UpdateWeeklyGoalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientPlan\DeleteMealPlanPlage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientPlan\EditMealPlanPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientPlan\GetMealPlanPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientPlan\SuccessfullMessage\DeletedMealPlan.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientPlan\SuccessfullMessage\SavedPlanChangesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditPatientPlan\UpdateMealPlanPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditProfileAsAdmin\DeleteEditProfileAsAdminPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+	<EmbeddedResource Update="Views\EditProfileAsAdmin\DeleteProfileMD\DeleteProfileConfirmation.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+	<EmbeddedResource Update="Views\EditProfileAsAdmin\DeleteProfileMD\DeleteProfileSuccess.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+    <EmbeddedResource Update="Views\EditProfileAsAdmin\GeneralProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditProfileAsAdmin\EPPatientAsAdminPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EditProfileAsAdmin\EPSpecialistAsAdminPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ProfileFlow\DeleteProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SuccesfulMessage\SMPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<effects:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+               xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+               Size="350,250"
+               Color="Transparent"
+               xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+               NavigationPage.HasNavigationBar="False"
+               x:Class="MyHealthApp.Views.EditPatientGoal.SuccessfulMessage.SavedGoalChangesPage">
+
+    <effects:Popup.Content>
+        <StackLayout BackgroundColor="Transparent">
+            <Frame
+                VerticalOptions="CenterAndExpand"
+                BackgroundColor="White"
+                CornerRadius="10"
+                HasShadow="False"
+                Padding="20,30,20,40">
+                <StackLayout>
+                    <Label Text="Cambios guardados"
+                           TextTransform="Uppercase"
+                           FontSize="18"
+                           FontFamily="ArchivoSemiBold"
+                           HorizontalTextAlignment="Center"
+                           TextColor="Black" />
+
+                    <StackLayout Padding="0,50">
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.objectiveDone.png}"
+                               Scale="4.00"
+                               HorizontalOptions="CenterAndExpand" />
+                    </StackLayout>
+
+
+                    <Label Text="Objetivo modificado correctamente"
+                           FontSize="14"
+                           HorizontalTextAlignment="Center"
+                           TextColor="Black" />
+
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </effects:Popup.Content>
+</effects:Popup>

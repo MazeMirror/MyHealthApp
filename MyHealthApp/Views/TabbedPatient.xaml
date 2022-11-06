@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyHealthApp.Views.TabbedPatient"
+             android:TabbedPage.ToolbarPlacement="Bottom"
+             NavigationPage.HasNavigationBar="False"
+             HeightRequest="120"
+             UnselectedTabColor="#505C6229"
+             SelectedTabColor="#D97D54"
+             xmlns:local="clr-namespace:MyHealthApp.Views;assembly=MyHealthApp"
+             xmlns:profileFlow="clr-namespace:MyHealthApp.Views.ProfileFlow;assembly=MyHealthApp"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:report="clr-namespace:MyHealthApp.Views.Report;assembly=MyHealthApp">
+    
+    <NavigationPage Title="Inicio" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.home.png}">
+        <x:Arguments>
+            <local:PatientHomePage />
+        </x:Arguments>
+    </NavigationPage>
+    
+    <NavigationPage Title="Plan Alimenticio"  IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.diet.png}">
+        <x:Arguments>
+            <local:MealPlanPage />
+        </x:Arguments>
+    </NavigationPage>
+    
+    <NavigationPage Title="Reporte" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.focus.png}">
+        <x:Arguments>
+            <report:ReportPage />
+        </x:Arguments>
+    </NavigationPage>
+    
+    <NavigationPage Title="Perfil" IconImageSource="{helpers:ImageResource MyHealthApp.Resources.Images.user.png}">
+        <x:Arguments>
+            <profileFlow:ProfilePage />
+        </x:Arguments>
+    </NavigationPage >
+    
+    
+</TabbedPage>

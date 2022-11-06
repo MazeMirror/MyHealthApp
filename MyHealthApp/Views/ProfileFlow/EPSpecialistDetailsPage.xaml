@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.ProfileFlow.EPSpecialistDetailsPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BackgroundColor="#F0F3F4" Padding="0,0,0,25">
+
+                <StackLayout
+                    HeightRequest="90"
+                    Orientation="Horizontal"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="White">
+                    <Label Text="&#xf053;"
+                           FontSize="18"
+                           Margin="35,0,0,0"
+                           VerticalOptions="Center"
+                           FontFamily="{StaticResource FontAwesomeSolid}"
+                           TextColor="Black">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="LabelBack_OnTapped"
+                                NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                           Scale="0.90"
+                           Margin="68,0,0,0" />
+                    <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                           Margin="10,0,0,0"
+                           effects:IconTintColorEffect.TintColor="Black"
+                           Scale="0.90" />
+                </StackLayout>
+
+                <Label Text="Editar información de perfil"
+                       Padding="20,24,0,0"
+                       FontSize="18"
+                       FontFamily="ArchivoSemiBold"
+                       TextColor="Black" />
+
+                <Frame
+                    Margin="20,25,20,0"
+                    HasShadow="False"
+                    Padding="30,40,30,20"
+                    CornerRadius="10">
+                    <StackLayout>
+
+                        <Label Text="Género"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black"
+                               Padding="0,0,0,0" />
+
+                        <Frame HasShadow="False"
+                               BorderColor="Black"
+                               CornerRadius="5"
+                               Padding="20,5,20,5"
+                               Margin="0,10,0,0">
+                            <StackLayout
+                                Orientation="Horizontal">
+                                <Picker
+                                    x:Name="PickerGenre"
+                                    HorizontalOptions="FillAndExpand"
+                                    FontFamily="ArchivoRegular"
+                                    FontSize="16"
+                                    TextColor="Black"
+                                    Title="Seleccionar"
+                                    TitleColor="#516A7B">
+
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type x:String}">
+                                            <x:String>Masculino</x:String>
+                                            <x:String>Femenino</x:String>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+                                    <Picker.SelectedIndex>0</Picker.SelectedIndex>
+                                </Picker>
+                                <Label
+                                    VerticalOptions="Center"
+                                    FontSize="18"
+                                    WidthRequest="25"
+                                    Text="&#xf0d7;"
+                                    TextColor="Black"
+                                    FontFamily="{StaticResource FontAwesomeSolid}" />
+                            </StackLayout>
+
+                        </Frame>
+
+                        <Label Text="Fecha de nacimiento"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black"
+                               Padding="0,10,0,0" />
+
+                        <Frame HasShadow="False"
+                               BorderColor="Black"
+                               CornerRadius="5"
+                               Padding="20,5,20,5"
+                               Margin="0,10,0,0">
+                            <DatePicker
+                                x:Name="DatePickerBirthdate"
+                                FontFamily="ArchivoRegular"
+                                FontSize="16"
+                                TextColor="Black"
+                                Format="dd / MM / yyyy"
+                                MinimumDate="12/31/1950"
+                                MaximumDate="12/31/2022" />
+
+                        </Frame>
+
+                        <Label Text="Especialidad"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black"
+                               Padding="0,10,0,0" />
+
+                        <Frame HasShadow="False"
+                               BorderColor="Black"
+                               CornerRadius="5"
+                               Padding="20,5,20,5"
+                               Margin="0,10,0,0">
+
+                            <Entry
+                                Placeholder="Nutricionista"
+                                x:Name="EntryEspeciality"
+                                FontFamily="ArchivRegular"
+                                IsSpellCheckEnabled="False"
+                                MaxLength="25"
+                                />
+                        </Frame>
+
+                        <Label Text="Correo"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black"
+                               Padding="0,10,0,0" />
+
+                        <Frame HasShadow="False"
+                               BorderColor="Black"
+                               CornerRadius="5"
+                               Padding="20,5,20,5"
+                               Margin="0,10,0,0">
+
+                            <Entry
+                                x:Name="EntryEmail"
+                                FontFamily="ArchivRegular"
+                                MaxLength="30"
+                                IsSpellCheckEnabled="False">
+                                <Entry.Behaviors>
+
+                                    <effects:EmailValidationBehavior
+                                        Flags="ValidateOnUnfocusing"
+                                        DecorationFlags="Trim"
+                                        InvalidStyle="{StaticResource InvalidTextEntryStyle}"
+                                        ValidStyle="{StaticResource ValidTextBlackEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
+                        </Frame>
+
+                        <Button Text="Guardar cambios"
+                                TextTransform="None"
+                                BackgroundColor="#FF7E10"
+                                CornerRadius="5"
+                                TextColor="White"
+                                HeightRequest="40"
+                                Margin="0,30,0,0"
+                                Clicked="SaveChanges_OnClicked" />
+
+                        <Label Text="Cancelar"
+                               TextColor="#2F6A88"
+                               HorizontalOptions="Center"
+                               TextDecorations="Underline"
+                               FontFamily="ArchivoSemiBold"
+                               Margin="0,15,0,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="LabelCancel_OnTapped"
+                                    NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                    </StackLayout>
+
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

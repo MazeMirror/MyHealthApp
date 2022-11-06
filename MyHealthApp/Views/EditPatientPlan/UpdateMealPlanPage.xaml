@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<effects:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+               xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+               Size="400,570"
+               Color="Transparent"
+               xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+               NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.EditPatientPlan.UpdateMealPlanPage">
+    <effects:Popup.Content>
+        <StackLayout BackgroundColor="Transparent">
+
+            <Frame Margin="20,24,20,0"
+                   BackgroundColor="White"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   Padding="20">
+                <StackLayout>
+                    <Label Text="Editar Plan Alimenticio" 
+                           FontSize="18"
+                           FontFamily="ArchivoSemiBold"
+                           TextColor="Black" />
+
+                    <StackLayout Padding="15,25,10,0">
+
+                        <Label Text="Nombre del Plan"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black" />
+
+                        <Frame HasShadow="False"
+                               BorderColor="Black"
+                               CornerRadius="5"
+                               Padding="20,10,20,10"
+                               >
+                            <Entry x:Name="PlanNameUpdate"
+                                   Text="PlanName"
+                                   IsEnabled="False"
+                                   IsTabStop="True"
+                                   />
+                        </Frame>
+                    </StackLayout>
+
+                    <StackLayout Padding="15,25,10,0">
+
+                        <Label Text="Descripción"
+                               FontSize="16"
+                               FontFamily="ArchivoRegular"
+                               TextColor="Black" />
+
+                        <Frame HasShadow="False"
+                                BorderColor="Black"
+                                CornerRadius="5"
+                                Padding="20,0,20,0"
+                                WidthRequest="300"
+                                HeightRequest="270"
+                                >
+                            <Editor
+                                x:Name="PlanDescriptionUpdate"
+                                TextChanged="CountTextUpdate"
+                                Text="PDupdate"
+                                Keyboard="Text"
+                                MaxLength="1000"
+                                HorizontalOptions="FillAndExpand"
+                                FontFamily="ArchivoRegular"
+                                FontSize="16"
+                                TextColor="Black"/>
+                        </Frame>
+
+                        <FlexLayout AlignItems="End"
+                                    JustifyContent="End">
+
+                            <Label x:Name="CounterTextUpdate"
+                                   FontSize="13"
+                                   FontFamily="ArchivoRegular"
+                                   TextColor="Black"
+                                   Text="count"
+                                   Opacity="0.5"/>
+                            
+                            <Label Text="/1000 caracteres"
+                                   FontSize="14"
+                                   FontFamily="ArchivoRegular"
+                                   TextColor="Black"                               
+                                   Opacity="0.5"/>
+                        </FlexLayout>
+                    </StackLayout>
+
+                    <Button Text="Guardar Cambios"
+                            Margin="0,20,0,0"
+                            BackgroundColor="#FF9162"
+                            HeightRequest="40"
+                            CornerRadius="5"
+                            TextTransform="None"
+                            TextColor="White" 
+                            Clicked="SaveChanges_Clicked"
+                            />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </effects:Popup.Content>
+</effects:Popup>

@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.Register.RegisterDataAccountPage">
+
+
+    <ContentPage.Content>
+        <ContentView>
+            <ScrollView
+                BackgroundColor="#334856">
+                <StackLayout
+                    HeightRequest="850">
+                    <!--Logo title-->
+                    <StackLayout
+                        Orientation="Horizontal"
+                        HorizontalOptions="CenterAndExpand"
+                        Spacing="30"
+                        Padding="0,50,0,0">
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}" />
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}" />
+                    </StackLayout>
+
+                    <!--Content of page-->
+                    <StackLayout
+                        Padding="20,25,20,0">
+                        <!--Information of Page-->
+                        <Label
+                            Text="Información &#10;básica"
+                            TextColor="White"
+                            FontFamily="ArchivoSemiBold"
+                            LineHeight="1.2"
+                            FontSize="30" />
+                        <Label
+                            Text="----------------"
+                            TextColor="White"
+                            FontSize="10"
+                            LineHeight="0.5" />
+                        <Label
+                            Text="Completa tus datos para crear tu perfil"
+                            TextColor="White"
+                            FontFamily="ArchivoRegular"
+                            LineHeight="1.2"
+                            FontSize="18" />
+
+                        <!--Entries of user data-->
+
+                        <!--Name textBox-->
+                        <Label
+                            Style="{StaticResource LabelOfTextBox}"
+                            Text="Nombres" />
+                        <Frame
+                            Style="{StaticResource BorderTextBox}">
+                            <Entry
+                                x:Name="EntryName"
+                                MaxLength="30"
+                                IsSpellCheckEnabled="false"
+                                FontFamily="ArchivoRegular"
+                                FontSize="16"
+                                PlaceholderColor="#516A7B">
+                                <Entry.Behaviors>
+                                    <xct:TextValidationBehavior
+                                        Flags="ValidateOnValueChanging"
+                                        MinimumLength="3"
+                                        InvalidStyle="{StaticResource InvalidTextEntryStyle}"
+                                        ValidStyle="{StaticResource ValidTextEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
+                        </Frame>
+
+                        <!--Lastname textBox-->
+                        <Label
+                            Style="{StaticResource LabelOfTextBox}"
+                            Text="Apellidos" />
+                        <Frame
+                            Style="{StaticResource BorderTextBox}">
+                            <Entry
+                                x:Name="EntryLastname"
+                                FontFamily="ArchivoRegular"
+                                MaxLength="30"
+                                IsSpellCheckEnabled="false"
+                                FontSize="16"
+                                PlaceholderColor="#516A7B">
+                                <Entry.Behaviors>
+                                    <xct:TextValidationBehavior
+                                        Flags="ValidateOnValueChanging"
+                                        MinimumLength="3"
+                                        InvalidStyle="{StaticResource InvalidTextEntryStyle}"
+                                        ValidStyle="{StaticResource ValidTextEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
+                        </Frame>
+
+                        <!--Date picker-->
+                        <Label
+                            Style="{StaticResource LabelOfTextBox}"
+                            Text="Fecha de nacimiento" />
+                        <Frame
+                            Style="{StaticResource BorderTextBox}">
+                            <DatePicker
+                                x:Name="DatePickerBirthdate"
+                                FontFamily="ArchivoRegular"
+                                FontSize="16"
+                                TextColor="White"
+                                Format="dd / MM / yyyy"
+                                MinimumDate="12/31/1950"
+                                MaximumDate="12/31/2022" />
+                        </Frame>
+
+                        <!--Select picker genres-->
+                        <Label
+                            Style="{StaticResource LabelOfTextBox}"
+                            Text="Género" />
+                        <Frame
+                            Style="{StaticResource BorderTextBox}">
+                            <StackLayout
+                                Orientation="Horizontal">
+                                <Picker
+                                    x:Name="PickerGenre"
+                                    HorizontalOptions="FillAndExpand"
+                                    FontFamily="ArchivoRegular"
+                                    FontSize="16"
+                                    TextColor="White"
+                                    Title="Seleccionar"
+                                    TitleColor="#516A7B">
+
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type x:String}">
+                                            <x:String>Masculino</x:String>
+                                            <x:String>Femenino</x:String>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+                                    <Picker.SelectedIndex>0</Picker.SelectedIndex>
+                                </Picker>
+                                <Label
+                                    VerticalOptions="Center"
+                                    FontSize="18"
+                                    WidthRequest="25"
+                                    Text="&#xf0d7;"
+                                    TextColor="Accent"
+                                    FontFamily="{StaticResource FontAwesomeSolid}" />
+                            </StackLayout>
+
+                        </Frame>
+
+                        <!--Next Page Button-->
+                        <Button
+                            Style="{StaticResource ButtonStyle}"
+                            Margin="0,30,0,0"
+                            Padding="0,17,0,17"
+                            Text="Siguiente"
+                            FontSize="14"
+                            FontFamily="FjallaOne"
+                            CharacterSpacing="2.1"
+                            CornerRadius="50"
+                            IsEnabled="True"
+                            Clicked="NextButton_OnClicked" />
+
+                    </StackLayout>
+                </StackLayout>
+
+            </ScrollView>
+        </ContentView>
+
+
+    </ContentPage.Content>
+</ContentPage>

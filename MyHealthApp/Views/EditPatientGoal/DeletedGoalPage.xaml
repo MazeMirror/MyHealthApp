@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:MyHealthApp.Helpers;assembly=MyHealthApp"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:plugin="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="MyHealthApp.Views.EditPatientGoal.DeletedGoalPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:ValueToDoubleConverter x:Key="ToDoubleConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#F0F3F4">
+
+            <StackLayout
+                    HeightRequest="90"
+                    Orientation="Horizontal"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="White">
+                <Label Text="&#xf053;"
+                           FontSize="18"
+                           Margin="35,0,0,0"
+                           VerticalOptions="Center"
+                           FontFamily="{StaticResource FontAwesomeSolid}"
+                           TextColor="Black">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer
+                                Tapped="ReturnToDetailsPage"
+                                NumberOfTapsRequired="1" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.heart-beat.png}"
+                           Scale="0.90"
+                           Margin="68,0,0,0" />
+                <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.my-healt.png}"
+                           Margin="10,0,0,0"
+                           effects:IconTintColorEffect.TintColor="Black"
+                           Scale="0.90" />
+            </StackLayout>
+
+            <Frame Margin="20,24,20,0"
+                   BackgroundColor="White"
+                   CornerRadius="10"
+                   HasShadow="False"
+                   Padding="20">
+                <StackLayout>
+                    <Label Text="El objetivo se ha eliminado"
+                           TextTransform="Uppercase"
+                           FontSize="18"
+                           FontFamily="ArchivoSemiBold"
+                           HorizontalTextAlignment="Center"
+                           TextColor="Black" />
+
+                    <StackLayout Padding="0,50">
+                        <Image Source="{helpers:ImageResource MyHealthApp.Resources.Images.objectiveDone.png}"
+                               Scale="4.00"
+                               HorizontalOptions="CenterAndExpand"
+                        />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
