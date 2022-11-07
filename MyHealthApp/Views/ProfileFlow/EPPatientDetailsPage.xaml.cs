@@ -99,13 +99,13 @@ namespace MyHealthApp.Views.ProfileFlow
             {
                 try
                 {
-                    /*var height = Double.Parse(EntryHeight.Text);
-                    if (height == 0.0)
+                    var height = Double.Parse(EntryHeight.Text);
+                    /*if (height == 0.0)
                     {
                         await DisplayAlert("Mensaje", "La altura no puede ser 0 cm", "Ok");
                         return;
                     }*/
-                    
+
                     editPatient.Height = height;
                 }
                 catch (FormatException e1)

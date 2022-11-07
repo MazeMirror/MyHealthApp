@@ -9,6 +9,7 @@ using MyHealthApp.Models;
 using MyHealthApp.Models.SqlLite;
 using MyHealthApp.Services;
 using MyHealthApp.Views.Register;
+using Newtonsoft.Json;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -78,7 +79,7 @@ namespace MyHealthApp.Views
                     await DisplayAlert("Credenciales inválidos", "El correo es incorrecto", "Ok");
                     return;
                 }
-                else if (user.Email == "NoPassword")
+                else if (user.Id == -1)
                 {
                     LoginButton.IsEnabled = true;
                     await DisplayAlert("Credenciales inválidos", "La contraseña es incorrecta", "Ok");
